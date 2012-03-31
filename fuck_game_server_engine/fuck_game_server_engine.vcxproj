@@ -31,6 +31,8 @@
     <ClInclude Include="struct.h" />
     <ClInclude Include="netlink.h" />
     <ClInclude Include="netserver.h" />
+    <ClInclude Include="thread_recver.h" />
+    <ClInclude Include="thread_sender.h" />
     <ClInclude Include="thread.h" />
     <ClInclude Include="thread_lock.h" />
     <ClInclude Include="thread_util.h" />

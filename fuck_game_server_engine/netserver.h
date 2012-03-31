@@ -17,11 +17,11 @@ public:
 	{
 	}
 public:
-	FORCEINLINE bool send_msg(netlink<_msg, _send, _recv> & link, const _msg & msg)
+	FORCEINLINE bool send_msg(netlink<_msg, _send, _recv> & link, const _msg * msg)
 	{
 		return link.send_msg(msg);
 	}
-	FORCEINLINE bool recv_msg(netlink<_msg, _send, _recv> & link, _msg msg)
+	FORCEINLINE bool recv_msg(netlink<_msg, _send, _recv> & link, _msg * msg)
 	{
 		return link.recv_msg(msg);
 	}

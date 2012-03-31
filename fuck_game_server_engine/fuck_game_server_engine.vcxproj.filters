@@ -62,6 +62,12 @@
     <ClInclude Include="netserver.h">
       <Filter>net</Filter>
     </ClInclude>
+    <ClInclude Include="thread_sender.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="thread_recver.h">
+      <Filter>net</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

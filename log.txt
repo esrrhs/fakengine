@@ -11,5 +11,7 @@
 2012.3.30：加了个msg，下一步完善，git突然被墙了，捣鼓了下goagent
 2012.3.31：转战bitbucket的hg了吧，fuck gcd
 2012.3.31：添加测试工程
+2012.3.31：添加thread_recver和thread_sender两个线程收发器
+
 
 

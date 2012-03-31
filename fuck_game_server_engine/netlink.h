@@ -15,11 +15,11 @@ public:
 	{
 	}
 public:
-	FORCEINLINE bool send_msg(const _msg & msg)
+	FORCEINLINE bool send_msg(const _msg * msg)
 	{
 		return m_send.send_msg(msg);
 	}
-	FORCEINLINE bool recv_msg(_msg & msg)
+	FORCEINLINE bool recv_msg(_msg * msg)
 	{
 		return m_recv.recv_msg(msg);
 	}
