@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="alloc.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="type.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="allocator.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="auto_lock.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="calloc.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="const.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="header.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="include.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="macro.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="normal_allocator.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="readonly_allocator.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="singleton.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="struct.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="fuck_game_server_engine.h" />
+    <ClInclude Include="thread_lock.h">
+      <Filter>thread</Filter>
+    </ClInclude>
+    <ClInclude Include="thread.h">
+      <Filter>thread</Filter>
+    </ClInclude>
+    <ClInclude Include="thread_util.h">
+      <Filter>thread</Filter>
+    </ClInclude>
+    <ClInclude Include="netlink.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="netmsg.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="netserver.h">
+      <Filter>net</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="common">
+      <UniqueIdentifier>{1061ec63-716e-4054-9191-b64bb518ed03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="net">
+      <UniqueIdentifier>{14b67c5f-5283-4cf6-97fe-d8d36512fc6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thread">
+      <UniqueIdentifier>{6c802360-f591-469f-83cf-42ce5577dfae}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="fuck_game_server_engine.cpp" />
+  </ItemGroup>
+</Project>
