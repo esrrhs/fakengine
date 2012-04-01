@@ -4,9 +4,8 @@ template <typename T>
 class auto_lock
 {
 public:
-	auto_lock(T & rLock)
+	auto_lock(T & rLock) : m_lock(rLock)
 	{
-		m_lock = rLock;
 		m_lock.lock();
 	}
 	~auto_lock()

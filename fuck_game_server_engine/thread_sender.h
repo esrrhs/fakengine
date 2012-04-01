@@ -21,7 +21,7 @@ public:
 		{
 			_msg * msg = 0;
 			{
-				auto_lock<thread_lock>(m_thread_lock);
+				auto_lock<thread_lock> lock(m_thread_lock);
 				if (m_container.size() > 0)
 				{
 					msg = m_container.front();
@@ -30,7 +30,7 @@ public:
 
 			if (m_realsender.send_msg(msg))
 			{
-				auto_lock<thread_lock>(m_thread_lock);
+				auto_lock<thread_lock> lock(m_thread_lock);
 				m_container.pop_front();
 			}
 			else

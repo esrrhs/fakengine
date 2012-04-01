@@ -68,6 +68,15 @@
     <ClInclude Include="thread_recver.h">
       <Filter>net</Filter>
     </ClInclude>
+    <ClInclude Include="socket_sender.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="socket_recver.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="tcpsocket.h">
+      <Filter>net</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

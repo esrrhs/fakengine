@@ -19,10 +19,10 @@ public:
 	{
 		while (1)
 		{
-			_msg * msg;
+			_msg * msg = 0;
 			if (m_realrecver.recv_msg(msg))
 			{
-				auto_lock<thread_lock>(m_thread_lock);
+				auto_lock<thread_lock> lock(m_thread_lock);
 				m_container.push_back(msg);
 			}
 			else
@@ -34,7 +34,7 @@ public:
 public:
 	FORCEINLINE bool recv_msg(_msg * msg)
 	{
-		auto_lock<thread_lock>(m_thread_lock);
+		auto_lock<thread_lock> lock(m_thread_lock);
 		if (m_container.size() > 0)
 		{
 			msg = m_container.front();
