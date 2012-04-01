@@ -15,6 +15,7 @@
 #include <memory>
 #include <stdarg.h>
 #include <math.h>
+#include <functional>
 
 #ifdef WIN32
 #include <windows.h>

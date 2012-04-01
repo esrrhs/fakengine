@@ -1,8 +1,8 @@
 #pragma once
 
 #include "alloc.h"
-
 #include "singleton.h"
+#include "circle_buffer.h"
 
 #include "allocator.h"
 #include "readonly_allocator.h"

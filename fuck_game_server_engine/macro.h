@@ -10,7 +10,7 @@
 #define SAFE_DIFFER_TEST_CONTINUE(EXPRESSION, TESTVALUE) if((EXPRESSION) != (TESTVALUE)) continue;
 #define SAFE_DIFFER_TEST_BREAK(EXPRESSION, TESTVALUE) if((EXPRESSION) != (TESTVALUE)) break;
 
-#define SAFE_DELETE(p) if (p) { fdelete<T>(p); p = 0; }
+#define SAFE_DELETE(T, p) if (p) { fdelete<T>(p); p = 0; }
 #define SAFE_FREE(p) if (p) { FFREE(p); p = 0; }
 
 #ifdef USE_DEFAULT_ASSERT

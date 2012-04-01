@@ -18,6 +18,7 @@
     <ClInclude Include="allocator.h" />
     <ClInclude Include="auto_lock.h" />
     <ClInclude Include="calloc.h" />
+    <ClInclude Include="circle_buffer.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="const.h" />
     <ClInclude Include="fuck_game_server_engine.h" />

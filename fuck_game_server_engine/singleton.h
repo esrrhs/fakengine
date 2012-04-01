@@ -38,7 +38,7 @@ T& singleton<T>::ref()
 template <class T> fore_inline
 void singleton<T>::release()
 {
-	SAFE_DELETE(pData);
+	SAFE_DELETE(T, pData);
 }
 
 

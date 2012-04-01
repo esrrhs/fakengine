@@ -77,6 +77,9 @@
     <ClInclude Include="tcpsocket.h">
       <Filter>net</Filter>
     </ClInclude>
+    <ClInclude Include="circle_buffer.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
