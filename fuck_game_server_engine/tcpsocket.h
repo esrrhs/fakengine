@@ -14,9 +14,13 @@ public:
 	template<typename _msg>
 	FORCEINLINE bool send(const _msg * msg)
 	{
-		const char * p = msg->to_buffer();
-		size_t size = msg->to_buffer_size();
-
+		int8_t * p = 0;
+		size_t size = 0;
+		if (!msg->to_buffer(p, size))
+		{
+			return false;
+		}
+	
 		if (m_queue.write(p, size))
 		{
 			return true;

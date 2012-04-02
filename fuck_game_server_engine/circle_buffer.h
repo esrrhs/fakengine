@@ -11,11 +11,11 @@ public:
 		SAFE_FREE(m_buffer);
 	}
 public:
-	FORCEINLINE bool write(const char * p, size_t size)
+	FORCEINLINE bool write(const int8_t * p, size_t size)
 	{
 		return true;
 	}
-	FORCEINLINE bool read(char * out, size_t size)
+	FORCEINLINE bool read(int8_t * out, size_t size)
 	{
 		return true;
 	}
@@ -24,7 +24,7 @@ public:
 		return true;
 	}
 private:
-	char * m_buffer;
+	int8_t * m_buffer;
 	size_t m_size;
 };
 

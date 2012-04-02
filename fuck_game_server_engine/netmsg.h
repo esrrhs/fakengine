@@ -10,14 +10,17 @@ public:
 	~netmsg()
 	{
 	}
+	enum
+	{
+		msg_header = 2012,
+		msg_header_size = 2,
+	};
 public:
-	FORCEINLINE const char * to_buffer() const
+	FORCEINLINE bool to_buffer(int8_t * & p, size_t & size) const
 	{
-		return 0;
-	}
-	FORCEINLINE size_t to_buffer_size() const
-	{
-		return 0;
+		size = m_buffer.size();
+		p = size ? (int8_t *)&m_buffer[0] : 0;
+		return true;
 	}
 	template <typename F>
 	FORCEINLINE bool from_buffer(const F & f, size_t & read_size)
