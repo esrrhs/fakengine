@@ -3,6 +3,7 @@
 #include "alloc.h"
 #include "singleton.h"
 #include "circle_buffer.h"
+#include "slot.h"
 
 #include "allocator.h"
 #include "readonly_allocator.h"

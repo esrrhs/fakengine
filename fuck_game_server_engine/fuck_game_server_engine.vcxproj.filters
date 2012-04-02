@@ -80,6 +80,9 @@
     <ClInclude Include="circle_buffer.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="slot.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

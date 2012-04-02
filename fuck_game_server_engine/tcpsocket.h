@@ -4,7 +4,8 @@ template <typename _queue>
 class tcpsocket
 {
 public:
-	tcpsocket()
+	tcpsocket() : m_send_slot(&(_queue::write), &m_send_queue),
+		m_recv_slot(&(_queue::read), &m_recv_queue)
 	{
 	}
 	~tcpsocket()
@@ -14,15 +15,10 @@ public:
 	template<typename _msg>
 	FORCEINLINE bool send(const _msg * msg)
 	{
-		int8_t * p = 0;
-		size_t size = 0;
-		if (!msg->to_buffer(p, size))
+		size_t write_size = 0;
+		if (msg->to_buffer(m_send_slot, write_size))
 		{
-			return false;
-		}
-	
-		if (m_queue.write(p, size))
-		{
+			m_send_queue.skip_read(write_size);
 			return true;
 		}
 		return false;
@@ -31,14 +27,17 @@ public:
 	FORCEINLINE bool recv(_msg * msg)
 	{
 		size_t read_size = 0;
-		if (msg->from_buffer(&_queue::read, read_size))
+		if (msg->from_buffer(m_recv_slot, read_size))
 		{
-			m_queue.skip(read_size);
+			m_recv_queue.skip_write(read_size);
 			return true;
 		}
 		return false;
 	}
 private:
-	_queue m_queue;
+	_queue m_send_queue;
+	_queue m_recv_queue;
+	slot<_queue, bool (_queue::*)(const int8_t * p, size_t size)> m_send_slot;
+	slot<_queue, bool (_queue::*)(int8_t * out, size_t size)> m_recv_slot;
 };
 

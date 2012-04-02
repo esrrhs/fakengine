@@ -19,7 +19,11 @@ public:
 	{
 		return true;
 	}
-	FORCEINLINE bool skip(size_t size)
+	FORCEINLINE bool skip_write(size_t size)
+	{
+		return true;
+	}
+	FORCEINLINE bool skip_read(size_t size)
 	{
 		return true;
 	}
