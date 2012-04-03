@@ -14,6 +14,11 @@ public:
 	{
 	}
 public:
+	FORCEINLINE void tick()
+	{
+		m_send.tick();
+		m_recv.tick();
+	}
 	template<typename _msg>
 	FORCEINLINE bool send_msg(const _msg * msg)
 	{

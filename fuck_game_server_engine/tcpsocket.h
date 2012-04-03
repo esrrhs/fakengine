@@ -34,6 +34,9 @@ public:
 		}
 		return false;
 	}
+	FORCEINLINE void tick()
+	{
+	}
 	FORCEINLINE bool flush()
 	{
 		return true;

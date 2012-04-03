@@ -13,14 +13,14 @@ public:
 	{
 	}
 public:
+	FORCEINLINE void tick()
+	{
+		m_socket.tick();
+	}
 	template<typename _msg>
 	FORCEINLINE bool recv_msg(_msg * msg)
 	{
 		return m_socket.recv(msg);
-	}
-	FORCEINLINE bool fill()
-	{
-		return m_socket.fill();
 	}
 private:
 	_socket m_socket;

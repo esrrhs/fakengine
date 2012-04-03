@@ -19,7 +19,7 @@ public:
 	{
 		while (1)
 		{
-			m_realsender.flush();
+			m_realsender.tick();
 
 			_msg * msg = 0;
 			{
@@ -42,6 +42,9 @@ public:
 		}
 	}
 public:
+	FORCEINLINE void tick()
+	{
+	}
 	FORCEINLINE bool send_msg(const _msg * msg)
 	{
 		auto_lock<thread_lock>(m_thread_lock);

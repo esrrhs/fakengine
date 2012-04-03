@@ -15,6 +15,10 @@ public:
 	{
 	}
 public:
+	FORCEINLINE void tick()
+	{
+		m_container.tick();
+	}
 	template<typename _msg>
 	FORCEINLINE bool send_msg(netlink<_send, _recv> & link, const _msg * msg)
 	{

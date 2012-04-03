@@ -13,14 +13,14 @@ public:
 	{
 	}
 public:
+	FORCEINLINE void tick()
+	{
+		m_socket.tick();
+	}
 	template<typename _msg>
 	FORCEINLINE bool send_msg(const _msg * msg)
 	{
 		return m_socket.send(msg);
-	}
-	FORCEINLINE bool flush()
-	{
-		return m_socket.flush();
 	}
 private:
 	_socket m_socket;

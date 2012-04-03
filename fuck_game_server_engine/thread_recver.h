@@ -19,7 +19,7 @@ public:
 	{
 		while (1)
 		{
-			m_realrecver.fill();
+			m_realrecver.tick();
 
 			_msg * msg = 0;
 			if (m_realrecver.recv_msg(msg))
@@ -34,6 +34,9 @@ public:
 		}
 	}
 public:
+	FORCEINLINE void tick()
+	{
+	}
 	FORCEINLINE bool recv_msg(_msg * msg)
 	{
 		auto_lock<thread_lock> lock(m_thread_lock);
