@@ -62,18 +62,6 @@
     <ClInclude Include="netserver.h">
       <Filter>net</Filter>
     </ClInclude>
-    <ClInclude Include="thread_sender.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="thread_recver.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="socket_sender.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="socket_recver.h">
-      <Filter>net</Filter>
-    </ClInclude>
     <ClInclude Include="tcpsocket.h">
       <Filter>net</Filter>
     </ClInclude>
@@ -82,6 +70,18 @@
     </ClInclude>
     <ClInclude Include="slot.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="thread_container.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="socket_container.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="thread_link.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="socket_link.h">
+      <Filter>net</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

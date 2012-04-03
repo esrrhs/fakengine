@@ -17,7 +17,7 @@
 2012.4.2：加slot和写包读包
 2012.4.3：加flush和fill，下一步具体写socket
 2012.4.3：加socket静态函数api，下一步加server端的结构
-2012.4.3：加tick，驱动下
+2012.4.3：加tick，驱动下，加server结构
 
 
 

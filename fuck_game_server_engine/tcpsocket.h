@@ -34,14 +34,49 @@ public:
 		}
 		return false;
 	}
+	FORCEINLINE bool ini()
+	{
+		return true;
+	}
 	FORCEINLINE void tick()
 	{
+		if (connected())
+		{
+			if (can_write())
+			{
+				flush();
+			}
+			if (can_read())
+			{
+				fill();
+			}
+		}
+		else
+		{
+			reconnect();
+		}
 	}
 	FORCEINLINE bool flush()
 	{
 		return true;
 	}
 	FORCEINLINE bool fill()
+	{
+		return true;
+	}
+	FORCEINLINE bool can_read()
+	{
+		return true;
+	}
+	FORCEINLINE bool can_write()
+	{
+		return true;
+	}
+	FORCEINLINE bool connected()
+	{
+		return true;
+	}
+	FORCEINLINE bool reconnect()
 	{
 		return true;
 	}

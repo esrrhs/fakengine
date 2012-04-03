@@ -2,9 +2,10 @@
 
 int main()
 {
-	netlink<thread_sender<netmsg<std::vector<char>>, std::list<netmsg<std::vector<char>>*>, socket_sender<tcpsocket<cirle_buffer> > >, 
-		thread_recver<netmsg<std::vector<char>>, std::list<netmsg<std::vector<char>>*>, socket_recver<tcpsocket<cirle_buffer> > > > nl;
-
-
+	netlink<thread_link<netmsg<std::vector<char>>, std::list<netmsg<std::vector<char>>*>, socket_link<tcpsocket<cirle_buffer> > > > nl;
+	netserver<thread_container<socket_container<tcpsocket<cirle_buffer>, std::list<char*> > > > ns;
+	
+	nl.ini();
+	ns.ini();
 	return 0;
 }

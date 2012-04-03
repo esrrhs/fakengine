@@ -1,18 +1,21 @@
 #pragma once
 
-// socket_sender 发送类
-// _socket 装消息的容器
+// socket_link 发送类
 template <typename _socket>
-class socket_sender
+class socket_link
 {
 public:
-	socket_sender()
+	socket_link()
 	{
 	}
-	~socket_sender()
+	~socket_link()
 	{
 	}
 public:
+	FORCEINLINE bool ini()
+	{
+		return m_socket.ini();
+	}
 	FORCEINLINE void tick()
 	{
 		m_socket.tick();
@@ -21,6 +24,11 @@ public:
 	FORCEINLINE bool send_msg(const _msg * msg)
 	{
 		return m_socket.send(msg);
+	}
+	template<typename _msg>
+	FORCEINLINE bool recv_msg(_msg * msg)
+	{
+		return m_socket.recv(msg);
 	}
 private:
 	_socket m_socket;

@@ -17,9 +17,8 @@
 #include "netlink.h"
 #include "netmsg.h"
 #include "netserver.h"
-#include "socket_sender.h"
-#include "socket_recver.h"
-#include "thread_sender.h"
-#include "thread_recver.h"
+#include "socket_link.h"
+#include "thread_link.h"
 #include "tcpsocket.h"
-
+#include "thread_container.h"
+#include "socket_container.h"
