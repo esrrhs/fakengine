@@ -18,6 +18,10 @@ public:
 	{
 		return m_socket.send(msg);
 	}
+	FORCEINLINE bool flush()
+	{
+		return m_socket.flush();
+	}
 private:
 	_socket m_socket;
 };

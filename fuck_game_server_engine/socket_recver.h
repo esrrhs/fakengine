@@ -18,6 +18,10 @@ public:
 	{
 		return m_socket.recv(msg);
 	}
+	FORCEINLINE bool fill()
+	{
+		return m_socket.fill();
+	}
 private:
 	_socket m_socket;
 };

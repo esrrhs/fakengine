@@ -19,6 +19,8 @@ public:
 	{
 		while (1)
 		{
+			m_realsender.flush();
+
 			_msg * msg = 0;
 			{
 				auto_lock<thread_lock> lock(m_thread_lock);
@@ -27,7 +29,7 @@ public:
 					msg = m_container.front();
 				}
 			}
-
+			
 			if (m_realsender.send_msg(msg))
 			{
 				auto_lock<thread_lock> lock(m_thread_lock);

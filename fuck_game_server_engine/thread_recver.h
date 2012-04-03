@@ -19,6 +19,8 @@ public:
 	{
 		while (1)
 		{
+			m_realrecver.fill();
+
 			_msg * msg = 0;
 			if (m_realrecver.recv_msg(msg))
 			{

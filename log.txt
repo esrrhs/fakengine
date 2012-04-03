@@ -15,6 +15,7 @@
 2012.4.1：加上socket、test，编译通过
 2012.4.1：加netmsg
 2012.4.2：加slot和写包读包
+2012.4.3：加flush和fill，下一步具体写socket
 
 
 

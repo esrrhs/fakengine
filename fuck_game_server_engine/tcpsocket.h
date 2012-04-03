@@ -34,6 +34,14 @@ public:
 		}
 		return false;
 	}
+	FORCEINLINE bool flush()
+	{
+		return true;
+	}
+	FORCEINLINE bool fill()
+	{
+		return true;
+	}
 private:
 	_queue m_send_queue;
 	_queue m_recv_queue;
