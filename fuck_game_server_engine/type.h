@@ -7,4 +7,7 @@ typedef pthread_t t_id;
 #endif
 
 typedef	int32_t socket_t;
-
+#if defined(WIN32)
+typedef int32_t socklen_t;
+#else
+#endif
