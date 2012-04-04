@@ -71,7 +71,7 @@ public:
 
 		// ¶Á³ödata
 		m_buffer.resize(0, data_size);
-		if (!f((int8_t*)&m_buffer[0], data_size))
+		if (data_size > 0 && !f((int8_t*)&m_buffer[0], data_size))
 		{
 			return false;
 		}

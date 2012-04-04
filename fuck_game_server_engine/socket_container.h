@@ -11,6 +11,10 @@ public:
 	~socket_container()
 	{
 	}
+	enum _const
+	{
+		max_accept_per_frame = 50,
+	};
 public:
 	FORCEINLINE bool ini(const net_server_param & param)
 	{
@@ -36,9 +40,11 @@ private:
 		if (m_socket.can_read())
 		{
 			_socket s;
-			while(m_socket.accept(s))
+			int32_t num = 0;
+			while(m_socket.accept(s) && num < max_accept_per_frame)
 			{
-				
+				// add to container
+				num++;
 			}
 		}
 		return true;

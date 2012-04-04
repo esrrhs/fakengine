@@ -6,13 +6,23 @@ int main()
 
 	netlink<thread_link<netmsg<std::vector<char>>, std::list<netmsg<std::vector<char>>*>, socket_link<tcpsocket<cirle_buffer> > > > nl;
 	netserver<thread_container<socket_container<tcpsocket<cirle_buffer>, std::list<char*> > > > ns;
-	
-	nl.ini();
 
-	tcp_socket_server_param sp;
-	sp.ip = "127.0.0.1";
-	sp.port = 2012;
-	sp.backlog = 5;
-	ns.ini(sp);
+	// server
+	tcp_socket_server_param ssp;
+	ssp.ip = "127.0.0.1";
+	ssp.port = 2012;
+	ns.ini(ssp);
+
+	// client
+	tcp_socket_link_param slp;
+	slp.ip = "127.0.0.1";
+	slp.port = 2012;
+	nl.ini(slp);
+
+	while (1)
+	{
+		fsleep(100);
+	}
+
 	return 0;
 }

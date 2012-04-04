@@ -20,6 +20,7 @@
 2012.4.3：加tick，驱动下，加server结构
 2012.4.4：加fstring,加了server的listen
 2012.4.4：加can_read、can_write等函数
+2012.4.4：加accept，fix几个bug
 
 
 

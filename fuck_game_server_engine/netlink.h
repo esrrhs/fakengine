@@ -12,9 +12,9 @@ public:
 	{
 	}
 public:
-	FORCEINLINE bool ini()
+	FORCEINLINE bool ini(const net_link_param & param)
 	{
-		return m_link.ini();
+		return m_link.ini(param);
 	}
 	FORCEINLINE void tick()
 	{

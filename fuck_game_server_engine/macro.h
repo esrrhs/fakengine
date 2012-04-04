@@ -20,15 +20,17 @@
 #endif
 
 #ifdef USE_DEFAULT_ALLOC
-#define FALLOC(size) sys_alloc(size)
-#define FFREE(p) sys_free(p)
+	#define FALLOC(size) sys_alloc(size)
+	#define FFREE(p) sys_free(p)
 #endif
 
 // TODO:Ìí¼Óforceinlineºê
-#ifdef WIN32
-#define fore_inline __forceinline
-#else
-#define fore_inline
+#ifdef USE_FORCE_INLINE
+	#ifdef WIN32
+		#define fore_inline __forceinline
+	#else
+		#define fore_inline
+	#endif
 #endif
 
 #if defined(WIN32)
@@ -42,5 +44,5 @@
 #endif
 
 #ifdef USE_DEFAULT_PRINTF
-#define FPRINTF printf
+	#define FPRINTF printf
 #endif

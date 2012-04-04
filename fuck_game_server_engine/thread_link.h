@@ -43,7 +43,7 @@ public:
 					}
 				}
 
-				if (m_reallink.send_msg(msg))
+				if (msg && m_reallink.send_msg(msg))
 				{
 					auto_lock<thread_lock> lock(m_send_thread_lock);
 					m_send_container.pop_front();
@@ -52,9 +52,9 @@ public:
 		}
 	}
 public:
-	FORCEINLINE bool ini()
+	FORCEINLINE bool ini(const net_link_param & param)
 	{
-		if (!m_reallink.ini())
+		if (!m_reallink.ini(param))
 		{
 			return false;
 		}

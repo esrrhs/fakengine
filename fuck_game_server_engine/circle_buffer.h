@@ -27,6 +27,10 @@ public:
 	{
 		return true;
 	}
+	FORCEINLINE bool clear()
+	{
+		return true;
+	}
 private:
 	int8_t * m_buffer;
 	size_t m_size;

@@ -8,3 +8,7 @@
 
 // printf
 #define USE_DEFAULT_PRINTF
+
+// force inline
+#define USE_FORCE_INLINE
+

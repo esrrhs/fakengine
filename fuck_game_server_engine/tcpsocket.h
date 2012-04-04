@@ -5,11 +5,9 @@ class tcpsocket
 {
 public:
 	tcpsocket() : m_send_slot(&(_queue::write), &m_send_queue),
-		m_recv_slot(&(_queue::read), &m_recv_queue), m_socket(-1),
-		m_port(0), m_peer_port(0), m_connected(false)
+		m_recv_slot(&(_queue::read), &m_recv_queue)
 	{
-		memset(m_ip, 0, sizeof(m_ip));
-		memset(m_peer_ip, 0, sizeof(m_peer_ip));
+		clear();
 	}
 	~tcpsocket()
 	{
@@ -37,12 +35,37 @@ public:
 		}
 		return false;
 	}
-	FORCEINLINE bool ini()
+	FORCEINLINE bool ini(const net_link_param & param)
 	{
+		// close
+		close();
+		clear();
+
+		const tcp_socket_link_param & tparam = (const tcp_socket_link_param &)param;
+		fstrcopy(m_ip, (const int8_t *)tparam.ip.c_str(), sizeof(m_ip));
+		m_port = tparam.port;
+		m_is_non_blocking = tparam.is_non_blocking;
+		m_socket_send_buffer_size = tparam.socket_send_buffer_size;
+		m_socket_recv_buffer_size = tparam.socket_recv_buffer_size;
+
+		FPRINTF("tcpsocket::ini client %s:%d\n", m_ip, m_port);
+
+		// reconnect
+		if (!reconnect())
+		{
+			return false;
+		}
+
+		FPRINTF("tcpsocket::ini client %s:%d ok...\n", m_ip, m_port);
+
 		return true;
 	}
 	FORCEINLINE bool ini(const net_server_param & param)
 	{
+		// close
+		close();
+		clear();
+
 		const tcp_socket_server_param & tparam = (const tcp_socket_server_param &)param;
 		fstrcopy(m_ip, (const int8_t *)tparam.ip.c_str(), sizeof(m_ip));
 		m_port = tparam.port;
@@ -50,8 +73,8 @@ public:
 		m_socket_send_buffer_size = tparam.socket_send_buffer_size;
 		m_socket_recv_buffer_size = tparam.socket_recv_buffer_size;
 
-		FPRINTF("tcpsocket::ini_s %s:%d\n", m_ip, m_port);
-
+		FPRINTF("tcpsocket::ini server %s:%d\n", m_ip, m_port);
+		
 		// create
 		m_socket = tcpsocket::socket(AF_INET, SOCK_STREAM, 0);
 		if (m_socket == -1)
@@ -88,7 +111,7 @@ public:
 			return false;
 		}
 
-		FPRINTF("tcpsocket::listen %s:%d ok...\n", m_ip, m_port);
+		FPRINTF("tcpsocket::ini server %s:%d ok...\n", m_ip, m_port);
 		
 		// 置上标志
 		m_connected = true;
@@ -183,6 +206,61 @@ public:
 	}
 	FORCEINLINE bool reconnect()
 	{
+		// close
+		close();
+
+		// create
+		m_socket = tcpsocket::socket(AF_INET, SOCK_STREAM, 0);
+		if (m_socket == -1)
+		{
+			FPRINTF("tcpsocket::socket error\n");
+			return false;
+		}
+
+		// connect
+		sockaddr_in _sockaddr;
+		memset(&_sockaddr, 0, sizeof(_sockaddr));
+		_sockaddr.sin_family = AF_INET;
+		_sockaddr.sin_port = htons(m_port);
+		_sockaddr.sin_addr.s_addr = inet_addr((const char *)m_ip);
+		int32_t ret = tcpsocket::connect(m_socket, (const sockaddr *)&_sockaddr, sizeof(_sockaddr));
+		if (ret != 0)
+		{
+			FPRINTF("tcpsocket::connect error\n");
+			return false;
+		}
+
+		// 缓冲区
+		if (!set_recv_buffer_size(m_socket_recv_buffer_size))
+		{
+			FPRINTF("tcpsocket::set_recv_buffer_size error\n");
+			return false;
+		}
+
+		// 缓冲区
+		if (!set_send_buffer_size(m_socket_send_buffer_size))
+		{
+			FPRINTF("tcpsocket::set_send_buffer_size error\n");
+			return false;
+		}
+
+		// 非阻塞
+		if (!set_nonblocking(m_is_non_blocking))
+		{
+			FPRINTF("tcpsocket::set_nonblocking error\n");
+			return false;
+		}
+
+		// linger
+		if (!set_linger(0))
+		{
+			FPRINTF("tcpsocket::set_linger error\n");
+			return false;
+		}
+
+		// 置上标志
+		m_connected = true;
+
 		return true;
 	}
 	FORCEINLINE bool accept(tcpsocket & socket)
@@ -195,9 +273,66 @@ public:
 		if (s != -1)
 		{
 			socket.m_socket = s;
+			fstrcopy(socket.m_peer_ip, (const int8_t *)inet_ntoa(_sockaddr.sin_addr), sizeof(socket.m_peer_ip));
+			socket.m_peer_port = htons(_sockaddr.sin_port);
+
+			// 缓冲区
+			if (!socket.set_recv_buffer_size(m_socket_recv_buffer_size))
+			{
+				FPRINTF("tcpsocket::set_recv_buffer_size error\n");
+				return false;
+			}
+
+			// 缓冲区
+			if (!socket.set_send_buffer_size(m_socket_send_buffer_size))
+			{
+				FPRINTF("tcpsocket::set_send_buffer_size error\n");
+				return false;
+			}
+
+			// 非阻塞
+			if (!socket.set_nonblocking(m_is_non_blocking))
+			{
+				FPRINTF("tcpsocket::set_nonblocking error\n");
+				return false;
+			}
+
+			// linger
+			if (!socket.set_linger(0))
+			{
+				FPRINTF("tcpsocket::set_linger error\n");
+				return false;
+			}
+
+			FPRINTF("tcpsocket::accept %s:%d\n", socket.m_peer_ip, socket.m_peer_port);
+			return true;
 		}
 
 		return false;
+	}
+	FORCEINLINE bool set_recv_buffer_size(uint32_t size)
+	{
+		return tcpsocket::setsockopt(m_socket, SOL_SOCKET, SO_RCVBUF, &size, sizeof(uint32_t)) == 0;
+	}
+	FORCEINLINE bool set_send_buffer_size(uint32_t size)
+	{
+		return tcpsocket::setsockopt(m_socket, SOL_SOCKET, SO_SNDBUF, &size, sizeof(uint32_t)) == 0;
+	}
+	FORCEINLINE bool set_nonblocking(bool on)
+	{ 
+		return tcpsocket::set_socket_nonblocking(m_socket, on);
+	}
+	FORCEINLINE bool close()
+	{
+		return tcpsocket::close_socket(m_socket) == 0;
+	}
+	FORCEINLINE bool set_linger(uint32_t lingertime)
+	{
+		linger so_linger;
+		so_linger.l_onoff = TRUE;
+		so_linger.l_linger = lingertime;
+		BOOL bRtn = FALSE;
+		return tcpsocket::setsockopt(m_socket, SOL_SOCKET, SO_LINGER, &so_linger, sizeof(so_linger)) == 0;
 	}
 public:
 	static FORCEINLINE socket_t socket(int32_t domain, int32_t type, int32_t protocol)
@@ -222,11 +357,11 @@ public:
 	}
 	static FORCEINLINE int32_t getsockopt(socket_t s, int32_t level, int32_t optname, void * optval, socklen_t * optlen) 
 	{
-		return ::getsockopt(s, level, optname, optval, optlen);
+		return ::getsockopt(s, level, optname, (const char *)optval, optlen);
 	}
 	static FORCEINLINE int32_t setsockopt(socket_t s, int32_t level, int32_t optname, const void * optval, socklen_t optlen) 
 	{
-		return ::setsockopt(s, level, optname, optval, optlen);
+		return ::setsockopt(s, level, optname, (const char *)optval, optlen);
 	}
 	static FORCEINLINE int32_t send(socket_t s, const void * buf, int32_t len, int32_t flags) 
 	{
@@ -247,7 +382,7 @@ public:
 	static FORCEINLINE bool set_socket_nonblocking(socket_t s, bool on) 
 	{
 #if defined(WIN32)
-		return ioctlsocket(s, FIONBIO, (unsigned long*)&on) == SOCKET_ERROR ? false : true;
+		return ioctlsocket(s, FIONBIO, (u_long *)&on) == 0;
 #else
 		int32_t opts;
 		opts = fcntl (s, F_GETFL, 0);
@@ -269,6 +404,20 @@ public:
 	static FORCEINLINE int32_t select(int32_t maxfdp1, fd_set * readset, fd_set * writeset, fd_set * exceptset, struct timeval* timeout) 
 	{
 		return ::select(maxfdp1, readset, writeset, exceptset, timeout);
+	}
+private:
+	FORCEINLINE void clear()
+	{
+		m_socket = -1;
+		m_port = 0;
+		m_peer_port = 0;
+		m_connected = false;
+
+		m_send_queue.clear();
+		m_recv_queue.clear();
+		
+		memset(m_ip, 0, sizeof(m_ip));
+		memset(m_peer_ip, 0, sizeof(m_peer_ip));
 	}
 private:
 	// socket
