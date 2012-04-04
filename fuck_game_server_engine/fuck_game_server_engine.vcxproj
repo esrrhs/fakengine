@@ -21,6 +21,8 @@
     <ClInclude Include="circle_buffer.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="const.h" />
+    <ClInclude Include="fengine.h" />
+    <ClInclude Include="fstring.h" />
     <ClInclude Include="fuck_game_server_engine.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="include.h" />
@@ -83,6 +85,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>Ws2_32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -100,6 +105,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>Ws2_32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -40,3 +40,7 @@
 	#define tstricmp    strcasecmp
 	#define tsnprintf   snprintf
 #endif
+
+#ifdef USE_DEFAULT_PRINTF
+#define FPRINTF printf
+#endif

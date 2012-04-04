@@ -20,11 +20,15 @@ public:
 
 			// recv
 			{
-				_msg * msg = 0;
+				_msg * msg = fnew<_msg>();
 				if (m_reallink.recv_msg(msg))
 				{
 					auto_lock<thread_lock> lock(m_recv_thread_lock);
 					m_recv_container.push_back(msg);
+				}
+				else
+				{
+					fdelete<_msg>(msg);
 				}
 			}
 
@@ -50,8 +54,12 @@ public:
 public:
 	FORCEINLINE bool ini()
 	{
+		if (!m_reallink.ini())
+		{
+			return false;
+		}
 		start();
-		return m_reallink.ini();
+		return true;
 	}
 	FORCEINLINE void tick()
 	{

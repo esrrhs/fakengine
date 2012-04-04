@@ -20,10 +20,14 @@ public:
 		}
 	}
 public:
-	FORCEINLINE bool ini()
+	FORCEINLINE bool ini(net_server_param * param)
 	{
+		if (!m_real_container.ini(param))
+		{
+			return false;
+		}
 		start();
-		return m_real_container.ini();
+		return true;
 	}
 	FORCEINLINE void tick()
 	{

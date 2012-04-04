@@ -83,6 +83,12 @@
     <ClInclude Include="socket_link.h">
       <Filter>net</Filter>
     </ClInclude>
+    <ClInclude Include="fstring.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="fengine.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

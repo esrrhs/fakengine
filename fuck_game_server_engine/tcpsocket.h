@@ -5,8 +5,10 @@ class tcpsocket
 {
 public:
 	tcpsocket() : m_send_slot(&(_queue::write), &m_send_queue),
-		m_recv_slot(&(_queue::read), &m_recv_queue)
+		m_recv_slot(&(_queue::read), &m_recv_queue), m_socket(-1),
+		m_port(0), m_connected(false)
 	{
+		memset(m_ip, 0, sizeof(m_ip));
 	}
 	~tcpsocket()
 	{
@@ -36,6 +38,53 @@ public:
 	}
 	FORCEINLINE bool ini()
 	{
+		return true;
+	}
+	FORCEINLINE bool ini(net_server_param * param)
+	{
+		fstrcopy(m_ip, (const int8_t *)param->ip.c_str(), sizeof(m_ip));
+		m_port = param->port;
+
+		FPRINTF("tcpsocket::ini_s %s:%d\n", param->ip.c_str(), m_port);
+
+		// create
+		m_socket = tcpsocket::socket(AF_INET, SOCK_STREAM, 0);
+		if (m_socket == -1)
+		{
+			FPRINTF("tcpsocket::socket error\n");
+			return false;
+		}
+
+		// bind
+		sockaddr_in _sockaddr;
+		memset(&_sockaddr, 0, sizeof(_sockaddr));
+		_sockaddr.sin_family = AF_INET;
+		_sockaddr.sin_port = htons(m_port);
+		if(!param->ip.empty())
+		{
+			_sockaddr.sin_addr.s_addr = inet_addr((const char *)m_ip);
+		}
+		else
+		{
+			_sockaddr.sin_addr.s_addr = inet_addr(INADDR_ANY);
+		}
+		int32_t ret = tcpsocket::bind(m_socket, (const sockaddr *)&_sockaddr, sizeof(_sockaddr));
+		if (ret != 0)
+		{
+			FPRINTF("tcpsocket::bind error\n");
+			return false;
+		}
+
+		// listen
+		ret = tcpsocket::listen(m_socket, param->backlog);
+		if (ret != 0)
+		{
+			FPRINTF("tcpsocket::listen error\n");
+			return false;
+		}
+
+		FPRINTF("tcpsocket::listen %s:%d ok...\n", param->ip.c_str(), m_port);
+
 		return true;
 	}
 	FORCEINLINE void tick()
@@ -153,6 +202,9 @@ public:
 	}
 private:
 	socket_t m_socket;
+	int8_t m_ip[c_ip_size];
+	uint16_t m_port;
+	bool m_connected;
 	_queue m_send_queue;
 	_queue m_recv_queue;
 	slot<_queue, bool (_queue::*)(const int8_t * p, size_t size)> m_send_slot;
