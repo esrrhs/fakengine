@@ -13,7 +13,7 @@ public:
 	{
 	}
 public:
-	FORCEINLINE bool ini(net_server_param * param)
+	FORCEINLINE bool ini(const net_server_param & param)
 	{
 		return m_container.ini(param);
 	}

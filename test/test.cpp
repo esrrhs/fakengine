@@ -9,10 +9,10 @@ int main()
 	
 	nl.ini();
 
-	net_server_param sp;
+	tcp_socket_server_param sp;
 	sp.ip = "127.0.0.1";
 	sp.port = 2012;
 	sp.backlog = 5;
-	ns.ini(&sp);
+	ns.ini(sp);
 	return 0;
 }
