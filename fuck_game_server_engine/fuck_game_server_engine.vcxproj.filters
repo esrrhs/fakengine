@@ -89,6 +89,9 @@
     <ClInclude Include="fengine.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="selector.h">
+      <Filter>net</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

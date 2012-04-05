@@ -30,6 +30,7 @@
     <ClInclude Include="netmsg.h" />
     <ClInclude Include="normal_allocator.h" />
     <ClInclude Include="readonly_allocator.h" />
+    <ClInclude Include="selector.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="slot.h" />
     <ClInclude Include="socket_container.h" />

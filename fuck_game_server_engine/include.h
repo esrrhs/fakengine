@@ -23,3 +23,4 @@
 #include "tcpsocket.h"
 #include "thread_container.h"
 #include "socket_container.h"
+#include "selector.h"

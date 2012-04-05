@@ -1,6 +1,6 @@
 #pragma once
 
-template <typename _queue>
+template <typename _queue, typename _selector>
 class tcpsocket
 {
 public:
@@ -118,24 +118,6 @@ public:
 
 		return true;
 	}
-	FORCEINLINE void tick()
-	{
-		if (connected())
-		{
-			if (can_write())
-			{
-				flush();
-			}
-			if (can_read())
-			{
-				fill();
-			}
-		}
-		else
-		{
-			reconnect();
-		}
-	}
 	FORCEINLINE bool flush()
 	{
 		return true;
@@ -144,61 +126,19 @@ public:
 	{
 		return true;
 	}
+	FORCEINLINE bool select()
+	{
+		m_selector.clear();
+		m_selector.add(m_socket);
+		return m_selector.select();
+	}
 	FORCEINLINE bool can_read()
 	{
-		if (!connected())
-		{
-			return false;
-		}
-
-		timeval timeout;
-		timeout.tv_sec = 0;
-		timeout.tv_usec = 0;
-
-		fd_set readfds;
-		FD_ZERO(&readfds);
-		FD_SET(m_socket, &readfds);
-
-		int32_t ret = tcpsocket::select(m_socket + 1, 
-			&readfds,
-			0,
-			0,
-			&timeout);
-
-		if (ret != -1 && FD_ISSET(m_socket, &readfds))
-		{
-			return true;
-		}
-
-		return false;
+		return m_selector.is_read(m_socket);
 	}
 	FORCEINLINE bool can_write()
 	{
-		if (!connected())
-		{
-			return false;
-		}
-
-		timeval timeout;
-		timeout.tv_sec = 0;
-		timeout.tv_usec = 0;
-
-		fd_set writefds;
-		FD_ZERO(&writefds);
-		FD_SET(m_socket, &writefds);
-
-		int32_t ret = tcpsocket::select(m_socket + 1, 
-			0,
-			&writefds,
-			0,
-			&timeout);
-
-		if (ret != -1 && FD_ISSET(m_socket, &writefds))
-		{
-			return true;
-		}
-
-		return false;
+		return m_selector.is_write(m_socket);
 	}
 	FORCEINLINE bool connected()
 	{
@@ -451,6 +391,11 @@ private:
 		memset(m_ip, 0, sizeof(m_ip));
 		memset(m_peer_ip, 0, sizeof(m_peer_ip));
 	}
+public:
+	socket_t get_socket_t()
+	{
+		return m_socket;
+	}
 private:
 	// socket
 	socket_t m_socket;
@@ -488,5 +433,8 @@ private:
 	// 供外部调用的缓冲区函数
 	slot<_queue, bool (_queue::*)(const int8_t * p, size_t size)> m_send_slot;
 	slot<_queue, bool (_queue::*)(int8_t * out, size_t size)> m_recv_slot;
+
+	// select器
+	_selector m_selector;
 };
 

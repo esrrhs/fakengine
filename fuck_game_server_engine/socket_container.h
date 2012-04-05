@@ -1,7 +1,7 @@
 #pragma once
 
 // socket_container 连接服务端类
-template <typename _socket, typename _socket_store>
+template <typename _socket, typename _real_select, typename _socket_store>
 class socket_container
 {
 public:
@@ -33,6 +33,9 @@ public:
 
 		// write现有连接
 		tick_write();
+
+		// process现有连接的msg
+		tick_process();
 	}
 private:
 	FORCEINLINE bool accept()
@@ -44,6 +47,7 @@ private:
 			while(m_socket.accept(s) && num < max_accept_per_frame)
 			{
 				// add to container
+				m_socket_store.push_back(s);
 				num++;
 			}
 		}
@@ -51,20 +55,57 @@ private:
 	}
 	FORCEINLINE bool select()
 	{
-		return true;
+		m_real_select.clear();
+
+		// add
+		for (_socket_store::iterator it = m_socket_store.begin(); it != m_socket_store.end(); it++)
+		{
+			_socket & s = *it;
+			m_real_select.add(s.get_socket_t());
+		}
+
+		return m_real_select.select();
 	}
 	FORCEINLINE bool tick_read()
 	{
+		for (_socket_store::iterator it = m_socket_store.begin(); it != m_socket_store.end(); it++)
+		{
+			_socket & s = *it;
+			if (m_real_select.is_read(s.get_socket_t()))
+			{
+				s.fill();
+			}
+		}
+
 		return true;
 	}
 	FORCEINLINE bool tick_write()
 	{
+		for (_socket_store::iterator it = m_socket_store.begin(); it != m_socket_store.end(); it++)
+		{
+			_socket & s = *it;
+			if (m_real_select.is_write(s.get_socket_t()))
+			{
+				s.flush();
+			}
+		}
+
+		return true;
+	}
+	FORCEINLINE bool tick_process()
+	{
+		for (_socket_store::iterator it = m_socket_store.begin(); it != m_socket_store.end(); it++)
+		{
+			_socket & s = *it;
+			
+			// todo
+		}
+
 		return true;
 	}
 private:
 	_socket m_socket;
-	int8_t m_ip[c_ip_size];
-	uint16_t m_port;
+	_real_select m_real_select;
 	_socket_store m_socket_store;
 };
 

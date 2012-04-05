@@ -18,7 +18,24 @@ public:
 	}
 	FORCEINLINE void tick()
 	{
-		m_socket.tick();
+		if (m_socket.connected())
+		{
+			if (m_socket.select())
+			{
+				if (m_socket.can_write())
+				{
+					m_socket.flush();
+				}
+				if (m_socket.can_read())
+				{
+					m_socket.fill();
+				}
+			}
+		}
+		else
+		{
+			m_socket.reconnect();
+		}
 	}
 	template<typename _msg>
 	FORCEINLINE bool send_msg(const _msg * msg)

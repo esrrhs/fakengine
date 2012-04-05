@@ -4,8 +4,8 @@ int main()
 {
 	fengine fe;
 
-	netlink<thread_link<netmsg<std::vector<char>>, std::list<netmsg<std::vector<char>>*>, socket_link<tcpsocket<cirle_buffer> > > > nl;
-	netserver<thread_container<socket_container<tcpsocket<cirle_buffer>, std::list<char*> > > > ns;
+	netlink<thread_link<netmsg<std::vector<char>>, std::list<netmsg<std::vector<char>>*>, socket_link<tcpsocket<cirle_buffer, selector> > > > nl;
+	netserver<thread_container<socket_container<tcpsocket<cirle_buffer, selector>, selector, std::list<tcpsocket<cirle_buffer, selector> > > > > ns;
 
 	// server
 	tcp_socket_server_param ssp;
