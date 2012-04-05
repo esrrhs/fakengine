@@ -42,13 +42,13 @@ public:
 		clear();
 
 		const tcp_socket_link_param & tparam = (const tcp_socket_link_param &)param;
-		fstrcopy(m_ip, (const int8_t *)tparam.ip.c_str(), sizeof(m_ip));
-		m_port = tparam.port;
+		fstrcopy(m_peer_ip, (const int8_t *)tparam.ip.c_str(), sizeof(m_peer_ip));
+		m_peer_port = tparam.port;
 		m_is_non_blocking = tparam.is_non_blocking;
 		m_socket_send_buffer_size = tparam.socket_send_buffer_size;
 		m_socket_recv_buffer_size = tparam.socket_recv_buffer_size;
 
-		FPRINTF("tcpsocket::ini client %s:%d\n", m_ip, m_port);
+		FPRINTF("tcpsocket::ini client [%s:%d]\n", m_peer_ip, m_peer_port);
 
 		// reconnect
 		if (!reconnect())
@@ -56,7 +56,7 @@ public:
 			return false;
 		}
 
-		FPRINTF("tcpsocket::ini client %s:%d ok...\n", m_ip, m_port);
+		FPRINTF("tcpsocket::ini client [%s:%d] ok...\n", m_peer_ip, m_peer_port);
 
 		return true;
 	}
@@ -73,7 +73,7 @@ public:
 		m_socket_send_buffer_size = tparam.socket_send_buffer_size;
 		m_socket_recv_buffer_size = tparam.socket_recv_buffer_size;
 
-		FPRINTF("tcpsocket::ini server %s:%d\n", m_ip, m_port);
+		FPRINTF("tcpsocket::ini server [%s:%d]\n", m_ip, m_port);
 		
 		// create
 		m_socket = tcpsocket::socket(AF_INET, SOCK_STREAM, 0);
@@ -111,7 +111,7 @@ public:
 			return false;
 		}
 
-		FPRINTF("tcpsocket::ini server %s:%d ok...\n", m_ip, m_port);
+		FPRINTF("tcpsocket::ini server [%s:%d] ok...\n", m_ip, m_port);
 		
 		// 置上标志
 		m_connected = true;
@@ -209,6 +209,8 @@ public:
 		// close
 		close();
 
+		FPRINTF("tcpsocket::reconnect [%s:%d]\n", m_peer_ip, m_peer_port);
+
 		// create
 		m_socket = tcpsocket::socket(AF_INET, SOCK_STREAM, 0);
 		if (m_socket == -1)
@@ -221,8 +223,8 @@ public:
 		sockaddr_in _sockaddr;
 		memset(&_sockaddr, 0, sizeof(_sockaddr));
 		_sockaddr.sin_family = AF_INET;
-		_sockaddr.sin_port = htons(m_port);
-		_sockaddr.sin_addr.s_addr = inet_addr((const char *)m_ip);
+		_sockaddr.sin_port = htons(m_peer_port);
+		_sockaddr.sin_addr.s_addr = inet_addr((const char *)m_peer_ip);
 		int32_t ret = tcpsocket::connect(m_socket, (const sockaddr *)&_sockaddr, sizeof(_sockaddr));
 		if (ret != 0)
 		{
@@ -257,6 +259,19 @@ public:
 			FPRINTF("tcpsocket::set_linger error\n");
 			return false;
 		}
+
+		// 获取自己的信息
+		sockaddr_in _local_sockaddr;
+		memset(&_local_sockaddr, 0, sizeof(_local_sockaddr));
+		int32_t size = sizeof(_local_sockaddr);
+		if (tcpsocket::getsockname(m_socket, (sockaddr *)&_local_sockaddr, &size) == 0)
+		{
+			fstrcopy(m_ip, (const int8_t *)inet_ntoa(_local_sockaddr.sin_addr), sizeof(m_ip));
+			m_port = htons(_local_sockaddr.sin_port);
+		}
+
+		FPRINTF("tcpsocket::reconnect [%s:%d], local[%s:%d] ok...\n", m_peer_ip, m_peer_port,
+			m_ip, m_port);
 
 		// 置上标志
 		m_connected = true;
@@ -304,7 +319,20 @@ public:
 				return false;
 			}
 
-			FPRINTF("tcpsocket::accept %s:%d\n", socket.m_peer_ip, socket.m_peer_port);
+			// 获取自己的信息
+			sockaddr_in _local_sockaddr;
+			memset(&_local_sockaddr, 0, sizeof(_local_sockaddr));
+			int32_t size = sizeof(_local_sockaddr);
+			if (tcpsocket::getsockname(socket.m_socket, (sockaddr *)&_local_sockaddr, &size) == 0)
+			{
+				fstrcopy(socket.m_ip, (const int8_t *)inet_ntoa(_local_sockaddr.sin_addr), sizeof(socket.m_ip));
+				socket.m_port = htons(_local_sockaddr.sin_port);
+			}
+
+			FPRINTF("tcpsocket::accept[%s:%d], local[%s:%d]\n", socket.m_peer_ip, 
+				socket.m_peer_port,
+				socket.m_ip,
+				socket.m_port);
 			return true;
 		}
 
@@ -362,6 +390,10 @@ public:
 	static FORCEINLINE int32_t setsockopt(socket_t s, int32_t level, int32_t optname, const void * optval, socklen_t optlen) 
 	{
 		return ::setsockopt(s, level, optname, (const char *)optval, optlen);
+	}
+	static FORCEINLINE int32_t getsockname(socket_t s, struct sockaddr * name, int32_t * addrlen) 
+	{
+		return ::getsockname(s, name, addrlen);
 	}
 	static FORCEINLINE int32_t send(socket_t s, const void * buf, int32_t len, int32_t flags) 
 	{
