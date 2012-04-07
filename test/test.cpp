@@ -33,8 +33,13 @@ int main()
 	slp.port = 2012;
 	nl.ini(slp);
 
+	int32_t i = 0;
 	while (1)
 	{
+		mymsg m;
+		m.write_int32(i);
+		nl.send_msg(m);
+		i++;
 		fsleep(100);
 	}
 

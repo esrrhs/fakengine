@@ -17,8 +17,17 @@ public:
 		msg_size_size = 2,		// 包长度的长度
 	};
 public:
+	FORCEINLINE void write_int32(const int32_t & i)
+	{
+		write_buffer((int8_t*)&i, sizeof(i));
+	}
+	FORCEINLINE void write_buffer(const int8_t * p, size_t size)
+	{
+		m_buffer.insert(m_buffer.end(), p, p + size);
+	}
+public:
 	template <typename F>
-	FORCEINLINE bool to_buffer(const F & f, size_t & write_size) const
+	FORCEINLINE bool to_buffer(const F & f) const
 	{
 		const _const c = msg_header;
 		FASSERT(msg_header_size <= sizeof(_const));
@@ -43,11 +52,10 @@ public:
 			return false;
 		}
 		
-		write_size = msg_header + msg_size_size + data_size;
 		return true;
 	}
 	template <typename F>
-	FORCEINLINE bool from_buffer(const F & f, size_t & read_size)
+	FORCEINLINE bool from_buffer(const F & f)
 	{
 		// 读出包头
 		_const c = msg_header;
@@ -76,7 +84,6 @@ public:
 			return false;
 		}
 
-		read_size = msg_header + msg_size_size + data_size;
 		return true;
 	}
 private:

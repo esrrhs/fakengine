@@ -35,7 +35,8 @@ template <typename T, size_t N>
 class cirle_buffer
 {
 public:
-	cirle_buffer() : m_buffer(0), m_size(0), m_datasize(0), m_begin(0), m_end(0)
+	cirle_buffer() : m_buffer(0), m_size(0), m_datasize(0), m_begin(0), m_end(0),
+		m_store_datasize(0), m_store_begin(0), m_store_end(0)
 	{
 		m_buffer = (int8_t*)FALLOC(N * sizeof(T));
 		m_size = N;
@@ -45,17 +46,6 @@ public:
 		SAFE_FREE(m_buffer);
 	}
 public:
-	FORCEINLINE bool try_write(const T * p, size_t size)
-	{
-		if (!can_write(size))
-		{
-			return false;
-		}
-
-		real_write(p, size);
-
-		return true;
-	}
 	FORCEINLINE bool can_write(size_t size)
 	{
 		return m_datasize + size <= m_size;
@@ -82,18 +72,6 @@ public:
 
 		return true;
 	}
-
-	FORCEINLINE bool try_read(T * out, size_t size)
-	{
-		if (!can_read(size))
-		{
-			return false;
-		}
-
-		real_read(out, size);
-
-		return true;
-	}
 	FORCEINLINE bool can_read(size_t size)
 	{
 		return m_datasize >= size;
@@ -114,15 +92,38 @@ public:
 			return false;
 		}
 
-		real_read(p, size);
+		real_read(out, size);
 
 		skip_read(size);
 
 		return true;
 	}
+	FORCEINLINE void store()
+	{
+		m_store_datasize = m_datasize;
+		m_store_begin = m_begin;
+		m_store_end = m_end;
+	}
+	FORCEINLINE void restore()
+	{
+		m_datasize = m_store_datasize;
+		m_begin = m_store_begin;
+		m_end = m_store_end;
+	}
 	FORCEINLINE bool clear()
 	{
+		m_datasize = 0;
+		m_begin = 0;
+		m_end = 0;
 		return true;
+	}
+	FORCEINLINE size_t size()
+	{
+		return m_datasize;
+	}
+	FORCEINLINE size_t capacity()
+	{
+		return m_size;
 	}
 private:
 	FORCEINLINE void real_write(const T * p, size_t size)
@@ -171,5 +172,8 @@ private:
 	size_t m_datasize;
 	size_t m_begin;
 	size_t m_end;
+	size_t m_store_datasize;
+	size_t m_store_begin;
+	size_t m_store_end;
 };
 

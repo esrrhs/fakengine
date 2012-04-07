@@ -4,8 +4,8 @@ template <typename _queue, typename _selector>
 class tcpsocket
 {
 public:
-	tcpsocket() : m_send_slot(&(_queue::try_write), &m_send_queue),
-		m_recv_slot(&(_queue::try_read), &m_recv_queue)
+	tcpsocket() : m_send_slot(&(_queue::write), &m_send_queue),
+		m_recv_slot(&(_queue::read), &m_recv_queue)
 	{
 		clear();
 	}
@@ -16,23 +16,23 @@ public:
 	template<typename _msg>
 	FORCEINLINE bool send(const _msg & msg)
 	{
-		size_t write_size = 0;
-		if (msg.to_buffer(m_send_slot, write_size))
+		m_send_queue.store();
+		if (msg.to_buffer(m_send_slot))
 		{
-			m_send_queue.skip_read(write_size);
 			return true;
 		}
+		m_send_queue.restore();
 		return false;
 	}
 	template<typename _msg>
 	FORCEINLINE bool recv(_msg & msg)
 	{
-		size_t read_size = 0;
-		if (msg.from_buffer(m_recv_slot, read_size))
+		m_recv_queue.store();
+		if (msg.from_buffer(m_recv_slot))
 		{
-			m_recv_queue.skip_write(read_size);
 			return true;
 		}
+		m_recv_queue.restore();
 		return false;
 	}
 	FORCEINLINE bool ini(const net_link_param & param)
