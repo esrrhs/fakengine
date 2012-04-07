@@ -34,8 +34,6 @@ public:
 		// write现有连接
 		tick_write();
 
-		// process现有连接的msg
-		tick_process();
 	}
 private:
 	FORCEINLINE bool accept()
@@ -92,16 +90,26 @@ private:
 
 		return true;
 	}
-	FORCEINLINE bool tick_process()
+public:
+	typedef typename _socket ele_type;
+	typedef typename _socket_store::iterator ele_iter;
+	template<typename _msg>
+	FORCEINLINE bool send_msg(ele_type * e, const _msg & msg)
 	{
-		for (_socket_store::iterator it = m_socket_store.begin(); it != m_socket_store.end(); it++)
-		{
-			_socket & s = *it;
-			
-			// todo
-		}
-
-		return true;
+		return e->send(msg);
+	}
+	template<typename _msg>
+	FORCEINLINE bool recv_msg(ele_type * e, _msg & msg)
+	{
+		return e->recv(msg);
+	}
+	FORCEINLINE ele_iter ebegin()
+	{
+		return m_socket_store.begin();
+	}
+	FORCEINLINE ele_iter eend()
+	{
+		return m_socket_store.end();
 	}
 private:
 	_socket m_socket;

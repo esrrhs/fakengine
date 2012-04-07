@@ -14,10 +14,10 @@ public:
 	}
 public:
 	template<typename _msg>
-	FORCEINLINE bool send(const _msg * msg)
+	FORCEINLINE bool send(const _msg & msg)
 	{
 		size_t write_size = 0;
-		if (msg->to_buffer(m_send_slot, write_size))
+		if (msg.to_buffer(m_send_slot, write_size))
 		{
 			m_send_queue.skip_read(write_size);
 			return true;
@@ -25,10 +25,10 @@ public:
 		return false;
 	}
 	template<typename _msg>
-	FORCEINLINE bool recv(_msg * msg)
+	FORCEINLINE bool recv(_msg & msg)
 	{
 		size_t read_size = 0;
-		if (msg->from_buffer(m_recv_slot, read_size))
+		if (msg.from_buffer(m_recv_slot, read_size))
 		{
 			m_recv_queue.skip_write(read_size);
 			return true;

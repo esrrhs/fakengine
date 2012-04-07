@@ -19,6 +19,7 @@
 
 #ifdef WIN32
 #include <windows.h>
+#include <hash_map>
 #else
 #include <execinfo.h>
 #include <signal.h>

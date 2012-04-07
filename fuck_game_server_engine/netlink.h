@@ -21,12 +21,12 @@ public:
 		m_link.tick();
 	}
 	template<typename _msg>
-	FORCEINLINE bool send_msg(const _msg * msg)
+	FORCEINLINE bool send_msg(const _msg & msg)
 	{
 		return m_link.send_msg(msg);
 	}
 	template<typename _msg>
-	FORCEINLINE bool recv_msg(_msg * msg)
+	FORCEINLINE bool recv_msg(_msg & msg)
 	{
 		return m_link.recv_msg(msg);
 	}
