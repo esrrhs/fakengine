@@ -22,14 +22,13 @@ public:
 		m_container.tick();
 	}
 public:
-	typedef typename _container::ele_type ele_type;
-	template<typename _msg>
-	FORCEINLINE bool send_msg(ele_type * e, const _msg & msg)
+	template<typename ele_type, typename _msg>
+	FORCEINLINE bool send_msg(ele_type & e, const _msg & msg)
 	{
 		return m_link.send_msg(e, msg);
 	}
-	template<typename _msg>
-	FORCEINLINE bool recv_msg(ele_type * e, _msg & msg)
+	template<typename ele_type, typename _msg>
+	FORCEINLINE bool recv_msg(ele_type & e, _msg & msg)
 	{
 		return m_link.recv_msg(e, msg);
 	}

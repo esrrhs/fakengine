@@ -7,7 +7,7 @@ int main()
 	typedef tcpsocket<cirle_buffer, selector> mysocket;
 	typedef netmsg<std::vector<char>> mymsg;
 	typedef std::list<mymsg> mymsgcontainer;
-	typedef std::map<mysocket*, mymsgcontainer> myelecontainer;
+	typedef std::list<std::pair<mysocket, mymsg>> myelecontainer;
 	typedef std::list<mysocket> mysocketlist;
 
 	typedef socket_link<mysocket> mysocketlink;
@@ -15,7 +15,7 @@ int main()
 	typedef netlink<mythreadlink> mynetlink;
 
 	typedef socket_container<mysocket, selector, mysocketlist> mysocketcontainer;
-	typedef thread_container<mymsg, myelecontainer, mysocketcontainer> mythreadcontainer;
+	typedef thread_container<mymsg, mysocket, myelecontainer, mysocketcontainer> mythreadcontainer;
 	typedef netserver<mythreadcontainer> mynetserver;
 
 	mynetlink nl;

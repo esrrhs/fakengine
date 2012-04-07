@@ -38,6 +38,7 @@ public:
 private:
 	FORCEINLINE bool accept()
 	{
+		m_socket.select();
 		if (m_socket.can_read())
 		{
 			_socket s;
@@ -91,30 +92,35 @@ private:
 		return true;
 	}
 public:
-	typedef typename _socket ele_type;
-	typedef typename _socket_store::iterator ele_iter;
 	template<typename _msg>
-	FORCEINLINE bool send_msg(ele_type * e, const _msg & msg)
+	FORCEINLINE bool send_msg(_socket & s, const _msg & msg)
 	{
-		return e->send(msg);
+		return s.send(msg);
 	}
 	template<typename _msg>
-	FORCEINLINE bool recv_msg(ele_type * e, _msg & msg)
+	FORCEINLINE bool recv_msg(_socket & s, _msg & msg)
 	{
-		return e->recv(msg);
+		return s.recv(msg);
 	}
-	FORCEINLINE ele_iter ebegin()
+	FORCEINLINE void reset()
 	{
-		return m_socket_store.begin();
+		m_it_cur = m_socket_store.begin();
 	}
-	FORCEINLINE ele_iter eend()
+	FORCEINLINE bool get_next(_socket & s)
 	{
-		return m_socket_store.end();
+		if (m_it_cur != m_socket_store.end())
+		{
+			s = *m_it_cur;
+			m_it_cur++;
+			return true;
+		}
+		return false;
 	}
 private:
 	_socket m_socket;
 	_real_select m_real_select;
 	_socket_store m_socket_store;
+	typename _socket_store::iterator m_it_cur;
 };
 
 
