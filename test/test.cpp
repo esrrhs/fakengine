@@ -7,7 +7,7 @@ int main()
 	typedef tcpsocket<cirle_buffer<int8_t, 1024>, selector> mysocket;
 	typedef netmsg<std::vector<int8_t>> mymsg;
 	typedef std::list<mymsg> mymsgcontainer;
-	typedef std::list<std::pair<mysocket, mymsg>> myelecontainer;
+	typedef std::list<std::pair<mysocket*, mymsg>> myelecontainer;
 	typedef std::list<mysocket> mysocketlist;
 
 	typedef socket_link<mysocket> mysocketlink;
@@ -33,13 +33,25 @@ int main()
 	slp.port = 2012;
 	nl.ini(slp);
 
-	int32_t i = 0;
+	int32_t send_i = 123456;
+	int32_t recv_i;
+	mysocket * s;
 	while (1)
 	{
-		mymsg m;
-		m.write_int32(i);
-		nl.send_msg(m);
-		i++;
+		mymsg sendm;
+		sendm.write_int32(send_i);
+		nl.send_msg(sendm);
+		send_i++;
+
+		mymsg recvm;
+		if (ns.recv_msg(s, recvm))
+		{
+			std::cout<<"recvm: size["<<recvm.size()<<"] ";
+			recvm.reset();
+			recvm.read_int32(recv_i);
+			std::cout<<"data["<<recv_i<<"]"<<std::endl;
+		}
+
 		fsleep(100);
 	}
 

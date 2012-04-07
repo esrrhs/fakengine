@@ -19,7 +19,8 @@ public:
 public:
 	virtual void run()
 	{
-		_msg tmp;
+		_msg mempty;
+		_msg & m = mempty;
 		int32_t i = 0;
 		while (1)
 		{
@@ -27,10 +28,10 @@ public:
 
 			// recv
 			i = 0;
-			while (m_reallink.recv_msg(tmp) && i < recv_max_pac_per_frame)
+			while (m_reallink.recv_msg(m) && i < recv_max_pac_per_frame)
 			{
 				auto_lock<thread_lock> lock(m_recv_thread_lock);
-				m_recv_container.push_back(tmp);
+				m_recv_container.push_back(m);
 				i++;
 			}
 
@@ -38,12 +39,11 @@ public:
 			i = 0;
 			while(i < send_max_pac_per_frame)
 			{
-				_msg & msg = tmp;
 				{
 					auto_lock<thread_lock> lock(m_send_thread_lock);
 					if (m_send_container.size() > 0)
 					{
-						msg = m_send_container.front();
+						m = m_send_container.front();
 					}
 					else
 					{
@@ -51,13 +51,15 @@ public:
 					}
 				}
 
-				if (m_reallink.send_msg(msg))
+				if (m_reallink.send_msg(m))
 				{
 					auto_lock<thread_lock> lock(m_send_thread_lock);
 					m_send_container.pop_front();
 				}
 				i++;
 			}
+
+			fsleep(1);
 		}
 	}
 public:

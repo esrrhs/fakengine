@@ -4,7 +4,7 @@ template <typename _buffer>
 class netmsg
 {
 public:
-	netmsg()
+	netmsg() : m_iter(0)
 	{
 	}
 	~netmsg()
@@ -17,13 +17,31 @@ public:
 		msg_size_size = 2,		// 包长度的长度
 	};
 public:
+	FORCEINLINE void reset()
+	{
+		m_iter = 0;
+	}
 	FORCEINLINE void write_int32(const int32_t & i)
 	{
 		write_buffer((int8_t*)&i, sizeof(i));
 	}
+	FORCEINLINE void read_int32(int32_t & i)
+	{
+		read_buffer((int8_t*)&i, sizeof(i));
+	}
 	FORCEINLINE void write_buffer(const int8_t * p, size_t size)
 	{
 		m_buffer.insert(m_buffer.end(), p, p + size);
+	}
+	FORCEINLINE void read_buffer(int8_t * p, size_t size)
+	{
+		FASSERT(m_iter + size <= m_buffer.size());
+		memcpy(p, (const void *)&m_buffer[m_iter], size);
+		m_iter += size;
+	}
+	FORCEINLINE size_t size()
+	{
+		return m_buffer.size();
 	}
 public:
 	template <typename F>
@@ -78,7 +96,7 @@ public:
 		}
 
 		// 读出data
-		m_buffer.resize(0, data_size);
+		m_buffer.resize(data_size, 0);
 		if (data_size > 0 && !f((int8_t*)&m_buffer[0], data_size))
 		{
 			return false;
@@ -88,5 +106,6 @@ public:
 	}
 private:
 	_buffer m_buffer;
+	size_t m_iter;
 };
 

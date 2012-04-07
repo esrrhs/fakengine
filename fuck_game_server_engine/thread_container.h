@@ -19,8 +19,9 @@ public:
 public:
 	virtual void run()
 	{
-		_msg tmp;
-		_ele_type etmp;
+		_msg mempty;
+		_msg & m = mempty;
+		_ele_type * e = 0;
 		int32_t i = 0;
 		while (1)
 		{
@@ -28,13 +29,13 @@ public:
 
 			// recv
 			m_real_container.reset();
-			while(m_real_container.get_next(etmp))
+			while(m_real_container.get_next(e))
 			{
 				i = 0;
-				while (m_real_container.recv_msg(etmp, tmp) && i < recv_max_pac_per_link_per_frame)
+				while (m_real_container.recv_msg(e, m) && i < recv_max_pac_per_link_per_frame)
 				{
 					auto_lock<thread_lock> lock(m_recv_thread_lock);
-					m_recv_container.push_back(std::make_pair(etmp, tmp));
+					m_recv_container.push_back(std::make_pair(e, m));
 					i++;
 				}
 			}
@@ -43,14 +44,12 @@ public:
 			i = 0;
 			while(i < send_max_pac_per_frame)
 			{
-				_msg & msg = tmp;
-				_ele_type & e = etmp;
 				{
 					auto_lock<thread_lock> lock(m_send_thread_lock);
 					if (m_send_container.size() > 0)
 					{
 						e = m_send_container.front().first;
-						msg = m_send_container.front().second;
+						m = m_send_container.front().second;
 					}
 					else
 					{
@@ -58,13 +57,15 @@ public:
 					}
 				}
 
-				if (m_real_container.send_msg(e, msg))
+				if (m_real_container.send_msg(e, m))
 				{
 					auto_lock<thread_lock> lock(m_send_thread_lock);
 					m_send_container.pop_front();
 				}
 				i++;
 			}
+
+			fsleep(1);
 		}
 	}
 public:
@@ -81,13 +82,13 @@ public:
 	{
 	}
 public:
-	FORCEINLINE bool send_msg(_ele_type & e, const _msg & msg)
+	FORCEINLINE bool send_msg(_ele_type * e, const _msg & msg)
 	{
 		auto_lock<thread_lock> lock(m_send_thread_lock);
 		m_send_container.push_back(std::make_pair<e, msg>);
 		return true;
 	}
-	FORCEINLINE bool recv_msg(_ele_type & e, _msg & msg)
+	FORCEINLINE bool recv_msg(_ele_type * & e, _msg & msg)
 	{
 		auto_lock<thread_lock> lock(m_recv_thread_lock);
 		if (m_recv_container.size() > 0)

@@ -23,14 +23,14 @@ public:
 	}
 public:
 	template<typename ele_type, typename _msg>
-	FORCEINLINE bool send_msg(ele_type & e, const _msg & msg)
+	FORCEINLINE bool send_msg(ele_type * e, const _msg & msg)
 	{
-		return m_link.send_msg(e, msg);
+		return m_container.send_msg(e, msg);
 	}
 	template<typename ele_type, typename _msg>
-	FORCEINLINE bool recv_msg(ele_type & e, _msg & msg)
+	FORCEINLINE bool recv_msg(ele_type * & e, _msg & msg)
 	{
-		return m_link.recv_msg(e, msg);
+		return m_container.recv_msg(e, msg);
 	}
 private:
 	_container m_container;

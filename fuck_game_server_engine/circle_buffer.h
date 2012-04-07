@@ -41,9 +41,28 @@ public:
 		m_buffer = (int8_t*)FALLOC(N * sizeof(T));
 		m_size = N;
 	}
+	cirle_buffer(const cirle_buffer<T, N> & r) : m_size(r.m_size), m_datasize(r.m_datasize), 
+		m_begin(r.m_begin), m_end(r.m_end), m_store_datasize(r.m_store_datasize), 
+		m_store_begin(r.m_store_begin), m_store_end(r.m_store_end)
+	{
+		m_buffer = (int8_t*)FALLOC(N * sizeof(T));
+		memcpy(m_buffer, r.m_buffer, sizeof(T) * N);
+	}
 	~cirle_buffer()
 	{
 		SAFE_FREE(m_buffer);
+	}
+	cirle_buffer<T, N> & operator = (const cirle_buffer<T, N> & r)
+	{
+		memcpy(m_buffer, r.m_buffer, sizeof(T) * N);
+		m_size = r.m_size;
+		m_datasize = r.m_datasize;
+		m_begin = r.m_begin;
+		m_end = r.m_end;
+		m_store_datasize = r.m_store_datasize;
+		m_store_begin = r.m_store_begin;
+		m_store_end = r.m_store_end;
+		return *this;
 	}
 public:
 	FORCEINLINE bool can_write(size_t size)
@@ -124,6 +143,30 @@ public:
 	FORCEINLINE size_t capacity()
 	{
 		return m_size;
+	}
+	FORCEINLINE bool empty()
+	{
+		return size() == 0;
+	}
+	FORCEINLINE bool full()
+	{
+		return size() == capacity();
+	}
+	FORCEINLINE T * get_read_line_buffer()
+	{
+		return m_buffer + m_begin;
+	}
+	FORCEINLINE size_t get_read_line_size()
+	{
+		return std::min<size_t>(m_datasize, m_size - m_begin);
+	}
+	FORCEINLINE T * get_write_line_buffer()
+	{
+		return m_buffer + m_end;
+	}
+	FORCEINLINE size_t get_write_line_size()
+	{
+		return std::min<size_t>(m_size - m_datasize, m_size - m_end);
 	}
 private:
 	FORCEINLINE void real_write(const T * p, size_t size)

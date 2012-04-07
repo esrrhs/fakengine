@@ -12,6 +12,38 @@ public:
 	~tcpsocket()
 	{
 	}
+	tcpsocket(const tcpsocket<_queue, _selector> & r) : m_socket(r.m_socket),
+		m_send_slot(&(_queue::write), &m_send_queue),
+		m_recv_slot(&(_queue::read), &m_recv_queue),
+		m_port(r.m_port),
+		m_peer_port(r.m_peer_port),
+		m_is_non_blocking(r.m_is_non_blocking),
+		m_socket_send_buffer_size(r.m_socket_send_buffer_size),
+		m_socket_recv_buffer_size(r.m_socket_recv_buffer_size),
+		m_connected(r.m_connected),
+		m_send_queue(r.m_send_queue),
+		m_recv_queue(r.m_recv_queue),
+		m_selector(r.m_selector)
+	{
+		memcpy(m_ip, r.m_ip, c_ip_size);
+		memcpy(m_peer_ip, r.m_peer_ip, c_ip_size);
+	}
+	tcpsocket<_queue, _selector> & operator = (const tcpsocket<_queue, _selector> & r)
+	{
+		m_socket = r.m_socket;
+		memcpy(m_ip, r.m_ip, c_ip_size);
+		m_port = r.m_port;
+		memcpy(m_peer_ip, r.m_peer_ip, c_ip_size);
+		m_peer_port = r.m_peer_port;
+		m_is_non_blocking = r.m_is_non_blocking;
+		m_socket_send_buffer_size = r.m_socket_send_buffer_size;
+		m_socket_recv_buffer_size = r.m_socket_recv_buffer_size;
+		m_connected = r.m_connected;
+		m_send_queue = r.m_send_queue;
+		m_recv_queue = r.m_recv_queue;
+		m_selector = r.m_selector;
+		return *this;
+	}
 public:
 	template<typename _msg>
 	FORCEINLINE bool send(const _msg & msg)
@@ -111,6 +143,13 @@ public:
 			return false;
 		}
 
+		// 非阻塞
+		if (!set_nonblocking(m_is_non_blocking))
+		{
+			FPRINTF("tcpsocket::set_nonblocking error\n");
+			return false;
+		}
+
 		FPRINTF("tcpsocket::ini server [%s:%d] ok...\n", m_ip, m_port);
 		
 		// 置上标志
@@ -120,10 +159,54 @@ public:
 	}
 	FORCEINLINE bool flush()
 	{
+		if (m_send_queue.empty())
+		{
+			return true;
+		}
+
+		int32_t len = tcpsocket::send(m_socket, 
+			m_send_queue.get_read_line_buffer(), 
+			m_send_queue.get_read_line_size(), 0);
+		
+		if (len == 0 || len < 0)
+		{
+			if (GET_NET_ERROR != NET_BLOCK_ERROR)
+			{
+				m_connected = false;
+				return false;
+			}
+		}
+		else
+		{
+			m_send_queue.skip_read(len);
+		}
+		
 		return true;
 	}
 	FORCEINLINE bool fill()
 	{
+		if (m_recv_queue.full())
+		{
+			return true;
+		}
+
+		int32_t len = tcpsocket::recv(m_socket, 
+			m_recv_queue.get_write_line_buffer(), 
+			m_recv_queue.get_write_line_size(), 0);
+
+		if (len == 0 || len < 0)
+		{
+			if (GET_NET_ERROR != NET_BLOCK_ERROR)
+			{
+				m_connected = false;
+				return false;
+			}
+		}
+		else
+		{
+			m_recv_queue.skip_write(len);
+		}
+
 		return true;
 	}
 	FORCEINLINE bool select()
@@ -337,11 +420,11 @@ public:
 	}
 	static FORCEINLINE int32_t send(socket_t s, const void * buf, int32_t len, int32_t flags) 
 	{
-		return ::send(s, buf, len, flags);
+		return ::send(s, (const char *)buf, len, flags);
 	}
 	static FORCEINLINE int32_t recv(socket_t s, void * buf, int32_t len, int32_t flags) 
 	{
-		return ::recv(s, buf, len, flags);
+		return ::recv(s, (char *)buf, len, flags);
 	}
 	static FORCEINLINE int32_t close_socket(socket_t s)
 	{

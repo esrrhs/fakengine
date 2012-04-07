@@ -24,12 +24,11 @@
 	#define FFREE(p) sys_free(p)
 #endif
 
-// TODO:Ìí¼Óforceinlineºê
 #ifdef USE_FORCE_INLINE
 	#ifdef WIN32
 		#define fore_inline __forceinline
 	#else
-		#define fore_inline
+		#define fore_inline TODO
 	#endif
 #endif
 
@@ -46,3 +45,14 @@
 #ifdef USE_DEFAULT_PRINTF
 	#define FPRINTF printf
 #endif
+
+#ifdef WIN32
+#define GET_NET_ERROR WSAGetLastError()
+#define NET_BLOCK_ERROR WSAEWOULDBLOCK
+#else
+#define GET_NET_ERROR errno
+#define NET_BLOCK_ERROR TODO
+#endif
+
+
+

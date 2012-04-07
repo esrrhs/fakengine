@@ -93,24 +93,24 @@ private:
 	}
 public:
 	template<typename _msg>
-	FORCEINLINE bool send_msg(_socket & s, const _msg & msg)
+	FORCEINLINE bool send_msg(_socket * s, const _msg & msg)
 	{
-		return s.send(msg);
+		return s->send(msg);
 	}
 	template<typename _msg>
-	FORCEINLINE bool recv_msg(_socket & s, _msg & msg)
+	FORCEINLINE bool recv_msg(_socket * & s, _msg & msg)
 	{
-		return s.recv(msg);
+		return s->recv(msg);
 	}
 	FORCEINLINE void reset()
 	{
 		m_it_cur = m_socket_store.begin();
 	}
-	FORCEINLINE bool get_next(_socket & s)
+	FORCEINLINE bool get_next(_socket * & s)
 	{
 		if (m_it_cur != m_socket_store.end())
 		{
-			s = *m_it_cur;
+			s = &(*m_it_cur);
 			m_it_cur++;
 			return true;
 		}
