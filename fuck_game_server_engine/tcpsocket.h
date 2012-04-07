@@ -4,8 +4,8 @@ template <typename _queue, typename _selector>
 class tcpsocket
 {
 public:
-	tcpsocket() : m_send_slot(&(_queue::write), &m_send_queue),
-		m_recv_slot(&(_queue::read), &m_recv_queue)
+	tcpsocket() : m_send_slot(&(_queue::try_write), &m_send_queue),
+		m_recv_slot(&(_queue::try_read), &m_recv_queue)
 	{
 		clear();
 	}

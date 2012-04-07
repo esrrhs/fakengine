@@ -4,8 +4,8 @@ int main()
 {
 	fengine fe;
 
-	typedef tcpsocket<cirle_buffer, selector> mysocket;
-	typedef netmsg<std::vector<char>> mymsg;
+	typedef tcpsocket<cirle_buffer<int8_t, 1024>, selector> mysocket;
+	typedef netmsg<std::vector<int8_t>> mymsg;
 	typedef std::list<mymsg> mymsgcontainer;
 	typedef std::list<std::pair<mysocket, mymsg>> myelecontainer;
 	typedef std::list<mysocket> mysocketlist;
