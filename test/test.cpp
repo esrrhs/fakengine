@@ -34,7 +34,7 @@ int main()
 	nl.ini(slp);
 
 	int32_t send_i = 123456;
-	int32_t recv_i;
+	int32_t recv_i = 123456;
 	mysocket * s;
 	while (1)
 	{
@@ -48,11 +48,14 @@ int main()
 		{
 			std::cout<<"recvm: size["<<recvm.size()<<"] ";
 			recvm.reset();
-			recvm.read_int32(recv_i);
-			std::cout<<"data["<<recv_i<<"]"<<std::endl;
+			int32_t tmp;
+			recvm.read_int32(tmp);
+			std::cout<<"data["<<tmp<<"]"<<std::endl;
+			FASSERT(recv_i == tmp);
+			recv_i++;
 		}
-
-		fsleep(100);
+		
+		fsleep(1);
 	}
 
 	return 0;
