@@ -28,7 +28,7 @@
 	#ifdef WIN32
 		#define fore_inline __forceinline
 	#else
-		#define fore_inline TODO
+		#define fore_inline __inline__ __attribute__((always_inline))
 	#endif
 #endif
 
@@ -49,9 +49,11 @@
 #ifdef WIN32
 #define GET_NET_ERROR WSAGetLastError()
 #define NET_BLOCK_ERROR WSAEWOULDBLOCK
+#define NET_BLOCK_ERROR_EX WSAEWOULDBLOCK
 #else
 #define GET_NET_ERROR errno
-#define NET_BLOCK_ERROR TODO
+#define NET_BLOCK_ERROR EWOULDBLOCK
+#define NET_BLOCK_ERROR_EX EAGAIN
 #endif
 
 

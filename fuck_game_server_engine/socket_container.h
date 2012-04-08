@@ -16,11 +16,11 @@ public:
 		max_accept_per_frame = 50,
 	};
 public:
-	FORCEINLINE bool ini(const net_server_param & param)
+	fore_inline bool ini(const net_server_param & param)
 	{
 		return m_socket.ini(param);
 	}
-	FORCEINLINE void tick()
+	fore_inline void tick()
 	{
 		// 处理新连接
 		accept();
@@ -36,7 +36,7 @@ public:
 
 	}
 private:
-	FORCEINLINE bool accept()
+	fore_inline bool accept()
 	{
 		m_socket.select();
 		if (m_socket.can_read())
@@ -52,12 +52,12 @@ private:
 		}
 		return true;
 	}
-	FORCEINLINE bool select()
+	fore_inline bool select()
 	{
 		m_real_select.clear();
 
 		// add
-		for (_socket_store::iterator it = m_socket_store.begin(); it != m_socket_store.end(); it++)
+		for (_socket_store_iter it = m_socket_store.begin(); it != m_socket_store.end(); it++)
 		{
 			_socket & s = *it;
 			m_real_select.add(s.get_socket_t());
@@ -65,9 +65,9 @@ private:
 
 		return m_real_select.select();
 	}
-	FORCEINLINE bool tick_read()
+	fore_inline bool tick_read()
 	{
-		for (_socket_store::iterator it = m_socket_store.begin(); it != m_socket_store.end(); it++)
+		for (_socket_store_iter it = m_socket_store.begin(); it != m_socket_store.end(); it++)
 		{
 			_socket & s = *it;
 			if (m_real_select.is_read(s.get_socket_t()))
@@ -78,9 +78,9 @@ private:
 
 		return true;
 	}
-	FORCEINLINE bool tick_write()
+	fore_inline bool tick_write()
 	{
-		for (_socket_store::iterator it = m_socket_store.begin(); it != m_socket_store.end(); it++)
+		for (_socket_store_iter it = m_socket_store.begin(); it != m_socket_store.end(); it++)
 		{
 			_socket & s = *it;
 			if (m_real_select.is_write(s.get_socket_t()))
@@ -93,20 +93,20 @@ private:
 	}
 public:
 	template<typename _msg>
-	FORCEINLINE bool send_msg(_socket * s, const _msg & msg)
+	fore_inline bool send_msg(_socket * s, const _msg & msg)
 	{
 		return s->send(msg);
 	}
 	template<typename _msg>
-	FORCEINLINE bool recv_msg(_socket * & s, _msg & msg)
+	fore_inline bool recv_msg(_socket * & s, _msg & msg)
 	{
 		return s->recv(msg);
 	}
-	FORCEINLINE void reset()
+	fore_inline void reset()
 	{
 		m_it_cur = m_socket_store.begin();
 	}
-	FORCEINLINE bool get_next(_socket * & s)
+	fore_inline bool get_next(_socket * & s)
 	{
 		if (m_it_cur != m_socket_store.end())
 		{
@@ -120,7 +120,8 @@ private:
 	_socket m_socket;
 	_real_select m_real_select;
 	_socket_store m_socket_store;
-	typename _socket_store::iterator m_it_cur;
+	typedef typename _socket_store::iterator _socket_store_iter;
+	_socket_store_iter m_it_cur;
 };
 
 

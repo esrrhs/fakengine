@@ -26,7 +26,7 @@ public:
 };
 
 template<typename T>
-class readonly_allocator : public singleton<readonly_allocator<T>>
+class readonly_allocator : public singleton< readonly_allocator<T> >
 {
 public:
 	readonly_allocator() {}
@@ -37,7 +37,7 @@ public:
 	};
 	T * allocate(size_t count)
 	{
-		return (T *)(readonly_buffer::Ptr()->allocate(count * sizeof(T)));
+		return (T *)(readonly_buffer::ptr()->allocate(count * sizeof(T)));
 	}
 	void deallocate(T * p)
 	{

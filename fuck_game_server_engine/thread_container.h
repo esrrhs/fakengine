@@ -69,7 +69,7 @@ public:
 		}
 	}
 public:
-	FORCEINLINE bool ini(const net_server_param & param)
+	fore_inline bool ini(const net_server_param & param)
 	{
 		if (!m_real_container.ini(param))
 		{
@@ -78,17 +78,17 @@ public:
 		start();
 		return true;
 	}
-	FORCEINLINE void tick()
+	fore_inline void tick()
 	{
 	}
 public:
-	FORCEINLINE bool send_msg(_ele_type * e, const _msg & msg)
+	fore_inline bool send_msg(_ele_type * e, const _msg & msg)
 	{
 		auto_lock<thread_lock> lock(m_send_thread_lock);
 		m_send_container.push_back(std::make_pair<e, msg>);
 		return true;
 	}
-	FORCEINLINE bool recv_msg(_ele_type * & e, _msg & msg)
+	fore_inline bool recv_msg(_ele_type * & e, _msg & msg)
 	{
 		auto_lock<thread_lock> lock(m_recv_thread_lock);
 		if (m_recv_container.size() > 0)

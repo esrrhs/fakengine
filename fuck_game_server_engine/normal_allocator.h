@@ -1,7 +1,7 @@
 #pragma once
 
 template<typename T>
-class normal_allocator : public singleton<normal_allocator<T>>
+class normal_allocator : public singleton< normal_allocator<T> >
 {
 public:
 	normal_allocator() {}

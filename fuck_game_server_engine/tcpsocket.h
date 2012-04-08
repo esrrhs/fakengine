@@ -46,7 +46,7 @@ public:
 	}
 public:
 	template<typename _msg>
-	FORCEINLINE bool send(const _msg & msg)
+	fore_inline bool send(const _msg & msg)
 	{
 		m_send_queue.store();
 		if (msg.to_buffer(m_send_slot))
@@ -57,7 +57,7 @@ public:
 		return false;
 	}
 	template<typename _msg>
-	FORCEINLINE bool recv(_msg & msg)
+	fore_inline bool recv(_msg & msg)
 	{
 		m_recv_queue.store();
 		if (msg.from_buffer(m_recv_slot))
@@ -67,7 +67,7 @@ public:
 		m_recv_queue.restore();
 		return false;
 	}
-	FORCEINLINE bool ini(const net_link_param & param)
+	fore_inline bool ini(const net_link_param & param)
 	{
 		// close
 		close();
@@ -92,7 +92,7 @@ public:
 
 		return true;
 	}
-	FORCEINLINE bool ini(const net_server_param & param)
+	fore_inline bool ini(const net_server_param & param)
 	{
 		// close
 		close();
@@ -157,7 +157,7 @@ public:
 
 		return true;
 	}
-	FORCEINLINE bool flush()
+	fore_inline bool flush()
 	{
 		if (m_send_queue.empty())
 		{
@@ -170,7 +170,7 @@ public:
 		
 		if (len == 0 || len < 0)
 		{
-			if (GET_NET_ERROR != NET_BLOCK_ERROR)
+			if (GET_NET_ERROR != NET_BLOCK_ERROR && GET_NET_ERROR != NET_BLOCK_ERROR_EX)
 			{
 				m_connected = false;
 				return false;
@@ -183,7 +183,7 @@ public:
 		
 		return true;
 	}
-	FORCEINLINE bool fill()
+	fore_inline bool fill()
 	{
 		if (m_recv_queue.full())
 		{
@@ -196,7 +196,7 @@ public:
 
 		if (len == 0 || len < 0)
 		{
-			if (GET_NET_ERROR != NET_BLOCK_ERROR)
+			if (GET_NET_ERROR != NET_BLOCK_ERROR && GET_NET_ERROR != NET_BLOCK_ERROR_EX)
 			{
 				m_connected = false;
 				return false;
@@ -209,25 +209,25 @@ public:
 
 		return true;
 	}
-	FORCEINLINE bool select()
+	fore_inline bool select()
 	{
 		m_selector.clear();
 		m_selector.add(m_socket);
 		return m_selector.select();
 	}
-	FORCEINLINE bool can_read()
+	fore_inline bool can_read()
 	{
 		return m_selector.is_read(m_socket);
 	}
-	FORCEINLINE bool can_write()
+	fore_inline bool can_write()
 	{
 		return m_selector.is_write(m_socket);
 	}
-	FORCEINLINE bool connected()
+	fore_inline bool connected()
 	{
 		return m_connected;
 	}
-	FORCEINLINE bool reconnect()
+	fore_inline bool reconnect()
 	{
 		// close
 		close();
@@ -301,7 +301,7 @@ public:
 
 		return true;
 	}
-	FORCEINLINE bool accept(tcpsocket & socket)
+	fore_inline bool accept(tcpsocket & socket)
 	{
 		sockaddr_in _sockaddr;
 		memset(&_sockaddr, 0, sizeof(_sockaddr));
@@ -361,72 +361,71 @@ public:
 
 		return false;
 	}
-	FORCEINLINE bool set_recv_buffer_size(uint32_t size)
+	fore_inline bool set_recv_buffer_size(uint32_t size)
 	{
 		return tcpsocket::setsockopt(m_socket, SOL_SOCKET, SO_RCVBUF, &size, sizeof(uint32_t)) == 0;
 	}
-	FORCEINLINE bool set_send_buffer_size(uint32_t size)
+	fore_inline bool set_send_buffer_size(uint32_t size)
 	{
 		return tcpsocket::setsockopt(m_socket, SOL_SOCKET, SO_SNDBUF, &size, sizeof(uint32_t)) == 0;
 	}
-	FORCEINLINE bool set_nonblocking(bool on)
+	fore_inline bool set_nonblocking(bool on)
 	{ 
 		return tcpsocket::set_socket_nonblocking(m_socket, on);
 	}
-	FORCEINLINE bool close()
+	fore_inline bool close()
 	{
 		return tcpsocket::close_socket(m_socket) == 0;
 	}
-	FORCEINLINE bool set_linger(uint32_t lingertime)
+	fore_inline bool set_linger(uint32_t lingertime)
 	{
 		linger so_linger;
-		so_linger.l_onoff = TRUE;
+		so_linger.l_onoff = true;
 		so_linger.l_linger = lingertime;
-		BOOL bRtn = FALSE;
 		return tcpsocket::setsockopt(m_socket, SOL_SOCKET, SO_LINGER, &so_linger, sizeof(so_linger)) == 0;
 	}
 public:
-	static FORCEINLINE socket_t socket(int32_t domain, int32_t type, int32_t protocol)
+	static fore_inline socket_t socket(int32_t domain, int32_t type, int32_t protocol)
 	{
 		return ::socket(domain, type, protocol);
 	}
-	static FORCEINLINE int32_t bind(socket_t s, const struct sockaddr * name, uint32_t namelen)
+	static fore_inline int32_t bind(socket_t s, const struct sockaddr * name, uint32_t namelen)
 	{
 		return ::bind(s, name, namelen);
 	}
-	static FORCEINLINE int32_t connect(socket_t s, const struct sockaddr* name, uint32_t namelen)
+	static fore_inline int32_t connect(socket_t s, const struct sockaddr* name, uint32_t namelen)
 	{
 		return ::connect(s, name, namelen);
 	}
-	static FORCEINLINE int32_t listen(socket_t s, uint32_t backlog) 
+	static fore_inline int32_t listen(socket_t s, uint32_t backlog) 
 	{
 		return ::listen(s, backlog);
 	}
-	static FORCEINLINE socket_t accept(socket_t s, struct sockaddr * name, int32_t * addrlen) 
+	static fore_inline socket_t accept(socket_t s, struct sockaddr * name, int32_t * addrlen) 
 	{
 		return ::accept(s, name, addrlen);
 	}
-	static FORCEINLINE int32_t getsockopt(socket_t s, int32_t level, int32_t optname, void * optval, socklen_t * optlen) 
+	static fore_inline int32_t getsockopt(socket_t s, int32_t level, int32_t optname, void * optval, socklen_t * optlen) 
 	{
 		return ::getsockopt(s, level, optname, (const char *)optval, optlen);
 	}
-	static FORCEINLINE int32_t setsockopt(socket_t s, int32_t level, int32_t optname, const void * optval, socklen_t optlen) 
+	static fore_inline int32_t setsockopt(socket_t s, int32_t level, int32_t optname, const void * optval, socklen_t optlen) 
 	{
 		return ::setsockopt(s, level, optname, (const char *)optval, optlen);
 	}
-	static FORCEINLINE int32_t getsockname(socket_t s, struct sockaddr * name, int32_t * addrlen) 
+	static fore_inline int32_t getsockname(socket_t s, struct sockaddr * name, int32_t * addrlen) 
 	{
 		return ::getsockname(s, name, addrlen);
 	}
-	static FORCEINLINE int32_t send(socket_t s, const void * buf, int32_t len, int32_t flags) 
+	static fore_inline int32_t send(socket_t s, const void * buf, int32_t len, int32_t flags) 
 	{
 		return ::send(s, (const char *)buf, len, flags);
 	}
-	static FORCEINLINE int32_t recv(socket_t s, void * buf, int32_t len, int32_t flags) 
+	static fore_inline int32_t recv(socket_t s, void * buf, int32_t len, int32_t flags) 
 	{
 		return ::recv(s, (char *)buf, len, flags);
 	}
-	static FORCEINLINE int32_t close_socket(socket_t s)
+	static fore_inline int32_t close_socket(socket_t s)
 	{
 #if defined(WIN32)
 		return ::closesocket(s);
@@ -434,7 +433,7 @@ public:
 		return ::close(s);
 #endif
 	}
-	static FORCEINLINE bool set_socket_nonblocking(socket_t s, bool on) 
+	static fore_inline bool set_socket_nonblocking(socket_t s, bool on) 
 	{
 #if defined(WIN32)
 		return ioctlsocket(s, FIONBIO, (u_long *)&on) == 0;
@@ -456,12 +455,12 @@ public:
 		return opts < 0 ? false : true;
 #endif
 	}
-	static FORCEINLINE int32_t select(int32_t maxfdp1, fd_set * readset, fd_set * writeset, fd_set * exceptset, struct timeval* timeout) 
+	static fore_inline int32_t select(int32_t maxfdp1, fd_set * readset, fd_set * writeset, fd_set * exceptset, struct timeval* timeout) 
 	{
 		return ::select(maxfdp1, readset, writeset, exceptset, timeout);
 	}
 private:
-	FORCEINLINE void clear()
+	fore_inline void clear()
 	{
 		m_socket = -1;
 		m_port = 0;

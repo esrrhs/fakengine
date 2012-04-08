@@ -48,14 +48,14 @@ private:
 };
 
 template <typename F>
-class slot<void, typename F>
+class slot<void, F>
 {
 public:
 	slot() 
 	{
 	}
 
-	slot(F f) : d_function(func) {}
+	slot(F f) : d_function(f) {}
 
 	~slot() 
 	{

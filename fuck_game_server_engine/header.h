@@ -16,6 +16,7 @@
 #include <stdarg.h>
 #include <math.h>
 #include <functional>
+#include <string.h>
 
 #ifdef WIN32
 #include <windows.h>

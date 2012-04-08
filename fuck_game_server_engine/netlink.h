@@ -12,21 +12,21 @@ public:
 	{
 	}
 public:
-	FORCEINLINE bool ini(const net_link_param & param)
+	fore_inline bool ini(const net_link_param & param)
 	{
 		return m_link.ini(param);
 	}
-	FORCEINLINE void tick()
+	fore_inline void tick()
 	{
 		m_link.tick();
 	}
 	template<typename _msg>
-	FORCEINLINE bool send_msg(const _msg & msg)
+	fore_inline bool send_msg(const _msg & msg)
 	{
 		return m_link.send_msg(msg);
 	}
 	template<typename _msg>
-	FORCEINLINE bool recv_msg(_msg & msg)
+	fore_inline bool recv_msg(_msg & msg)
 	{
 		return m_link.recv_msg(msg);
 	}
