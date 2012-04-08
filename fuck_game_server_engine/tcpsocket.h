@@ -352,6 +352,9 @@ public:
 				socket.m_port = htons(_local_sockaddr.sin_port);
 			}
 
+			// ÷√…œ±Í÷æ
+			socket.m_connected = true;
+
 			FPRINTF("tcpsocket::accept[%s:%d], local[%s:%d]\n", socket.m_peer_ip, 
 				socket.m_peer_port,
 				socket.m_ip,
@@ -477,6 +480,22 @@ public:
 	socket_t get_socket_t()
 	{
 		return m_socket;
+	}
+	int8_t * get_ip()
+	{
+		return m_ip;
+	}
+	int8_t * get_peer_ip()
+	{
+		return m_peer_ip;
+	}
+	uint16_t get_port()
+	{
+		return m_port;
+	}
+	uint16_t get_peer_port()
+	{
+		return m_peer_port;
 	}
 private:
 	// socket

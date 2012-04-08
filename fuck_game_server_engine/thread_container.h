@@ -85,7 +85,7 @@ public:
 	force_inline bool send_msg(_ele_type * e, const _msg & msg)
 	{
 		auto_lock<thread_lock> lock(m_send_thread_lock);
-		m_send_container.push_back(std::make_pair<e, msg>);
+		m_send_container.push_back(std::make_pair(e, msg));
 		return true;
 	}
 	template<typename _ele_container>

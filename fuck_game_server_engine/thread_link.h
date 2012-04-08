@@ -88,7 +88,7 @@ public:
 	}
 	force_inline bool recv_msg(_msg & msg)
 	{
-		auto_lock<thread_lock> lock(m_recv_container);
+		auto_lock<thread_lock> lock(m_recv_thread_lock);
 		if (m_recv_container.size() > 0)
 		{
 			msg = m_recv_container.front();

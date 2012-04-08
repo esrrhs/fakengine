@@ -34,6 +34,8 @@ public:
 		// write现有连接
 		tick_write();
 
+		// 查错误
+		tick_error();
 	}
 private:
 	force_inline bool accept()
@@ -86,6 +88,35 @@ private:
 			if (m_real_select.is_write(s.get_socket_t()))
 			{
 				s.flush();
+			}
+		}
+
+		return true;
+	}
+	force_inline bool tick_error()
+	{
+		for (_socket_store_iter it = m_socket_store.begin(); it != m_socket_store.end(); )
+		{
+			_socket & s = *it;
+			if (!s.connected())
+			{
+				FPRINTF("socket_container::tick_error [%s:%d] close\n", 
+					s.get_peer_ip(), 
+					s.get_peer_port());
+
+				m_socket_store.erase(it++);
+			}
+			else if (m_real_select.is_except(s.get_socket_t()))
+			{
+				FPRINTF("socket_container::tick_error [%s:%d] except\n", 
+					s.get_peer_ip(), 
+					s.get_peer_port());
+
+				m_socket_store.erase(it++);
+			}
+			else
+			{
+				it++;
 			}
 		}
 

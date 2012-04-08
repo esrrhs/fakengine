@@ -21,6 +21,10 @@ public:
 	{
 		m_iter = 0;
 	}
+	force_inline void write_int8(const int8_t & c, size_t num)
+	{
+		m_buffer.insert(m_buffer.end(), num, c);
+	}
 	force_inline void write_uint32(const uint32_t & i)
 	{
 		write_buffer((int8_t*)&i, sizeof(i));
@@ -28,6 +32,24 @@ public:
 	force_inline void write_int32(const int32_t & i)
 	{
 		write_buffer((int8_t*)&i, sizeof(i));
+	}
+	force_inline void write_str(const int8_t * str, size_t size = 0)
+	{
+		size_t len = strlen((const char *)str);
+		if (size == 0)
+		{
+			size = len;
+		}
+
+		if (size <= len)
+		{
+			write_buffer(str, size);
+		}
+		else
+		{
+			write_buffer(str, len);
+			write_int8(0, size - len);
+		}
 	}
 	force_inline void read_uint32(uint32_t & i)
 	{

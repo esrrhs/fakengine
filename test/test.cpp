@@ -39,27 +39,25 @@ int main(int argc, char *argv[])
 		ssp.port = atoi(port.c_str());
 		ns.ini(ssp);
 
-		time_t lt = get_s_tick();
-		uint32_t recvbytes = 0;
+		mymsg sendm;
+		std::string str = "hello client";
+		sendm.write_str((const int8_t *)str.c_str(), 1024);
 
-		std::vector< std::pair<mysocket*, mymsg> > recvmv;
 		while (1)
 		{
-			recvmv.clear();
-			if (ns.recv_msgs(recvmv))
+			mysocket * s = 0;
+			mymsg rec;
+			if (ns.recv_msg(s, rec))
 			{
-				recvbytes += 1024 * recvmv.size();
+				int8_t buf[1024];
+				rec.read_buffer(buf, 1024);
+				std::string str((const char *)buf);
+				std::cout<<"server recv msg "<<str<<" from "<<s<<std::endl;
+				
+				ns.send_msg(s, sendm);
 			}
 
-			time_t nt = get_s_tick();
-			if (nt - lt > 5)
-			{
-				std::cout<<"speed "<<recvbytes / 1024 / 1024 / (nt  - lt)<<"M/S"<<std::endl;
-				lt = nt;
-				recvbytes = 0;
-			}
-
-			fsleep(10);
+			fsleep(100);
 		}
 	}
 	else if (str == "client")
@@ -71,30 +69,26 @@ int main(int argc, char *argv[])
 		slp.ip = ip;
 		slp.port = atoi(port.c_str());
 		nl.ini(slp);
-
-		time_t lt = get_s_tick();
-		uint32_t sendbytes = 0;
-
+		
 		mymsg sendm;
-		int8_t tmpbuffer[1024];
-		sendm.write_buffer(tmpbuffer, 1024);
-		std::vector<mymsg> sendmv;
-		sendmv.insert(sendmv.end(), 1000, sendm);
+		std::string str = "hello server";
+		sendm.write_str((const int8_t *)str.c_str(), 1024);
+		nl.send_msg(sendm);
 
 		while (1)
 		{
-			nl.send_msgs(sendmv);
-			sendbytes += 1024 * 1000;
-			
-			time_t nt = get_s_tick();
-			if (nt - lt > 5)
+			mymsg rec;
+			if (nl.recv_msg(rec))
 			{
-				std::cout<<"speed "<<sendbytes / 1024 / 1024 / (nt  - lt)<<"M/S"<<std::endl;
-				lt = nt;
-				sendbytes = 0;
-			}
+				int8_t buf[1024];
+				rec.read_buffer(buf, 1024);
+				std::string str((const char *)buf);
+				std::cout<<"client recv msg "<<str<<std::endl;
 
-			fsleep(10);
+				nl.send_msg(sendm);
+			}
+			
+			fsleep(100);
 		}
 	}
 	
