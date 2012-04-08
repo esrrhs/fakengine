@@ -79,6 +79,13 @@ public:
 		m_send_container.push_back(msg);
 		return true;
 	}
+	template<typename _msg_container>
+	force_inline bool send_msgs(const _msg_container & mc)
+	{
+		auto_lock<thread_lock> lock(m_send_thread_lock);
+		m_send_container.insert(m_send_container.end(), mc.begin(), mc.end());
+		return true;
+	}
 	force_inline bool recv_msg(_msg & msg)
 	{
 		auto_lock<thread_lock> lock(m_recv_container);
@@ -86,6 +93,18 @@ public:
 		{
 			msg = m_recv_container.front();
 			m_recv_container.pop_front();
+			return true;
+		}
+		return false;
+	}
+	template<typename _msg_container>
+	force_inline bool recv_msgs(_msg_container & mc)
+	{
+		auto_lock<thread_lock> lock(m_recv_container);
+		if (m_recv_container.size() > 0)
+		{
+			mc.insert(mc.end(), m_recv_container.begin(), m_recv_container.end());
+			m_recv_container.clear();
 			return true;
 		}
 		return false;

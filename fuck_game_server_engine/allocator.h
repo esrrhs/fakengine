@@ -72,12 +72,12 @@ public:
 
 	void construct(pointer _Ptr, const _Ty& _Val)
 	{	// construct object at _Ptr with value _Val
-		_Construct(_Ptr, _Val);
+		std::_Construct(_Ptr, _Val);
 	}
 
 	void destroy(pointer _Ptr)
 	{	// destroy object at _Ptr
-		_Destroy(_Ptr);
+		std::_Destroy(_Ptr);
 	}
 
 	_SIZT max_size() const
