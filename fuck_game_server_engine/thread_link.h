@@ -65,10 +65,8 @@ public:
 public:
 	fore_inline bool ini(const net_link_param & param)
 	{
-		if (!m_reallink.ini(param))
-		{
-			return false;
-		}
+		// 连接失败可以重连
+		m_reallink.ini(param);
 		start();
 		return true;
 	}
