@@ -23,6 +23,7 @@
     <ClInclude Include="const.h" />
     <ClInclude Include="fengine.h" />
     <ClInclude Include="fstring.h" />
+    <ClInclude Include="ftime.h" />
     <ClInclude Include="fuck_game_server_engine.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="include.h" />

@@ -40,21 +40,29 @@ int main(int argc, char *argv[])
 
 		int32_t recv_i = 123456;
 		mysocket * s;
+		time_t lt = get_s_tick();
+		uint32_t recvbytes = 0;
 		while (1)
 		{
 			mymsg recvm;
 			if (ns.recv_msg(s, recvm))
 			{
-				std::cout<<"recvm: size["<<recvm.size()<<"] ";
 				recvm.reset();
 				int32_t tmp;
 				recvm.read_int32(tmp);
-				std::cout<<"data["<<tmp<<"]"<<std::endl;
-				FASSERT(recv_i == tmp);
 				recv_i++;
+				recvbytes += 4;
+
 			}
 
-			fsleep(100);
+			time_t nt = get_s_tick();
+			if (nt - lt > 5)
+			{
+				std::cout<<"speed "<<recvbytes / 1024 / (nt  - lt)<<"K/S"<<std::endl;
+				lt = nt;
+				recvbytes = 0;
+			}
+
 		}
 	}
 	else if (str == "client")
@@ -67,19 +75,23 @@ int main(int argc, char *argv[])
 		slp.port = atoi(port.c_str());
 		nl.ini(slp);
 
-		int32_t send_i = 123456;
+		time_t lt = get_s_tick();
+		uint32_t sendbytes = 0;
 		while (1)
 		{
 			mymsg sendm;
-			sendm.write_int32(send_i);
-			if (nl.send_msg(sendm))
+			sendm.write_uint32(sendbytes);
+			nl.send_msg(sendm);
+			sendbytes += 4;
+			
+			time_t nt = get_s_tick();
+			if (nt - lt > 5)
 			{
-				std::cout<<"sendm: size["<<sendm.size()<<"] ";
-				std::cout<<"data["<<send_i<<"]"<<std::endl;
+				std::cout<<"speed "<<sendbytes / 1024 / 1024 / (nt  - lt)<<"M/S"<<std::endl;
+				lt = nt;
+				sendbytes = 0;
 			}
-			send_i++;
 
-			fsleep(100);
 		}
 	}
 	

@@ -92,6 +92,9 @@
     <ClInclude Include="selector.h">
       <Filter>net</Filter>
     </ClInclude>
+    <ClInclude Include="ftime.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

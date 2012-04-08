@@ -20,7 +20,7 @@ public:
 	{
 	}
 public:
-	fore_inline void start()
+	force_inline void start()
 	{
 		FASSERT(m_status == thread::ts_ready);
 
@@ -31,7 +31,7 @@ public:
 #endif
 	}
 
-	fore_inline void exit(void * retval = NULL )
+	force_inline void exit(void * retval = NULL )
 	{
 #if defined(WIN32)
 		::CloseHandle(m_hthread);
@@ -41,9 +41,9 @@ public:
 	}
 
 	virtual void run() {}
-	fore_inline thread_status get_status() { return m_status; }
-	fore_inline void set_status(thread_status status) { m_status = status; }
-	fore_inline t_id get_id () { return m_id; }
+	force_inline thread_status get_status() { return m_status; }
+	force_inline void set_status(thread_status status) { m_status = status; }
+	force_inline t_id get_id () { return m_id; }
 
 #if defined(WIN32)
 	static DWORD WINAPI my_thread_process(void * derivedThread)

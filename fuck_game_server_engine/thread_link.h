@@ -63,23 +63,23 @@ public:
 		}
 	}
 public:
-	fore_inline bool ini(const net_link_param & param)
+	force_inline bool ini(const net_link_param & param)
 	{
 		// 连接失败可以重连
 		m_reallink.ini(param);
 		start();
 		return true;
 	}
-	fore_inline void tick()
+	force_inline void tick()
 	{
 	}
-	fore_inline bool send_msg(const _msg & msg)
+	force_inline bool send_msg(const _msg & msg)
 	{
 		auto_lock<thread_lock> lock(m_send_thread_lock);
 		m_send_container.push_back(msg);
 		return true;
 	}
-	fore_inline bool recv_msg(_msg & msg)
+	force_inline bool recv_msg(_msg & msg)
 	{
 		auto_lock<thread_lock> lock(m_recv_container);
 		if (m_recv_container.size() > 0)

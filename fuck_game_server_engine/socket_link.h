@@ -12,11 +12,11 @@ public:
 	{
 	}
 public:
-	fore_inline bool ini(const net_link_param & param)
+	force_inline bool ini(const net_link_param & param)
 	{
 		return m_socket.ini(param);
 	}
-	fore_inline void tick()
+	force_inline void tick()
 	{
 		if (m_socket.connected())
 		{
@@ -38,12 +38,12 @@ public:
 		}
 	}
 	template<typename _msg>
-	fore_inline bool send_msg(const _msg & msg)
+	force_inline bool send_msg(const _msg & msg)
 	{
 		return m_socket.send(msg);
 	}
 	template<typename _msg>
-	fore_inline bool recv_msg(_msg & msg)
+	force_inline bool recv_msg(_msg & msg)
 	{
 		return m_socket.recv(msg);
 	}

@@ -5,6 +5,7 @@
 #include "circle_buffer.h"
 #include "slot.h"
 #include "fstring.h"
+#include "ftime.h"
 
 #include "allocator.h"
 #include "readonly_allocator.h"

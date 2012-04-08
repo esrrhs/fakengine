@@ -46,7 +46,7 @@ public:
 	}
 public:
 	template<typename _msg>
-	fore_inline bool send(const _msg & msg)
+	force_inline bool send(const _msg & msg)
 	{
 		m_send_queue.store();
 		if (msg.to_buffer(m_send_slot))
@@ -57,7 +57,7 @@ public:
 		return false;
 	}
 	template<typename _msg>
-	fore_inline bool recv(_msg & msg)
+	force_inline bool recv(_msg & msg)
 	{
 		m_recv_queue.store();
 		if (msg.from_buffer(m_recv_slot))
@@ -67,7 +67,7 @@ public:
 		m_recv_queue.restore();
 		return false;
 	}
-	fore_inline bool ini(const net_link_param & param)
+	force_inline bool ini(const net_link_param & param)
 	{
 		// close
 		close();
@@ -92,7 +92,7 @@ public:
 
 		return true;
 	}
-	fore_inline bool ini(const net_server_param & param)
+	force_inline bool ini(const net_server_param & param)
 	{
 		// close
 		close();
@@ -157,7 +157,7 @@ public:
 
 		return true;
 	}
-	fore_inline bool flush()
+	force_inline bool flush()
 	{
 		if (m_send_queue.empty())
 		{
@@ -183,7 +183,7 @@ public:
 		
 		return true;
 	}
-	fore_inline bool fill()
+	force_inline bool fill()
 	{
 		if (m_recv_queue.full())
 		{
@@ -209,25 +209,25 @@ public:
 
 		return true;
 	}
-	fore_inline bool select()
+	force_inline bool select()
 	{
 		m_selector.clear();
 		m_selector.add(m_socket);
 		return m_selector.select();
 	}
-	fore_inline bool can_read()
+	force_inline bool can_read()
 	{
 		return m_selector.is_read(m_socket);
 	}
-	fore_inline bool can_write()
+	force_inline bool can_write()
 	{
 		return m_selector.is_write(m_socket);
 	}
-	fore_inline bool connected()
+	force_inline bool connected()
 	{
 		return m_connected;
 	}
-	fore_inline bool reconnect()
+	force_inline bool reconnect()
 	{
 		// close
 		close();
@@ -301,7 +301,7 @@ public:
 
 		return true;
 	}
-	fore_inline bool accept(tcpsocket & socket)
+	force_inline bool accept(tcpsocket & socket)
 	{
 		sockaddr_in _sockaddr;
 		memset(&_sockaddr, 0, sizeof(_sockaddr));
@@ -361,23 +361,23 @@ public:
 
 		return false;
 	}
-	fore_inline bool set_recv_buffer_size(uint32_t size)
+	force_inline bool set_recv_buffer_size(uint32_t size)
 	{
 		return tcpsocket::setsockopt(m_socket, SOL_SOCKET, SO_RCVBUF, &size, sizeof(uint32_t)) == 0;
 	}
-	fore_inline bool set_send_buffer_size(uint32_t size)
+	force_inline bool set_send_buffer_size(uint32_t size)
 	{
 		return tcpsocket::setsockopt(m_socket, SOL_SOCKET, SO_SNDBUF, &size, sizeof(uint32_t)) == 0;
 	}
-	fore_inline bool set_nonblocking(bool on)
+	force_inline bool set_nonblocking(bool on)
 	{ 
 		return tcpsocket::set_socket_nonblocking(m_socket, on);
 	}
-	fore_inline bool close()
+	force_inline bool close()
 	{
 		return tcpsocket::close_socket(m_socket) == 0;
 	}
-	fore_inline bool set_linger(uint32_t lingertime)
+	force_inline bool set_linger(uint32_t lingertime)
 	{
 		linger so_linger;
 		so_linger.l_onoff = true;
@@ -385,47 +385,47 @@ public:
 		return tcpsocket::setsockopt(m_socket, SOL_SOCKET, SO_LINGER, &so_linger, sizeof(so_linger)) == 0;
 	}
 public:
-	static fore_inline socket_t socket(int32_t domain, int32_t type, int32_t protocol)
+	static force_inline socket_t socket(int32_t domain, int32_t type, int32_t protocol)
 	{
 		return ::socket(domain, type, protocol);
 	}
-	static fore_inline int32_t bind(socket_t s, const struct sockaddr * name, uint32_t namelen)
+	static force_inline int32_t bind(socket_t s, const struct sockaddr * name, uint32_t namelen)
 	{
 		return ::bind(s, name, namelen);
 	}
-	static fore_inline int32_t connect(socket_t s, const struct sockaddr* name, uint32_t namelen)
+	static force_inline int32_t connect(socket_t s, const struct sockaddr* name, uint32_t namelen)
 	{
 		return ::connect(s, name, namelen);
 	}
-	static fore_inline int32_t listen(socket_t s, uint32_t backlog) 
+	static force_inline int32_t listen(socket_t s, uint32_t backlog) 
 	{
 		return ::listen(s, backlog);
 	}
-	static fore_inline socket_t accept(socket_t s, struct sockaddr * name, socklen_t * addrlen) 
+	static force_inline socket_t accept(socket_t s, struct sockaddr * name, socklen_t * addrlen) 
 	{
 		return ::accept(s, name, addrlen);
 	}
-	static fore_inline int32_t getsockopt(socket_t s, int32_t level, int32_t optname, void * optval, socklen_t * optlen) 
+	static force_inline int32_t getsockopt(socket_t s, int32_t level, int32_t optname, void * optval, socklen_t * optlen) 
 	{
 		return ::getsockopt(s, level, optname, (const char *)optval, optlen);
 	}
-	static fore_inline int32_t setsockopt(socket_t s, int32_t level, int32_t optname, const void * optval, socklen_t optlen) 
+	static force_inline int32_t setsockopt(socket_t s, int32_t level, int32_t optname, const void * optval, socklen_t optlen) 
 	{
 		return ::setsockopt(s, level, optname, (const char *)optval, optlen);
 	}
-	static fore_inline int32_t getsockname(socket_t s, struct sockaddr * name, socklen_t * addrlen) 
+	static force_inline int32_t getsockname(socket_t s, struct sockaddr * name, socklen_t * addrlen) 
 	{
 		return ::getsockname(s, name, addrlen);
 	}
-	static fore_inline int32_t send(socket_t s, const void * buf, int32_t len, int32_t flags) 
+	static force_inline int32_t send(socket_t s, const void * buf, int32_t len, int32_t flags) 
 	{
 		return ::send(s, (const char *)buf, len, flags);
 	}
-	static fore_inline int32_t recv(socket_t s, void * buf, int32_t len, int32_t flags) 
+	static force_inline int32_t recv(socket_t s, void * buf, int32_t len, int32_t flags) 
 	{
 		return ::recv(s, (char *)buf, len, flags);
 	}
-	static fore_inline int32_t close_socket(socket_t s)
+	static force_inline int32_t close_socket(socket_t s)
 	{
 #if defined(WIN32)
 		return ::closesocket(s);
@@ -433,7 +433,7 @@ public:
 		return ::close(s);
 #endif
 	}
-	static fore_inline bool set_socket_nonblocking(socket_t s, bool on) 
+	static force_inline bool set_socket_nonblocking(socket_t s, bool on) 
 	{
 #if defined(WIN32)
 		return ioctlsocket(s, FIONBIO, (u_long *)&on) == 0;
@@ -455,12 +455,12 @@ public:
 		return opts < 0 ? false : true;
 #endif
 	}
-	static fore_inline int32_t select(int32_t maxfdp1, fd_set * readset, fd_set * writeset, fd_set * exceptset, struct timeval* timeout) 
+	static force_inline int32_t select(int32_t maxfdp1, fd_set * readset, fd_set * writeset, fd_set * exceptset, struct timeval* timeout) 
 	{
 		return ::select(maxfdp1, readset, writeset, exceptset, timeout);
 	}
 private:
-	fore_inline void clear()
+	force_inline void clear()
 	{
 		m_socket = -1;
 		m_port = 0;

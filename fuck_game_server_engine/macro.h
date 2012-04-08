@@ -26,9 +26,9 @@
 
 #ifdef USE_FORCE_INLINE
 	#ifdef WIN32
-		#define fore_inline __forceinline
+		#define force_inline __forceinline
 	#else
-		#define fore_inline __inline__ __attribute__((always_inline))
+		#define force_inline __inline__ __attribute__((always_inline))
 	#endif
 #endif
 

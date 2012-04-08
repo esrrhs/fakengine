@@ -1,6 +1,6 @@
 #pragma once
 
-template <typename T> fore_inline
+template <typename T> force_inline
 T * fnew()
 {
 	T * p = (T *)FALLOC(sizeof(T));
@@ -9,7 +9,7 @@ T * fnew()
 	return p;
 }
 
-template <typename T, typename P1> fore_inline
+template <typename T, typename P1> force_inline
 T * fnew(const P1 & param1)
 {
 	T * p = (T *)FALLOC(sizeof(T));
@@ -18,7 +18,7 @@ T * fnew(const P1 & param1)
 	return p;
 }
 
-template <typename T, typename P1, typename P2> fore_inline
+template <typename T, typename P1, typename P2> force_inline
 	T * fnew(const P1 & param1, const P2 & param2)
 {
 	T * p = (T *)FALLOC(sizeof(T));
@@ -27,7 +27,7 @@ template <typename T, typename P1, typename P2> fore_inline
 	return p;
 }
 
-template <typename T> fore_inline
+template <typename T> force_inline
 void fdelete(T * p)
 {
 	FASSERT(p);

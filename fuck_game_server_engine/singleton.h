@@ -7,15 +7,15 @@ public:
 	singleton(){}
 	virtual ~singleton(){}
 	static T * pData;
-	static fore_inline void	release();
-	static fore_inline T * ptr();
-	static fore_inline T & ref();
+	static force_inline void	release();
+	static force_inline T * ptr();
+	static force_inline T & ref();
 };
 
 template <class T>
 T* singleton<T>::pData = 0;
 
-template <class T> fore_inline
+template <class T> force_inline
 T* singleton<T>::ptr()
 {
 	if(!pData)
@@ -25,7 +25,7 @@ T* singleton<T>::ptr()
 	return pData;
 }
 
-template <class T> fore_inline
+template <class T> force_inline
 T& singleton<T>::ref()
 {
 	if(!pData)
@@ -35,7 +35,7 @@ T& singleton<T>::ref()
 	return *pData;
 }
 
-template <class T> fore_inline
+template <class T> force_inline
 void singleton<T>::release()
 {
 	SAFE_DELETE(T, pData);

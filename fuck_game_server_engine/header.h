@@ -17,6 +17,7 @@
 #include <math.h>
 #include <functional>
 #include <string.h>
+#include <time.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -36,6 +37,7 @@
 #include <arpa/inet.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/time.h>
 #endif
 
 

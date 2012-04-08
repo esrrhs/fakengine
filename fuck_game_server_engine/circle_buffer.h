@@ -65,11 +65,11 @@ public:
 		return *this;
 	}
 public:
-	fore_inline bool can_write(size_t size)
+	force_inline bool can_write(size_t size)
 	{
 		return m_datasize + size <= m_size;
 	}
-	fore_inline void skip_write(size_t size)
+	force_inline void skip_write(size_t size)
 	{
 		m_datasize += size;
 		m_end += size;
@@ -78,7 +78,7 @@ public:
 			m_end -= m_size;
 		}
 	}
-	fore_inline bool write(const T * p, size_t size)
+	force_inline bool write(const T * p, size_t size)
 	{
 		if (!can_write(size))
 		{
@@ -91,11 +91,11 @@ public:
 
 		return true;
 	}
-	fore_inline bool can_read(size_t size)
+	force_inline bool can_read(size_t size)
 	{
 		return m_datasize >= size;
 	}
-	fore_inline void skip_read(size_t size)
+	force_inline void skip_read(size_t size)
 	{
 		m_datasize -= size;
 		m_begin += size;
@@ -104,7 +104,7 @@ public:
 			m_begin -= m_size;
 		}
 	}
-	fore_inline bool read(T * out, size_t size)
+	force_inline bool read(T * out, size_t size)
 	{
 		if (!can_read(size))
 		{
@@ -117,59 +117,59 @@ public:
 
 		return true;
 	}
-	fore_inline void store()
+	force_inline void store()
 	{
 		m_store_datasize = m_datasize;
 		m_store_begin = m_begin;
 		m_store_end = m_end;
 	}
-	fore_inline void restore()
+	force_inline void restore()
 	{
 		m_datasize = m_store_datasize;
 		m_begin = m_store_begin;
 		m_end = m_store_end;
 	}
-	fore_inline bool clear()
+	force_inline bool clear()
 	{
 		m_datasize = 0;
 		m_begin = 0;
 		m_end = 0;
 		return true;
 	}
-	fore_inline size_t size()
+	force_inline size_t size()
 	{
 		return m_datasize;
 	}
-	fore_inline size_t capacity()
+	force_inline size_t capacity()
 	{
 		return m_size;
 	}
-	fore_inline bool empty()
+	force_inline bool empty()
 	{
 		return size() == 0;
 	}
-	fore_inline bool full()
+	force_inline bool full()
 	{
 		return size() == capacity();
 	}
-	fore_inline T * get_read_line_buffer()
+	force_inline T * get_read_line_buffer()
 	{
 		return m_buffer + m_begin;
 	}
-	fore_inline size_t get_read_line_size()
+	force_inline size_t get_read_line_size()
 	{
 		return std::min<size_t>(m_datasize, m_size - m_begin);
 	}
-	fore_inline T * get_write_line_buffer()
+	force_inline T * get_write_line_buffer()
 	{
 		return m_buffer + m_end;
 	}
-	fore_inline size_t get_write_line_size()
+	force_inline size_t get_write_line_size()
 	{
 		return std::min<size_t>(m_size - m_datasize, m_size - m_end);
 	}
 private:
-	fore_inline void real_write(const T * p, size_t size)
+	force_inline void real_write(const T * p, size_t size)
 	{
 		if (m_end >= m_begin)	// [1][3]
 		{
@@ -189,7 +189,7 @@ private:
 			memcpy(m_buffer + m_end, p, size * sizeof(T));
 		}
 	}
-	fore_inline void real_read(T * out, size_t size)
+	force_inline void real_read(T * out, size_t size)
 	{
 		if (m_begin >= m_end)	// [2][4]
 		{

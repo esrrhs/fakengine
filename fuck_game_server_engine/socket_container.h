@@ -16,11 +16,11 @@ public:
 		max_accept_per_frame = 50,
 	};
 public:
-	fore_inline bool ini(const net_server_param & param)
+	force_inline bool ini(const net_server_param & param)
 	{
 		return m_socket.ini(param);
 	}
-	fore_inline void tick()
+	force_inline void tick()
 	{
 		// 处理新连接
 		accept();
@@ -36,7 +36,7 @@ public:
 
 	}
 private:
-	fore_inline bool accept()
+	force_inline bool accept()
 	{
 		m_socket.select();
 		if (m_socket.can_read())
@@ -52,7 +52,7 @@ private:
 		}
 		return true;
 	}
-	fore_inline bool select()
+	force_inline bool select()
 	{
 		m_real_select.clear();
 
@@ -65,7 +65,7 @@ private:
 
 		return m_real_select.select();
 	}
-	fore_inline bool tick_read()
+	force_inline bool tick_read()
 	{
 		for (_socket_store_iter it = m_socket_store.begin(); it != m_socket_store.end(); it++)
 		{
@@ -78,7 +78,7 @@ private:
 
 		return true;
 	}
-	fore_inline bool tick_write()
+	force_inline bool tick_write()
 	{
 		for (_socket_store_iter it = m_socket_store.begin(); it != m_socket_store.end(); it++)
 		{
@@ -93,20 +93,20 @@ private:
 	}
 public:
 	template<typename _msg>
-	fore_inline bool send_msg(_socket * s, const _msg & msg)
+	force_inline bool send_msg(_socket * s, const _msg & msg)
 	{
 		return s->send(msg);
 	}
 	template<typename _msg>
-	fore_inline bool recv_msg(_socket * & s, _msg & msg)
+	force_inline bool recv_msg(_socket * & s, _msg & msg)
 	{
 		return s->recv(msg);
 	}
-	fore_inline void reset()
+	force_inline void reset()
 	{
 		m_it_cur = m_socket_store.begin();
 	}
-	fore_inline bool get_next(_socket * & s)
+	force_inline bool get_next(_socket * & s)
 	{
 		if (m_it_cur != m_socket_store.end())
 		{
