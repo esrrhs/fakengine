@@ -286,7 +286,7 @@ public:
 		// 获取自己的信息
 		sockaddr_in _local_sockaddr;
 		memset(&_local_sockaddr, 0, sizeof(_local_sockaddr));
-		int32_t size = sizeof(_local_sockaddr);
+		socklen_t size = sizeof(_local_sockaddr);
 		if (tcpsocket::getsockname(m_socket, (sockaddr *)&_local_sockaddr, &size) == 0)
 		{
 			fstrcopy(m_ip, (const int8_t *)inet_ntoa(_local_sockaddr.sin_addr), sizeof(m_ip));
@@ -305,7 +305,7 @@ public:
 	{
 		sockaddr_in _sockaddr;
 		memset(&_sockaddr, 0, sizeof(_sockaddr));
-		int32_t size = sizeof(_sockaddr);
+		socklen_t size = sizeof(_sockaddr);
 		socket_t s;
 		s = tcpsocket::accept(m_socket, (sockaddr*)&_sockaddr, &size);
 		if (s != -1)
@@ -345,7 +345,7 @@ public:
 			// 获取自己的信息
 			sockaddr_in _local_sockaddr;
 			memset(&_local_sockaddr, 0, sizeof(_local_sockaddr));
-			int32_t size = sizeof(_local_sockaddr);
+			socklen_t size = sizeof(_local_sockaddr);
 			if (tcpsocket::getsockname(socket.m_socket, (sockaddr *)&_local_sockaddr, &size) == 0)
 			{
 				fstrcopy(socket.m_ip, (const int8_t *)inet_ntoa(_local_sockaddr.sin_addr), sizeof(socket.m_ip));
@@ -401,7 +401,7 @@ public:
 	{
 		return ::listen(s, backlog);
 	}
-	static fore_inline socket_t accept(socket_t s, struct sockaddr * name, int32_t * addrlen) 
+	static fore_inline socket_t accept(socket_t s, struct sockaddr * name, socklen_t * addrlen) 
 	{
 		return ::accept(s, name, addrlen);
 	}
@@ -413,7 +413,7 @@ public:
 	{
 		return ::setsockopt(s, level, optname, (const char *)optval, optlen);
 	}
-	static fore_inline int32_t getsockname(socket_t s, struct sockaddr * name, int32_t * addrlen) 
+	static fore_inline int32_t getsockname(socket_t s, struct sockaddr * name, socklen_t * addrlen) 
 	{
 		return ::getsockname(s, name, addrlen);
 	}
