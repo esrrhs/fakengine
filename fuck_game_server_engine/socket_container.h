@@ -125,7 +125,6 @@ private:
 		return true;
 	}
 public:
-	template<typename _msg>
 	force_inline bool send_msg(_socket & s, const _msg & msg)
 	{
 		return s.send(msg);
