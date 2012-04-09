@@ -29,6 +29,7 @@
     <ClInclude Include="include.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="netmsg.h" />
+    <ClInclude Include="netmsgprocessor.h" />
     <ClInclude Include="normal_allocator.h" />
     <ClInclude Include="readonly_allocator.h" />
     <ClInclude Include="selector.h" />
@@ -40,8 +41,6 @@
     <ClInclude Include="netserver.h" />
     <ClInclude Include="socket_link.h" />
     <ClInclude Include="tcpsocket.h" />
-    <ClInclude Include="thread_container.h" />
-    <ClInclude Include="thread_link.h" />
     <ClInclude Include="thread.h" />
     <ClInclude Include="thread_lock.h" />
     <ClInclude Include="thread_util.h" />

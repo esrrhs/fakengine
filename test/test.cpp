@@ -2,18 +2,54 @@
 
 typedef tcpsocket<cirle_buffer<int8_t, 1024 * 1024>, selector> mysocket;
 typedef netmsg< std::vector<int8_t, fallocator<int8_t, normal_allocator<int8_t> > > > mymsg;
-typedef std::list<mymsg, fallocator<mymsg, normal_allocator<mymsg> > > mymsgcontainer;
-typedef std::pair<mysocket*, mymsg> myserverelement;
-typedef std::list<myserverelement, fallocator<myserverelement, normal_allocator<myserverelement> > > myelecontainer;
+typedef netmsgprocessor<mysocket, mymsg> mynetmsgprocessor;
 typedef std::list<mysocket, fallocator<mysocket, normal_allocator<mysocket> > > mysocketlist;
 
-typedef socket_link<mysocket> mysocketlink;
-typedef thread_link<mymsg, mymsgcontainer, mysocketlink> mythreadlink;
-typedef netlink<mythreadlink> mynetlink;
 
-typedef socket_container<mysocket, selector, mysocketlist> mysocketcontainer;
-typedef thread_container<mymsg, mysocket, myelecontainer, mysocketcontainer> mythreadcontainer;
-typedef netserver<mythreadcontainer> mynetserver;
+class client_processor : public mynetmsgprocessor
+{
+public:
+	force_inline bool process(mysocket & s, const mymsg & msg)
+	{
+		int8_t buff[1024];
+		msg.read_buffer(buff, 1024);
+		std::string recstr((const char *)buff);
+		std::cout<<"client rec msg "<<recstr<<" from "<<(char *)s.get_peer_ip()
+			<<" port "<<s.get_peer_port()<<std::endl;
+
+		mymsg sendm;
+		std::string str = "hello server";
+		sendm.write_str((const int8_t *)str.c_str(), 1024);
+
+		s.send(sendm);
+		return true;
+	}
+};
+class server_processor : public mynetmsgprocessor
+{
+public:
+	force_inline bool process(mysocket & s, const mymsg & msg)
+	{
+		int8_t buff[1024];
+		msg.read_buffer(buff, 1024);
+		std::string recstr((const char *)buff);
+		std::cout<<"server rec msg "<<recstr<<" from "<<(char *)s.get_peer_ip()
+			<<" port "<<s.get_peer_port()<<std::endl;
+
+		mymsg sendm;
+		std::string str = "hello client";
+		sendm.write_str((const int8_t *)str.c_str(), 1024);
+
+		s.send(sendm);
+		return true;
+	}
+};
+
+typedef socket_link<mymsg, mysocket, client_processor> mysocketlink;
+typedef netlink<mysocketlink> mynetlink;
+
+typedef socket_container<mymsg, mysocket, selector, mysocketlist, server_processor> mysocketcontainer;
+typedef netserver<mysocketcontainer> mynetserver;
 
 int main(int argc, char *argv[])
 {
@@ -45,17 +81,7 @@ int main(int argc, char *argv[])
 
 		while (1)
 		{
-			mysocket * s = 0;
-			mymsg rec;
-			if (ns.recv_msg(s, rec))
-			{
-				int8_t buf[1024];
-				rec.read_buffer(buf, 1024);
-				std::string str((const char *)buf);
-				std::cout<<"server recv msg "<<str<<" from "<<s<<std::endl;
-				
-				ns.send_msg(s, sendm);
-			}
+			ns.tick();
 
 			fsleep(100);
 		}
@@ -77,16 +103,7 @@ int main(int argc, char *argv[])
 
 		while (1)
 		{
-			mymsg rec;
-			if (nl.recv_msg(rec))
-			{
-				int8_t buf[1024];
-				rec.read_buffer(buf, 1024);
-				std::string str((const char *)buf);
-				std::cout<<"client recv msg "<<str<<std::endl;
-
-				nl.send_msg(sendm);
-			}
+			nl.tick();
 			
 			fsleep(100);
 		}

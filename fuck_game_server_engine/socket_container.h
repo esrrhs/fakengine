@@ -1,7 +1,8 @@
 #pragma once
 
 // socket_container 连接服务端类
-template <typename _socket, typename _real_select, typename _socket_store>
+template <typename _msg, typename _socket, typename _real_select, 
+	typename _socket_store, typename _msg_processor>
 class socket_container
 {
 public:
@@ -75,6 +76,7 @@ private:
 			if (m_real_select.is_read(s.get_socket_t()))
 			{
 				s.fill();
+				process_msg(s);
 			}
 		}
 
@@ -124,35 +126,26 @@ private:
 	}
 public:
 	template<typename _msg>
-	force_inline bool send_msg(_socket * s, const _msg & msg)
+	force_inline bool send_msg(_socket & s, const _msg & msg)
 	{
-		return s->send(msg);
-	}
-	template<typename _msg>
-	force_inline bool recv_msg(_socket * & s, _msg & msg)
-	{
-		return s->recv(msg);
-	}
-	force_inline void reset()
-	{
-		m_it_cur = m_socket_store.begin();
-	}
-	force_inline bool get_next(_socket * & s)
-	{
-		if (m_it_cur != m_socket_store.end())
-		{
-			s = &(*m_it_cur);
-			m_it_cur++;
-			return true;
-		}
-		return false;
+		return s.send(msg);
 	}
 private:
+	force_inline bool process_msg(_socket & s)
+	{
+		_msg msg;
+		while (s.recv(msg))
+		{
+			m_msg_processor.process(s, msg);
+		}
+		return true;
+	}
+private:
+	typedef typename _socket_store::iterator _socket_store_iter;
 	_socket m_socket;
 	_real_select m_real_select;
 	_socket_store m_socket_store;
-	typedef typename _socket_store::iterator _socket_store_iter;
-	_socket_store_iter m_it_cur;
+	_msg_processor m_msg_processor;
 };
 
 

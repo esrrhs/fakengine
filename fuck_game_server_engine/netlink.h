@@ -25,21 +25,6 @@ public:
 	{
 		return m_link.send_msg(msg);
 	}
-	template<typename _msg_container>
-	force_inline bool send_msgs(const _msg_container & mc)
-	{
-		return m_link.send_msgs(mc);
-	}
-	template<typename _msg>
-	force_inline bool recv_msg(_msg & msg)
-	{
-		return m_link.recv_msg(msg);
-	}
-	template<typename _msg_container>
-	force_inline bool recv_msgs(_msg_container & mc)
-	{
-		return m_link.recv_msgs(mc);
-	}
 private:
 	_link m_link;
 };

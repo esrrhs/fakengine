@@ -23,24 +23,9 @@ public:
 	}
 public:
 	template<typename ele_type, typename _msg>
-	force_inline bool send_msg(ele_type * e, const _msg & msg)
+	force_inline bool send_msg(ele_type & e, const _msg & msg)
 	{
 		return m_container.send_msg(e, msg);
-	}
-	template<typename _ele_container>
-	force_inline bool send_msgs(const _ele_container & ec)
-	{
-		return m_container.send_msgs(ec);
-	}
-	template<typename ele_type, typename _msg>
-	force_inline bool recv_msg(ele_type * & e, _msg & msg)
-	{
-		return m_container.recv_msg(e, msg);
-	}
-	template<typename _ele_container>
-	force_inline bool recv_msgs(_ele_container & ec)
-	{
-		return m_container.recv_msgs(ec);
 	}
 private:
 	_container m_container;

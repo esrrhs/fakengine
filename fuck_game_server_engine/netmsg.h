@@ -63,7 +63,7 @@ public:
 	{
 		m_buffer.insert(m_buffer.end(), p, p + size);
 	}
-	force_inline void read_buffer(int8_t * p, size_t size)
+	force_inline void read_buffer(int8_t * p, size_t size) const
 	{
 		FASSERT(m_iter + size <= m_buffer.size());
 		memcpy(p, (const void *)&m_buffer[m_iter], size);
@@ -136,6 +136,6 @@ public:
 	}
 private:
 	_buffer m_buffer;
-	size_t m_iter;
+	mutable size_t m_iter;
 };
 

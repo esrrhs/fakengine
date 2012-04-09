@@ -1,7 +1,7 @@
 #pragma once
 
 // socket_link 发送类
-template <typename _socket>
+template <typename _msg, typename _socket, typename _msg_processor>
 class socket_link
 {
 public:
@@ -29,6 +29,8 @@ public:
 				if (m_socket.can_read())
 				{
 					m_socket.fill();
+					// 立即处理消息
+					process_msg();
 				}
 			}
 		}
@@ -37,17 +39,22 @@ public:
 			m_socket.reconnect();
 		}
 	}
-	template<typename _msg>
 	force_inline bool send_msg(const _msg & msg)
 	{
 		return m_socket.send(msg);
 	}
-	template<typename _msg>
-	force_inline bool recv_msg(_msg & msg)
+private:
+	force_inline bool process_msg()
 	{
-		return m_socket.recv(msg);
+		_msg msg;
+		while (m_socket.recv(msg))
+		{
+			m_msg_processor.process(m_socket, msg);
+		}
+		return true;
 	}
 private:
 	_socket m_socket;
+	_msg_processor m_msg_processor;
 };
 

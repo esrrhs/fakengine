@@ -477,23 +477,23 @@ private:
 		memset(m_peer_ip, 0, sizeof(m_peer_ip));
 	}
 public:
-	socket_t get_socket_t()
+	socket_t get_socket_t() const
 	{
 		return m_socket;
 	}
-	int8_t * get_ip()
+	const int8_t * get_ip() const
 	{
 		return m_ip;
 	}
-	int8_t * get_peer_ip()
+	const int8_t * get_peer_ip() const
 	{
 		return m_peer_ip;
 	}
-	uint16_t get_port()
+	uint16_t get_port() const
 	{
 		return m_port;
 	}
-	uint16_t get_peer_port()
+	uint16_t get_peer_port() const
 	{
 		return m_peer_port;
 	}

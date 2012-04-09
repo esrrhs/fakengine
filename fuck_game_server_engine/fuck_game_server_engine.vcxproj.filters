@@ -71,13 +71,7 @@
     <ClInclude Include="slot.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="thread_container.h">
-      <Filter>net</Filter>
-    </ClInclude>
     <ClInclude Include="socket_container.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="thread_link.h">
       <Filter>net</Filter>
     </ClInclude>
     <ClInclude Include="socket_link.h">
@@ -94,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="ftime.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="netmsgprocessor.h">
+      <Filter>net</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
