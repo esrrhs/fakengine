@@ -65,6 +65,11 @@ int main(int argc, char *argv[])
 
 	fengine fe;
 	
+	inifile ifile;
+	ifile.load("config.ini");
+	std::string ss;
+	ifile.get("sec0", "key0", ss);
+
 	if (str == "server")
 	{
 		mynetserver ns;
