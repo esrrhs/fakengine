@@ -27,6 +27,7 @@
     <ClInclude Include="fuck_game_server_engine.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="include.h" />
+    <ClInclude Include="inifile.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="netmsg.h" />
     <ClInclude Include="netmsgprocessor.h" />

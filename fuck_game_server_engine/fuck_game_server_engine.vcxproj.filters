@@ -92,6 +92,9 @@
     <ClInclude Include="netmsgprocessor.h">
       <Filter>net</Filter>
     </ClInclude>
+    <ClInclude Include="inifile.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

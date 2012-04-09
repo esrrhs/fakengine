@@ -6,6 +6,7 @@
 #include "slot.h"
 #include "fstring.h"
 #include "ftime.h"
+#include "inifile.h"
 
 #include "allocator.h"
 #include "readonly_allocator.h"

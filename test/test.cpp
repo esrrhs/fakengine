@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 	std::string port = argv[3];
 
 	fengine fe;
-
+	
 	if (str == "server")
 	{
 		mynetserver ns;

@@ -12,7 +12,7 @@ public:
 		exit();
 	}
 private:
-	bool ini()
+	force_inline bool ini()
 	{
 #ifdef WIN32
 		WORD wVersionRequested;
@@ -28,7 +28,7 @@ private:
 #endif
 		return true;
 	}
-	bool exit()
+	force_inline bool exit()
 	{
 		return true;
 	}
