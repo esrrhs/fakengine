@@ -70,6 +70,11 @@ int main(int argc, char *argv[])
 	std::string ss;
 	ifile.get("sec0", "key0", ss);
 
+	flog fl(1, "trace.log");
+	fl.start();
+	fl.write("haha");
+	fl.write("test");
+
 	if (str == "server")
 	{
 		mynetserver ns;

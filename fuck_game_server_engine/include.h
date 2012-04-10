@@ -17,6 +17,8 @@
 #include "thread.h"
 #include "thread_util.h"
 
+#include "flog.h"
+
 #include "netlink.h"
 #include "netmsg.h"
 #include "netserver.h"

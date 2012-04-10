@@ -95,6 +95,9 @@
     <ClInclude Include="inifile.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="flog.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
