@@ -98,6 +98,9 @@
     <ClInclude Include="flog.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="mainapp.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

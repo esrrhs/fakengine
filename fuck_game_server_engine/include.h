@@ -7,6 +7,7 @@
 #include "fstring.h"
 #include "ftime.h"
 #include "inifile.h"
+#include "mainapp.h"
 
 #include "allocator.h"
 #include "readonly_allocator.h"

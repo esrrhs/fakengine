@@ -30,6 +30,7 @@
     <ClInclude Include="include.h" />
     <ClInclude Include="inifile.h" />
     <ClInclude Include="macro.h" />
+    <ClInclude Include="mainapp.h" />
     <ClInclude Include="netmsg.h" />
     <ClInclude Include="netmsgprocessor.h" />
     <ClInclude Include="normal_allocator.h" />
