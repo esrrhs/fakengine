@@ -6,6 +6,9 @@ public:
 	flog(uint32_t type, const std::string & file) : m_type(type), m_file(file)
 	{
 	}
+	~flog()
+	{
+	}
 
 	virtual void run()
 	{
@@ -69,5 +72,32 @@ private:
 	std::string m_file;
 	thread_lock m_lock;
 	std::string m_to_write;
+};
+
+class flogSystem : public singleton<flogSystem>
+{
+public:
+	flogSystem()
+	{
+	}
+	~flogSystem()
+	{
+	}
+	force_inline void add(uint32_t type, const std::string & file)
+	{
+		m_flogmap[type] = fnew<flog>(type, file);
+		m_flogmap[type]->start();
+	}
+	force_inline void write(uint32_t type, const std::string & str)
+	{
+		flog * p = m_flogmap[type];
+		if (p)
+		{
+			p->write(str);
+		}
+	}
+private:
+	typedef std::map<uint32_t, flog *> FLOG_MAP;
+	FLOG_MAP m_flogmap;
 };
 
