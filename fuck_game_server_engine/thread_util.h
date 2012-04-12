@@ -1,6 +1,6 @@
 #pragma once
 
-void fsleep(int32_t millionseconds)
+static force_inline void fsleep(int32_t millionseconds)
 {
 #if defined(WIN32)
 	Sleep(millionseconds);
@@ -9,7 +9,7 @@ void fsleep(int32_t millionseconds)
 #endif
 }
 
-t_id fget_current_thread_id()
+static force_inline t_id fget_current_thread_id()
 {
 #if defined(WIN32)
 	return GetCurrentThreadId();

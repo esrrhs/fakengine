@@ -9,9 +9,9 @@ public:
 	virtual ~mainapp()
 	{
 	}
-	force_inline void run()
+	force_inline void run(int argc, char *argv[])
 	{
-		if (!ini())
+		if (!ini(argc, argv))
 		{
 			return;
 		}
@@ -22,7 +22,7 @@ public:
 		exit();
 	}
 protected:
-	force_inline virtual bool ini()
+	force_inline virtual bool ini(int argc, char *argv[])
 	{
 		return true;
 	}
