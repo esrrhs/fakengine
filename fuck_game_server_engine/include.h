@@ -29,8 +29,10 @@
 #include "selector.h"
 #include "netmsgprocessor.h"
 
+extern "C" 
+{
 #include "lua.h"
-#include "lauxlib.h"
-#include "luaconf.h"
 #include "lualib.h"
+#include "lauxlib.h"
+};
 #include "lua_tinker.h"
