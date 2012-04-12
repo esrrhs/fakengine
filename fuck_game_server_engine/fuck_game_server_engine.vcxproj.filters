@@ -101,6 +101,21 @@
     <ClInclude Include="mainapp.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="lauxlib.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_tinker.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="luaconf.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lualib.h">
+      <Filter>lua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
@@ -112,8 +127,14 @@
     <Filter Include="thread">
       <UniqueIdentifier>{6c802360-f591-469f-83cf-42ce5577dfae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lua">
+      <UniqueIdentifier>{b8823093-ffe6-4022-8e02-170413afc870}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fuck_game_server_engine.cpp" />
+    <ClCompile Include="lua_tinker.cpp">
+      <Filter>lua</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

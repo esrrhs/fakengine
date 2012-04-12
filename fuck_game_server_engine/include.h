@@ -28,3 +28,9 @@
 #include "socket_container.h"
 #include "selector.h"
 #include "netmsgprocessor.h"
+
+#include "lua.h"
+#include "lauxlib.h"
+#include "luaconf.h"
+#include "lualib.h"
+#include "lua_tinker.h"

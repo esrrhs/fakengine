@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fuck_game_server_engine.cpp" />
+    <ClCompile Include="lua_tinker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="alloc.h" />
@@ -29,6 +30,11 @@
     <ClInclude Include="header.h" />
     <ClInclude Include="include.h" />
     <ClInclude Include="inifile.h" />
+    <ClInclude Include="lauxlib.h" />
+    <ClInclude Include="lua.h" />
+    <ClInclude Include="luaconf.h" />
+    <ClInclude Include="lualib.h" />
+    <ClInclude Include="lua_tinker.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="mainapp.h" />
     <ClInclude Include="netmsg.h" />
