@@ -27,6 +27,15 @@ template <typename T, typename P1, typename P2> force_inline
 	return p;
 }
 
+template <typename T, typename P1, typename P2, typename P3> force_inline
+	T * fnew(const P1 & param1, const P2 & param2, const P3 & param3)
+{
+	T * p = (T *)FALLOC(sizeof(T));
+	FASSERT(p);
+	new (p) T (param1, param2, param3);
+	return p;
+}
+
 template <typename T> force_inline
 void fdelete(T * p)
 {
