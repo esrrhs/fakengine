@@ -14,8 +14,8 @@ force_inline uint32_t get_ms_tick()
 	if(::gettimeofday(&tv, 0) == 0)
 	{
 		uint64_t t = tv.tv_sec * 1000;
-		t += tv.tv_uec / 1000;
-		return t & UINT32_MAX;
+		t += tv.tv_usec / 1000;
+		return t &  0xffffffff;
 	}
 	return 0;
 #endif
