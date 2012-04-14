@@ -13,7 +13,9 @@ force_inline uint32_t get_ms_tick()
 	struct timeval tv;
 	if(::gettimeofday(&tv, 0) == 0)
 	{
-		return tv.tv_sec * 1000 + tv.tv_sec;
+		uint64_t t = tv.tv_sec * 1000;
+		t += tv.tv_uec / 1000;
+		return t & UINT32_MAX;
 	}
 	return 0;
 #endif
