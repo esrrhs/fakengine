@@ -141,12 +141,18 @@ private:
 	force_inline bool get_value(std::string & buff, std::string & value)
 	{
 		int32_t pos = buff.find('[');
-		SAFE_TEST_RET_VAL(pos, -1, false);
+		if (pos != -1)
+		{
+			value = buff.substr(0, pos);
+			buff = buff.substr(pos);
 
-		value = buff.substr(0, pos);
-		buff = buff.substr(pos);
-
-		trim_string(value);
+			trim_string(value);
+		}
+		else
+		{
+			value = buff;
+			buff = "";
+		}
 
 		return true;
 	}

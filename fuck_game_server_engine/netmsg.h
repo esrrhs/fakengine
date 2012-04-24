@@ -17,7 +17,7 @@ public:
 		msg_size_size = 2,		// 包长度的长度
 	};
 public:
-	force_inline void reset()
+	force_inline void reset() const
 	{
 		m_iter = 0;
 	}
@@ -51,11 +51,11 @@ public:
 			write_int8(0, size - len);
 		}
 	}
-	force_inline void read_uint32(uint32_t & i)
+	force_inline void read_uint32(uint32_t & i) const
 	{
 		read_buffer((int8_t*)&i, sizeof(i));
 	}
-	force_inline void read_int32(int32_t & i)
+	force_inline void read_int32(int32_t & i) const
 	{
 		read_buffer((int8_t*)&i, sizeof(i));
 	}
@@ -66,7 +66,14 @@ public:
 	force_inline void read_buffer(int8_t * p, size_t size) const
 	{
 		FASSERT(m_iter + size <= m_buffer.size());
-		memcpy(p, (const void *)&m_buffer[m_iter], size);
+		if (m_iter + size <= m_buffer.size())
+		{
+			memcpy(p, (const void *)&m_buffer[m_iter], size);
+		}
+		else
+		{
+			memset(p, 0, size);
+		}
 		m_iter += size;
 	}
 	force_inline size_t size()
