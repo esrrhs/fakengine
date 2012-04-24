@@ -3,7 +3,7 @@
 class flog : public thread
 {
 public:
-	flog(uint32_t type, const std::string & file) : m_type(type), m_file(file)
+	flog(uint32_t type, const std::string & file) : m_type(type), m_file(file), m_loop_end(false)
 	{
 	}
 	~flog()
@@ -15,6 +15,8 @@ public:
 		std::string str;
 		while (1)
 		{
+			m_loop_end = false;
+
 			str.clear();
 
 			{
@@ -31,6 +33,8 @@ public:
 				real_write(str);
 			}
 
+			m_loop_end = true;
+
 			fsleep(100);
 		}
 	}
@@ -39,6 +43,17 @@ public:
 		auto_lock<thread_lock> lock(m_lock);
 		m_to_write = m_to_write + str;
 		m_to_write = m_to_write + "\n";
+	}
+	force_inline void flush()
+	{
+		while (1)
+		{
+			if (m_to_write.empty() && m_loop_end)
+			{
+				break;
+			}
+			fsleep(1);
+		}
 	}
 private:
 	force_inline bool real_write(const std::string & str)
@@ -72,6 +87,7 @@ private:
 	std::string m_file;
 	thread_lock m_lock;
 	std::string m_to_write;
+	bool m_loop_end;
 };
 
 class flogSystem : public singleton<flogSystem>
@@ -94,6 +110,17 @@ public:
 		if (p)
 		{
 			p->write(str);
+		}
+	}
+	force_inline void flush()
+	{
+		for (FLOG_MAP::iterator it = m_flogmap.begin(); it != m_flogmap.end(); it++)
+		{
+			flog * p = it->second;
+			if (p)
+			{
+				p->flush();
+			}
 		}
 	}
 private:
