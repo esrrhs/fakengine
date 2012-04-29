@@ -35,6 +35,7 @@ protected:
 		return true;
 	}
 private:
+	fengine m_engine;
 	bool m_exit;
 };
 
