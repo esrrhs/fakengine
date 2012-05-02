@@ -88,6 +88,8 @@
     <ClInclude Include="lua_tinker.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="mainapp.h" />
+    <ClInclude Include="socket_container_event_processor.h" />
+    <ClInclude Include="socket_link_event_processor.h" />
     <ClInclude Include="netmsg.h" />
     <ClInclude Include="netmsgprocessor.h" />
     <ClInclude Include="normal_allocator.h" />

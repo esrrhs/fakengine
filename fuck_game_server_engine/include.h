@@ -28,6 +28,8 @@
 #include "socket_container.h"
 #include "selector.h"
 #include "netmsgprocessor.h"
+#include "socket_link_event_processor.h"
+#include "socket_container_event_processor.h"
 
 extern "C" 
 {

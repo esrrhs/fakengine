@@ -49,4 +49,5 @@
 2012.4.24：修改inifile的bug
 2012.4.24：修改inifile的bug，linux下添加调试
 2012.4.29：修改下mainapp
+2012.5.2：添加event
 

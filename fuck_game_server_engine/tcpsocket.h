@@ -223,6 +223,10 @@ public:
 	{
 		return m_selector.is_write(m_socket);
 	}
+	force_inline bool can_except()
+	{
+		return m_selector.is_except(m_socket);
+	}
 	force_inline bool connected()
 	{
 		return m_connected;

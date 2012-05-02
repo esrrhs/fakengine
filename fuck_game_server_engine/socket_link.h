@@ -1,11 +1,11 @@
 #pragma once
 
 // socket_link 发送类
-template <typename _msg, typename _socket, typename _msg_processor>
+template <typename _msg, typename _socket, typename _msg_processor, typename _event_processor>
 class socket_link
 {
 public:
-	socket_link()
+	socket_link() : m_connect(false)
 	{
 	}
 	~socket_link()
@@ -20,6 +20,12 @@ public:
 	{
 		if (m_socket.connected())
 		{
+			if (!m_connect)
+			{
+				m_event_processor.on_connect();
+				m_connect = true;
+			}
+
 			if (m_socket.select())
 			{
 				if (m_socket.can_write())
@@ -32,10 +38,20 @@ public:
 					// 立即处理消息
 					process_msg();
 				}
+				if (m_socket.can_except())
+				{
+					m_socket.close();
+				}
 			}
 		}
 		else
 		{
+			if (m_connect)
+			{
+				m_event_processor.on_close();
+				m_connect = false;
+			}
+
 			m_socket.reconnect();
 		}
 	}
@@ -55,6 +71,8 @@ private:
 	}
 private:
 	_socket m_socket;
+	bool m_connect;
 	_msg_processor m_msg_processor;
+	_event_processor m_event_processor;
 };
 

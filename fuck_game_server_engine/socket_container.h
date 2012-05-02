@@ -2,7 +2,7 @@
 
 // socket_container 连接服务端类
 template <typename _msg, typename _socket, typename _real_select, 
-	typename _socket_store, typename _msg_processor>
+	typename _socket_store, typename _msg_processor, typename _event_processor>
 class socket_container
 {
 public:
@@ -51,6 +51,7 @@ private:
 				// add to container
 				m_socket_store.push_back(s);
 				num++;
+				m_event_processor.on_accept(s);
 			}
 		}
 		return true;
@@ -106,6 +107,7 @@ private:
 					s.get_peer_ip(), 
 					s.get_peer_port());
 
+				m_event_processor.on_close(s);
 				m_socket_store.erase(it++);
 			}
 			else if (m_real_select.is_except(s.get_socket_t()))
@@ -114,6 +116,7 @@ private:
 					s.get_peer_ip(), 
 					s.get_peer_port());
 
+				m_event_processor.on_close(s);
 				m_socket_store.erase(it++);
 			}
 			else
@@ -145,6 +148,7 @@ private:
 	_real_select m_real_select;
 	_socket_store m_socket_store;
 	_msg_processor m_msg_processor;
+	_event_processor m_event_processor;
 };
 
 
