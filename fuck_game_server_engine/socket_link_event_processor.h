@@ -1,5 +1,6 @@
 #pragma once
 
+template <typename _socket>
 class socket_link_event_processor
 {
 public:
@@ -10,11 +11,11 @@ public:
 	{
 	}
 public:
-	force_inline bool on_close()
+	force_inline bool on_close(const _socket & s)
 	{
 		return true;
 	}
-	force_inline bool on_connect()
+	force_inline bool on_connect(const _socket & s)
 	{
 		return true;
 	}

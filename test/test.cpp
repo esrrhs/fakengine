@@ -4,7 +4,7 @@ typedef tcpsocket<cirle_buffer<int8_t, 1024 * 1024>, selector> mysocket;
 typedef netmsg< std::vector<int8_t, fallocator<int8_t, normal_allocator<int8_t> > > > mymsg;
 typedef netmsgprocessor<mysocket, mymsg> mynetmsgprocessor;
 typedef std::list<mysocket, fallocator<mysocket, normal_allocator<mysocket> > > mysocketlist;
-typedef socket_link_event_processor mysocketlinkeventprocessor;
+typedef socket_link_event_processor<mysocket> mysocketlinkeventprocessor;
 typedef socket_container_event_processor<mysocket> mysocketcontainereventprocessor;
 
 class client_processor : public mynetmsgprocessor

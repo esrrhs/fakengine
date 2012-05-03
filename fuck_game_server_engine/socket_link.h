@@ -22,7 +22,7 @@ public:
 		{
 			if (!m_connect)
 			{
-				m_event_processor.on_connect();
+				m_event_processor.on_connect(m_socket);
 				m_connect = true;
 			}
 
@@ -48,7 +48,7 @@ public:
 		{
 			if (m_connect)
 			{
-				m_event_processor.on_close();
+				m_event_processor.on_close(m_socket);
 				m_connect = false;
 			}
 
