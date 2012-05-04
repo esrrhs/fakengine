@@ -173,6 +173,9 @@
     <ClInclude Include="neteventprocessor.h">
       <Filter>net</Filter>
     </ClInclude>
+    <ClInclude Include="thread_tls.h">
+      <Filter>thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

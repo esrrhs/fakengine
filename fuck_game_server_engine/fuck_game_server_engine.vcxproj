@@ -103,6 +103,7 @@
     <ClInclude Include="tcpsocket.h" />
     <ClInclude Include="thread.h" />
     <ClInclude Include="thread_lock.h" />
+    <ClInclude Include="thread_tls.h" />
     <ClInclude Include="thread_util.h" />
     <ClInclude Include="type.h" />
   </ItemGroup>

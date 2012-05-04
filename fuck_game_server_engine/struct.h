@@ -18,8 +18,8 @@ struct tcp_socket_server_param
 
 struct tcp_socket_link_param
 {
-	tcp_socket_link_param() : ip("127.0.0.1"), port(2012), is_non_blocking(true), 
-		lingertime(0), socket_send_buffer_size(1024), socket_recv_buffer_size(1024) 
+	tcp_socket_link_param() : ip("127.0.0.1"), port(2012), lingertime(0), 
+		is_non_blocking(true), socket_send_buffer_size(1024), socket_recv_buffer_size(1024) 
 	{
 	}
 	std::string ip;

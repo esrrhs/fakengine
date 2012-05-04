@@ -14,6 +14,7 @@
 #include "normal_allocator.h"
 
 #include "thread_lock.h"
+#include "thread_tls.h"
 #include "auto_lock.h"
 #include "thread.h"
 #include "thread_util.h"

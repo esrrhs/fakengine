@@ -12,3 +12,10 @@ typedef int32_t socklen_t;
 #else
 #endif
 
+#if defined(WIN32)
+typedef DWORD tls_key;
+#else
+typedef pthread_key_t tls_key;
+#endif
+
+

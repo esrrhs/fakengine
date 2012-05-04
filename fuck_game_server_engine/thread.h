@@ -51,6 +51,9 @@ public:
 	static void * my_thread_process(void * derivedThread)
 #endif
 	{
+#ifndef WIN32
+		pthread_detach(pthread_self());
+#endif
 		thread * t = (thread*)derivedThread;
 		FASSERT(t);
 
