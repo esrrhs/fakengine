@@ -2,7 +2,7 @@
 
 // socket_container 连接服务端类
 template <typename _msg, typename _socket, typename _real_select, 
-	typename _socket_store, typename _msg_processor, typename _event_processor>
+	typename _socket_store, typename _event_processor>
 class socket_container
 {
 public:
@@ -17,7 +17,8 @@ public:
 		max_accept_per_frame = 50,
 	};
 public:
-	force_inline bool ini(const net_server_param & param)
+	template<typename _param>
+	force_inline bool ini(const _param & param)
 	{
 		return m_socket.ini(param);
 	}
@@ -138,7 +139,7 @@ private:
 		_msg msg;
 		while (s.recv(msg))
 		{
-			m_msg_processor.process(s, msg);
+			m_event_processor.on_recv_msg(s, msg);
 		}
 		return true;
 	}
@@ -147,7 +148,6 @@ private:
 	_socket m_socket;
 	_real_select m_real_select;
 	_socket_store m_socket_store;
-	_msg_processor m_msg_processor;
 	_event_processor m_event_processor;
 };
 

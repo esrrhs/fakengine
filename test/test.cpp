@@ -2,15 +2,13 @@
 
 typedef tcpsocket<cirle_buffer<int8_t, 1024 * 1024>, selector> mysocket;
 typedef netmsg< std::vector<int8_t, fallocator<int8_t, normal_allocator<int8_t> > > > mymsg;
-typedef netmsgprocessor<mysocket, mymsg> mynetmsgprocessor;
+typedef neteventprocessor<mysocket, mymsg> myneteventprocessor;
 typedef std::list<mysocket, fallocator<mysocket, normal_allocator<mysocket> > > mysocketlist;
-typedef socket_link_event_processor<mysocket> mysocketlinkeventprocessor;
-typedef socket_container_event_processor<mysocket> mysocketcontainereventprocessor;
 
-class client_processor : public mynetmsgprocessor
+class client_processor : public myneteventprocessor
 {
 public:
-	force_inline bool process(mysocket & s, const mymsg & msg)
+	force_inline bool on_recv_msg(mysocket & s, const mymsg & msg)
 	{
 		int8_t buff[1024];
 		msg.read_buffer(buff, 1024);
@@ -26,10 +24,10 @@ public:
 		return true;
 	}
 };
-class server_processor : public mynetmsgprocessor
+class server_processor : public myneteventprocessor
 {
 public:
-	force_inline bool process(mysocket & s, const mymsg & msg)
+	force_inline bool on_recv_msg(mysocket & s, const mymsg & msg)
 	{
 		int8_t buff[1024];
 		msg.read_buffer(buff, 1024);
@@ -46,10 +44,10 @@ public:
 	}
 };
 
-typedef socket_link<mymsg, mysocket, client_processor, mysocketlinkeventprocessor> mysocketlink;
+typedef socket_link<mymsg, mysocket, client_processor> mysocketlink;
 typedef netlink<mysocketlink> mynetlink;
 
-typedef socket_container<mymsg, mysocket, selector, mysocketlist, server_processor, mysocketcontainereventprocessor> mysocketcontainer;
+typedef socket_container<mymsg, mysocket, selector, mysocketlist, server_processor> mysocketcontainer;
 typedef netserver<mysocketcontainer> mynetserver;
 
 int main(int argc, char *argv[])

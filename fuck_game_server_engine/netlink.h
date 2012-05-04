@@ -12,7 +12,8 @@ public:
 	{
 	}
 public:
-	force_inline bool ini(const net_link_param & param)
+	template<typename _param>
+	force_inline bool ini(const _param & param)
 	{
 		return m_link.ini(param);
 	}

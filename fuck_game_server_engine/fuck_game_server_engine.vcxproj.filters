@@ -89,9 +89,6 @@
     <ClInclude Include="ftime.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="netmsgprocessor.h">
-      <Filter>net</Filter>
-    </ClInclude>
     <ClInclude Include="inifile.h">
       <Filter>common</Filter>
     </ClInclude>
@@ -173,10 +170,7 @@
     <ClInclude Include="lua\lzio.h">
       <Filter>lua</Filter>
     </ClInclude>
-    <ClInclude Include="socket_link_event_processor.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="socket_container_event_processor.h">
+    <ClInclude Include="neteventprocessor.h">
       <Filter>net</Filter>
     </ClInclude>
   </ItemGroup>

@@ -67,13 +67,12 @@ public:
 		m_recv_queue.restore();
 		return false;
 	}
-	force_inline bool ini(const net_link_param & param)
+	force_inline bool ini(const tcp_socket_link_param & tparam)
 	{
 		// close
 		close();
 		clear();
 
-		const tcp_socket_link_param & tparam = (const tcp_socket_link_param &)param;
 		fstrcopy(m_peer_ip, (const int8_t *)tparam.ip.c_str(), sizeof(m_peer_ip));
 		m_peer_port = tparam.port;
 		m_is_non_blocking = tparam.is_non_blocking;
@@ -92,13 +91,12 @@ public:
 
 		return true;
 	}
-	force_inline bool ini(const net_server_param & param)
+	force_inline bool ini(const tcp_socket_server_param & tparam)
 	{
 		// close
 		close();
 		clear();
 
-		const tcp_socket_server_param & tparam = (const tcp_socket_server_param &)param;
 		fstrcopy(m_ip, (const int8_t *)tparam.ip.c_str(), sizeof(m_ip));
 		m_port = tparam.port;
 		m_is_non_blocking = tparam.is_non_blocking;

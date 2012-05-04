@@ -1,7 +1,7 @@
 #pragma once
 
 // socket_link ∑¢ÀÕ¿‡
-template <typename _msg, typename _socket, typename _msg_processor, typename _event_processor>
+template <typename _msg, typename _socket, typename _event_processor>
 class socket_link
 {
 public:
@@ -12,7 +12,8 @@ public:
 	{
 	}
 public:
-	force_inline bool ini(const net_link_param & param)
+	template<typename _param>
+	force_inline bool ini(const _param & param)
 	{
 		return m_socket.ini(param);
 	}
@@ -65,14 +66,13 @@ private:
 		_msg msg;
 		while (m_socket.recv(msg))
 		{
-			m_msg_processor.process(m_socket, msg);
+			m_event_processor.on_recv_msg(m_socket, msg);
 		}
 		return true;
 	}
 private:
 	_socket m_socket;
 	bool m_connect;
-	_msg_processor m_msg_processor;
 	_event_processor m_event_processor;
 };
 

@@ -13,7 +13,8 @@ public:
 	{
 	}
 public:
-	force_inline bool ini(const net_server_param & param)
+	template<typename _param>
+	force_inline bool ini(const _param & param)
 	{
 		return m_container.ini(param);
 	}
