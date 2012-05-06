@@ -21,19 +21,19 @@ public:
 	{
 		m_iter = 0;
 	}
-	force_inline void write_int8(const int8_t & c, size_t num)
+	force_inline void write_int8(int8_t c, size_t num)
 	{
 		m_buffer.insert(m_buffer.end(), num, c);
 	}
-	force_inline void write_int16(const int16_t & i)
+	force_inline void write_int16(int16_t i)
 	{
 		write_buffer((int8_t*)&i, sizeof(i));
 	}
-	force_inline void write_int32(const int32_t & i)
+	force_inline void write_int32(int32_t i)
 	{
 		write_buffer((int8_t*)&i, sizeof(i));
 	}
-	force_inline void write_int64(const int64_t & i)
+	force_inline void write_int64(int64_t i)
 	{
 		write_buffer((int8_t*)&i, sizeof(i));
 	}
