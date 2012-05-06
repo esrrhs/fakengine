@@ -85,7 +85,6 @@ public:
 	}
 	force_inline void read_buffer(int8_t * p, size_t size) const
 	{
-		FASSERT(m_iter + size <= m_buffer.size());
 		if (m_iter + size <= m_buffer.size())
 		{
 			memcpy(p, (const void *)&m_buffer[m_iter], size);
