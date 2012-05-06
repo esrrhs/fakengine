@@ -25,11 +25,15 @@ public:
 	{
 		m_buffer.insert(m_buffer.end(), num, c);
 	}
-	force_inline void write_uint32(const uint32_t & i)
+	force_inline void write_int16(const int16_t & i)
 	{
 		write_buffer((int8_t*)&i, sizeof(i));
 	}
 	force_inline void write_int32(const int32_t & i)
+	{
+		write_buffer((int8_t*)&i, sizeof(i));
+	}
+	force_inline void write_int64(const int64_t & i)
 	{
 		write_buffer((int8_t*)&i, sizeof(i));
 	}
@@ -51,13 +55,29 @@ public:
 			write_int8(0, size - len);
 		}
 	}
-	force_inline void read_uint32(uint32_t & i) const
+	force_inline int8_t read_int8() const
 	{
+		int8_t i = 0;
 		read_buffer((int8_t*)&i, sizeof(i));
+		return i;
 	}
-	force_inline void read_int32(int32_t & i) const
+	force_inline int16_t read_int16() const
 	{
+		int16_t i = 0;
 		read_buffer((int8_t*)&i, sizeof(i));
+		return i;
+	}
+	force_inline int32_t read_int32() const
+	{
+		int32_t i = 0;
+		read_buffer((int8_t*)&i, sizeof(i));
+		return i;
+	}
+	force_inline int64_t read_int64() const
+	{
+		int64_t i = 0;
+		read_buffer((int8_t*)&i, sizeof(i));
+		return i;
 	}
 	force_inline void write_buffer(const int8_t * p, size_t size)
 	{
