@@ -47,14 +47,22 @@
 #endif
 
 #ifdef WIN32
-#define GET_NET_ERROR WSAGetLastError()
-#define NET_BLOCK_ERROR WSAEWOULDBLOCK
-#define NET_BLOCK_ERROR_EX WSAEWOULDBLOCK
+	#define GET_NET_ERROR WSAGetLastError()
+	#define NET_BLOCK_ERROR WSAEWOULDBLOCK
+	#define NET_BLOCK_ERROR_EX WSAEWOULDBLOCK
 #else
-#define GET_NET_ERROR errno
-#define NET_BLOCK_ERROR EWOULDBLOCK
-#define NET_BLOCK_ERROR_EX EAGAIN
+	#define GET_NET_ERROR errno
+	#define NET_BLOCK_ERROR EWOULDBLOCK
+	#define NET_BLOCK_ERROR_EX EAGAIN
 #endif
 
+#ifdef WIN32
+	#define F64d "I64d"
+#else
+	#define F64d "lld"
+#endif
 
+#define ARRAY_SIZE(a)	\
+	((sizeof(a) / sizeof((*a))) /	\
+	((size_t)!(sizeof(a) % sizeof((*a)))))
 

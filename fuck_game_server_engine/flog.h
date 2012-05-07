@@ -112,6 +112,18 @@ public:
 			p->write(str);
 		}
 	}
+	force_inline void write(uint32_t type, const char * format, ...)
+	{
+		int8_t buff[1024];
+		buff[ARRAY_SIZE(buff) - 1] = 0;
+
+		va_list ap;
+		va_start(ap, format);
+		tvsnprintf((char *)buff, ARRAY_SIZE(buff) - 1, format, ap);
+		va_end(ap);
+
+		write(type, (std::string)(char *)buff);
+	}
 	force_inline void flush()
 	{
 		for (FLOG_MAP::iterator it = m_flogmap.begin(); it != m_flogmap.end(); it++)

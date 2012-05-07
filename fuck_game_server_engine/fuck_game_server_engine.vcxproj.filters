@@ -176,6 +176,9 @@
     <ClInclude Include="thread_tls.h">
       <Filter>thread</Filter>
     </ClInclude>
+    <ClInclude Include="file_util.h">
+      <Filter>file</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
@@ -189,6 +192,9 @@
     </Filter>
     <Filter Include="lua">
       <UniqueIdentifier>{b8823093-ffe6-4022-8e02-170413afc870}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="file">
+      <UniqueIdentifier>{f41a0a82-64a1-458a-92a3-210811485fa4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

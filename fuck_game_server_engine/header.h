@@ -18,10 +18,12 @@
 #include <functional>
 #include <string.h>
 #include <time.h>
+#include <io.h>
 
 #ifdef WIN32
 #include <windows.h>
 #include <hash_map>
+#include <shlwapi.h>
 #else
 #include <execinfo.h>
 #include <signal.h>
