@@ -112,7 +112,7 @@ public:
 			p->write(str);
 		}
 	}
-	force_inline void write(uint32_t type, const char * format, ...)
+	void write(uint32_t type, const char * format, ...)
 	{
 		int8_t buff[1024];
 		buff[ARRAY_SIZE(buff) - 1] = 0;
