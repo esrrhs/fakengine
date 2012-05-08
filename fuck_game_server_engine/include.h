@@ -38,6 +38,8 @@ extern "C"
 };
 #include "lua_tinker.h"
 
+#include "./zlib/zlib.h"
+
 #include "file_util.h"
 
 
