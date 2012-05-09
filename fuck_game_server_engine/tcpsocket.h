@@ -13,8 +13,6 @@ public:
 	{
 	}
 	tcpsocket(const tcpsocket<_queue, _selector> & r) : m_socket(r.m_socket),
-		m_send_slot(&(_queue::write), &m_send_queue),
-		m_recv_slot(&(_queue::read), &m_recv_queue),
 		m_port(r.m_port),
 		m_peer_port(r.m_peer_port),
 		m_is_non_blocking(r.m_is_non_blocking),
@@ -23,6 +21,8 @@ public:
 		m_connected(r.m_connected),
 		m_send_queue(r.m_send_queue),
 		m_recv_queue(r.m_recv_queue),
+		m_send_slot(&(_queue::write), &m_send_queue),
+		m_recv_slot(&(_queue::read), &m_recv_queue),
 		m_selector(r.m_selector)
 	{
 		memcpy(m_ip, r.m_ip, c_ip_size);
