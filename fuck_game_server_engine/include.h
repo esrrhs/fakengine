@@ -40,6 +40,21 @@ extern "C"
 
 #include "./zlib/zlib.h"
 
+#include "./lzo/lzo_conf.h"
+#include "./lzo/lzo/lzo1.h"
+#include "./lzo/lzo/lzo1a.h"
+#include "./lzo/lzo/lzo1b.h"
+#include "./lzo/lzo/lzo1c.h"
+#include "./lzo/lzo/lzo1f.h"
+#include "./lzo/lzo/lzo1x.h"
+#include "./lzo/lzo/lzo1y.h"
+#include "./lzo/lzo/lzo1z.h"
+#include "./lzo/lzo/lzo2a.h"
+#include "./lzo/lzo/lzoconf.h"
+#include "./lzo/lzo/lzodefs.h"
+#include "./lzo/lzo/lzoutil.h"
+#include "./lzo/lzo/lzo_asm.h"
+
 #include "file_util.h"
 
 
