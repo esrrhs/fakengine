@@ -114,10 +114,6 @@ int main(int argc, char *argv[])
 		ssp.port = atoi(port.c_str());
 		ns.ini(ssp);
 
-		mymsg sendm;
-		std::string str = "hello client";
-		sendm.write_str((const int8_t *)str.c_str(), 1024);
-
 		while (1)
 		{
 			ns.tick();

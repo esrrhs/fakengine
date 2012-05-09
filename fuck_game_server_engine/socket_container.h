@@ -52,7 +52,7 @@ private:
 				// add to container
 				m_socket_store.push_back(s);
 				num++;
-				m_event_processor.on_accept(s);
+				m_event_processor.on_accept(m_socket_store.back());
 			}
 		}
 		return true;
