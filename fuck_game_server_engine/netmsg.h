@@ -21,7 +21,7 @@ public:
 	{
 		m_iter = 0;
 	}
-	force_inline void write_int8(int8_t c, size_t num)
+	force_inline void write_int8(int8_t c, size_t num = 1)
 	{
 		m_buffer.insert(m_buffer.end(), num, c);
 	}
