@@ -137,7 +137,9 @@
     <ClInclude Include="circle_buffer.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="const.h" />
+    <ClInclude Include="fdebug.h" />
     <ClInclude Include="fengine.h" />
+    <ClInclude Include="fdouble.h" />
     <ClInclude Include="file_util.h" />
     <ClInclude Include="flog.h" />
     <ClInclude Include="fstring.h" />
