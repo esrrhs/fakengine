@@ -104,6 +104,10 @@ int main(int argc, char *argv[])
 	e = get_s_tick();
 	std::cout<<"lzo compress "<<e - b<<std::endl;
 	
+	std::string callstack;
+	fshow_call_stack(callstack);
+	std::cout<<"callstack "<<callstack<<std::endl;
+
 	if (str == "server")
 	{
 		mynetserver ns;
