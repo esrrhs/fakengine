@@ -2,6 +2,20 @@
 
 bool fengine::ini()
 {
+	// logo
+	FPRINTF("                          \n		\
+	*******************************\n		\
+	|    zzzzzzzzz   x       x    |\n		\
+	|           z     x     x     |\n		\
+	|          z       x   x      |\n		\
+	|         z         x x       |\n		\
+	|        z           x        |\n		\
+	|       z           x x       |\n		\
+	|      z           x   x      |\n		\
+	|     z           x     x     |\n		\
+	|    zzzzzzzzz   x       x    |\n		\
+	*******************************\n");
+
 	// socket
 #ifdef WIN32
 	WORD wVersionRequested;
