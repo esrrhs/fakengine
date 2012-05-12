@@ -32,6 +32,23 @@ int main(int argc, char *argv[])
 	size_t ret = ftrie.ishaveword((int8_t *)"ABCDE", 5, false);
 
 	MYSQL * mysql = mysql_init(0);
+	if (!mysql_real_connect(mysql, "127.0.0.1", "root", "123123", "world", 3306, 0, 0))
+	{
+		printf("mysql_real_connect error\n");
+	}
+	else
+	{
+		mysql_query(mysql, "SELECT * FROM city");
+		MYSQL_RES *results;
+		MYSQL_ROW record;
+		results = mysql_store_result(mysql);
+		while((record = mysql_fetch_row(results))) 
+		{
+			printf("%s - %s \n", record[0], record[1]);
+		}
+		mysql_free_result(results);
+	}
+	mysql_close(mysql);
 
 	int8_t src[1024];
 	int32_t srclen = 1024;
