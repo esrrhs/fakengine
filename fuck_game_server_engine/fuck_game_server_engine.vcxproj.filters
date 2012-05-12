@@ -326,6 +326,162 @@
     <ClInclude Include="ftrie.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="mysql\decimal.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\errmsg.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\keycache.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\m_ctype.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\m_string.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_alloc.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_attribute.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_compiler.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_config.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_dbug.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_dir.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_getopt.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_global.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_list.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_net.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_pthread.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_sys.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\my_xml.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql_com.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql_embed.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql_time.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql_version.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysqld_ername.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysqld_error.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\plugin.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\plugin_audit.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\plugin_ftparser.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\sql_common.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\sql_state.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\sslopt-case.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\sslopt-longopts.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\sslopt-vars.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\typelib.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\client_plugin.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\innodb_priv.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\plugin.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\plugin_audit.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\plugin_auth.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\plugin_auth_common.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\plugin_ftparser.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\service_my_snprintf.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\service_thd_alloc.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\service_thd_wait.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\service_thread_scheduler.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\services.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\thread_pool_priv.h">
+      <Filter>mysql\mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\psi\mysql_file.h">
+      <Filter>mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\psi\mysql_thread.h">
+      <Filter>mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\psi\psi.h">
+      <Filter>mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\psi\psi_abi_v1.h">
+      <Filter>mysql\mysql\psi</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysql\psi\psi_abi_v2.h">
+      <Filter>mysql\mysql\psi</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
@@ -351,6 +507,15 @@
     </Filter>
     <Filter Include="lzo\lzo">
       <UniqueIdentifier>{af3f5648-6b8b-474f-8db1-1c5e54231eeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mysql">
+      <UniqueIdentifier>{59fb43a8-625b-4a7f-99ab-a239cbc62939}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mysql\mysql">
+      <UniqueIdentifier>{9a58ac98-8816-40d4-8414-d9ec3097e2f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mysql\mysql\psi">
+      <UniqueIdentifier>{dfafb1f1-94d9-46f8-b3ea-e77afb64fe62}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

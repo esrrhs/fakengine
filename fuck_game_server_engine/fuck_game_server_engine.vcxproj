@@ -210,6 +210,58 @@
     <ClInclude Include="lzo\stats1c.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="mainapp.h" />
+    <ClInclude Include="mysql\decimal.h" />
+    <ClInclude Include="mysql\errmsg.h" />
+    <ClInclude Include="mysql\keycache.h" />
+    <ClInclude Include="mysql\mysql.h" />
+    <ClInclude Include="mysql\mysqld_ername.h" />
+    <ClInclude Include="mysql\mysqld_error.h" />
+    <ClInclude Include="mysql\mysql\client_plugin.h" />
+    <ClInclude Include="mysql\mysql\innodb_priv.h" />
+    <ClInclude Include="mysql\mysql\plugin.h" />
+    <ClInclude Include="mysql\mysql\plugin_audit.h" />
+    <ClInclude Include="mysql\mysql\plugin_auth.h" />
+    <ClInclude Include="mysql\mysql\plugin_auth_common.h" />
+    <ClInclude Include="mysql\mysql\plugin_ftparser.h" />
+    <ClInclude Include="mysql\mysql\psi\mysql_file.h" />
+    <ClInclude Include="mysql\mysql\psi\mysql_thread.h" />
+    <ClInclude Include="mysql\mysql\psi\psi.h" />
+    <ClInclude Include="mysql\mysql\psi\psi_abi_v1.h" />
+    <ClInclude Include="mysql\mysql\psi\psi_abi_v2.h" />
+    <ClInclude Include="mysql\mysql\services.h" />
+    <ClInclude Include="mysql\mysql\service_my_snprintf.h" />
+    <ClInclude Include="mysql\mysql\service_thd_alloc.h" />
+    <ClInclude Include="mysql\mysql\service_thd_wait.h" />
+    <ClInclude Include="mysql\mysql\service_thread_scheduler.h" />
+    <ClInclude Include="mysql\mysql\thread_pool_priv.h" />
+    <ClInclude Include="mysql\mysql_com.h" />
+    <ClInclude Include="mysql\mysql_embed.h" />
+    <ClInclude Include="mysql\mysql_time.h" />
+    <ClInclude Include="mysql\mysql_version.h" />
+    <ClInclude Include="mysql\my_alloc.h" />
+    <ClInclude Include="mysql\my_attribute.h" />
+    <ClInclude Include="mysql\my_compiler.h" />
+    <ClInclude Include="mysql\my_config.h" />
+    <ClInclude Include="mysql\my_dbug.h" />
+    <ClInclude Include="mysql\my_dir.h" />
+    <ClInclude Include="mysql\my_getopt.h" />
+    <ClInclude Include="mysql\my_global.h" />
+    <ClInclude Include="mysql\my_list.h" />
+    <ClInclude Include="mysql\my_net.h" />
+    <ClInclude Include="mysql\my_pthread.h" />
+    <ClInclude Include="mysql\my_sys.h" />
+    <ClInclude Include="mysql\my_xml.h" />
+    <ClInclude Include="mysql\m_ctype.h" />
+    <ClInclude Include="mysql\m_string.h" />
+    <ClInclude Include="mysql\plugin.h" />
+    <ClInclude Include="mysql\plugin_audit.h" />
+    <ClInclude Include="mysql\plugin_ftparser.h" />
+    <ClInclude Include="mysql\sql_common.h" />
+    <ClInclude Include="mysql\sql_state.h" />
+    <ClInclude Include="mysql\sslopt-case.h" />
+    <ClInclude Include="mysql\sslopt-longopts.h" />
+    <ClInclude Include="mysql\sslopt-vars.h" />
+    <ClInclude Include="mysql\typelib.h" />
     <ClInclude Include="neteventprocessor.h" />
     <ClInclude Include="netmsg.h" />
     <ClInclude Include="normal_allocator.h" />
@@ -304,7 +356,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;libmysql.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -326,7 +379,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;libmysql.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

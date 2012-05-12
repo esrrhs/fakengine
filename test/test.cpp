@@ -31,6 +31,8 @@ int main(int argc, char *argv[])
 
 	size_t ret = ftrie.ishaveword((int8_t *)"ABCDE", 5, false);
 
+	MYSQL * mysql = mysql_init(0);
+
 	int8_t src[1024];
 	int32_t srclen = 1024;
 	int8_t des[1024];
