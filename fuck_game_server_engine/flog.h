@@ -127,7 +127,7 @@ public:
 	}
 	force_inline void flush()
 	{
-		for (_flogmap::iterator it = m_flogmap.begin(); it != m_flogmap.end(); it++)
+		for (typename _flogmap::iterator it = m_flogmap.begin(); it != m_flogmap.end(); it++)
 		{
 			flog * p = it->second;
 			if (p)

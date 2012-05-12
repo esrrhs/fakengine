@@ -24,7 +24,7 @@ public:
 		{
 			_c c = p[i];
 			_dic_mapped_type & v = (*pmap)[c];
-			if (i == len - 1)
+			if (i == (int32_t)(len - 1))
 			{
 				v.second = true;	// is a word
 				break;
@@ -40,7 +40,7 @@ public:
 	{
 		_dicmap * pmap = m_root;
 		std::vector<_dicmap *> tmp;
-		std::vector<_dicmap::iterator> tmpiter;
+		std::vector<typename _dicmap::iterator> tmpiter;
 		for (int32_t i = 0; i < (int32_t)len; ++i)
 		{
 			_c c = p[i];
@@ -48,7 +48,7 @@ public:
 			{
 				return;
 			}
-			_dicmap::iterator it = pmap->find(c);
+			typename _dicmap::iterator it = pmap->find(c);
 			if (it == pmap->end())
 			{
 				return;
@@ -64,9 +64,9 @@ public:
 		for (int32_t i = (int32_t)(len - 1); i >= 0; --i)
 		{
 			pmap = tmp[i];
-			_dicmap::iterator it = tmpiter[i];
+			typename _dicmap::iterator it = tmpiter[i];
 			FASSERT(pmap);
-			if (i == len - 1)
+			if (i == (int32_t)(len - 1))
 			{
 				it->second.second = false;	// is not a word
 				// 看有没有后续的节点
@@ -115,13 +115,13 @@ public:
 			{
 				return false;
 			}
-			_dicmap::iterator it = pmap->find(c);
+			typename _dicmap::iterator it = pmap->find(c);
 			if (it == pmap->end())
 			{
 				return false;
 			}
 			pmap = static_cast<_dicmap *>(it->second.first);
-			if (i == len - 1)
+			if (i == (int32_t)(len - 1))
 			{
 				return it->second.second;
 			}
@@ -144,7 +144,7 @@ public:
 				{
 					return lastsize;
 				}
-				_dicmap::iterator it = pmap->find(c);
+				typename _dicmap::iterator it = pmap->find(c);
 				if (it == pmap->end())
 				{
 					return lastsize;
@@ -168,7 +168,7 @@ public:
 				{
 					return 0;
 				}
-				_dicmap::iterator it = pmap->find(c);
+				typename _dicmap::iterator it = pmap->find(c);
 				if (it == pmap->end())
 				{
 					return 0;
@@ -183,6 +183,6 @@ public:
 		}
 	}
 private:
-	typename typedef _dicmap::mapped_type _dic_mapped_type;
+	typedef typename _dicmap::mapped_type _dic_mapped_type;
 	_dicmap * m_root;
 };

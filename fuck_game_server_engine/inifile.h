@@ -56,11 +56,11 @@ public:
 	force_inline bool get(const std::string & sec, const std::string & key, 
 		std::string & value)
 	{
-		_secMap::iterator it = m_map.find(sec);
+		typename _secMap::iterator it = m_map.find(sec);
 		if (it != m_map.end())
 		{
 			_valueMap & map = it->second;
-			_valueMap::iterator itex = map.find(key);
+			typename _valueMap::iterator itex = map.find(key);
 			if (itex != map.end())
 			{
 				value = itex->second;
