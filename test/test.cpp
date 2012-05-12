@@ -27,9 +27,9 @@ int main(int argc, char *argv[])
 	myftrie ftrie;
 	ftrie.insert((int8_t *)"ABC", 3);
 	ftrie.insert((int8_t *)"AB", 2);
+	ftrie.insert((int8_t *)"ABCD", 4);
 
-	ftrie.erase((int8_t *)"ABC", 3);
-	ftrie.erase((int8_t *)"AB", 2);
+	size_t ret = ftrie.ishaveword((int8_t *)"ABCDE", 5, false);
 
 	int8_t src[1024];
 	int32_t srclen = 1024;

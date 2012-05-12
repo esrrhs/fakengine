@@ -104,6 +104,84 @@ public:
 			m_root = 0;
 		}
 	}
+	// 是否是个word
+	force_inline bool isword(const _c * p, size_t len)
+	{
+		_dicmap * pmap = m_root;
+		for (int32_t i = 0; i < (int32_t)len; ++i)
+		{
+			_c c = p[i];
+			if (!pmap)
+			{
+				return false;
+			}
+			_dicmap::iterator it = pmap->find(c);
+			if (it == pmap->end())
+			{
+				return false;
+			}
+			pmap = static_cast<_dicmap *>(it->second.first);
+			if (i == len - 1)
+			{
+				return it->second.second;
+			}
+		}
+		return false;
+	}
+	// 是否包含word，允许后面有冗余，如word为ABC，输入ABCD也匹配，输入AABCD则不匹配
+	// 返回匹配的字数
+	force_inline size_t ishaveword(const _c * p, size_t len, bool check_complete)
+	{
+		// 最大匹配
+		if (check_complete)
+		{
+			size_t lastsize = 0;
+			_dicmap * pmap = m_root;
+			for (int32_t i = 0; i < (int32_t)len; ++i)
+			{
+				_c c = p[i];
+				if (!pmap)
+				{
+					return lastsize;
+				}
+				_dicmap::iterator it = pmap->find(c);
+				if (it == pmap->end())
+				{
+					return lastsize;
+				}
+				pmap = static_cast<_dicmap *>(it->second.first);
+				if (it->second.second)
+				{
+					lastsize = i + 1;
+				}
+			}
+			return lastsize;
+		}
+		// 最小匹配
+		else
+		{
+			_dicmap * pmap = m_root;
+			for (int32_t i = 0; i < (int32_t)len; ++i)
+			{
+				_c c = p[i];
+				if (!pmap)
+				{
+					return 0;
+				}
+				_dicmap::iterator it = pmap->find(c);
+				if (it == pmap->end())
+				{
+					return 0;
+				}
+				pmap = static_cast<_dicmap *>(it->second.first);
+				if (it->second.second)
+				{
+					return i + 1;
+				}
+			}
+			return 0;
+		}
+	}
 private:
 	typename typedef _dicmap::mapped_type _dic_mapped_type;
 	_dicmap * m_root;
