@@ -323,6 +323,9 @@
     <ClInclude Include="fdebug.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="ftrie.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

@@ -90,13 +90,14 @@ private:
 	bool m_loop_end;
 };
 
-class flogSystem : public singleton<flogSystem>
+template <typename _flogmap>
+class flog_system : public singleton< flog_system<_flogmap> >
 {
 public:
-	flogSystem()
+	flog_system()
 	{
 	}
-	~flogSystem()
+	~flog_system()
 	{
 	}
 	force_inline void add(uint32_t type, const std::string & file)
@@ -126,7 +127,7 @@ public:
 	}
 	force_inline void flush()
 	{
-		for (FLOG_MAP::iterator it = m_flogmap.begin(); it != m_flogmap.end(); it++)
+		for (_flogmap::iterator it = m_flogmap.begin(); it != m_flogmap.end(); it++)
 		{
 			flog * p = it->second;
 			if (p)
@@ -136,7 +137,6 @@ public:
 		}
 	}
 private:
-	typedef std::map<uint32_t, flog *> FLOG_MAP;
-	FLOG_MAP m_flogmap;
+	_flogmap m_flogmap;
 };
 

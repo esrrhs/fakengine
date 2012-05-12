@@ -9,6 +9,7 @@
 #include "fstring.h"
 #include "ftime.h"
 #include "inifile.h"
+#include "ftrie.h"
 #include "mainapp.h"
 
 #include "allocator.h"

@@ -16,6 +16,7 @@ key1 = value1;
 
 */
 
+template <typename _secMap, typename _valueMap>
 class inifile
 {
 public:
@@ -25,8 +26,6 @@ public:
 	~inifile()
 	{
 	}
-	typedef std::map<std::string, std::string> ValueMap;
-	typedef std::map<std::string, ValueMap> SecMap;
 public:
 	force_inline bool load(const std::string & file)
 	{
@@ -57,11 +56,11 @@ public:
 	force_inline bool get(const std::string & sec, const std::string & key, 
 		std::string & value)
 	{
-		SecMap::iterator it = m_map.find(sec);
+		_secMap::iterator it = m_map.find(sec);
 		if (it != m_map.end())
 		{
-			ValueMap & map = it->second;
-			ValueMap::iterator itex = map.find(key);
+			_valueMap & map = it->second;
+			_valueMap::iterator itex = map.find(key);
 			if (itex != map.end())
 			{
 				value = itex->second;
@@ -108,7 +107,7 @@ private:
 				break;
 			}
 
-			ValueMap valueMap;
+			_valueMap valueMap;
 			if (!parse_value(value, valueMap))
 			{
 				break;
@@ -156,7 +155,7 @@ private:
 
 		return true;
 	}
-	force_inline bool parse_value(std::string & value, ValueMap & valueMap)
+	force_inline bool parse_value(std::string & value, _valueMap & valueMap)
 	{
 		while (value.size() > 0)
 		{
@@ -186,7 +185,7 @@ private:
 	
 		return true;
 	}
-	force_inline bool parse_line_value(std::string & line_value, ValueMap & valueMap)
+	force_inline bool parse_line_value(std::string & line_value, _valueMap & valueMap)
 	{
 		int32_t pos = line_value.find('=');
 		SAFE_TEST_RET_VAL(pos, -1, false);
@@ -212,7 +211,7 @@ private:
 		str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
 	}
 private:
-	SecMap m_map;
+	_secMap m_map;
 };
 
 
