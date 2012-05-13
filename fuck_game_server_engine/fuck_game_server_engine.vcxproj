@@ -356,7 +356,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;mysqlclient.lib</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;mysqlclient_d.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>

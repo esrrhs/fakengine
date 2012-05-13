@@ -68,4 +68,5 @@
 2012.5.12：修改linux编译
 2012.5.12：添加mysql
 2012.5.12：mysql的win下改成lib
+2012.5.13：加debug版的mysql的lib
 
