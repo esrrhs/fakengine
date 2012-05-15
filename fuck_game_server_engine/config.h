@@ -12,3 +12,6 @@
 // force inline
 #define USE_FORCE_INLINE
 
+// performance
+#define USE_PROFILE
+

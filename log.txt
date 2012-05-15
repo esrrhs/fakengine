@@ -69,4 +69,5 @@
 2012.5.12：添加mysql
 2012.5.12：mysql的win下改成lib
 2012.5.13：加debug版的mysql的lib
-
+2012.5.15：准备加自己的performance，然后是packet包，然后是excel文件
+2012.5.16：加线程局部存储定义，下一步加时间sample逻辑

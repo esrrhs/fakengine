@@ -9,6 +9,8 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
+	PERF_DEFAULT_FUNC();
+
 	std::string str = argv[1];
 	std::string ip = argv[2];
 	std::string port = argv[3];

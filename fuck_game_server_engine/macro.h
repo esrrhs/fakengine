@@ -66,3 +66,10 @@
 	((sizeof(a) / sizeof((*a))) /	\
 	((size_t)!(sizeof(a) % sizeof((*a)))))
 
+#ifdef WIN32
+	#define THREAD_LOCAL_VALUE __declspec(thread)
+#else
+	#define THREAD_LOCAL_VALUE __thread
+#endif
+
+
