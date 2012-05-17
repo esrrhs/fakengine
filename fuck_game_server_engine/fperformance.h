@@ -32,11 +32,22 @@ public:
 	}
 	force_inline void call()
 	{
-
+		m_totalcalls++;
+		if (m_recursioncounter++ == 0)
+		{
+			m_starttime = get_ns_tick();
+		}
 	}
 	force_inline bool ret()
 	{
-		return true;
+		if (--m_recursioncounter == 0 && m_totalcalls != 0 )
+		{ 
+			int64_t time;
+			time = get_ns_tick();
+			time -= m_starttime;
+			m_totaltime += time;
+		}
+		return (m_recursioncounter == 0);
 	}
 	force_inline void reset()
 	{
