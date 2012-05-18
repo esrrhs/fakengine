@@ -15,8 +15,6 @@
 
 #ifdef USE_DEFAULT_ASSERT
 	#define FASSERT(x) assert(x)
-#else
-	#define FASSERT(x) 
 #endif
 
 #ifdef USE_DEFAULT_ALLOC
@@ -30,6 +28,8 @@
 	#else
 		#define force_inline __inline__ __attribute__((always_inline))
 	#endif
+#else
+	#define force_inline
 #endif
 
 #if defined(WIN32)
@@ -72,4 +72,21 @@
 	#define THREAD_LOCAL_VALUE __thread
 #endif
 
+#ifdef USE_PROFILE
+	#define	PERF(manager, name) fperf_sample _fperf_sample((manager), (name))
+	#define PERF_FUNC(manager) PERF(manager, __FUNCTION__)
+	#define PERF_DEFAULT(name) PERF(g_fperf_manager, name)
+	#define PERF_DEFAULT_FUNC() PERF(g_fperf_manager, __FUNCTION__)
+	#define PERF_INI() g_perf_ini()
+	#define PERF_EXIT() g_perf_exit()
+	#define PERF_OUTPUT() g_perf_output()
+#else
+	#define	PERF(manager, name)
+	#define PERF_FUNC(manager)
+	#define PERF_DEFAULT(name)
+	#define PERF_DEFAULT_FUNC()
+	#define	PERF_INI()
+	#define PERF_EXIT()
+	#define PERF_OUTPUT()
+#endif
 

@@ -485,6 +485,9 @@
     <ClInclude Include="fperformance.h">
       <Filter>performance</Filter>
     </ClInclude>
+    <ClInclude Include="global.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
@@ -876,6 +879,12 @@
     </ClCompile>
     <ClCompile Include="fperformance.cpp">
       <Filter>performance</Filter>
+    </ClCompile>
+    <ClCompile Include="global.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="calloc.cpp">
+      <Filter>common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #pragma once
 
-force_inline void fstrcopy(int8_t * des, const int8_t * src, size_t dest_size)
+static force_inline void fstrcopy(int8_t * des, const int8_t * src, size_t dest_size)
 {
 	if (dest_size > 0)
 	{

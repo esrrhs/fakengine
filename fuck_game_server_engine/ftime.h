@@ -1,11 +1,11 @@
 #pragma once
 
-force_inline time_t get_s_tick()
+static force_inline time_t get_s_tick()
 {
 	return ::time(0);
 }
 
-force_inline uint32_t get_ms_tick()
+static force_inline uint32_t get_ms_tick()
 {
 #ifdef WIN32
 	return ::GetTickCount();
@@ -21,7 +21,7 @@ force_inline uint32_t get_ms_tick()
 #endif
 }
 
-force_inline uint64_t get_ns_tick()
+static force_inline uint64_t get_ns_tick()
 {
 #ifdef WIN32
 	uint32_t dwLow, dwHigh;

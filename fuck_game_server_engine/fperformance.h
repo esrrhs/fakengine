@@ -14,7 +14,7 @@ public:
 	{
 		reset();
 	}
-	force_inline fperf_node( const char* name ) : m_name(name),
+	force_inline fperf_node(const char * name) : m_name(name),
 		m_totalcalls(0),
 		m_totaltime(0),
 		m_starttime(0),
@@ -178,15 +178,15 @@ private:
 	fperf_manager * m_manager;
 };
 
-extern THREAD_LOCAL_VALUE fperf_manager * g_fperf_manager;
+static force_inline void g_perf_ini()
+{
+	
+}
+static force_inline void g_perf_exit()
+{
 
-#ifdef USE_PROFILE
-#define	PERF(manager, name) fperf_sample _fperf_sample((manager), (name))
-#else
-#define	PERF(manager, name)
-#endif
+}
+static force_inline void g_perf_output()
+{
 
-#define PERF_FUNC(manager) PERF(manager, __FUNCTION__)
-#define PERF_DEFAULT(name) PERF(g_fperf_manager, name)
-#define PERF_DEFAULT_FUNC() PERF(g_fperf_manager, __FUNCTION__)
-
+}

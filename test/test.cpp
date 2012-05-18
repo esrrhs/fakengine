@@ -1,6 +1,16 @@
 #include "fuck_game_server_engine.h"
 #include "test.h"
 
+void fun2()
+{
+	PERF_DEFAULT_FUNC();
+}
+void fun1()
+{
+	PERF_DEFAULT_FUNC();
+	fun2();
+}
+
 int main(int argc, char *argv[])
 {
 	if (argc <= 3)

@@ -12,6 +12,9 @@
 // 常量
 #include "const.h"
 
+// 全局变量
+#include "global.h"
+
 // 类型
 #include "type.h"
 

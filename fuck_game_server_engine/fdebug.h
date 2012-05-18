@@ -1,6 +1,6 @@
 #pragma once
 
-force_inline void fdebug_break()
+static force_inline void fdebug_break()
 {
 #ifdef WIN32
 	__debugbreak();
@@ -9,7 +9,7 @@ force_inline void fdebug_break()
 #endif
 }
 
-force_inline void fshow_call_stack(std::string & ret)
+static force_inline void fshow_call_stack(std::string & ret)
 {
 #ifdef WIN32
 	// win下太复杂，不提供

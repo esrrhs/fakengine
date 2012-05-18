@@ -11,9 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="calloc.cpp" />
     <ClCompile Include="fengine.cpp" />
     <ClCompile Include="fperformance.cpp" />
     <ClCompile Include="fuck_game_server_engine.cpp" />
+    <ClCompile Include="global.cpp" />
     <ClCompile Include="lua\lapi.c" />
     <ClCompile Include="lua\lauxlib.c" />
     <ClCompile Include="lua\lbaselib.c" />
@@ -148,6 +150,7 @@
     <ClInclude Include="fstring.h" />
     <ClInclude Include="ftime.h" />
     <ClInclude Include="fuck_game_server_engine.h" />
+    <ClInclude Include="global.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="include.h" />
     <ClInclude Include="inifile.h" />

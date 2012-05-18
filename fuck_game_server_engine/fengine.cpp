@@ -38,6 +38,9 @@ bool fengine::ini()
 		return false;
 	}
 
+	// ini
+	g_start_time = get_s_tick();
+
 	return true;
 }
 
