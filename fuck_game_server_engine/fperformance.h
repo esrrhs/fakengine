@@ -3,7 +3,7 @@
 class fperf_node
 {
 public:
-	force_inline fperf_node(const char * name, fperf_node * parent) : m_name(name),
+	force_inline fperf_node(const int8_t * name, fperf_node * parent) : m_name(name),
 		m_totalcalls(0),
 		m_totaltime(0),
 		m_starttime(0),
@@ -14,7 +14,7 @@ public:
 	{
 		reset();
 	}
-	force_inline fperf_node(const char * name) : m_name(name),
+	force_inline fperf_node(const int8_t * name) : m_name(name),
 		m_totalcalls(0),
 		m_totaltime(0),
 		m_starttime(0),
@@ -75,7 +75,7 @@ public:
 	{
 		return m_child;
 	}
-	force_inline const char * get_name()
+	force_inline const int8_t * get_name()
 	{
 		return m_name;
 	}
@@ -93,7 +93,7 @@ public:
 	}
 
 protected:
-	const char * m_name;
+	const int8_t * m_name;
 	uint32_t m_totalcalls;
 	uint64_t m_totaltime;
 	uint64_t m_starttime;
@@ -111,14 +111,16 @@ protected:
 class fperf_manager
 {
 public:
-	force_inline fperf_manager() : m_root(0), m_current_node(0), m_total_node(0)
+	force_inline fperf_manager(const int8_t * root_name) : m_root(0), m_current_node(0), m_total_node(0)
 	{
+		m_root = fnew<fperf_node, const int8_t *>(root_name);
+		m_current_node = m_root;
 	}
 	force_inline ~fperf_manager()
 	{
 
 	}
-	force_inline void sart_profile(const char * name)
+	force_inline void sart_profile(const int8_t * name)
 	{
 		if (name != m_current_node->get_name())
 		{
@@ -133,7 +135,7 @@ public:
 			m_current_node = m_current_node->get_parent();
 		}
 	}
-	force_inline fperf_node * find_sub_node(fperf_node * parent, const char * name)
+	force_inline fperf_node * find_sub_node(fperf_node * parent, const int8_t * name)
 	{
 		fperf_node * child = parent->get_child();
 		while (child)
@@ -146,9 +148,9 @@ public:
 		}
 		return create_new_node(name, parent);
 	}
-	fperf_node * create_new_node(const char * name, fperf_node * parent)
+	fperf_node * create_new_node(const int8_t * name, fperf_node * parent)
 	{
-		fperf_node * node = fnew<fperf_node, const char *, fperf_node *>(name, parent);
+		fperf_node * node = fnew<fperf_node, const int8_t *, fperf_node *>(name, parent);
 		node->m_index = m_total_node++;
 		node->m_sibling = parent->get_child();
 		parent->m_child = node;
@@ -164,7 +166,7 @@ private:
 class fperf_sample
 {
 public:
-	force_inline fperf_sample(fperf_manager * manager, const char * name) :
+	force_inline fperf_sample(fperf_manager * manager, const int8_t * name) :
 	m_manager(manager)
 	{ 
 		m_manager->sart_profile(name); 
@@ -180,11 +182,13 @@ private:
 
 static force_inline void g_perf_ini()
 {
-	
+	g_fperf_manager = fnew<fperf_manager, const int8_t *>(c_perf_node_root_default_name);
+	g_fperf_file_name = fnew_array<int8_t>(c_perf_file_name_size);
 }
 static force_inline void g_perf_exit()
 {
-
+	SAFE_DELETE(fperf_manager, g_fperf_manager);
+	SAFE_DELETE_ARRAY(int8_t, g_fperf_file_name, c_perf_file_name_size);
 }
 static force_inline void g_perf_output()
 {

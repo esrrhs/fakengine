@@ -12,6 +12,7 @@
 
 #define SAFE_DELETE(T, p) if (p) { fdelete<T>(p); p = 0; }
 #define SAFE_FREE(p) if (p) { FFREE(p); p = 0; }
+#define SAFE_DELETE_ARRAY(T, p, num) if (p) { fdelete_array<T>(p, num); p = 0; }
 
 #ifdef USE_DEFAULT_ASSERT
 	#define FASSERT(x) assert(x)
@@ -74,9 +75,9 @@
 
 #ifdef USE_PROFILE
 	#define	PERF(manager, name) fperf_sample _fperf_sample((manager), (name))
-	#define PERF_FUNC(manager) PERF(manager, __FUNCTION__)
+	#define PERF_FUNC(manager) PERF(manager, (const int8_t *)__FUNCTION__)
 	#define PERF_DEFAULT(name) PERF(g_fperf_manager, name)
-	#define PERF_DEFAULT_FUNC() PERF(g_fperf_manager, __FUNCTION__)
+	#define PERF_DEFAULT_FUNC() PERF(g_fperf_manager, (const int8_t *)__FUNCTION__)
 	#define PERF_INI() g_perf_ini()
 	#define PERF_EXIT() g_perf_exit()
 	#define PERF_OUTPUT() g_perf_output()

@@ -44,3 +44,61 @@ void fdelete(T * p)
 	FFREE(p);
 }
 
+template <typename T> force_inline
+T * fnew_array(size_t num)
+{
+	T * p = (T *)FALLOC(sizeof(T) * num);
+	FASSERT(p);
+	for (size_t i = 0; i < num; ++i)
+	{
+		new (p + i) T ();
+	}
+	return p;
+}
+
+template <typename T, typename P1> force_inline
+T * fnew_array(size_t num, const P1 & param1)
+{
+	T * p = (T *)FALLOC(sizeof(T) * num);
+	FASSERT(p);
+	for (size_t i = 0; i < num; ++i)
+	{
+		new (p + i) T (param1);
+	}
+	return p;
+}
+
+template <typename T, typename P1, typename P2> force_inline
+T * fnew_array(size_t num, const P1 & param1, const P2 & param2)
+{
+	T * p = (T *)FALLOC(sizeof(T) * num);
+	FASSERT(p);
+	for (size_t i = 0; i < num; ++i)
+	{
+		new (p + i) T (param1, param2);
+	}
+	return p;
+}
+
+template <typename T, typename P1, typename P2, typename P3> force_inline
+T * fnew_array(size_t num, const P1 & param1, const P2 & param2, const P3 & param3)
+{
+	T * p = (T *)FALLOC(sizeof(T) * num);
+	FASSERT(p);
+	for (size_t i = 0; i < num; ++i)
+	{
+		new (p + i) T (param1, param2, param3);
+	}
+	return p;
+}
+
+template <typename T> force_inline
+void fdelete_array(T * p, size_t num)
+{
+	FASSERT(p);
+	for (size_t i = 0; i < num; ++i)
+	{
+		(p + i)->~T();
+	}
+	FFREE(p);
+}

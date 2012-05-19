@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	
 	XML_Parser p = XML_ParserCreate(NULL);
 
-	PERF_DEFAULT_FUNC();
+	PERF_INI();
 
 	std::string str = argv[1];
 	std::string ip = argv[2];
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 		mysql_free_result(results);
 	}
 	mysql_close(mysql);
-
+#ifndef _DEBUG
 	int8_t src[1024];
 	int32_t srclen = 1024;
 	int8_t des[1024];
@@ -94,10 +94,13 @@ int main(int argc, char *argv[])
 	}
 	e = get_s_tick();
 	std::cout<<"lzo compress "<<e - b<<std::endl;
-	
+
+#endif
+
 	std::string callstack;
 	fshow_call_stack(callstack);
 	std::cout<<"callstack "<<callstack<<std::endl;
+
 
 	if (str == "server")
 	{
@@ -109,9 +112,21 @@ int main(int argc, char *argv[])
 		ssp.port = atoi(port.c_str());
 		ns.ini(ssp);
 
+		int32_t index = 0;
 		while (1)
 		{
+			index++;
+			if (index % 100 == 0)
+			{
+				PERF_OUTPUT();
+				printf("PERF_OUTPUT\n");
+			}
+
+			PERF_DEFAULT_FUNC();
+
 			ns.tick();
+
+			fun1();
 
 			fsleep(100);
 		}
@@ -131,10 +146,22 @@ int main(int argc, char *argv[])
 		sendm.write_str((const int8_t *)str.c_str(), 1024);
 		nl.send_msg(sendm);
 
+		int32_t index = 0;
 		while (1)
 		{
+			index++;
+			if (index % 100 == 0)
+			{
+				PERF_OUTPUT();
+				printf("PERF_OUTPUT\n");
+			}
+
+			PERF_DEFAULT_FUNC();
+
 			nl.tick();
-			
+
+			fun1();
+
 			fsleep(100);
 		}
 	}
