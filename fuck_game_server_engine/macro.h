@@ -90,3 +90,6 @@
 	#define PERF_OUTPUT()
 #endif
 
+#ifndef XML_STATIC
+#define XML_STATIC
+#endif

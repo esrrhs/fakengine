@@ -49,7 +49,7 @@ public:
 		}
 		return (m_recursioncounter == 0);
 	}
-	force_inline void reset()
+	void reset()
 	{
 		m_totalcalls = 0;
 		m_totaltime = 0;

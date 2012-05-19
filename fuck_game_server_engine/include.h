@@ -62,5 +62,6 @@ extern "C"
 
 #include "./mysql/mysql.h"
 
-#include "fperformance.h"
+#include "./expat/expat.h"
 
+#include "fperformance.h"

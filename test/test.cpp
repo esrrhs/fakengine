@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
 		std::cout<<"need arg: [type] [ip] [port]"<<std::endl;
 		return 0;
 	}
+	
+	XML_Parser p = XML_ParserCreate(NULL);
 
 	PERF_DEFAULT_FUNC();
 
