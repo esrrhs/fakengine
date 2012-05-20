@@ -4,47 +4,55 @@ template <typename T, typename F>
 class slot
 {
 public:
-	slot() 
+	slot() : m_function(0), m_object(0)
 	{
 	}
 	
-	slot(F func, T * obj) : d_function(func), d_object(obj) {}
+	slot(F func, T * obj) : m_function(func), m_object(obj)
+	{
+	}
 
 	~slot() 
 	{
 	}
 
+	void ini(F func, T * obj)
+	{
+		m_function = func;
+		m_object = obj;
+	}
+
 	bool operator()()
 	{
-		return (d_object->*d_function)();
+		return (m_object->*m_function)();
 	}
 
 	template <typename P1>
 	bool operator()(P1 param1) 
 	{
-		return (d_object->*d_function)(param1);
+		return (m_object->*m_function)(param1);
 	}
 
 	template <typename P1>
 	bool operator()(P1 param1) const
 	{
-		return (d_object->*d_function)(param1);
+		return (m_object->*m_function)(param1);
 	}
 
 	template <typename P1, typename P2>
 	bool operator()(P1 param1, P2 param2)
 	{
-		return (d_object->*d_function)(param1, param2);
+		return (m_object->*m_function)(param1, param2);
 	}
 
 	template <typename P1, typename P2>
 	bool operator()(P1 param1, P2 param2) const
 	{
-		return (d_object->*d_function)(param1, param2);
+		return (m_object->*m_function)(param1, param2);
 	}
 private:
-	F d_function;
-	T * d_object;
+	F m_function;
+	T * m_object;
 };
 
 template <typename F>
@@ -55,7 +63,7 @@ public:
 	{
 	}
 
-	slot(F f) : d_function(f) {}
+	slot(F f) : m_function(f) {}
 
 	~slot() 
 	{
@@ -63,33 +71,33 @@ public:
 
 	bool operator()()
 	{
-		return d_function();
+		return m_function();
 	}
 
 	template <typename P1>
 	bool operator()(P1 param1) 
 	{
-		return d_function(param1);
+		return m_function(param1);
 	}
 
 	template <typename P1>
 	bool operator()(P1 param1) const
 	{
-		return d_function(param1);
+		return m_function(param1);
 	}
 
 	template <typename P1, typename P2>
 	bool operator()(P1 param1, P2 param2)
 	{
-		return d_function(param1, param2);
+		return m_function(param1, param2);
 	}
 
 	template <typename P1, typename P2>
 	bool operator()(P1 param1, P2 param2) const
 	{
-		return d_function(param1, param2);
+		return m_function(param1, param2);
 	}
 private:
-	F d_function;
+	F m_function;
 };
 

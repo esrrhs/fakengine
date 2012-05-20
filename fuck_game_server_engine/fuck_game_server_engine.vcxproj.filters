@@ -539,6 +539,9 @@
     <ClInclude Include="fenum.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="fserialize.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

@@ -59,6 +59,7 @@ extern "C"
 #include "./lzo/lzo/lzoutil.h"
 #include "./lzo/lzo/lzo_asm.h"
 
+#include "fserialize.h"
 #include "file_util.h"
 #include "file_io.h"
 

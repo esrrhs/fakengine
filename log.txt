@@ -78,3 +78,6 @@
 2012.5.19：添加expat,下一步先测试perf
 2012.5.19：添加数组的分配,测试perf基本没问题，下一步输出perf文件
 2012.5.20：添加fileio，顺便改改结构
+2012.5.20：添加fserialize，linux下编不过。。。fserialize是专注于序列化，fileio是file的包装
+
+

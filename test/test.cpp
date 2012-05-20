@@ -104,8 +104,9 @@ int main(int argc, char *argv[])
 	file_io fio;
 	if (fio.open_file("testfile.txt", "a"))
 	{
-		fio.write(2);
-		fio.write("haha");
+		myfserialize fser;
+		fser.serialize((int32_t)2);
+		fser.serialize((std::string)"haha");
 	}
 
 	if (str == "server")

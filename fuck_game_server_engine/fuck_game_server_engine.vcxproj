@@ -164,6 +164,7 @@
     <ClInclude Include="fenum.h" />
     <ClInclude Include="file_io.h" />
     <ClInclude Include="fperformance.h" />
+    <ClInclude Include="fserialize.h" />
     <ClInclude Include="ftrie.h" />
     <ClInclude Include="fengine.h" />
     <ClInclude Include="fdouble.h" />
