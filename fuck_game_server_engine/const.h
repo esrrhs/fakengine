@@ -10,3 +10,8 @@ const double c_min_float = 1.0E-9;
 const uint32_t c_perf_file_name_size = 128;
 const int8_t c_perf_node_root_default_name[] = "root";
 
+const uint32_t c_socket_container_max_accept_per_frame = 50;
+const uint32_t c_msg_header = 2012;		// 包头
+const uint32_t c_msg_header_size = 2;	// 包头长度
+const uint32_t c_msg_size_size = 2;		// 包长度的长度
+

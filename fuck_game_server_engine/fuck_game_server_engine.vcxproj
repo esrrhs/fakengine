@@ -161,6 +161,8 @@
     <ClInclude Include="expat\xmltok.h" />
     <ClInclude Include="expat\xmltok_impl.h" />
     <ClInclude Include="fdebug.h" />
+    <ClInclude Include="fenum.h" />
+    <ClInclude Include="file_io.h" />
     <ClInclude Include="fperformance.h" />
     <ClInclude Include="ftrie.h" />
     <ClInclude Include="fengine.h" />

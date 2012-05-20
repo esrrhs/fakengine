@@ -6,16 +6,12 @@ template <typename _msg, typename _socket, typename _real_select,
 class socket_container
 {
 public:
-	socket_container()
+	force_inline socket_container()
 	{
 	}
-	~socket_container()
+	force_inline ~socket_container()
 	{
 	}
-	enum _const
-	{
-		max_accept_per_frame = 50,
-	};
 public:
 	template<typename _param>
 	force_inline bool ini(const _param & param)
@@ -46,8 +42,8 @@ private:
 		if (m_socket.can_read())
 		{
 			_socket s;
-			int32_t num = 0;
-			while(m_socket.accept(s) && num < max_accept_per_frame)
+			uint32_t num = 0;
+			while(m_socket.accept(s) && num < c_socket_container_max_accept_per_frame)
 			{
 				// add to container
 				m_socket_store.push_back(s);

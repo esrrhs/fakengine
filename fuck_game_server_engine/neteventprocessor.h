@@ -4,10 +4,10 @@ template <typename _ele_type, typename _msg>
 class neteventprocessor
 {
 public:
-	neteventprocessor()
+	force_inline neteventprocessor()
 	{
 	}
-	~neteventprocessor()
+	force_inline ~neteventprocessor()
 	{
 	}
 public:

@@ -115,10 +115,12 @@ public:
 	{
 		m_root = fnew<fperf_node, const int8_t *>(root_name);
 		m_current_node = m_root;
+		m_file_name = fnew_array<int8_t>(c_perf_file_name_size);
 	}
 	force_inline ~fperf_manager()
 	{
-
+		SAFE_DELETE_ARRAY(int8_t, m_file_name, c_perf_file_name_size);
+		SAFE_DELETE(fperf_node, m_root);
 	}
 	force_inline void sart_profile(const int8_t * name)
 	{
@@ -148,7 +150,7 @@ public:
 		}
 		return create_new_node(name, parent);
 	}
-	fperf_node * create_new_node(const int8_t * name, fperf_node * parent)
+	force_inline fperf_node * create_new_node(const int8_t * name, fperf_node * parent)
 	{
 		fperf_node * node = fnew<fperf_node, const int8_t *, fperf_node *>(name, parent);
 		node->m_index = m_total_node++;
@@ -156,10 +158,15 @@ public:
 		parent->m_child = node;
 		return node;
 	}
+	force_inline void output()
+	{
+
+	}
 private:
 	fperf_node * m_root;
 	fperf_node * m_current_node;
 	uint32_t m_total_node;
+	int8_t * m_file_name;
 };
 
 // ²ÉÑù
@@ -183,14 +190,12 @@ private:
 static force_inline void g_perf_ini()
 {
 	g_fperf_manager = fnew<fperf_manager, const int8_t *>(c_perf_node_root_default_name);
-	g_fperf_file_name = fnew_array<int8_t>(c_perf_file_name_size);
 }
 static force_inline void g_perf_exit()
 {
 	SAFE_DELETE(fperf_manager, g_fperf_manager);
-	SAFE_DELETE_ARRAY(int8_t, g_fperf_file_name, c_perf_file_name_size);
 }
 static force_inline void g_perf_output()
 {
-
+	g_fperf_manager->output();
 }

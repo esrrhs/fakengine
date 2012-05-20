@@ -101,6 +101,12 @@ int main(int argc, char *argv[])
 	fshow_call_stack(callstack);
 	std::cout<<"callstack "<<callstack<<std::endl;
 
+	file_io fio;
+	if (fio.open_file("testfile.txt", "a"))
+	{
+		fio.write(2);
+		fio.write("haha");
+	}
 
 	if (str == "server")
 	{

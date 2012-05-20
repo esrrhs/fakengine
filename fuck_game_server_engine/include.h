@@ -1,5 +1,6 @@
 #pragma once
 
+#include "fenum.h"
 #include "fdouble.h"
 #include "fdebug.h"
 #include "alloc.h"
@@ -59,6 +60,7 @@ extern "C"
 #include "./lzo/lzo/lzo_asm.h"
 
 #include "file_util.h"
+#include "file_io.h"
 
 #include "./mysql/mysql.h"
 

@@ -5,10 +5,10 @@ template <typename _link>
 class netlink
 {
 public:
-	netlink()
+	force_inline netlink()
 	{
 	}
-	~netlink()
+	force_inline ~netlink()
 	{
 	}
 public:

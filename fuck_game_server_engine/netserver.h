@@ -6,10 +6,10 @@ template <typename _container>
 class netserver
 {
 public:
-	netserver()
+	force_inline netserver()
 	{
 	}
-	~netserver()
+	force_inline ~netserver()
 	{
 	}
 public:

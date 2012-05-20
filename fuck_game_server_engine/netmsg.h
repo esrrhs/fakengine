@@ -4,18 +4,12 @@ template <typename _buffer>
 class netmsg
 {
 public:
-	netmsg() : m_iter(0)
+	force_inline netmsg() : m_iter(0)
 	{
 	}
-	~netmsg()
+	force_inline ~netmsg()
 	{
 	}
-	enum _const
-	{
-		msg_header = 2012,		// 包头
-		msg_header_size = 2,	// 包头长度
-		msg_size_size = 2,		// 包长度的长度
-	};
 public:
 	force_inline void reset() const
 	{
@@ -103,19 +97,19 @@ public:
 	template <typename F>
 	force_inline bool to_buffer(const F & f) const
 	{
-		const _const c = msg_header;
-		FASSERT(msg_header_size <= sizeof(_const));
+		const uint32_t c = c_msg_header;
+		FASSERT(c_msg_header_size <= sizeof(c_msg_header));
 		// 写入包头
-		if (!f((const int8_t*)&c, msg_header_size))
+		if (!f((const int8_t*)&c, c_msg_header_size))
 		{
 			return false;
 		}
 
 		// 写入size
 		size_t data_size = m_buffer.size();
-		FASSERT(msg_size_size <= sizeof(size_t));
-		FASSERT(data_size <= (1<<(msg_size_size * 8)));
-		if (!f((int8_t*)&data_size, msg_size_size))
+		FASSERT(c_msg_size_size <= sizeof(size_t));
+		FASSERT(data_size <= (1<<(c_msg_size_size * 8)));
+		if (!f((int8_t*)&data_size, c_msg_size_size))
 		{
 			return false;
 		}
@@ -132,21 +126,21 @@ public:
 	force_inline bool from_buffer(const F & f)
 	{
 		// 读出包头
-		_const c = msg_header;
-		FASSERT(msg_header_size <= sizeof(_const));
-		if (!f((int8_t*)&c, msg_header_size))
+		uint32_t c = c_msg_header;
+		FASSERT(c_msg_header_size <= sizeof(c_msg_header));
+		if (!f((int8_t*)&c, c_msg_header_size))
 		{
 			return false;
 		}
-		if (c != msg_header)
+		if (c != c_msg_header)
 		{
 			return false;
 		}
 
 		// 读出size
 		size_t data_size = 0;
-		FASSERT(msg_size_size <= sizeof(size_t));
-		if (!f((int8_t*)&data_size, msg_size_size))
+		FASSERT(c_msg_size_size <= sizeof(size_t));
+		if (!f((int8_t*)&data_size, c_msg_size_size))
 		{
 			return false;
 		}

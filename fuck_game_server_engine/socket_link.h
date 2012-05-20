@@ -5,10 +5,10 @@ template <typename _msg, typename _socket, typename _event_processor>
 class socket_link
 {
 public:
-	socket_link() : m_connect(false)
+	force_inline socket_link() : m_connect(false)
 	{
 	}
-	~socket_link()
+	force_inline ~socket_link()
 	{
 	}
 public:

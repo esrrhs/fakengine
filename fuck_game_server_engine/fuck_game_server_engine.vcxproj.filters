@@ -533,6 +533,12 @@
     <ClInclude Include="expat\xmltok_impl.h">
       <Filter>expat</Filter>
     </ClInclude>
+    <ClInclude Include="file_io.h">
+      <Filter>file</Filter>
+    </ClInclude>
+    <ClInclude Include="fenum.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

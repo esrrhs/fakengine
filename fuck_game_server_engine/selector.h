@@ -3,16 +3,16 @@
 class selector
 {
 public:
-	selector()
+	force_inline selector()
 	{
 		clear();
 	}
-	~selector()
+	force_inline ~selector()
 	{
 
 	}
 public:
-	bool clear()
+	force_inline bool clear()
 	{
 		FD_ZERO(&m_readfds);
 		FD_ZERO(&m_writefds);
@@ -20,7 +20,7 @@ public:
 		m_maxfd = -1;
 		return true;
 	}
-	bool add(socket_t s)
+	force_inline bool add(socket_t s)
 	{
 		FD_SET(s, &m_readfds);
 		FD_SET(s, &m_writefds);
@@ -28,7 +28,7 @@ public:
 		m_maxfd = std::max<socket_t>(m_maxfd, s);
 		return true;
 	}
-	bool select()
+	force_inline bool select()
 	{
 		timeval timeout;
 		timeout.tv_sec = 0;
@@ -46,15 +46,15 @@ public:
 		}
 		return false;
 	}
-	bool is_read(socket_t s)
+	force_inline bool is_read(socket_t s)
 	{
 		return FD_ISSET(s, &m_readfds) != 0;
 	}
-	bool is_write(socket_t s)
+	force_inline bool is_write(socket_t s)
 	{
 		return FD_ISSET(s, &m_writefds) != 0;
 	}
-	bool is_except(socket_t s)
+	force_inline bool is_except(socket_t s)
 	{
 		return FD_ISSET(s, &m_exceptfds) != 0;
 	}
