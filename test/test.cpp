@@ -107,6 +107,11 @@ int main(int argc, char *argv[])
 		myfserialize fser;
 		fser.serialize((int32_t)2);
 		fser.serialize((std::string)"haha");
+
+		int32_t tmp;
+		fser.deserialize(tmp);
+		std::string str;
+		fser.deserialize(str);
 	}
 
 	if (str == "server")

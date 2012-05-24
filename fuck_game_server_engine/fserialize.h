@@ -48,18 +48,64 @@ public:
 	}
 	force_inline bool serialize(const std::string & t)
 	{
-		uint32_t size = (uint32_t)t.size();
+		store();
+		uint16_t size = (uint16_t)t.size();
 		if (!write((const int8_t *)&size, sizeof(size)))
 		{
+			restore();
 			return false;
 		}
-		return write((const int8_t *)t.c_str(), t.size());
+		
+		if (!write((const int8_t *)t.c_str(), t.size()))
+		{
+			restore();
+			return false;
+		}
+
+		return true;
 	}
 
 	template <typename T> force_inline
-		bool deserialize(T & t)
+	bool deserialize(T & t)
 	{
 		return t.deserialize(m_read_slot);
+	}
+	force_inline bool deserialize(int8_t & t)
+	{
+		return read((int8_t *)&t, sizeof(t));
+	}
+	force_inline bool deserialize(int16_t & t)
+	{
+		return read((int8_t *)&t, sizeof(t));
+	}
+	force_inline bool deserialize(int32_t & t)
+	{
+		return read((int8_t *)&t, sizeof(t));
+	}
+	force_inline bool deserialize(int64_t & t)
+	{
+		return read((int8_t *)&t, sizeof(t));
+	}
+	force_inline bool deserialize(std::string & t)
+	{
+		store();
+		uint16_t size = 0;
+		if (!read((int8_t *)&size, sizeof(size)))
+		{
+			restore();
+			return false;
+		}
+
+		t.clear();
+		t.resize(size, 0);
+
+		if (!read((int8_t *)t.c_str(), t.size()))
+		{
+			restore();
+			return false;
+		}
+
+		return true;
 	}
 private:
 	force_inline bool write(const int8_t * p, size_t size)
@@ -69,6 +115,14 @@ private:
 	force_inline bool read(int8_t * out, size_t size)
 	{
 		return m_buffer.read(out, size);
+	}
+	force_inline void store()
+	{
+		m_buffer.store();
+	}
+	force_inline void restore()
+	{
+		m_buffer.restore();
 	}
 private:
 	buffer m_buffer;
@@ -111,10 +165,12 @@ public:
  	force_inline bool serialize(const std::string & t);
 	
 	template <typename T> force_inline
-	bool deserialize(T & t)
-	{
-		return t.deserialize(m_read_slot);
-	}
+	bool deserialize(T & t);
+	force_inline bool deserialize(int8_t & t);
+	force_inline bool deserialize(int16_t & t);
+	force_inline bool deserialize(int32_t & t);
+	force_inline bool deserialize(int64_t & t);
+	force_inline bool deserialize(std::string & t);
 private:
 	force_inline bool write(const int8_t * p, size_t size)
 	{
@@ -123,6 +179,14 @@ private:
 	force_inline bool read(int8_t * out, size_t size)
 	{
 		return m_buffer.read(out, size);
+	}
+	force_inline void store()
+	{
+		m_buffer.store();
+	}
+	force_inline void restore()
+	{
+		m_buffer.restore();
 	}
 private:
 	buffer m_buffer;
@@ -166,12 +230,69 @@ template <>
 template <typename buffer> force_inline
 bool fserialize<buffer>::serialize(const std::string & t)
 {
-	uint32_t size = (uint32_t)t.size();
+	store();
+	uint16_t size = (uint16_t)t.size();
 	if (!write((const int8_t *)&size, sizeof(size)))
 	{
+		restore();
 		return false;
 	}
-	return write((const int8_t *)t.c_str(), t.size());
+
+	if (!write((const int8_t *)t.c_str(), t.size()))
+	{
+		restore();
+		return false;
+	}
+
+	return true;
+}
+
+template <typename buffer>
+template <typename T> 
+bool fserialize<buffer>::deserialize(T & t)
+{
+	return t.deserialize(m_read_slot);
+}
+template <> 
+template <typename buffer> force_inline
+bool fserialize<buffer>::deserialize(int16_t & t)
+{
+	return read((int8_t *)&t, sizeof(t));
+}
+template <> 
+template <typename buffer> force_inline
+bool fserialize<buffer>::deserialize(int32_t & t)
+{
+	return read((int8_t *)&t, sizeof(t));
+}
+template <> 
+template <typename buffer> force_inline
+bool fserialize<buffer>::deserialize(int64_t & t)
+{
+	return read((int8_t *)&t, sizeof(t));
+}
+template <> 
+template <typename buffer> force_inline
+bool fserialize<buffer>::deserialize(std::string & t)
+{
+	store();
+	uint16_t size = 0;
+	if (!read((int8_t *)&size, sizeof(size)))
+	{
+		restore();
+		return false;
+	}
+
+	t.clear();
+	t.resize(size, 0);
+
+	if (!read((int8_t *)t.c_str(), t.size()))
+	{
+		restore();
+		return false;
+	}
+
+	return true;
 }
 
 #endif
