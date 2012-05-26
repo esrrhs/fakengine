@@ -6,14 +6,14 @@ template <typename buffer>
 class fserialize
 {
 public:
-	force_inline fserialize() : m_write_slot(&(buffer::write), &m_buffer),
-		m_read_slot(&(buffer::read), &m_buffer)
+	force_inline fserialize() : m_write_slot(&buffer::write, &m_buffer),
+		m_read_slot(&buffer::read, &m_buffer)
 	{
 
 	}
 	force_inline fserialize(const fserialize & r) : m_buffer(r.m_buffer),
-		m_write_slot(&(buffer::write), &m_buffer),
-		m_read_slot(&(buffer::read), &m_buffer)
+		m_write_slot(&buffer::write, &m_buffer),
+		m_read_slot(&buffer::read, &m_buffer)
 	{
 	}
 	force_inline fserialize & operator = (const fserialize & r)
@@ -137,14 +137,14 @@ template <typename buffer>
 class fserialize
 {
 public:
-	force_inline fserialize() : m_write_slot(&(buffer::write), &m_buffer),
-		m_read_slot(&(buffer::read), &m_buffer)
+	force_inline fserialize() : m_write_slot(&buffer::write, &m_buffer),
+		m_read_slot(&buffer::read, &m_buffer)
 	{
 
 	}
 	force_inline fserialize(const fserialize & r) : m_buffer(r.m_buffer),
-		m_write_slot(&(buffer::write), &m_buffer),
-		m_read_slot(&(buffer::read), &m_buffer)
+		m_write_slot(&buffer::write, &m_buffer),
+		m_read_slot(&buffer::read, &m_buffer)
 	{
 	}
 	force_inline fserialize & operator = (const fserialize & r)

@@ -81,4 +81,5 @@
 2012.5.20：添加fserialize，linux下编不过。。。fserialize是专注于序列化，fileio是file的包装
 2012.5.22：修正linux下编不过的情况，gcc编过了win编不过，所以还是ifdef下吧
 2012.5.24：添加deserialize，下一步输出perf
+2012.5.26：租了个调试主机，移植到centos
 

@@ -4,8 +4,8 @@ template <typename _queue, typename _selector>
 class tcpsocket
 {
 public:
-	force_inline tcpsocket() : m_send_slot(&(_queue::write), &m_send_queue),
-		m_recv_slot(&(_queue::read), &m_recv_queue)
+	force_inline tcpsocket() : m_send_slot(&_queue::write, &m_send_queue),
+		m_recv_slot(&_queue::read, &m_recv_queue)
 	{
 		clear();
 	}
@@ -21,8 +21,8 @@ public:
 		m_connected(r.m_connected),
 		m_send_queue(r.m_send_queue),
 		m_recv_queue(r.m_recv_queue),
-		m_send_slot(&(_queue::write), &m_send_queue),
-		m_recv_slot(&(_queue::read), &m_recv_queue),
+		m_send_slot(&_queue::write, &m_send_queue),
+		m_recv_slot(&_queue::read, &m_recv_queue),
 		m_selector(r.m_selector)
 	{
 		memcpy(m_ip, r.m_ip, c_ip_size);
