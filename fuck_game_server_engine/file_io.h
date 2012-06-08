@@ -42,7 +42,7 @@ public:
 	template <typename T> force_inline
 	bool serialize(const T & t)
 	{
-		if (!m_serialize.serialize(m_write_slot))
+		if (!m_serialize.serialize(t))
 		{
 			if (!flush_file())
 			{
@@ -51,7 +51,7 @@ public:
 		}
 
 		// try again
-		if (!m_serialize.serialize(m_write_slot))
+		if (!m_serialize.serialize(t))
 		{
 			return false;
 		}
@@ -59,7 +59,7 @@ public:
 	}
 	force_inline bool flush_file()
 	{
-
+		return true;
 	}
 private:
 	FILE * m_file;

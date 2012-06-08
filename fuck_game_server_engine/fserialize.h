@@ -30,9 +30,9 @@ public:
 	{
 		return t.serialize(m_write_slot);
 	}
-	force_inline bool serialize(const int8_t * buffer, size_t size)
+	force_inline bool serialize(const int8_t * buf, size_t size)
 	{
-		return write(buffer, size);
+		return write(buf, size);
 	}
 	force_inline bool serialize(const int8_t & t)
 	{
@@ -74,9 +74,9 @@ public:
 	{
 		return t.deserialize(m_read_slot);
 	}
-	force_inline bool deserialize(int8_t * buffer, size_t size)
+	force_inline bool deserialize(int8_t * buf, size_t size)
 	{
-		return read(buffer, size);
+		return read(buf, size);
 	}
 	force_inline bool deserialize(int8_t & t)
 	{
@@ -199,7 +199,7 @@ public:
 public:
 	template <typename T> force_inline
 	bool serialize(const T & t);
-	force_inline bool serialize(const int8_t * buffer, size_t size);
+	force_inline bool serialize(const int8_t * buf, size_t size);
 	force_inline bool serialize(const int8_t & t);
  	force_inline bool serialize(const int16_t & t);
  	force_inline bool serialize(const int32_t & t);
@@ -208,7 +208,7 @@ public:
 	
 	template <typename T> force_inline
 	bool deserialize(T & t);
-	force_inline bool deserialize(int8_t * buffer, size_t size);
+	force_inline bool deserialize(int8_t * buf, size_t size);
 	force_inline bool deserialize(int8_t & t);
 	force_inline bool deserialize(int16_t & t);
 	force_inline bool deserialize(int32_t & t);
@@ -278,9 +278,9 @@ bool fserialize<buffer>::serialize(const T & t)
 	return t.serialize(m_write_slot);
 }
 template <typename buffer>
-bool fserialize<buffer>::serialize(const int8_t * buffer, size_t size)
+bool fserialize<buffer>::serialize(const int8_t * buf, size_t size)
 {
-	return write(buffer, size);
+	return write(buf, size);
 }
 template <> 
 template <typename buffer> force_inline
@@ -334,9 +334,15 @@ bool fserialize<buffer>::deserialize(T & t)
 	return t.deserialize(m_read_slot);
 }
 template <typename buffer>
-bool fserialize<buffer>::deserialize(int8_t * buffer, size_t size)
+bool fserialize<buffer>::deserialize(int8_t * buf, size_t size)
 {
-	return read(buffer, size);
+	return read(buf, size);
+}
+template <> 
+template <typename buffer> force_inline
+bool fserialize<buffer>::deserialize(int8_t & t)
+{
+	return read((int8_t *)&t, sizeof(t));
 }
 template <> 
 template <typename buffer> force_inline
