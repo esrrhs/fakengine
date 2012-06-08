@@ -6,6 +6,7 @@
 #include "alloc.h"
 #include "singleton.h"
 #include "circle_buffer.h"
+#include "circle_buffer_auto.h"
 #include "slot.h"
 #include "fstring.h"
 #include "ftime.h"

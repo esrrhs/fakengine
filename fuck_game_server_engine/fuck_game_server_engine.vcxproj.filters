@@ -542,6 +542,9 @@
     <ClInclude Include="fserialize.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="circle_buffer_auto.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

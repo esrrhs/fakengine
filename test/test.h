@@ -1,7 +1,8 @@
 #pragma once
 
 typedef tcpsocket<cirle_buffer<int8_t, 1024 * 1024>, selector> mysocket;
-typedef netmsg< std::vector<int8_t, fallocator<int8_t, normal_allocator<int8_t> > > > mymsg;
+typedef fserialize< circle_buffer_auto<int8_t> > myfserialize;
+typedef netmsg<myfserialize> mymsg;
 typedef neteventprocessor<mysocket, mymsg> myneteventprocessor;
 typedef std::list<mysocket, fallocator<mysocket, normal_allocator<mysocket> > > mysocketlist;
 
@@ -55,4 +56,5 @@ typedef inifile< std::map<std::string, std::map<std::string, std::string> >, std
 
 typedef ftrie<int8_t, std::map<int8_t, std::pair<void *, bool> > > myftrie;
 
-typedef fserialize< cirle_buffer<int8_t, 1024 * 1024> > myfserialize;
+typedef file_io<myfserialize> myfileio;
+

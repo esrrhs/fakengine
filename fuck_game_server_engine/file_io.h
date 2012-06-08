@@ -1,5 +1,6 @@
 #pragma once
 
+template <typename _serialize>
 class file_io
 {
 public:
@@ -11,12 +12,13 @@ public:
 	{
 		open_file(file_name, mod);
 	}
-	force_inline file_io(const file_io & r) : m_file(r.m_file)
+	force_inline file_io(const file_io & r) : m_file(r.m_file), m_serialize(r.m_serialize)
 	{
 	}
 	force_inline file_io & operator = (const file_io & r)
 	{
 		m_file = r.m_file;
+		m_serialize = r.m_serialize;
 		return *this;
 	}
 	force_inline ~file_io()
@@ -37,7 +39,30 @@ public:
 		}
 		return true;
 	}
+	template <typename T> force_inline
+	bool serialize(const T & t)
+	{
+		if (!m_serialize.serialize(m_write_slot))
+		{
+			if (!flush_file())
+			{
+				return false;
+			}
+		}
+
+		// try again
+		if (!m_serialize.serialize(m_write_slot))
+		{
+			return false;
+		}
+		return true;
+	}
+	force_inline bool flush_file()
+	{
+
+	}
 private:
 	FILE * m_file;
+	_serialize m_serialize;
 };
 

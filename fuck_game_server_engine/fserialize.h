@@ -30,6 +30,10 @@ public:
 	{
 		return t.serialize(m_write_slot);
 	}
+	force_inline bool serialize(const int8_t * buffer, size_t size)
+	{
+		return write(buffer, size);
+	}
 	force_inline bool serialize(const int8_t & t)
 	{
 		return write((const int8_t *)&t, sizeof(t));
@@ -70,6 +74,10 @@ public:
 	{
 		return t.deserialize(m_read_slot);
 	}
+	force_inline bool deserialize(int8_t * buffer, size_t size)
+	{
+		return read(buffer, size);
+	}
 	force_inline bool deserialize(int8_t & t)
 	{
 		return read((int8_t *)&t, sizeof(t));
@@ -106,6 +114,39 @@ public:
 		}
 
 		return true;
+	}
+public:
+	force_inline size_t size()
+	{
+		return m_buffer.size();
+	}
+	force_inline int8_t * get_read_line_buffer()
+	{
+		return m_buffer.get_read_line_buffer();
+	}
+	force_inline size_t get_read_line_size()
+	{
+		return m_buffer.get_read_line_size();
+	}
+	force_inline int8_t * get_write_line_buffer()
+	{
+		return m_buffer.get_write_line_buffer();
+	}
+	force_inline size_t get_write_line_size()
+	{
+		return m_buffer.get_write_line_size();
+	}
+	force_inline size_t resize(size_t new_size)
+	{
+		return m_buffer.resize(new_size);
+	}
+	force_inline void skip_read(size_t size)
+	{
+		m_buffer.skip_read(size);
+	}
+	force_inline void skip_write(size_t size)
+	{
+		m_buffer.skip_write(size);
 	}
 private:
 	force_inline bool write(const int8_t * p, size_t size)
@@ -158,6 +199,7 @@ public:
 public:
 	template <typename T> force_inline
 	bool serialize(const T & t);
+	force_inline bool serialize(const int8_t * buffer, size_t size);
 	force_inline bool serialize(const int8_t & t);
  	force_inline bool serialize(const int16_t & t);
  	force_inline bool serialize(const int32_t & t);
@@ -166,11 +208,45 @@ public:
 	
 	template <typename T> force_inline
 	bool deserialize(T & t);
+	force_inline bool deserialize(int8_t * buffer, size_t size);
 	force_inline bool deserialize(int8_t & t);
 	force_inline bool deserialize(int16_t & t);
 	force_inline bool deserialize(int32_t & t);
 	force_inline bool deserialize(int64_t & t);
 	force_inline bool deserialize(std::string & t);
+public:
+	force_inline size_t size()
+	{
+		return m_buffer.size();
+	}
+	force_inline int8_t * get_read_line_buffer()
+	{
+		return m_buffer.get_read_line_buffer();
+	}
+	force_inline size_t get_read_line_size()
+	{
+		return m_buffer.get_read_line_size();
+	}
+	force_inline int8_t * get_write_line_buffer()
+	{
+		return m_buffer.get_write_line_buffer();
+	}
+	force_inline size_t get_write_line_size()
+	{
+		return m_buffer.get_write_line_size();
+	}
+	force_inline size_t resize(size_t new_size)
+	{
+		return m_buffer.resize(new_size);
+	}
+	force_inline void skip_read(size_t size)
+	{
+		m_buffer.skip_read(size);
+	}
+	force_inline void skip_write(size_t size)
+	{
+		m_buffer.skip_write(size);
+	}
 private:
 	force_inline bool write(const int8_t * p, size_t size)
 	{
@@ -201,7 +277,11 @@ bool fserialize<buffer>::serialize(const T & t)
 {
 	return t.serialize(m_write_slot);
 }
-
+template <typename buffer>
+bool fserialize<buffer>::serialize(const int8_t * buffer, size_t size)
+{
+	return write(buffer, size);
+}
 template <> 
 template <typename buffer> force_inline
 bool fserialize<buffer>::serialize(const int8_t & t)
@@ -252,6 +332,11 @@ template <typename T>
 bool fserialize<buffer>::deserialize(T & t)
 {
 	return t.deserialize(m_read_slot);
+}
+template <typename buffer>
+bool fserialize<buffer>::deserialize(int8_t * buffer, size_t size)
+{
+	return read(buffer, size);
 }
 template <> 
 template <typename buffer> force_inline

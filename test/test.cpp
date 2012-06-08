@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
 	fshow_call_stack(callstack);
 	std::cout<<"callstack "<<callstack<<std::endl;
 
-	file_io fio;
+	myfileio fio;
 	if (fio.open_file("testfile.txt", "a"))
 	{
 		myfserialize fser;
@@ -112,6 +112,14 @@ int main(int argc, char *argv[])
 		fser.deserialize(tmp);
 		std::string str;
 		fser.deserialize(str);
+	}
+
+	{
+		circle_buffer_auto<int8_t> cba(4);
+		std::string a("1234567890");
+		cba.write((const int8_t *)a.c_str(), a.size());
+		std::string b("abcdefghijklmnopqrstuvwxyz");
+		cba.write((const int8_t *)b.c_str(), b.size());
 	}
 
 	if (str == "server")

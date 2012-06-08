@@ -137,6 +137,17 @@ public:
 			m_current_node = m_current_node->get_parent();
 		}
 	}
+	force_inline void output()
+	{
+		// 输出当前帧头
+
+		// 输出节点信息
+
+		// 输出数据信息
+
+		// 输出当前帧尾
+	}
+private:
 	force_inline fperf_node * find_sub_node(fperf_node * parent, const int8_t * name)
 	{
 		fperf_node * child = parent->get_child();
@@ -157,10 +168,6 @@ public:
 		node->m_sibling = parent->get_child();
 		parent->m_child = node;
 		return node;
-	}
-	force_inline void output()
-	{
-
 	}
 private:
 	fperf_node * m_root;
