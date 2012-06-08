@@ -83,3 +83,4 @@
 2012.5.24：添加deserialize，下一步输出perf
 2012.5.26：租了个调试主机，移植到centos
 2012.6.8：把netmsg改成序列化，下一步输出perf
+2012.6.8：fix linux编译错误
