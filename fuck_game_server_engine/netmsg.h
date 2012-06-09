@@ -9,6 +9,10 @@ public:
 	}
 	force_inline ~netmsg()
 	{
+		for (size_t i = 0; i < m_tmp_str.size(); i++)
+		{
+			SAFE_DELETE(std::string, m_tmp_str[i]);
+		}
 	}
 public:
 	force_inline void write_int8(int8_t c, size_t num = 1)
@@ -30,25 +34,25 @@ public:
 	{
 		m_fserialize.serialize(i);
 	}
-	force_inline void write_str(const int8_t * str, size_t size = 0)
+	force_inline void write_str(const char * str, size_t size = 0)
 	{
 		// 自动方式
 		if (size == 0)
 		{
-			m_fserialize.serialize((std::string)(const char *)str);
+			m_fserialize.serialize((std::string)str);
 		}
 		// 补齐方式
 		else
 		{
-			size_t len = strlen((const char *)str);
+			size_t len = strlen(str);
 
 			if (size <= len)
 			{
-				m_fserialize.serialize(str, size);
+				m_fserialize.serialize((const int8_t *)str, size);
 			}
 			else
 			{
-				m_fserialize.serialize(str, len);
+				m_fserialize.serialize((const int8_t *)str, len);
 				write_int8(0, size - len);
 			}
 		}
@@ -76,6 +80,25 @@ public:
 		int64_t i = 0;
 		m_fserialize.deserialize(i);
 		return i;
+	}
+	force_inline const char * read_str(size_t size = 0) const
+	{
+		std::string * p = fnew<std::string>();
+		std::string & i = *p;
+		// 自动方式
+		if (size == 0)
+		{
+			m_fserialize.deserialize(i);
+		}
+		// 补齐方式
+		else
+		{
+			i.resize(size, 0);
+			m_fserialize.deserialize((int8_t *)i.c_str(), size);
+			i[i.size() - 1] = 0;
+		}
+		m_tmp_str.push_back(p);
+		return i.c_str();
 	}
 	force_inline size_t size() const
 	{
@@ -157,5 +180,6 @@ public:
 	}
 private:
 	mutable _fserialize m_fserialize;
+	mutable std::vector<std::string *> m_tmp_str;
 };
 
