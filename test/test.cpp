@@ -163,7 +163,7 @@ int main(int argc, char *argv[])
 		
 		mymsg sendm;
 		std::string str = "hello server";
-		sendm.write_str((const int8_t *)str.c_str(), 1024);
+		sendm.write_str((const char *)str.c_str(), 1024);
 		nl.send_msg(sendm);
 
 		int32_t index = 0;

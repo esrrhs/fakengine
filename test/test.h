@@ -19,7 +19,7 @@ public:
 
 		mymsg sendm;
 		std::string str = "hello server";
-		sendm.write_str((const int8_t *)str.c_str(), 1024);
+		sendm.write_str((const char *)str.c_str(), 1024);
 
 		s.send(sendm);
 		return true;
@@ -38,7 +38,7 @@ public:
 
 		mymsg sendm;
 		std::string str = "hello client";
-		sendm.write_str((const int8_t *)str.c_str(), 1024);
+		sendm.write_str((const char *)str.c_str(), 1024);
 
 		s.send(sendm);
 		return true;
