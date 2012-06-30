@@ -530,16 +530,10 @@
     <ClInclude Include="expat\xmltok_impl.h">
       <Filter>expat</Filter>
     </ClInclude>
-    <ClInclude Include="file_io.h">
-      <Filter>file</Filter>
-    </ClInclude>
     <ClInclude Include="fenum.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="fserialize.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="circle_buffer_auto.h">
+    <ClInclude Include="line_buffer.h">
       <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>

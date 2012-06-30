@@ -48,24 +48,12 @@ public:
 	template<typename _msg>
 	force_inline bool send(const _msg & msg)
 	{
-		m_send_queue.store();
-		if (msg.to_buffer(m_send_slot))
-		{
-			return true;
-		}
-		m_send_queue.restore();
-		return false;
+		return m_send_queue.write(msg);
 	}
 	template<typename _msg>
 	force_inline bool recv(_msg & msg)
 	{
-		m_recv_queue.store();
-		if (msg.from_buffer(m_recv_slot))
-		{
-			return true;
-		}
-		m_recv_queue.restore();
-		return false;
+		return m_recv_queue.read(msg);
 	}
 	force_inline bool ini(const tcp_socket_link_param & tparam)
 	{

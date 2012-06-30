@@ -6,7 +6,7 @@
 #include "alloc.h"
 #include "singleton.h"
 #include "circle_buffer.h"
-#include "circle_buffer_auto.h"
+#include "line_buffer.h"
 #include "slot.h"
 #include "fstring.h"
 #include "ftime.h"
@@ -60,9 +60,7 @@ extern "C"
 #include "./lzo/lzo/lzoutil.h"
 #include "./lzo/lzo/lzo_asm.h"
 
-#include "fserialize.h"
 #include "file_util.h"
-#include "file_io.h"
 
 #include "./mysql/mysql.h"
 
