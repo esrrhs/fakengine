@@ -68,4 +68,3 @@ extern "C"
 
 #include "./expat/expat.h"
 
-#include "fperformance.h"

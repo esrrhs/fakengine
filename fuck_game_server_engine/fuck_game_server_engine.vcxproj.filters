@@ -482,9 +482,6 @@
     <ClInclude Include="mysql\mysql\psi\psi_abi_v2.h">
       <Filter>mysql\mysql\psi</Filter>
     </ClInclude>
-    <ClInclude Include="fperformance.h">
-      <Filter>performance</Filter>
-    </ClInclude>
     <ClInclude Include="global.h">
       <Filter>common</Filter>
     </ClInclude>
@@ -579,9 +576,6 @@
     </Filter>
     <Filter Include="mysql\mysql\psi">
       <UniqueIdentifier>{dfafb1f1-94d9-46f8-b3ea-e77afb64fe62}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="performance">
-      <UniqueIdentifier>{fa1542fe-8ce8-46d0-8904-6a8b4d5ab5e8}</UniqueIdentifier>
     </Filter>
     <Filter Include="expat">
       <UniqueIdentifier>{12c7b8fe-612c-4162-851e-4a29c6f29776}</UniqueIdentifier>
@@ -936,9 +930,6 @@
     </ClCompile>
     <ClCompile Include="fengine.cpp">
       <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="fperformance.cpp">
-      <Filter>performance</Filter>
     </ClCompile>
     <ClCompile Include="global.cpp">
       <Filter>common</Filter>

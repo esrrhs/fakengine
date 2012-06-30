@@ -18,7 +18,6 @@
     <ClCompile Include="expat\xmltok_impl.c" />
     <ClCompile Include="expat\xmltok_ns.c" />
     <ClCompile Include="fengine.cpp" />
-    <ClCompile Include="fperformance.cpp" />
     <ClCompile Include="fuck_game_server_engine.cpp" />
     <ClCompile Include="global.cpp" />
     <ClCompile Include="lua\lapi.c" />
@@ -164,7 +163,6 @@
     <ClInclude Include="fdebug.h" />
     <ClInclude Include="fenum.h" />
     <ClInclude Include="file_io.h" />
-    <ClInclude Include="fperformance.h" />
     <ClInclude Include="fserialize.h" />
     <ClInclude Include="ftrie.h" />
     <ClInclude Include="fengine.h" />

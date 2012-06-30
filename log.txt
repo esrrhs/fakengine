@@ -86,3 +86,6 @@
 2012.6.8：fix linux编译错误
 2012.6.9：为netmsg加读字符串
 2012.6.27：下一步加自己的array、hash，优化掉stl，打算去掉perf，还是直接用郑哥的perf，如果需要更高级的，可以用google、intel的工具，或是自己写log记录各种数据
+2012.6.28：移除perf，下一步加array
+
+

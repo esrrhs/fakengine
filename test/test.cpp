@@ -1,16 +1,6 @@
 #include "fuck_game_server_engine.h"
 #include "test.h"
 
-void fun2()
-{
-	PERF_DEFAULT_FUNC();
-}
-void fun1()
-{
-	PERF_DEFAULT_FUNC();
-	fun2();
-}
-
 int main(int argc, char *argv[])
 {
 	if (argc <= 3)
@@ -20,8 +10,6 @@ int main(int argc, char *argv[])
 	}
 	
 	XML_Parser p = XML_ParserCreate(NULL);
-
-	PERF_INI();
 
 	std::string str = argv[1];
 	std::string ip = argv[2];
@@ -135,18 +123,7 @@ int main(int argc, char *argv[])
 		int32_t index = 0;
 		while (1)
 		{
-			index++;
-			if (index % 100 == 0)
-			{
-				PERF_OUTPUT();
-				printf("PERF_OUTPUT\n");
-			}
-
-			PERF_DEFAULT_FUNC();
-
 			ns.tick();
-
-			fun1();
 
 			fsleep(100);
 		}
@@ -169,18 +146,7 @@ int main(int argc, char *argv[])
 		int32_t index = 0;
 		while (1)
 		{
-			index++;
-			if (index % 100 == 0)
-			{
-				PERF_OUTPUT();
-				printf("PERF_OUTPUT\n");
-			}
-
-			PERF_DEFAULT_FUNC();
-
 			nl.tick();
-
-			fun1();
 
 			fsleep(100);
 		}
