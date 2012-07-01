@@ -73,24 +73,6 @@
 	#define THREAD_LOCAL_VALUE __thread
 #endif
 
-#ifdef USE_PROFILE
-	#define	PERF(manager, name) fperf_sample _fperf_sample((manager), (name))
-	#define PERF_FUNC(manager) PERF(manager, (const int8_t *)__FUNCTION__)
-	#define PERF_DEFAULT(name) PERF(g_fperf_manager, name)
-	#define PERF_DEFAULT_FUNC() PERF(g_fperf_manager, (const int8_t *)__FUNCTION__)
-	#define PERF_INI() g_perf_ini()
-	#define PERF_EXIT() g_perf_exit()
-	#define PERF_OUTPUT() g_perf_output()
-#else
-	#define	PERF(manager, name)
-	#define PERF_FUNC(manager)
-	#define PERF_DEFAULT(name)
-	#define PERF_DEFAULT_FUNC()
-	#define	PERF_INI()
-	#define PERF_EXIT()
-	#define PERF_OUTPUT()
-#endif
-
 #ifndef XML_STATIC
-#define XML_STATIC
+	#define XML_STATIC
 #endif
