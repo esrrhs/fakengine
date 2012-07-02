@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 		mysql_free_result(results);
 	}
 	mysql_close(mysql);
-#ifndef _DEBUG
+#if 0
 	int8_t src[1024];
 	int32_t srclen = 1024;
 	int8_t des[1024];
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 		{
 			ns.tick();
 
-			fsleep(100);
+			fsleep(1);
 		}
 	}
 	else if (str == "client")
@@ -117,17 +117,20 @@ int main(int argc, char *argv[])
 		slp.port = atoi(port.c_str());
 		nl.ini(slp);
 		
-		mymsg sendm;
-		std::string str = "hello server";
-		sendm.write_str((const char *)str.c_str(), 1024);
-		nl.send_msg(sendm);
+		for (int32_t i = 0; i < 100; i++)
+		{
+			mymsg sendm;
+			std::string str = "hello server";
+			sendm.write_str((const char *)str.c_str(), 1024);
+			nl.send_msg(sendm);
+		}
 
 		int32_t index = 0;
 		while (1)
 		{
 			nl.tick();
 
-			fsleep(100);
+			fsleep(1);
 		}
 	}
 	
