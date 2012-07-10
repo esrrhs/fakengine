@@ -59,8 +59,10 @@
 
 #ifdef WIN32
 	#define F64d "I64d"
+	#define F64u "I64u"
 #else
 	#define F64d "lld"
+	#define F64u "llu"
 #endif
 
 #define ARRAY_SIZE(a)	\
