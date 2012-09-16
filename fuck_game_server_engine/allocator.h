@@ -12,13 +12,17 @@ class fallocator : public fallocator_base<_Ty>
 public:
 	typedef fallocator_base<_Ty> _Mybase;
 	typedef typename _Mybase::value_type value_type;
-	typedef value_type _FARQ *pointer;
-	typedef value_type _FARQ& reference;
-	typedef const value_type _FARQ *const_pointer;
-	typedef const value_type _FARQ& const_reference;
 
-	typedef _SIZT size_type;
-	typedef _PDFT difference_type;
+	typedef value_type *pointer;
+	typedef const value_type *const_pointer;
+	typedef void *void_pointer;
+	typedef const void *const_void_pointer;
+
+	typedef value_type& reference;
+	typedef const value_type& const_reference;
+
+	typedef size_t size_type;
+	typedef ptrdiff_t difference_type;
 
 	template<class _Other>
 	struct rebind
@@ -65,7 +69,7 @@ public:
 		return real_alloc::ptr()->allocate(_Count);
 	}
 
-	pointer allocate(size_type _Count, const void _FARQ *)
+	pointer allocate(size_type _Count, const void  *)
 	{	// allocate array of _Count elements, ignore hint
 		return (allocate(_Count));
 	}
@@ -80,9 +84,9 @@ public:
 		std::_Destroy(_Ptr);
 	}
 
-	_SIZT max_size() const
+	size_t max_size() const
 	{	// estimate maximum array size
-		_SIZT _Count = (_SIZT)(-1) / sizeof (_Ty);
+		size_t _Count = (size_t)(-1) / sizeof (_Ty);
 		return (0 < _Count ? _Count : 1);
 	}
 };
