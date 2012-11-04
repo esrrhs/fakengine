@@ -536,6 +536,9 @@
     <ClInclude Include="line_buffer.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="fhashmap.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
