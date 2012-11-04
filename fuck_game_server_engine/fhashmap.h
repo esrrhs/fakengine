@@ -27,7 +27,7 @@ public:
 		V v;
 	};
 	
-	bool get(size_t pos, K & k, V & v)
+	force_inline bool get(size_t pos, K & k, V & v)
 	{
 		if (pos < m_datalen)
 		{
@@ -38,7 +38,7 @@ public:
 		return false;
 	}
 
-	bool add(K k, V v)
+	force_inline bool add(K k, V v)
 	{
 		if (full())
 		{
@@ -59,7 +59,7 @@ public:
 			return true;
 		}
 	}
-	V find(K k)
+	force_inline V find(K k)
 	{
 		size_t pos = find_pos(k);
 		if (pos != -1)
@@ -68,7 +68,7 @@ public:
 		}
 		return V();
 	}
-	bool del(K k)
+	force_inline bool del(K k)
 	{
 		size_t pos = find_pos(k);
 		if (pos != -1)
@@ -80,24 +80,24 @@ public:
 		}
 		return false;
 	}
-	bool full()
+	force_inline bool full()
 	{
 		return m_datalen >= m_len;
 	}
-	bool empty()
+	force_inline bool empty()
 	{
 		return m_datalen == 0;
 	}
-	size_t size()
+	force_inline size_t size()
 	{
 		return m_len;
 	}
-	size_t data_size()
+	force_inline size_t data_size()
 	{
 		return m_datalen;
 	}
 private:
-	size_t find_pos(K k)
+	force_inline size_t find_pos(K k)
 	{
 		for (size_t i = 0; i < m_datalen; i++)
 		{
@@ -108,7 +108,7 @@ private:
 		}
 		return -1;
 	}
-	void grow()
+	force_inline void grow()
 	{
 		size_t newlen = m_datalen + N;
 		_node * pnode = new _node[newlen];
@@ -138,7 +138,7 @@ public:
 		delete []m_array_map;
 	}
 
-	void add(K k, V v)
+	force_inline void add(K k, V v)
 	{
 		if (full())
 		{
@@ -150,12 +150,12 @@ public:
 			m_datalen++;
 		}
 	}
-	V find(K k)
+	force_inline V find(K k)
 	{
 		farraymap<K, V, AN> & array = m_array_map[fhash<K>(k) % m_len];
 		return array.find(k);
 	}
-	void del(K k)
+	force_inline void del(K k)
 	{
 		farraymap<K, V, AN> & array = m_array_map[fhash<K>(k) % m_len];
 		if (array.del(k))
@@ -163,24 +163,24 @@ public:
 			m_datalen--;
 		}
 	}
-	bool full()
+	force_inline bool full()
 	{
 		return m_datalen >= m_len;
 	}
-	bool empty()
+	force_inline bool empty()
 	{
 		return m_datalen == 0;
 	}
-	size_t size()
+	force_inline size_t size()
 	{
 		return m_len;
 	}
-	size_t data_size()
+	force_inline size_t data_size()
 	{
 		return m_datalen;
 	}
 private:
-	void grow()
+	force_inline void grow()
 	{
 		farraymap<K, V, AN> * old_array_map = m_array_map;
 		size_t oldlen = m_len;
