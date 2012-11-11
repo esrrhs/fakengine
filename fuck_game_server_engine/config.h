@@ -12,3 +12,6 @@
 // force inline
 #define USE_FORCE_INLINE
 
+// google perf
+//#define USE_GOOGLE_PERF
+

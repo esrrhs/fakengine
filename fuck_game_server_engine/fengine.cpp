@@ -41,11 +41,19 @@ bool fengine::ini()
 	// ini
 	g_start_time = get_s_tick();
 
+#ifdef USE_GOOGLE_PERF
+	ProfilerStart("fengine.prof");
+#endif
+
 	return true;
 }
 
 bool fengine::exit()
 {
+#ifdef USE_GOOGLE_PERF
+	ProfilerStop();
+#endif
+
 	return true;
 }
 

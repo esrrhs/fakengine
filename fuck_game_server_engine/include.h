@@ -36,6 +36,10 @@
 #include "selector.h"
 #include "neteventprocessor.h"
 
+#ifdef USE_GOOGLE_PERF
+#include <google/profiler.h>
+#endif
+
 extern "C" 
 {
 #include "./lua/lua.h"
