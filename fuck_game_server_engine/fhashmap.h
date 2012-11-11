@@ -46,7 +46,7 @@ public:
 		}
 
 		size_t pos = find_pos(k);
-		if (pos != -1)
+		if (pos != (size_t)-1)
 		{
 			m_node[pos].v = v;
 			return false;
@@ -62,7 +62,7 @@ public:
 	force_inline V find(K k)
 	{
 		size_t pos = find_pos(k);
-		if (pos != -1)
+		if (pos != (size_t)-1)
 		{
 			return m_node[pos].v;
 		}
@@ -71,7 +71,7 @@ public:
 	force_inline bool del(K k)
 	{
 		size_t pos = find_pos(k);
-		if (pos != -1)
+		if (pos != (size_t)-1)
 		{
 			m_node[pos] = m_node[m_datalen - 1];
 			m_node[m_datalen - 1] = _node();
