@@ -3,18 +3,14 @@
 bool fengine::ini()
 {
 	// logo
-	FPRINTF("                          \n		\
-	*******************************\n		\
-	|    zzzzzzzzz   x       x    |\n		\
-	|           z     x     x     |\n		\
-	|          z       x   x      |\n		\
-	|         z         x x       |\n		\
-	|        z           x        |\n		\
-	|       z           x x       |\n		\
-	|      z           x   x      |\n		\
-	|     z           x     x     |\n		\
-	|    zzzzzzzzz   x       x    |\n		\
-	*******************************\n");
+	FPRINTF(
+		"*******************************\n"
+		"| FFFFF  U  U  CCCC  K  K   |\n"
+		"| F      U  U  C     K K    |\n"
+		"| FFFFF  U  U  C     KK     |\n"
+		"| F      U  U  C     K K    |\n"
+		"| F      UUUU  CCCC  K  K   |\n"
+		"*******************************\n");
 
 	// socket
 #ifdef WIN32
@@ -41,18 +37,14 @@ bool fengine::ini()
 	// ini
 	g_start_time = get_s_tick();
 
-#ifdef USE_GOOGLE_PERF
-	ProfilerStart("fengine.prof");
-#endif
+	start_profiler((m_name + ".prof").c_str());
 
 	return true;
 }
 
 bool fengine::exit()
 {
-#ifdef USE_GOOGLE_PERF
-	ProfilerStop();
-#endif
+	stop_profiler();
 
 	return true;
 }

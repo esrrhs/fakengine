@@ -3,7 +3,7 @@
 class fengine
 {
 public:
-	fengine()
+	fengine(const char * name) : m_name(name)
 	{
 		ini();
 	}
@@ -14,5 +14,7 @@ public:
 private:
 	bool ini();
 	bool exit();
+private:
+	std::string m_name;
 };
 

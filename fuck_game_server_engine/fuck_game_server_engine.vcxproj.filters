@@ -539,6 +539,9 @@
     <ClInclude Include="fhashmap.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="profile.h">
+      <Filter>profile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
@@ -576,6 +579,9 @@
     </Filter>
     <Filter Include="expat">
       <UniqueIdentifier>{12c7b8fe-612c-4162-851e-4a29c6f29776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="profile">
+      <UniqueIdentifier>{26425234-8882-4fbf-aa66-fbba96fb85a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -948,6 +954,9 @@
     </ClCompile>
     <ClCompile Include="expat\xmltok_ns.c">
       <Filter>expat</Filter>
+    </ClCompile>
+    <ClCompile Include="profile.cpp">
+      <Filter>profile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

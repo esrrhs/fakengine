@@ -120,6 +120,7 @@
     <ClCompile Include="lzo\lzo_ptr.c" />
     <ClCompile Include="lzo\lzo_str.c" />
     <ClCompile Include="lzo\lzo_util.c" />
+    <ClCompile Include="profile.cpp" />
     <ClCompile Include="zlib\adler32.c" />
     <ClCompile Include="zlib\compress.c" />
     <ClCompile Include="zlib\crc32.c" />
@@ -291,6 +292,7 @@
     <ClInclude Include="neteventprocessor.h" />
     <ClInclude Include="netmsg.h" />
     <ClInclude Include="normal_allocator.h" />
+    <ClInclude Include="profile.h" />
     <ClInclude Include="readonly_allocator.h" />
     <ClInclude Include="selector.h" />
     <ClInclude Include="singleton.h" />

@@ -3,7 +3,7 @@
 class mainapp
 {
 public:
-	mainapp() : m_exit(false)
+	mainapp(const char * name) : m_engine(name), m_exit(false)
 	{
 	}
 	virtual ~mainapp()

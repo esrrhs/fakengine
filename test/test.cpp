@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	std::string ip = argv[2];
 	std::string port = argv[3];
 
-	fengine fe;
+	fengine fe("test");
 	
 	myinifile ifile;
 	ifile.load("config.ini");

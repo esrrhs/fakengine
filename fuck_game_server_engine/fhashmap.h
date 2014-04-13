@@ -180,7 +180,7 @@ public:
 		return m_datalen;
 	}
 private:
-	force_inline void grow()
+	void grow()
 	{
 		farraymap<K, V, AN> * old_array_map = m_array_map;
 		size_t oldlen = m_len;

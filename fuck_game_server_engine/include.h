@@ -35,10 +35,7 @@
 #include "socket_container.h"
 #include "selector.h"
 #include "neteventprocessor.h"
-
-#ifdef USE_GOOGLE_PERF
-#include <google/profiler.h>
-#endif
+#include "profile.h"
 
 extern "C" 
 {
