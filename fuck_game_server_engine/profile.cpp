@@ -313,7 +313,7 @@ void profiler_signal_handler(int sig, siginfo_t* sinfo, void* ucontext)
     void* buffer[maxLevel];      
     int level = backtrace(buffer, maxLevel);  
       
-    g_ProfileData.add(level - 1, buffer + 1);  
+    g_ProfileData.add(level - 2, buffer + 2);  
 }  
       
 static void constructfilename(const char* spec, pid_t pid, char* buf, int buf_size)  
