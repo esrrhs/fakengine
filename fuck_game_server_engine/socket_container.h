@@ -74,8 +74,8 @@ private:
 			if (m_real_select.is_read(s.get_socket_t()))
 			{
 				s.fill();
-				process_msg(s);
 			}
+			process_msg(s);
 		}
 
 		return true;

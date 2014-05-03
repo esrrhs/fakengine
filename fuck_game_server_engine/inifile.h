@@ -1,17 +1,25 @@
 #pragma once
 
 /*
-
+#comment xxx#
 [sec0]
+#comment xxx#
 key0 = value0;
+#comment xxx#
 key1 = value1;
 
+#comment xxx#
 [sec1]
+#comment xxx#
 key0 = value0;
+#comment xxx#
 key1 = value1;
 
+#comment xxx#
 [sec2]
+#comment xxx#
 key0 = value0;
+#comment xxx#
 key1 = value1; 
 
 */
@@ -205,6 +213,21 @@ private:
 	}
 	force_inline void trim_string(std::string & str)
 	{
+		bool iscomment = false;
+		for (int i = 0; i < (int)str.size(); i++)
+		{
+			char & c = str[i];
+			if (c == '#')
+			{
+				iscomment = !iscomment;
+				c = ' ';
+			}
+			else if (iscomment)
+			{
+				c = ' ';
+			}
+		}
+
 		str.erase(std::remove(str.begin(), str.end(), '\t'), str.end());
 		str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
 		str.erase(std::remove(str.begin(), str.end(), '\r'), str.end());
