@@ -37,6 +37,7 @@
 #include "neteventprocessor.h"
 #include "profile.h"
 #include "sharemm.h"
+#include "cmdparser.h"
 
 extern "C" 
 {

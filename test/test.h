@@ -56,4 +56,5 @@ typedef inifile< std::map<std::string, std::map<std::string, std::string> >, std
 
 typedef ftrie<int8_t, std::map<int8_t, std::pair<void *, bool> > > myftrie;
 
+typedef cmdparser<std::map<std::string, std::string> > mycmdparser;
 

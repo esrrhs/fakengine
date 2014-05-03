@@ -125,6 +125,12 @@ int main(int argc, char *argv[])
 	unmap_share_mem(pmem);
 	close_share_mem(handle);
 
+	mycmdparser mcp;
+	char * myargv[] = {"test", "--id=221124"};
+	mcp.parse(2, myargv);
+	std::string value;
+	mcp.get("id", value);
+
 	if (str == "server")
 	{
 		mynetserver ns;

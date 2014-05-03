@@ -143,6 +143,7 @@
     <ClInclude Include="auto_lock.h" />
     <ClInclude Include="calloc.h" />
     <ClInclude Include="circle_buffer.h" />
+    <ClInclude Include="cmdparser.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="const.h" />
     <ClInclude Include="expat\amigaconfig.h" />
