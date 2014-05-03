@@ -295,6 +295,7 @@
     <ClInclude Include="profile.h" />
     <ClInclude Include="readonly_allocator.h" />
     <ClInclude Include="selector.h" />
+    <ClInclude Include="sharemm.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="slot.h" />
     <ClInclude Include="socket_container.h" />

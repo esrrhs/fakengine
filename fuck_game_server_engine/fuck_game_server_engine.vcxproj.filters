@@ -542,6 +542,9 @@
     <ClInclude Include="profile.h">
       <Filter>profile</Filter>
     </ClInclude>
+    <ClInclude Include="sharemm.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

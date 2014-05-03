@@ -120,6 +120,11 @@ int main(int argc, char *argv[])
 	fshow_call_stack(callstack);
 	std::cout<<"callstack "<<callstack<<std::endl;
 	
+	shm_handle handle = create_share_mem(12314,1024);
+	int8_t * pmem = map_share_mem(handle);
+	unmap_share_mem(pmem);
+	close_share_mem(handle);
+
 	if (str == "server")
 	{
 		mynetserver ns;

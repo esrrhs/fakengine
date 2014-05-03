@@ -41,6 +41,8 @@
 #include <sys/socket.h>
 #include <sys/time.h>
 #include <linux/limits.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 #endif
 
 
