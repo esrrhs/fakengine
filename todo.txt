@@ -7,4 +7,4 @@
 添加proxy组件，隔离server间通信
 添加bus组件，通过共享内存快速通信
 添加genxml组件，生成读xml代码
-
+重构logsystem
