@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="hashmap\hashmapapp.cpp">
+      <Filter>hashmap</Filter>
+    </ClCompile>
+    <ClCompile Include="compress\compressapp.cpp">
+      <Filter>compress</Filter>
+    </ClCompile>
+    <ClCompile Include="inifile\inifileapp.cpp">
+      <Filter>inifile</Filter>
+    </ClCompile>
+    <ClCompile Include="ftrie\ftrieapp.cpp">
+      <Filter>ftrie</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="test.h" />
+    <ClInclude Include="hashmap\hashmapapp.h">
+      <Filter>hashmap</Filter>
+    </ClInclude>
+    <ClInclude Include="compress\compressapp.h">
+      <Filter>compress</Filter>
+    </ClInclude>
+    <ClInclude Include="inifile\inifileapp.h">
+      <Filter>inifile</Filter>
+    </ClInclude>
+    <ClInclude Include="ftrie\ftrieapp.h">
+      <Filter>ftrie</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="hashmap">
+      <UniqueIdentifier>{eabf79cd-8dfb-4176-bec8-43a3c194aaac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compress">
+      <UniqueIdentifier>{3acc589c-a1b4-4532-95d6-ff545698c40b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inifile">
+      <UniqueIdentifier>{2f3f789a-10a3-4213-8256-93afd90a52f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ftrie">
+      <UniqueIdentifier>{2253f686-95bc-471c-9e60-ebc5df925eec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

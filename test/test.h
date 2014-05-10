@@ -52,9 +52,6 @@ typedef socket_container<mymsg, mysocket, selector, mysocketlist, server_process
 typedef netserver<mysocketcontainer> mynetserver;
 
 typedef flog_system< std::map<uint32_t, flog *> > myflog_system;
-typedef inifile< std::map<std::string, std::map<std::string, std::string> >, std::map<std::string, std::string> > myinifile;
 
-typedef ftrie<int8_t, std::map<int8_t, std::pair<void *, bool> > > myftrie;
-
-typedef cmdparser<std::map<std::string, std::string> > mycmdparser;
+//typedef cmdparser<std::map<std::string, std::string> > mycmdparser;
 
