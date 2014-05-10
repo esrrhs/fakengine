@@ -548,6 +548,9 @@
     <ClInclude Include="cmdparser.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="cmdcontrol.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

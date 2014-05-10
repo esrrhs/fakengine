@@ -78,3 +78,9 @@
 #ifndef XML_STATIC
 	#define XML_STATIC
 #endif
+
+// log
+#define LOG_DEBUG
+#define LOG_ERROR
+#define LOG_SYS
+

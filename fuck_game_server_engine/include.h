@@ -13,7 +13,6 @@
 #include "inifile.h"
 #include "ftrie.h"
 #include "fhashmap.h"
-#include "mainapp.h"
 
 #include "allocator.h"
 #include "readonly_allocator.h"
@@ -38,6 +37,7 @@
 #include "profile.h"
 #include "sharemm.h"
 #include "cmdparser.h"
+#include "cmdcontrol.h"
 
 extern "C" 
 {
@@ -70,3 +70,4 @@ extern "C"
 
 #include "./expat/expat.h"
 
+#include "mainapp.h"

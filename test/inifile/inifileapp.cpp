@@ -13,6 +13,7 @@ bool inifileapp::heartbeat()
 	std::string ss;
 	ifile.get("sec0", "key0", ss);
 
+	std::cout<<".";
 	return true;
 }
 

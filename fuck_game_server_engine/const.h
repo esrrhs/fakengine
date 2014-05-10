@@ -13,3 +13,7 @@ const uint32_t c_msg_header_size = 2;	// 包头长度
 
 const uint32_t c_buffer_size_size = 2;		// 表示缓冲区长度的长度
 
+const int32_t c_DefaultCmdKey = 20140510;	// 默认cmd共享key
+const int32_t c_CmdControlCmdSize =	32;
+const int32_t c_CmdControlParamSize = 10240;
+const int8_t c_CmdExit[] = "byebye";
