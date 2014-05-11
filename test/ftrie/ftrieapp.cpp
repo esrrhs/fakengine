@@ -13,7 +13,7 @@ bool ftrieapp::heartbeat()
 	ftrie.insert((int8_t *)"AB", 2);
 	ftrie.insert((int8_t *)"ABCD", 4);
 
-	size_t ret = ftrie.ishaveword((int8_t *)"ABCDE", 5, false);
+	ftrie.ishaveword((int8_t *)"ABCDE", 5, false);
 
 	return true;
 }

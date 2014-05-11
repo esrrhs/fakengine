@@ -34,9 +34,9 @@ public:
 		LOG_SYS("exit mainapp");
 	}
 protected:
-	force_inline virtual bool ini(int argc, char *argv[]) = 0;
-	force_inline virtual bool heartbeat() = 0;
-	force_inline virtual bool exit() = 0;
+	virtual bool ini(int argc, char *argv[]) = 0;
+	virtual bool heartbeat() = 0;
+	virtual bool exit() = 0;
 private:
 	force_inline bool _ini()
 	{

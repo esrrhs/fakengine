@@ -23,5 +23,5 @@ typedef void* shm_handle;
 typedef int shm_key;
 #else
 typedef int shm_handle;
-type key_t shm_key;
+typedef key_t shm_key;
 #endif

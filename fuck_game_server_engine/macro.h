@@ -82,8 +82,15 @@
 #endif
 
 // log
-#define FLOG(ftype, format, ...) flog_system::ptr()->write(ftype, __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__)
-#define LOG_DEBUG(format, ...) FLOG(FLOGT_DEBUG, format, __VA_ARGS__)
-#define LOG_ERROR(format, ...) FLOG(FLOGT_ERROR, format, __VA_ARGS__)
-#define LOG_SYS(format, ...) FLOG(FLOGT_SYSTEM, format, __VA_ARGS__)
+#ifdef WIN32
+	#define FLOG(ftype, format, ...) flog_system::ptr()->write(ftype, __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__)
+	#define LOG_DEBUG(format, ...) FLOG(FLOGT_DEBUG, format, __VA_ARGS__)
+	#define LOG_ERROR(format, ...) FLOG(FLOGT_ERROR, format, __VA_ARGS__)
+	#define LOG_SYS(format, ...) FLOG(FLOGT_SYSTEM, format, __VA_ARGS__)
+#else
+	#define FLOG(ftype, format, ...) flog_system::ptr()->write(ftype, __FILE__, __LINE__, __FUNCTION__, format, ##__VA_ARGS__)
+	#define LOG_DEBUG(format, ...) flog_system::ptr()->write(FLOGT_DEBUG, __FILE__, __LINE__, __FUNCTION__, format, ##__VA_ARGS__)
+	#define LOG_ERROR(format, ...) flog_system::ptr()->write(FLOGT_ERROR, __FILE__, __LINE__, __FUNCTION__, format, ##__VA_ARGS__)
+	#define LOG_SYS(format, ...) flog_system::ptr()->write(FLOGT_SYSTEM, __FILE__, __LINE__, __FUNCTION__, format, ##__VA_ARGS__)
+#endif
 

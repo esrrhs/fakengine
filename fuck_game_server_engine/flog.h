@@ -26,7 +26,7 @@ public:
 		SAFE_TEST_INDEX(type, FLOGT_MAX);
 		m_switch[type] = 0;
 	}
-	force_inline void write(uint32_t type, const char * file, int pos, const char * funcname, const char * format, ...)
+	void write(uint32_t type, const char * file, int pos, const char * funcname, const char * format, ...)
 	{
 		if (!m_switch[type])
 		{

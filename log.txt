@@ -105,3 +105,4 @@
 2014.5.11：加cmd controller
 2014.5.11：重构log
 2014.5.11：加clock
+2014.5.11：fix linux build
