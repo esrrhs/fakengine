@@ -21,3 +21,4 @@ const int8_t c_CmdExit[] = "byebye";
 const int32_t c_LogBuffer = 102400;
 const int32_t c_LogNameBuffer = 128;
 
+const int32_t c_ClockStringBuffer = 128;

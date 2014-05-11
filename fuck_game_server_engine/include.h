@@ -24,6 +24,7 @@
 #include "thread.h"
 #include "thread_util.h"
 
+#include "fclock.h"
 #include "flog.h"
 
 #include "netlink.h"

@@ -35,7 +35,7 @@ public:
 
 		int32_t ret = tsnprintf((char *)m_buff, ARRAY_SIZE(m_buff) - 1, 
 			"---------in [%s:%d,%s]:---------\n[%s][%s]:", 
-			file, pos, funcname, "time", gettypename(type));
+			file, pos, funcname, (const char*)fclock::ptr()->nowstr(), gettypename(type));
 
 		va_list ap;
 		va_start(ap, format);
@@ -72,7 +72,7 @@ private:
 			return;
 		}
 
-		size_t wtritelen = 0;
+		int32_t wtritelen = 0;
 		while (wtritelen < strslen)
 		{
 			size_t len = fwrite(m_buff + wtritelen, 1, strslen - wtritelen, fp);

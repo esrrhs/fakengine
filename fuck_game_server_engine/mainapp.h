@@ -62,9 +62,12 @@ private:
 	}
 	force_inline bool _heartbeat()
 	{
+		// clock
+		fclock::ptr()->heartbeat();
+
 		// check cmd control
 		checkcmdcontrol();
-
+		
 		return true;
 	}
 	force_inline bool checkcmdcontrol()
