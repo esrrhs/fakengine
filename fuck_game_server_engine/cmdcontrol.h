@@ -20,6 +20,13 @@ struct cmdcontrol
 		}
 		return false;
 	}
+	bool set_cmd(const int8_t * _cmd, const int8_t * _param)
+	{
+		fstrcopy(cmd, _cmd, sizeof(cmd));
+		fstrcopy(param, _param, sizeof(param));
+		isset = 1;
+		return true;
+	}
 	const int8_t * get_cmd()
 	{
 		return cmd;
