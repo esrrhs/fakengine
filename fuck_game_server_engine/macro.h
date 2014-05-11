@@ -5,6 +5,8 @@
 #define SAFE_TEST_CONTINUE(EXPRESSION, TESTVALUE) if((EXPRESSION) == (TESTVALUE)) continue;
 #define SAFE_TEST_BREAK(EXPRESSION, TESTVALUE) if((EXPRESSION) == (TESTVALUE)) break;
 
+#define SAFE_TEST_INDEX(EXPRESSION, TESTVALUE) if((EXPRESSION) < 0 || (EXPRESSION) >= (TESTVALUE)) return;
+
 #define SAFE_DIFFER_TEST_RET_VAL(EXPRESSION, TESTVALUE, RETURNVALUE) if((EXPRESSION) != (TESTVALUE)) return RETURNVALUE;
 #define SAFE_DIFFER_TEST_RET(EXPRESSION, TESTVALUE) if((EXPRESSION) != (TESTVALUE)) return;
 #define SAFE_DIFFER_TEST_CONTINUE(EXPRESSION, TESTVALUE) if((EXPRESSION) != (TESTVALUE)) continue;
@@ -80,7 +82,8 @@
 #endif
 
 // log
-#define LOG_DEBUG
-#define LOG_ERROR
-#define LOG_SYS
+#define FLOG(ftype, format, ...) flog_system::ptr()->write(ftype, __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__)
+#define LOG_DEBUG(format, ...) FLOG(FLOGT_DEBUG, format, __VA_ARGS__)
+#define LOG_ERROR(format, ...) FLOG(FLOGT_ERROR, format, __VA_ARGS__)
+#define LOG_SYS(format, ...) FLOG(FLOGT_SYSTEM, format, __VA_ARGS__)
 

@@ -2,9 +2,11 @@
 
 bool fengine::ini()
 {
+	flog_system::ptr()->setname((const int8_t*)(m_name + ".log").c_str());
+
 	// logo
-	FPRINTF(
-		"*******************************\n"
+	LOG_SYS(
+		"\n*******************************\n"
 		"| FFFFF  U  U  CCCC  K  K   |\n"
 		"| F      U  U  C     K K    |\n"
 		"| FFFFF  U  U  C     KK     |\n"
@@ -21,7 +23,7 @@ bool fengine::ini()
 	err = WSAStartup(wVersionRequested, &wsaData);
 	if (err != 0)
 	{
-		FPRINTF("WSAStartup error\n");
+		LOG_ERROR("WSAStartup error\n");
 		return false;
 	}
 #endif
@@ -30,7 +32,7 @@ bool fengine::ini()
 	int ret = lzo_init();
 	if (LZO_E_OK != ret)
 	{
-		FPRINTF("lzo_init error\n");
+		LOG_ERROR("lzo_init error\n");
 		return false;
 	}
 
@@ -39,12 +41,18 @@ bool fengine::ini()
 
 	start_profiler((m_name + ".prof").c_str());
 
+	srand(time(0));
+
+	LOG_SYS("fengine ini ok");
+
 	return true;
 }
 
 bool fengine::exit()
 {
 	stop_profiler();
+
+	LOG_SYS("fengine exit ok");
 
 	return true;
 }

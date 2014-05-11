@@ -17,3 +17,7 @@ const int32_t c_DefaultCmdKey = 20140510;	// Ä¬ÈÏcmd¹²Ïíkey
 const int32_t c_CmdControlCmdSize =	32;
 const int32_t c_CmdControlParamSize = 10240;
 const int8_t c_CmdExit[] = "byebye";
+
+const int32_t c_LogBuffer = 102400;
+const int32_t c_LogNameBuffer = 128;
+

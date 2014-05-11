@@ -1,74 +1,81 @@
 #pragma once
 
-class flog : public thread
+class flog_system : public singleton< flog_system >
 {
 public:
-	flog(uint32_t type, const std::string & file) : m_type(type), m_file(file), m_loop_end(false)
+	flog_system()
+	{
+		memset(m_buff, 0, sizeof(m_buff));
+		memset(m_switch, 1, sizeof(m_switch));
+		memset(m_name, 0, sizeof(m_name));
+	}
+	~flog_system()
 	{
 	}
-	~flog()
+	force_inline void setname(const int8_t * name)
 	{
+		fstrcopy(m_name, name, sizeof(m_name));
 	}
-
-	virtual void run()
+	force_inline void enable(FLOG_TYPE type)
 	{
-		std::string str;
-		while (1)
+		SAFE_TEST_INDEX(type, FLOGT_MAX);
+		m_switch[type] = 1;
+	}
+	force_inline void disable(FLOG_TYPE type)
+	{
+		SAFE_TEST_INDEX(type, FLOGT_MAX);
+		m_switch[type] = 0;
+	}
+	force_inline void write(uint32_t type, const char * file, int pos, const char * funcname, const char * format, ...)
+	{
+		if (!m_switch[type])
 		{
-			m_loop_end = false;
-
-			str.clear();
-
-			{
-				auto_lock<thread_lock> lock(m_lock);
-				if (!m_to_write.empty())
-				{
-					str = m_to_write;
-					m_to_write.clear();
-				}
-			}
-
-			if (!str.empty())
-			{
-				real_write(str);
-			}
-
-			m_loop_end = true;
-
-			fsleep(100);
+			return;
 		}
+
+		int32_t ret = tsnprintf((char *)m_buff, ARRAY_SIZE(m_buff) - 1, 
+			"---------in [%s:%d,%s]:---------\n[%s][%s]:", 
+			file, pos, funcname, "time", gettypename(type));
+
+		va_list ap;
+		va_start(ap, format);
+		ret += tvsnprintf((char *)m_buff + ret, ARRAY_SIZE(m_buff) - ret - 1, format, ap);
+		va_end(ap);
+
+		m_buff[ARRAY_SIZE(m_buff) - 1] = 0;
+
+		write(ret);
 	}
-	force_inline void write(const std::string & str)
-	{
-		auto_lock<thread_lock> lock(m_lock);
-		m_to_write = m_to_write + str;
-		m_to_write = m_to_write + "\n";
-	}
-	force_inline void flush()
-	{
-		while (1)
-		{
-			if (m_to_write.empty() && m_loop_end)
-			{
-				break;
-			}
-			fsleep(1);
-		}
-	}
+
 private:
-	force_inline bool real_write(const std::string & str)
+	force_inline const char * gettypename(uint32_t type)
 	{
-		FILE * fp = fopen(m_file.c_str(), "a");
+		switch (type)
+		{
+		case FLOGT_DEBUG:
+			return "DEBUG";
+		case FLOGT_SYSTEM:
+			return "SYSTEM";
+		case FLOGT_ERROR:
+			return "ERROR";
+		case FLOGT_INFO:
+			return "INFO";
+		default:
+			return "UNKNOW";
+		}
+	}
+	force_inline void write(int32_t strslen)
+	{
+		FILE * fp = fopen((const char *)m_name, "a");
 		if (!fp)
 		{
-			return false;
+			return;
 		}
 
 		size_t wtritelen = 0;
-		size_t strslen = str.size();
 		while (wtritelen < strslen)
 		{
-			size_t len = fwrite(str.c_str() + wtritelen, 1, strslen - wtritelen, fp);
+			size_t len = fwrite(m_buff + wtritelen, 1, strslen - wtritelen, fp);
 			if (len == 0)
 			{
 				break;
@@ -79,64 +86,10 @@ private:
 		fwrite("\n", 1, 1, fp);
 
 		fclose(fp);
-
-		return true;
 	}
 private:
-	uint32_t m_type;
-	std::string m_file;
-	thread_lock m_lock;
-	std::string m_to_write;
-	bool m_loop_end;
-};
-
-template <typename _flogmap>
-class flog_system : public singleton< flog_system<_flogmap> >
-{
-public:
-	flog_system()
-	{
-	}
-	~flog_system()
-	{
-	}
-	force_inline void add(uint32_t type, const std::string & file)
-	{
-		m_flogmap[type] = fnew<flog>(type, file);
-		m_flogmap[type]->start();
-	}
-	force_inline void write(uint32_t type, const std::string & str)
-	{
-		flog * p = m_flogmap[type];
-		if (p)
-		{
-			p->write(str);
-		}
-	}
-	void write(uint32_t type, const char * format, ...)
-	{
-		int8_t buff[1024];
-		buff[ARRAY_SIZE(buff) - 1] = 0;
-
-		va_list ap;
-		va_start(ap, format);
-		tvsnprintf((char *)buff, ARRAY_SIZE(buff) - 1, format, ap);
-		va_end(ap);
-
-		write(type, (std::string)(char *)buff);
-	}
-	force_inline void flush()
-	{
-		for (typename _flogmap::iterator it = m_flogmap.begin(); it != m_flogmap.end(); it++)
-		{
-			flog * p = it->second;
-			if (p)
-			{
-				p->flush();
-			}
-		}
-	}
-private:
-	_flogmap m_flogmap;
+	int8_t m_buff[c_LogBuffer];
+	int8_t m_switch[FLOGT_MAX];
+	int8_t m_name[c_LogNameBuffer];
 };
 

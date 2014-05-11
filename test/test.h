@@ -51,7 +51,5 @@ typedef netlink<mysocketlink> mynetlink;
 typedef socket_container<mymsg, mysocket, selector, mysocketlist, server_processor> mysocketcontainer;
 typedef netserver<mysocketcontainer> mynetserver;
 
-typedef flog_system< std::map<uint32_t, flog *> > myflog_system;
-
 //typedef cmdparser<std::map<std::string, std::string> > mycmdparser;
 
