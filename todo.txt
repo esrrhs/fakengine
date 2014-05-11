@@ -5,3 +5,5 @@
 添加bus组件，通过共享内存快速通信
 添加genxml组件，生成读xml代码
 重构logsystem
+自定义string、vector、map
+
