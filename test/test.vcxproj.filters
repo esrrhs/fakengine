@@ -14,6 +14,12 @@
     <ClCompile Include="ftrie\ftrieapp.cpp">
       <Filter>ftrie</Filter>
     </ClCompile>
+    <ClCompile Include="client\clientapp.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="server\serverapp.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h" />
@@ -29,6 +35,12 @@
     <ClInclude Include="ftrie\ftrieapp.h">
       <Filter>ftrie</Filter>
     </ClInclude>
+    <ClInclude Include="client\clientapp.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="server\serverapp.h">
+      <Filter>server</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="hashmap">
@@ -42,6 +54,12 @@
     </Filter>
     <Filter Include="ftrie">
       <UniqueIdentifier>{2253f686-95bc-471c-9e60-ebc5df925eec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="client">
+      <UniqueIdentifier>{c7342ae7-1b7d-4013-af91-4e81b1a5d8d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="server">
+      <UniqueIdentifier>{5228425f-0bd8-4402-a4ba-e114739a0c86}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

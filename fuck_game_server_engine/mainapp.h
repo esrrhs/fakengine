@@ -33,6 +33,10 @@ public:
 		_exit();
 		LOG_SYS("exit mainapp");
 	}
+	std::string getname()
+	{
+		return m_engine.getname();
+	}
 protected:
 	virtual bool ini(int argc, char *argv[]) = 0;
 	virtual bool heartbeat() = 0;

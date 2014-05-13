@@ -82,17 +82,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="client\clientapp.cpp" />
     <ClCompile Include="compress\compressapp.cpp" />
     <ClCompile Include="ftrie\ftrieapp.cpp" />
     <ClCompile Include="hashmap\hashmapapp.cpp" />
     <ClCompile Include="inifile\inifileapp.cpp" />
+    <ClCompile Include="server\serverapp.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="client\clientapp.h" />
     <ClInclude Include="compress\compressapp.h" />
     <ClInclude Include="ftrie\ftrieapp.h" />
     <ClInclude Include="hashmap\hashmapapp.h" />
     <ClInclude Include="inifile\inifileapp.h" />
+    <ClInclude Include="server\serverapp.h" />
     <ClInclude Include="test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

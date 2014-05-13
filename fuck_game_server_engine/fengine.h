@@ -11,6 +11,10 @@ public:
 	{
 		exit();
 	}
+	std::string getname()
+	{
+		return m_name;
+	}
 private:
 	bool ini();
 	bool exit();
