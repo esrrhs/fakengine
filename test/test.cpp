@@ -6,6 +6,7 @@
 #include "./ftrie/ftrieapp.h"
 #include "./client/clientapp.h"
 #include "./server/serverapp.h"
+#include "./mysql/mysqlapp.h"
 
 std::map<std::string, mainapp *> g_map;
 
@@ -22,6 +23,7 @@ int main(int argc, char *argv[])
 	REG(ftrie);
 	REG(client);
 	REG(server);
+	REG(mysql);
 
 	if (argc <= 1)
 	{
