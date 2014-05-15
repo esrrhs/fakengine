@@ -20,6 +20,9 @@
     <ClCompile Include="server\serverapp.cpp">
       <Filter>server</Filter>
     </ClCompile>
+    <ClCompile Include="mysql\mysqlapp.cpp">
+      <Filter>mysql</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h" />
@@ -41,6 +44,9 @@
     <ClInclude Include="server\serverapp.h">
       <Filter>server</Filter>
     </ClInclude>
+    <ClInclude Include="mysql\mysqlapp.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="hashmap">
@@ -60,6 +66,9 @@
     </Filter>
     <Filter Include="server">
       <UniqueIdentifier>{5228425f-0bd8-4402-a4ba-e114739a0c86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mysql">
+      <UniqueIdentifier>{faa50035-7261-4b39-b2ff-a42969947f47}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

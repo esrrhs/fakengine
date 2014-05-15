@@ -87,6 +87,7 @@
     <ClCompile Include="ftrie\ftrieapp.cpp" />
     <ClCompile Include="hashmap\hashmapapp.cpp" />
     <ClCompile Include="inifile\inifileapp.cpp" />
+    <ClCompile Include="mysql\mysqlapp.cpp" />
     <ClCompile Include="server\serverapp.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
@@ -96,6 +97,7 @@
     <ClInclude Include="ftrie\ftrieapp.h" />
     <ClInclude Include="hashmap\hashmapapp.h" />
     <ClInclude Include="inifile\inifileapp.h" />
+    <ClInclude Include="mysql\mysqlapp.h" />
     <ClInclude Include="server\serverapp.h" />
     <ClInclude Include="test.h" />
   </ItemGroup>
