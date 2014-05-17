@@ -32,7 +32,7 @@ public:
 
 	//! Default constructor
 	fstring()
-	: used(0)
+		: used(0)
 	{
 		array[0] = 0;
 	}
@@ -40,7 +40,7 @@ public:
 
 	//! Constructor
 	fstring(const fstring<T, N>& other)
-	: used(0)
+		: used(0)
 	{
 		*this = other;
 	}
@@ -48,7 +48,7 @@ public:
 	//! Constructor from other fstring types
 	template <class B, uint32_t M>
 	fstring(const fstring<B, M>& other)
-	: used(0)
+		: used(0)
 	{
 		*this = other;
 	}
@@ -56,7 +56,7 @@ public:
 
 	//! Constructs a fstring from a float
 	explicit fstring(const double number)
-	: used(0)
+		: used(0)
 	{
 		uint8_t tmpbuf[255];
 		snprintf(tmpbuf, 255, "%0.6f", number);
@@ -66,7 +66,7 @@ public:
 
 	//! Constructs a fstring from an int
 	explicit fstring(int number)
-	: used(0)
+		: used(0)
 	{
 		// store if negative and make positive
 
@@ -114,7 +114,7 @@ public:
 
 	//! Constructs a fstring from an unsigned int
 	explicit fstring(unsigned int number)
-	: used(0)
+		: used(0)
 	{
 		// temporary buffer for 16 numbers
 
@@ -145,7 +145,7 @@ public:
 
 	//! Constructs a fstring from a long
 	explicit fstring(long number)
-	: used(0)
+		: used(0)
 	{
 		// store if negative and make positive
 
@@ -193,7 +193,7 @@ public:
 
 	//! Constructs a fstring from an unsigned long
 	explicit fstring(unsigned long number)
-	: used(0)
+		: used(0)
 	{
 		// temporary buffer for 16 numbers
 
@@ -225,7 +225,7 @@ public:
 	//! Constructor for copying a fstring from a pointer with a given length
 	template <class B>
 	fstring(const B* const c, uint32_t length)
-	: used(0)
+		: used(0)
 	{
 		if (!c)
 		{
@@ -233,14 +233,14 @@ public:
 			*this="";
 			return;
 		}
-		
+
 		used = length;
 
 		if (used >= N)
 		{
 			used = N - 1;
 		}
-		
+
 		for (uint32_t l = 0; l<used; ++l)
 			array[l] = (T)c[l];
 
@@ -251,7 +251,7 @@ public:
 	//! Constructor for unicode and ascii strings
 	template <class B>
 	fstring(const B* const c)
-	: used(0)
+		: used(0)
 	{
 		*this = c;
 	}
@@ -280,7 +280,7 @@ public:
 		const T* p = other.c_str();
 		for (uint32_t i=0; i<used; ++i, ++p)
 			array[i] = *p;
-		
+
 		array[used] = 0;
 
 		return *this;
@@ -315,7 +315,7 @@ public:
 		{
 			++len;
 		} while(*p++);
-		
+
 		len--;
 
 		used = len;
@@ -326,7 +326,7 @@ public:
 
 		for (uint32_t l = 0; l<len; ++l)
 			array[l] = (T)c[l];
-		
+
 		array[used] = 0;
 
 		return *this;
@@ -485,7 +485,7 @@ public:
 
 	//! Compares the strings ignoring case.
 	/** \param other: Other fstring to compare.
-		\param sourcePos: where to start to compare in the fstring
+	\param sourcePos: where to start to compare in the fstring
 	\return True if the strings are equal ignoring case. */
 	bool equals_substring_ignore_case(const fstring<T,N>&other, const int32_t sourcePos = 0 ) const
 	{
@@ -595,7 +595,7 @@ public:
 		{
 			len = N - used - 1;
 		}
-		
+
 		for (uint32_t l=0; l<len; ++l)
 			array[l+used] = *(other+l);
 
@@ -614,12 +614,12 @@ public:
 			return *this;
 
 		uint32_t len = other.size();
-		
+
 		if (used + len >= N)
 		{
 			len = N - used - 1;
 		}
-		
+
 		for (uint32_t l=0; l<len; ++l)
 			array[used+l] = other[l];
 
@@ -643,7 +643,7 @@ public:
 			append(other);
 			return *this;
 		}
-		
+
 		if (used + length >= N)
 		{
 			length = N - used - 1;
@@ -769,7 +769,7 @@ public:
 	int32_t findLast(T c, int32_t start = -1) const
 	{
 		start = ( start < 0 ? (int32_t)(used) - 1 : start );
-		if (start >= N)
+		if (start >= (int32_t)N)
 		{
 			start = N - 1;
 		}
@@ -1069,7 +1069,7 @@ public:
 				break;
 			}
 		}
-		
+
 		if (used >= N)
 		{
 			used = N - 1;
@@ -1215,7 +1215,7 @@ public:
 				return *this;
 			}
 		}
-		
+
 		if (used >= N)
 		{
 			used = N - 1;
@@ -1275,7 +1275,7 @@ public:
 				if (array[i] == c[j])
 				{
 					if ((!ignoreEmptyTokens || i - lastpos != 0) &&
-							!lastWasSeparator)
+						!lastWasSeparator)
 						ret.push_back(fstring<T,N>(&array[lastpos], i - lastpos));
 					foundSeparator = true;
 					lastpos = (keepSeparators ? i : i + 1);
@@ -1290,7 +1290,7 @@ public:
 	}
 
 private:
-	
+
 	T array[N];		// array="abc"
 	uint32_t used;	// used=3
 };
