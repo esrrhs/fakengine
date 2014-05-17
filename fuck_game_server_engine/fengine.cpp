@@ -2,6 +2,14 @@
 
 bool fengine::ini()
 {
+	if (g_ini)
+	{
+		LOG_ERROR("re ini\n");
+		return false;
+	}
+
+	g_ini = true;
+
 	flog_system::ptr()->setname((const int8_t*)(m_name + ".log").c_str());
 
 	// logo

@@ -9,22 +9,38 @@
 #include "./mysql/mysqlapp.h"
 #include "./fstring/fstringapp.h"
 
-std::map<stringc, mainapp *> g_map;
+class IFactory
+{
+public:
+	virtual mainapp * Alloc() = 0;
+};
+
+template <typename T>
+class Factory : public IFactory
+{
+public:
+	virtual mainapp * Alloc()
+	{
+		return new T();
+	}
+};
+
+std::map<stringc, IFactory *> g_map;
 
 #define REG(type) {\
-	mainapp * p = new type##app();\
-	g_map[p->getname()] = p;\
+	IFactory * p = new Factory<type>();\
+	g_map[#type] = p;\
 }
 
 int main(int argc, char *argv[])
 {
-	REG(hashmap);
-	REG(compress);
-	REG(inifile);
-	REG(ftrie);
-	REG(client);
-	REG(server);
-	REG(fstring);
+	REG(hashmapapp);
+	REG(compressapp);
+	REG(inifileapp);
+	REG(ftrieapp);
+	REG(clientapp);
+	REG(serverapp);
+	REG(fstringapp);
 
 	if (argc <= 1)
 	{
@@ -34,13 +50,15 @@ int main(int argc, char *argv[])
 	
 	stringc name = argv[1];
 
-	mainapp * papp = 0;
-	papp = g_map[name];
-	if (!papp)
+	IFactory * pFactory = 0;
+	pFactory = g_map[name];
+	if (!pFactory)
 	{
 		std::cout<<"invalid "<<name.c_str()<<std::endl;\
 		return 0;
 	}
+
+	mainapp * papp = pFactory->Alloc();
 
 	papp->run(argc, argv);
 	
