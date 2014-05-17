@@ -42,10 +42,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>../fuck_game_server_engine/;$(IncludePath)</IncludePath>
+    <OutDir>../bin</OutDir>
+    <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>../fuck_game_server_engine/;$(IncludePath)</IncludePath>
+    <OutDir>../bin</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -58,7 +62,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>../Debug/fuck_game_server_engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../bin/fuck_game_server_engine_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMTD.lib</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -77,13 +81,14 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>../Release/fuck_game_server_engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../bin/fuck_game_server_engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMT.lib</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="client\clientapp.cpp" />
     <ClCompile Include="compress\compressapp.cpp" />
+    <ClCompile Include="fstring\fstringapp.cpp" />
     <ClCompile Include="ftrie\ftrieapp.cpp" />
     <ClCompile Include="hashmap\hashmapapp.cpp" />
     <ClCompile Include="inifile\inifileapp.cpp" />
@@ -94,12 +99,16 @@
   <ItemGroup>
     <ClInclude Include="client\clientapp.h" />
     <ClInclude Include="compress\compressapp.h" />
+    <ClInclude Include="fstring\fstringapp.h" />
     <ClInclude Include="ftrie\ftrieapp.h" />
     <ClInclude Include="hashmap\hashmapapp.h" />
     <ClInclude Include="inifile\inifileapp.h" />
     <ClInclude Include="mysql\mysqlapp.h" />
     <ClInclude Include="server\serverapp.h" />
     <ClInclude Include="test.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

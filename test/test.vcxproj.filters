@@ -23,6 +23,9 @@
     <ClCompile Include="mysql\mysqlapp.cpp">
       <Filter>mysql</Filter>
     </ClCompile>
+    <ClCompile Include="fstring\fstringapp.cpp">
+      <Filter>fstring</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h" />
@@ -47,6 +50,9 @@
     <ClInclude Include="mysql\mysqlapp.h">
       <Filter>mysql</Filter>
     </ClInclude>
+    <ClInclude Include="fstring\fstringapp.h">
+      <Filter>fstring</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="hashmap">
@@ -70,5 +76,11 @@
     <Filter Include="mysql">
       <UniqueIdentifier>{faa50035-7261-4b39-b2ff-a42969947f47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="fstring">
+      <UniqueIdentifier>{60217415-b16e-4bd9-9b42-e8d97d0ed178}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>
