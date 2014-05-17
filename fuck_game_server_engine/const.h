@@ -22,3 +22,6 @@ const int32_t c_LogBuffer = 102400;
 const int32_t c_LogNameBuffer = 128;
 
 const int32_t c_ClockStringBuffer = 128;
+
+const int32_t c_DefaultStringBuffer = 256;
+

@@ -24,6 +24,9 @@
 // 常用结构体
 #include "struct.h"
 
+// 基础数据结构
+#include "fstring.h"
+
 // 引擎
 #include "fengine.h"
 

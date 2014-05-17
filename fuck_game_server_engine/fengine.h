@@ -11,7 +11,7 @@ public:
 	{
 		exit();
 	}
-	std::string getname()
+	const stringc & getname()
 	{
 		return m_name;
 	}
@@ -19,6 +19,6 @@ private:
 	bool ini();
 	bool exit();
 private:
-	std::string m_name;
+	stringc m_name;
 };
 

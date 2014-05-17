@@ -39,7 +39,7 @@ bool fengine::ini()
 	// ini
 	g_start_time = get_s_tick();
 
-	start_profiler((m_name + ".prof").c_str());
+	start_profiler((const char *)(m_name + ".prof").c_str());
 
 	srand(time(0));
 

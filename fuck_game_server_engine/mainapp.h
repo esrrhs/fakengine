@@ -33,7 +33,7 @@ public:
 		_exit();
 		LOG_SYS("exit mainapp");
 	}
-	std::string getname()
+	const stringc & getname()
 	{
 		return m_engine.getname();
 	}

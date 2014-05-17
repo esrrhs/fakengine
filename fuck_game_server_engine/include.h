@@ -8,7 +8,6 @@
 #include "circle_buffer.h"
 #include "line_buffer.h"
 #include "slot.h"
-#include "fstring.h"
 #include "ftime.h"
 #include "inifile.h"
 #include "ftrie.h"

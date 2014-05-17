@@ -8,7 +8,7 @@
 #include "./server/serverapp.h"
 #include "./mysql/mysqlapp.h"
 
-std::map<std::string, mainapp *> g_map;
+std::map<stringc, mainapp *> g_map;
 
 #define REG(type) {\
 	mainapp * p = new type##app();\
@@ -31,13 +31,13 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 	
-	std::string name = argv[1];
+	stringc name = argv[1];
 
 	mainapp * papp = 0;
 	papp = g_map[name];
 	if (!papp)
 	{
-		std::cout<<"invalid "<<name<<std::endl;\
+		std::cout<<"invalid "<<name.c_str()<<std::endl;\
 		return 0;
 	}
 
