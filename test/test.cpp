@@ -9,27 +9,9 @@
 #include "./mysql/mysqlapp.h"
 #include "./fstring/fstringapp.h"
 
-class IFactory
-{
-public:
-	virtual mainapp * Alloc() = 0;
-};
-
-template <typename T>
-class Factory : public IFactory
-{
-public:
-	virtual mainapp * Alloc()
-	{
-		return new T();
-	}
-};
-
-std::map<stringc, IFactory *> g_map;
-
 #define REG(type) {\
-	IFactory * p = new Factory<type>();\
-	g_map[#type] = p;\
+	ifactory<mainapp> * p = fnew< factory<type, mainapp> >();\
+	myfactorymng::ptr()->regist(#type, p);\
 }
 
 int main(int argc, char *argv[])
@@ -50,17 +32,16 @@ int main(int argc, char *argv[])
 	
 	stringc name = argv[1];
 
-	IFactory * pFactory = 0;
-	pFactory = g_map[name];
-	if (!pFactory)
+	mainapp * papp = myfactorymng::ptr()->alloc(name);
+	if (!papp)
 	{
 		std::cout<<"invalid "<<name.c_str()<<std::endl;\
-		return 0;
+			return 0;
 	}
 
-	mainapp * papp = pFactory->Alloc();
-
 	papp->run(argc, argv);
+
+	myfactorymng::ptr()->dealloc(papp);
 	
 	return 0;
 }

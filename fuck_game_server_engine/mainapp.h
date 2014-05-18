@@ -37,6 +37,10 @@ public:
 	{
 		return m_engine.getname();
 	}
+	const stringc & gettype()
+	{
+		return getname();
+	}
 protected:
 	virtual bool ini(int argc, char *argv[]) = 0;
 	virtual bool heartbeat() = 0;

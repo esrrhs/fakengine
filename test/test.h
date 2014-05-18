@@ -53,3 +53,4 @@ typedef netserver<mysocketcontainer> mynetserver;
 
 //typedef cmdparser<std::map<std::string, std::string> > mycmdparser;
 
+typedef factorymng<mainapp, stringc> myfactorymng;

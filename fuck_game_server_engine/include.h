@@ -41,6 +41,7 @@
 #include "sharemm.h"
 #include "cmdparser.h"
 #include "cmdcontrol.h"
+#include "factory.h"
 
 extern "C" 
 {
