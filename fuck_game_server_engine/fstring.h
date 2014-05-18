@@ -59,13 +59,13 @@ public:
 		: used(0)
 	{
 		uint8_t tmpbuf[255];
-		snprintf(tmpbuf, 255, "%0.6f", number);
+		tsnprintf((char*)tmpbuf, 255, "%0.6f", number);
 		*this = tmpbuf;
 	}
 
 
-	//! Constructs a fstring from an int
-	explicit fstring(int number)
+	//! Constructs a fstring from an int32_t
+	explicit fstring(int32_t number)
 		: used(0)
 	{
 		// store if negative and make positive
@@ -112,8 +112,8 @@ public:
 	}
 
 
-	//! Constructs a fstring from an unsigned int
-	explicit fstring(unsigned int number)
+	//! Constructs a fstring from an uint32_t
+	explicit fstring(uint32_t number)
 		: used(0)
 	{
 		// temporary buffer for 16 numbers
@@ -144,7 +144,7 @@ public:
 
 
 	//! Constructs a fstring from a long
-	explicit fstring(long number)
+	explicit fstring(int64_t number)
 		: used(0)
 	{
 		// store if negative and make positive
@@ -158,15 +158,15 @@ public:
 
 		// temporary buffer for 16 numbers
 
-		uint8_t tmpbuf[16]={0};
-		uint32_t idx = 15;
+		uint8_t tmpbuf[66]={0};
+		uint32_t idx = 65;
 
 		// special case '0'
 
 		if (!number)
 		{
-			tmpbuf[14] = '0';
-			*this = &tmpbuf[14];
+			tmpbuf[64] = '0';
+			*this = &tmpbuf[64];
 			return;
 		}
 
@@ -192,20 +192,20 @@ public:
 
 
 	//! Constructs a fstring from an unsigned long
-	explicit fstring(unsigned long number)
+	explicit fstring(uint64_t number)
 		: used(0)
 	{
 		// temporary buffer for 16 numbers
 
-		uint8_t tmpbuf[16]={0};
-		uint32_t idx = 15;
+		uint8_t tmpbuf[66]={0};
+		uint32_t idx = 65;
 
 		// special case '0'
 
 		if (!number)
 		{
-			tmpbuf[14] = '0';
-			*this = &tmpbuf[14];
+			tmpbuf[64] = '0';
+			*this = &tmpbuf[64];
 			return;
 		}
 
@@ -264,6 +264,32 @@ public:
 		array[0] = 0;
 	}
 
+	// data
+	fstring<T,N>& operator=(const int32_t & data)
+	{
+		*this = fstring<T,N>(data);
+		return *this;
+	}
+	fstring<T,N>& operator=(const uint32_t & data)
+	{
+		*this = fstring<T,N>(data);
+		return *this;
+	}
+	fstring<T,N>& operator=(const int64_t & data)
+	{
+		*this = fstring<T,N>(data);
+		return *this;
+	}
+	fstring<T,N>& operator=(const uint64_t & data)
+	{
+		*this = fstring<T,N>(data);
+		return *this;
+	}
+	fstring<T,N>& operator=(const double & data)
+	{
+		*this = fstring<T,N>(data);
+		return *this;
+	}
 
 	//! Assignment operator
 	fstring<T,N>& operator=(const fstring<T,N>& other)
@@ -359,6 +385,7 @@ public:
 	{
 		if(index>used)
 		{
+			FASSERT(index>used);
 			return array[used];
 		}
 		return array[index];
@@ -370,6 +397,7 @@ public:
 	{
 		if(index>used)
 		{
+			FASSERT(index>used);
 			return array[used];
 		}
 		return array[index];
@@ -898,7 +926,7 @@ public:
 
 	//! Appends a fstring representation of a number to this fstring
 	/** \param i Number to append. */
-	fstring<T,N>& operator += (const int i)
+	fstring<T,N>& operator += (const int32_t i)
 	{
 		append(fstring<T,N>(i));
 		return *this;
@@ -907,7 +935,7 @@ public:
 
 	//! Appends a fstring representation of a number to this fstring
 	/** \param i Number to append. */
-	fstring<T,N>& operator += (const unsigned int i)
+	fstring<T,N>& operator += (const uint32_t i)
 	{
 		append(fstring<T,N>(i));
 		return *this;
@@ -916,7 +944,7 @@ public:
 
 	//! Appends a fstring representation of a number to this fstring
 	/** \param i Number to append. */
-	fstring<T,N>& operator += (const long i)
+	fstring<T,N>& operator += (const int64_t i)
 	{
 		append(fstring<T,N>(i));
 		return *this;
@@ -925,7 +953,7 @@ public:
 
 	//! Appends a fstring representation of a number to this fstring
 	/** \param i Number to append. */
-	fstring<T,N>& operator += (const unsigned long i)
+	fstring<T,N>& operator += (const uint64_t i)
 	{
 		append(fstring<T,N>(i));
 		return *this;

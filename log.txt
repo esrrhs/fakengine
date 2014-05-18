@@ -114,3 +114,4 @@
 2014.5.17：从鬼火里移植string过来，可能有坑，下一步移植array，hashmap等
 2014.5.18：移植array，下一步移植pool
 2014.5.18：加factory，下一步移植pool
+2014.5.18：加pool，下一步加pool基础上的hashmap和hashset

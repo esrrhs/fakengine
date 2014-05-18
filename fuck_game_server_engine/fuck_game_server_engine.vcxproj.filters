@@ -563,6 +563,12 @@
     <ClInclude Include="factory.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="fpool.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="fstack.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

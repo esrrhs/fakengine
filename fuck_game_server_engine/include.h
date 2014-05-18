@@ -3,6 +3,9 @@
 #include "fstring.h"
 #include "fsort.h"
 #include "farray.h"
+#include "fstack.h"
+#include "fpool.h"
+
 #include "fengine.h"
 #include "fdouble.h"
 #include "fdebug.h"

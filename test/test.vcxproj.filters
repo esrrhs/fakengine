@@ -26,6 +26,9 @@
     <ClCompile Include="fstring\fstringapp.cpp">
       <Filter>fstring</Filter>
     </ClCompile>
+    <ClCompile Include="fpool\fpoolapp.cpp">
+      <Filter>fpool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h" />
@@ -53,6 +56,9 @@
     <ClInclude Include="fstring\fstringapp.h">
       <Filter>fstring</Filter>
     </ClInclude>
+    <ClInclude Include="fpool\fpoolapp.h">
+      <Filter>fpool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="hashmap">
@@ -78,6 +84,9 @@
     </Filter>
     <Filter Include="fstring">
       <UniqueIdentifier>{60217415-b16e-4bd9-9b42-e8d97d0ed178}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fpool">
+      <UniqueIdentifier>{5ea8950d-5534-4210-bb92-fab1dd031ba1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

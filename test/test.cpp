@@ -8,6 +8,7 @@
 #include "./server/serverapp.h"
 #include "./mysql/mysqlapp.h"
 #include "./fstring/fstringapp.h"
+#include "./fpool/fpoolapp.h"
 
 #define REG(type) {\
 	ifactory<mainapp> * p = fnew< factory<type, mainapp> >();\
@@ -23,7 +24,8 @@ int main(int argc, char *argv[])
 	REG(clientapp);
 	REG(serverapp);
 	REG(fstringapp);
-
+	REG(fpoolapp);
+	
 	if (argc <= 1)
 	{
 		std::cout<<"need arg: [name]"<<std::endl;

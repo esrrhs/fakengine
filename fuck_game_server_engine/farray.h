@@ -141,6 +141,7 @@ public:
 	{
 		if (index>=used)
 		{
+			FASSERT(index>=used);
 			return data[0];
 		}
 
@@ -153,6 +154,7 @@ public:
 	{
 		if (index>=used)
 		{
+			FASSERT(index>=used);
 			return data[used];
 		}
 
@@ -165,6 +167,7 @@ public:
 	{
 		if(!used)
 		{
+			FASSERT(!used);
 			return data[used];
 		}
 
@@ -177,6 +180,7 @@ public:
 	{
 		if(!used)
 		{
+			FASSERT(!used);
 			return data[used];
 		}
 
