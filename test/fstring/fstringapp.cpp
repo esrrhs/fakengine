@@ -61,7 +61,7 @@ bool fstringapp::heartbeat()
 	f.validate();
 
 	f="abc";
-	std::vector<stringc> fv;
+	farray<stringc,100> fv;
 	f.split(fv,(uint8_t*)"b");
 
 	f = (f + "aaa").c_str();

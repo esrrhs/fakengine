@@ -24,11 +24,8 @@
 // 常用结构体
 #include "struct.h"
 
-// 基础数据结构
-#include "fstring.h"
-
-// 引擎
-#include "fengine.h"
+// 枚举
+#include "fenum.h"
 
 // 所有头文件
 #include "include.h"

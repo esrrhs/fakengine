@@ -162,10 +162,12 @@
     <ClInclude Include="expat\xmlrole.h" />
     <ClInclude Include="expat\xmltok.h" />
     <ClInclude Include="expat\xmltok_impl.h" />
+    <ClInclude Include="farray.h" />
     <ClInclude Include="fclock.h" />
     <ClInclude Include="fdebug.h" />
     <ClInclude Include="fenum.h" />
     <ClInclude Include="fhashmap.h" />
+    <ClInclude Include="fsort.h" />
     <ClInclude Include="ftrie.h" />
     <ClInclude Include="fengine.h" />
     <ClInclude Include="fdouble.h" />

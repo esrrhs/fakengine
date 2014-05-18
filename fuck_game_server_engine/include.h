@@ -1,6 +1,9 @@
 #pragma once
 
-#include "fenum.h"
+#include "fstring.h"
+#include "fsort.h"
+#include "farray.h"
+#include "fengine.h"
 #include "fdouble.h"
 #include "fdebug.h"
 #include "alloc.h"
