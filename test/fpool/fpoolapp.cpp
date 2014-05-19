@@ -48,7 +48,7 @@ bool fpoolapp::exit()
 	return true;
 }
 
-fpoolapp::fpoolapp() : mainapp("fstring")
+fpoolapp::fpoolapp() : mainapp("fpool")
 {
 
 }

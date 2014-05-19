@@ -16,13 +16,13 @@ public:
 	{
 		Base * pBase = m_alloctor.allocate(1);
 		SAFE_TEST_RET_VAL(pBase, NULL, NULL);
-		m_alloctor.construct((T*)pBase, T());
+		new (pBase) T ();
 		return pBase;
 	}
 	virtual bool dealloc(Base * pBase)
 	{
 		SAFE_TEST_RET_VAL(pBase, NULL, NULL);
-		m_alloctor.destroy((T*)pBase);
+		((T*)pBase)->~T();
 		m_alloctor.deallocate((T*)pBase, 1);
 		return true;
 	}
