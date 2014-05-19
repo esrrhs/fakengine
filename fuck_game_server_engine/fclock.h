@@ -3,7 +3,7 @@
 class fclock : public singleton< fclock >
 {
 public:
-	fclock()
+	fclock() : m_last(0)
 	{
 		tick();
 	}
@@ -30,6 +30,11 @@ private:
 	force_inline void tick()
 	{
 		time(&m_now);
+		if (m_last == m_now)
+		{
+		    return;
+		}
+		m_last = m_now;
 		m_nowtm = *gmtime(&m_now);
 		tsnprintf((char *)m_nowstr, ARRAY_SIZE(m_nowstr) - 1, 
 			"%d-%d-%d,%d:%d:%d", 
@@ -42,6 +47,7 @@ private:
 	}
 private:
 	time_t m_now;
+	time_t m_last;
 	tm m_nowtm;
 	int8_t m_nowstr[c_ClockStringBuffer];
 };
