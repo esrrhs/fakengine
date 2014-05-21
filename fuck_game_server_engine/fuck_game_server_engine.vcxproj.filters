@@ -569,6 +569,12 @@
     <ClInclude Include="fstack.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="fhashset.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="fhash.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

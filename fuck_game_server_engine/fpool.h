@@ -107,6 +107,16 @@ public:
 		return N - m_free.size();
 	}
 
+	bool empty() const
+	{
+		return size() == 0;
+	}
+
+	bool full() const
+	{
+		return size() == N;
+	}
+
 private:
 	T data[N];
 	typedef fstack<uint32_t, N> indexstack;

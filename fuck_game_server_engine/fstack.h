@@ -48,12 +48,12 @@ public:
 		return used;
 	}
 
-	bool empty()
+	bool empty() const
 	{
 		return used == 0;
 	}
 
-	bool full()
+	bool full() const
 	{
 		return used == N;
 	}

@@ -167,7 +167,9 @@
     <ClInclude Include="fclock.h" />
     <ClInclude Include="fdebug.h" />
     <ClInclude Include="fenum.h" />
+    <ClInclude Include="fhash.h" />
     <ClInclude Include="fhashmap.h" />
+    <ClInclude Include="fhashset.h" />
     <ClInclude Include="fpool.h" />
     <ClInclude Include="fsort.h" />
     <ClInclude Include="fstack.h" />
