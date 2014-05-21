@@ -1,11 +1,5 @@
 #pragma once
-
-template <typename T>
-size_t fhash(T t)
-{
-	return t;
-}
-
+/*
 template <typename K, typename V, size_t N>
 class farraymap
 {
@@ -207,4 +201,4 @@ private:
 	farraymap<K, V, AN> * m_array_map;
 	size_t m_len;
 	size_t m_datalen;
-};
+};*/

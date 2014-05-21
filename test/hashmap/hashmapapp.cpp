@@ -8,7 +8,14 @@ bool hashmapapp::ini( int argc, char *argv[] )
 
 bool hashmapapp::heartbeat()
 {
-	fhashmap<int, int, 100, 32> testhashmap;
+    fhashset<int,1141> testset;
+    int size = fhashset<int,1141>::SIZE;
+    testset.insert(1);
+    testset.insert(1544);
+    testset.insert(3);
+    testset.insert(1);
+    
+/*	fhashmap<int, int, 100, 32> testhashmap;
 	std::map<int, int> testmap;
 	for (int i = 0; i < 10000; i++)
 	{
@@ -37,7 +44,7 @@ bool hashmapapp::heartbeat()
 		{
 			std::cout<<"test hash map error"<<k<<" "<<v<<" "<<testhashmap.find(k)<<std::endl;
 		}
-	}
+	}*/
 	return true;
 }
 

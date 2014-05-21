@@ -1,6 +1,6 @@
 #pragma once
 
-template <class T, uint32_t N>
+template <typename T, uint32_t N>
 class fstack
 {
 public:

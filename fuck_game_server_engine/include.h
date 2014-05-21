@@ -5,6 +5,8 @@
 #include "farray.h"
 #include "fstack.h"
 #include "fpool.h"
+#include "fhash.h"
+#include "fhashset.h"
 
 #include "fengine.h"
 #include "fdouble.h"

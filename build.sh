@@ -12,3 +12,5 @@ cd tools
 ./build.sh
 cd ..
 
+cd bin
+./shmclean

@@ -1,8 +1,10 @@
 #pragma once
 
-template <class T, uint32_t N, class HashFunc = fhash<T>, , class CmpFunc = fcmp<T> >
+template <typename T, uint32_t N, typename HashFunc = fhash< T >, typename CmpFunc = fcmp< T > >
 class fhashset
 {
+public:
+    static const uint32_t SIZE = fhashersize<53ul, N>::SIZE;
 public:
 	class iterator
 	{
@@ -36,7 +38,7 @@ public:
 	void clear()
 	{
 		m_pool.clear();
-		for (uint32_t i = 0; i < N; i++)
+		for (uint32_t i = 0; i < SIZE; i++)
 		{
 			m_indexarray[i] = INVALID_IDX;
 		}
@@ -59,20 +61,21 @@ public:
 
 	bool full() const
 	{
-		return size() == N;
+		return size() == SIZE;
 	}
 
 private:
 
 	int32_t real_insert(const T & t)
 	{
-		int32_t hashidx = HashFunc(t) % N;
+	    int32_t hashkey = m_HashFunc(t);
+		int32_t hashidx = hashkey % SIZE;
 		int32_t nodeidx = m_indexarray[hashidx];
 		while (nodeidx != INVALID_IDX)
 		{
 			Node & node = m_pool[nodeidx];
 
-			if (CmpFunc(node.data, t))
+			if (m_CmpFunc(node.data, t))
 			{
 				return INVALID_IDX;
 			}
@@ -80,28 +83,47 @@ private:
 			nodeidx = node.nextindex;
 		}
 
-		return INVALID_IDX;
+        int32_t newidx = m_pool.allocindex();
+        if (newidx == INVALID_IDX)
+        {
+		    return INVALID_IDX;
+        }
+
+        int32_t oldidx = m_indexarray[hashidx];
+        if (oldidx != INVALID_IDX)
+        {
+            Node & oldnode = m_pool[oldidx];
+            oldnode.preindex = newidx;
+        }
+        
+        Node & node = m_pool[newidx];
+        node.preindex = INVALID_IDX;
+        node.nextindex = oldidx;
+        node.data = t;
+        m_indexarray[hashidx] = newidx;
+
+		return newidx;
 	}
 
 private:
-	typedef Pool::INVALID_IDX INVALID_IDX;
 	struct Node
 	{
-		Node() : preindex(INVALID_IDX), nextindex(INVALID_IDX)
+		Node() : preindex(0), nextindex(0)
 		{
-
 		}
 		~Node()
 		{
-
 		}
 		int32_t preindex;
 		int32_t nextindex;
 		T data;
 	};
-	typedef fpool<Node, N> Pool;
+	typedef fpool<Node, SIZE> Pool;
+	static const int32_t INVALID_IDX = Pool::INVALID_IDX;
 private:
 	Pool m_pool;
-	int32_t m_indexarray[N];
+	int32_t m_indexarray[SIZE];
+	HashFunc m_HashFunc;
+	CmpFunc m_CmpFunc;
 };
 

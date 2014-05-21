@@ -3,7 +3,7 @@
 //! template farray (like stl vector) with additional features.
 /** Some features are: Heap sorting, binary search methods, easier debugging.
 */
-template <class T, uint32_t N>
+template <typename T, uint32_t N>
 class farray
 {
 
