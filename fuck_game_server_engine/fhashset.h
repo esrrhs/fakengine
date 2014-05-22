@@ -6,9 +6,9 @@ class fhashset
 public:
     static const uint32_t SIZE = fhashersize<53ul, N>::SIZE;
 public:
-	typedef typename fhashset<T, N, HashFunc, CmpFunc> MyType;
-	typedef typename T Value;
-	typedef typename fiterator<MyType> iterator;
+	typedef fhashset<T, N, HashFunc, CmpFunc> MyType;
+	typedef T Value;
+	typedef fiterator<MyType> iterator;
 public:
 	fhashset()
 	{

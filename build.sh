@@ -1,16 +1,18 @@
 #!/bin/sh
 
-cd fuck_game_server_engine
-./build.sh
-cd ..
+BUILDS="fuck_game_server_engine test tools"
 
-cd test
-./build.sh
-cd ..
-
-cd tools
-./build.sh
-cd ..
+for tobuild in $BUILDS; do
+    cd $tobuild
+	./build.sh
+    if [ $? -ne 0 ];then
+        echo "----------------build $tobuild fail----------------"
+        exit 1
+    fi
+	cd ..
+done    
 
 cd bin
 ./shmclean
+
+echo "----------------All build OK----------------"

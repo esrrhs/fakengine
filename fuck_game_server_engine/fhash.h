@@ -72,7 +72,7 @@ class fiterator
 {
 public:
 	typedef typename Container::Value T;
-	fiterator(Container * _Container) : index(0), m_Container(_Container)
+	fiterator(Container * _Container) : m_index(0), m_Container(_Container)
 	{
 
 	}
