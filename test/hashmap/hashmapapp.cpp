@@ -14,6 +14,8 @@ bool hashmapapp::heartbeat()
     testset.insert(1544);
     testset.insert(3);
     testset.insert(1);
+	std::map<int,int> a;
+	a.begin() == a.end();
     
 /*	fhashmap<int, int, 100, 32> testhashmap;
 	std::map<int, int> testmap;

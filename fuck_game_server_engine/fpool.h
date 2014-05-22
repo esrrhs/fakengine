@@ -21,8 +21,11 @@ public:
 		for (int i = 0; i < (int)N; i++)
 		{
 			m_free.push(i);
-			dirtyset[i] = true;
+			data[i].preindex = INVALID_IDX;
+			data[i].nextindex = INVALID_IDX;
+			data[i].isdirty = true;
 		}
+		m_used = INVALID_IDX;
 	}
 
 	int32_t allocindex()
@@ -38,7 +41,15 @@ public:
 			return INVALID_IDX;
 		}
 
-		dirtyset[index] = false;
+		data[index].isdirty = false;
+		if (m_used != INVALID_IDX)
+		{
+			data[m_used].preindex = index;
+		}
+
+		data[index].nextindex = m_used;
+		data[index].preindex = INVALID_IDX;
+		m_used = index;
 
 		return index;
 	}
@@ -51,32 +62,48 @@ public:
 			return NULL;
 		}
 
-		return &data[index];
+		return &data[index].data;
 	}
 
 	bool deallocindex(int32_t index)
 	{
 		SAFE_TEST_INDEX_VAL(index, N, false);
-		if (dirtyset[index])
+		if (data[index].isdirty)
 		{
 			return false;
 		}
-		dirtyset[index] = true;
+		data[index].isdirty = true;
 		m_free.push(index);
+
+		int32_t nextidx = data[index].nextindex;
+		int32_t preindex = data[index].preindex;
+
+		data[index].nextindex = INVALID_IDX;
+		data[index].preindex = INVALID_IDX;
+
+		if (nextidx != INVALID_IDX)
+		{
+			data[nextidx].preindex = preindex;
+		}
+
+		if (preindex != INVALID_IDX)
+		{
+			data[preindex].nextindex = nextidx;
+		}
+
+		if (index == m_used)
+		{
+			m_used = nextidx;
+		}
+
 		return true;
 	}
 
 	bool dealloc(T & t)
 	{
-		int32_t index = &t - data;
-		SAFE_TEST_INDEX_VAL(index, N, false);
-		if (dirtyset[index])
-		{
-			return false;
-		}
-		dirtyset[index] = true;
-		m_free.push(index);
-		return true;
+		const size_t offset = (size_t)&data[0].data - (size_t)&data[0];
+		int32_t index = ((size_t)&t - offset - ((size_t)data))/sizeof(data[0]);
+		return deallocindex(index);
 	}
 
 	T& operator [](uint32_t index)
@@ -84,10 +111,10 @@ public:
 		if (index>=N)
 		{
 			FASSERT(index>=N);
-			return data[0];
+			return data[0].data;
 		}
 
-		return data[index];
+		return data[index].data;
 	}
 
 	const T& operator [](uint32_t index) const
@@ -95,10 +122,10 @@ public:
 		if (index>=N)
 		{
 			FASSERT(index>=N);
-			return data[0];
+			return data[0].data;
 		}
 
-		return data[index];
+		return data[index].data;
 	}
 
 	// 使用的大小
@@ -117,10 +144,38 @@ public:
 		return size() == N;
 	}
 
+	int32_t getnextidx(int32_t idx)
+	{
+		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
+		SAFE_TEST_INDEX_VAL(idx, N, INVALID_IDX);
+		return data[idx].nextindex;
+	}
+
+	int32_t getpreidx(int32_t idx)
+	{
+		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
+		SAFE_TEST_INDEX_VAL(idx, N, INVALID_IDX);
+		return data[idx].preindex;
+	}
+
 private:
-	T data[N];
+	struct Node
+	{
+		Node() : preindex(INVALID_IDX), nextindex(INVALID_IDX), isdirty(true)
+		{
+		}
+		~Node()
+		{
+		}
+		int32_t preindex;
+		int32_t nextindex;
+		bool isdirty;	// true表示不能使用
+		T data;
+	};
+private:
+	Node data[N];
 	typedef fstack<uint32_t, N> indexstack;
 	indexstack m_free;
-	bool dirtyset[N];
+	int32_t m_used;
 };
 

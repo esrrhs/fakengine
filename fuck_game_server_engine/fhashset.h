@@ -6,24 +6,9 @@ class fhashset
 public:
     static const uint32_t SIZE = fhashersize<53ul, N>::SIZE;
 public:
-	class iterator
-	{
-	public:
-		iterator() : index(0)
-		{
-
-		}
-		iterator(int32_t _index) : index(_index)
-		{
-
-		}
-		~iterator()
-		{
-
-		}
-	private:
-		int32_t index;
-	};
+	typedef typename fhashset<T, N, HashFunc, CmpFunc> MyType;
+	typedef typename T Value;
+	typedef typename fiterator<MyType> iterator;
 public:
 	fhashset()
 	{
@@ -33,6 +18,28 @@ public:
 	~fhashset()
 	{
 
+	}
+
+	T& operator [](uint32_t index)
+	{
+		return m_pool[index].data;
+	}
+
+	const T& operator [](uint32_t index) const
+	{
+		return m_pool[index].data;
+	}
+
+	int32_t getnextidx(int32_t idx)
+	{
+		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
+		return m_pool.getnextidx(idx);
+	}
+
+	int32_t getpreidx(int32_t idx)
+	{
+		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
+		return m_pool.getpreidx(idx);
 	}
 
 	void clear()
@@ -46,7 +53,7 @@ public:
 
 	iterator insert(const T & t)
 	{
-		return iterator(real_insert(t));
+		return iterator(this, real_insert(t));
 	}
 	
 	uint32_t size() const
@@ -106,9 +113,10 @@ private:
 	}
 
 private:
+	static const int32_t INVALID_IDX = fpool<T, SIZE>::INVALID_IDX;
 	struct Node
 	{
-		Node() : preindex(0), nextindex(0)
+		Node() : preindex(INVALID_IDX), nextindex(INVALID_IDX)
 		{
 		}
 		~Node()
@@ -119,7 +127,6 @@ private:
 		T data;
 	};
 	typedef fpool<Node, SIZE> Pool;
-	static const int32_t INVALID_IDX = Pool::INVALID_IDX;
 private:
 	Pool m_pool;
 	int32_t m_indexarray[SIZE];
