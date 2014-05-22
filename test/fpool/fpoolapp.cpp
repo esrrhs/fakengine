@@ -15,6 +15,14 @@ bool fpoolapp::heartbeat()
 	int32_t index3 = pool.allocindex();
 	int32_t index4 = pool.allocindex();
 
+	fpool<stringc, 3>::iterator it = pool.begin();
+	for (; it != pool.end();it++)
+	{
+	    stringc & itstr = *it;
+	    itstr = rand();
+	    uint32_t size = itstr.size();
+	}
+
 	stringc str1 = pool[index1];
 	stringc str2 = pool[index2];
 	const stringc & str33 = pool[index3];

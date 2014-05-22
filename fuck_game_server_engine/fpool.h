@@ -5,6 +5,9 @@ class fpool
 {
 public:
 	static const int32_t INVALID_IDX = -1;
+	typedef fpool<T, N> MyType;
+	typedef T Value;
+	typedef fiterator<MyType> iterator;
 public:
 	fpool()
 	{
@@ -157,6 +160,16 @@ public:
 		SAFE_TEST_INDEX_VAL(idx, N, INVALID_IDX);
 		return data[idx].preindex;
 	}
+
+    iterator begin()
+    {
+        return iterator(this, m_used);
+    }
+
+    iterator end()
+    {
+        return iterator(this, INVALID_IDX);
+    }
 
 private:
 	struct Node

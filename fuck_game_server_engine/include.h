@@ -1,11 +1,12 @@
 #pragma once
 
+#include "fmath.h"
+#include "fhash.h"
 #include "fstring.h"
 #include "fsort.h"
 #include "farray.h"
 #include "fstack.h"
 #include "fpool.h"
-#include "fhash.h"
 #include "fhashset.h"
 
 #include "fengine.h"

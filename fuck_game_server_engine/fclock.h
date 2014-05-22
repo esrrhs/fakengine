@@ -26,6 +26,18 @@ public:
 	{
 		tick();
 	}
+	static force_inline uint32_t Cycles()
+	{
+#ifdef WIN32        
+		LARGE_INTEGER Cycles;
+		QueryPerformanceCounter(&Cycles);
+		return Cycles.QuadPart;
+#else
+		struct timespec ts;
+		clock_gettime(CLOCK_MONOTONIC, &ts);
+		return static_cast<uint32_t>(static_cast<uint64_t>(ts.tv_sec) * 1000000ULL + static_cast<uint64_t>(ts.tv_nsec) / 1000ULL);
+#endif
+	}
 private:
 	force_inline void tick()
 	{
