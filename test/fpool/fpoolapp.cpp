@@ -8,6 +8,23 @@ bool fpoolapp::ini( int argc, char *argv[] )
 
 bool fpoolapp::heartbeat()
 {
+    fstack<int, 3> stack;
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+	for (fstack<int, 3>::iterator it = stack.begin(); it != stack.end();it++)
+	{
+	    int n = *it;
+	    n++;
+	}
+	int tmp;
+	stack.pop(tmp);
+	for (fstack<int, 3>::iterator it = stack.begin(); it != stack.end();it++)
+	{
+	    int n = *it;
+	    n++;
+	}
+
 	fpool<stringc, 3> pool;
 
 	int32_t index1 = pool.allocindex();
@@ -15,11 +32,11 @@ bool fpoolapp::heartbeat()
 	int32_t index3 = pool.allocindex();
 	int32_t index4 = pool.allocindex();
 
-	fpool<stringc, 3>::iterator it = pool.begin();
-	for (; it != pool.end();it++)
+	int i = 0;
+	for (fpool<stringc, 3>::iterator it = pool.begin(); it != pool.end();it++)
 	{
 	    stringc & itstr = *it;
-	    itstr = rand();
+	    itstr = i++;
 	    uint32_t size = itstr.size();
 	}
 
@@ -42,9 +59,24 @@ bool fpoolapp::heartbeat()
 
 	uint32_t s = pool.size();
 
-	pool.dealloc(*pstr1);
 	pool.dealloc(*pstr2);
+	for (fpool<stringc, 3>::iterator it = pool.begin(); it != pool.end();it++)
+	{
+	    stringc & itstr = *it;
+	    uint32_t size = itstr.size();
+	}
+	pool.dealloc(*pstr1);
+	for (fpool<stringc, 3>::iterator it = pool.begin(); it != pool.end();it++)
+	{
+	    stringc & itstr = *it;
+	    uint32_t size = itstr.size();
+	}
 	pool.dealloc(*pstr3);
+	for (fpool<stringc, 3>::iterator it = pool.begin(); it != pool.end();it++)
+	{
+	    stringc & itstr = *it;
+	    uint32_t size = itstr.size();
+	}
 
 	s = pool.size();
 

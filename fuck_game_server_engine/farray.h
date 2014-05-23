@@ -142,7 +142,7 @@ public:
 		if (index>=used)
 		{
 			FASSERT(index>=used);
-			return data[0];
+			return tmpdata;
 		}
 
 		return data[index];
@@ -155,7 +155,7 @@ public:
 		if (index>=used)
 		{
 			FASSERT(index>=used);
-			return data[used];
+			return tmpdata;
 		}
 
 		return data[index];
@@ -413,6 +413,7 @@ public:
 private:
 	T data[N];
 	uint32_t used;
+	T tmpdata;
 	bool is_sorted:1;
 };
 

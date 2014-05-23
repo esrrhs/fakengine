@@ -114,7 +114,7 @@ public:
 		if (index>=N)
 		{
 			FASSERT(index>=N);
-			return data[0].data;
+			return tmpdata;
 		}
 
 		return data[index].data;
@@ -125,7 +125,7 @@ public:
 		if (index>=N)
 		{
 			FASSERT(index>=N);
-			return data[0].data;
+			return tmpdata;
 		}
 
 		return data[index].data;
@@ -190,5 +190,6 @@ private:
 	typedef fstack<uint32_t, N> indexstack;
 	indexstack m_free;
 	int32_t m_used;
+	T tmpdata;
 };
 

@@ -4,6 +4,10 @@ template <typename T, uint32_t N>
 class fstack
 {
 public:
+	typedef fstack<T, N> MyType;
+	typedef T Value;
+	typedef fiterator<MyType> iterator;
+public:
 	fstack()
 	{
 		clear();
@@ -57,8 +61,60 @@ public:
 	{
 		return used == N;
 	}
+	
+	T& operator [](uint32_t index)
+	{
+		if (index>=N)
+		{
+			FASSERT(index>=N);
+			return tmpdata;
+		}
+
+		return data[index];
+	}
+
+	const T& operator [](uint32_t index) const
+	{
+		if (index>=N)
+		{
+			FASSERT(index>=N);
+			return tmpdata;
+		}
+
+		return data[index];
+	}
+
+	int32_t getnextidx(int32_t idx)
+	{
+		if (idx >= 0 && idx + 1 < used)
+		{
+		    return idx + 1;
+		}
+		return used;
+	}
+
+	int32_t getpreidx(int32_t idx)
+	{
+		if (idx - 1 >= 0 && idx < used)
+		{
+		    return idx - 1;
+		}
+		return used;
+	}
+
+    iterator begin()
+    {
+        return iterator(this, 0);
+    }
+
+    iterator end()
+    {
+        return iterator(this, used);
+    }
+
 private:
 	T data[N];
 	uint32_t used;
+	T tmpdata;
 };
 

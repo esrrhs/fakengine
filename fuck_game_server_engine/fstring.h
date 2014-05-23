@@ -386,7 +386,7 @@ public:
 		if(index>used)
 		{
 			FASSERT(index>used);
-			return array[used];
+			return tmpdata;
 		}
 		return array[index];
 	}
@@ -398,7 +398,7 @@ public:
 		if(index>used)
 		{
 			FASSERT(index>used);
-			return array[used];
+			return tmpdata;
 		}
 		return array[index];
 	}
@@ -1321,6 +1321,7 @@ private:
 
 	T array[N];		// array="abc"
 	uint32_t used;	// used=3
+	T tmpdata;
 };
 
 //! Typedef for character strings
