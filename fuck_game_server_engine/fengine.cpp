@@ -49,8 +49,8 @@ bool fengine::ini()
 
 	start_profiler((const char *)(m_name + ".prof").c_str());
 
-	FMath::RandInit( fclock::Cycles() );
-	FMath::SRandInit( fclock::Cycles() );
+	RandInit( fclock::Cycles() );
+	SRandInit( fclock::Cycles() );
 		
 	LOG_SYS("fengine ini ok");
 

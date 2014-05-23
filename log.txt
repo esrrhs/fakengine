@@ -119,3 +119,4 @@
 2014.5.22：fix hashset bug，添加insert，下次加find
 2014.5.22：加iterator和pool的遍历,下次验证正确性
 2014.5.22：加fmath.h,下一步加mathutil
+2014.5.23：从softpixel和ue4加mathutil，下一步验证pool

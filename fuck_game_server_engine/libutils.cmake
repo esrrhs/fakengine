@@ -13,7 +13,7 @@ MACRO(MERGE_STATIC_LIBS TARGET OUTPUT_NAME STATIC_LIBS)
 
   MESSAGE("TARGET ${TARGET} OUTPUT_NAME ${OUTPUT_NAME} CMAKE_CURRENT_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR} STATIC_LIBS ${STATIC_LIBS} CMAKE_COMMAND ${CMAKE_COMMAND}")
 
-  TARGET_LINK_LIBRARIES(${TARGET} pthread dl)
+  TARGET_LINK_LIBRARIES(${TARGET} pthread dl rt)
 	
   # Make the generated dummy source file depended on all static input
   # libs. If input lib changes,the source file is touched
