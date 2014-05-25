@@ -9,6 +9,7 @@ public:
 	typedef fhashset<T, N, HashFunc, CmpFunc> MyType;
 	typedef T Value;
 	typedef fiterator<MyType> iterator;
+	friend class iterator;
 public:
 	fhashset()
 	{
@@ -30,18 +31,6 @@ public:
 		return m_pool[index].data;
 	}
 
-	int32_t getnextidx(int32_t idx)
-	{
-		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
-		return m_pool.getnextidx(idx);
-	}
-
-	int32_t getpreidx(int32_t idx)
-	{
-		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
-		return m_pool.getpreidx(idx);
-	}
-
 	void clear()
 	{
 		m_pool.clear();
@@ -56,6 +45,16 @@ public:
 		return iterator(this, real_insert(t));
 	}
 	
+	iterator find(const T & t)
+	{
+		return iterator(this, real_find(t));
+	}
+
+	iterator erase(const T & t)
+	{
+		return iterator(this, real_erase(t));
+	}
+
 	uint32_t size() const
 	{
 		return m_pool.size();
@@ -71,7 +70,39 @@ public:
 		return size() == SIZE;
 	}
 
+	iterator begin()
+	{
+		return iterator(this, m_pool.begin().index());
+	}
+
+	iterator end()
+	{
+		return iterator(this, m_pool.end().index());
+	}
+
 private:
+
+	T& getbyidx(uint32_t index)
+	{
+		return m_pool[index].data;
+	}
+
+	const T& getbyidx(uint32_t index) const
+	{
+		return m_pool[index].data;
+	}
+
+	int32_t getnextidx(int32_t idx)
+	{
+		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
+		return m_pool.getnextidx(idx);
+	}
+
+	int32_t getpreidx(int32_t idx)
+	{
+		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
+		return m_pool.getpreidx(idx);
+	}
 
 	int32_t real_insert(const T & t)
 	{
@@ -110,6 +141,78 @@ private:
         m_indexarray[hashidx] = newidx;
 
 		return newidx;
+	}
+
+	int32_t real_find(const T & t)
+	{
+		int32_t hashkey = m_HashFunc(t);
+		int32_t hashidx = hashkey % SIZE;
+		int32_t nodeidx = m_indexarray[hashidx];
+		while (nodeidx != INVALID_IDX)
+		{
+			Node & node = m_pool[nodeidx];
+
+			if (m_CmpFunc(node.data, t))
+			{
+				return nodeidx;
+			}
+
+			nodeidx = node.nextindex;
+		}
+
+		return INVALID_IDX;
+	}
+
+	int32_t real_erase(const T & t)
+	{
+		int32_t findidx = INVALID_IDX;
+
+		int32_t hashkey = m_HashFunc(t);
+		int32_t hashidx = hashkey % SIZE;
+		int32_t nodeidx = m_indexarray[hashidx];
+		while (nodeidx != INVALID_IDX)
+		{
+			Node & node = m_pool[nodeidx];
+
+			if (m_CmpFunc(node.data, t))
+			{
+				findidx = nodeidx;
+				break;
+			}
+
+			nodeidx = node.nextindex;
+		}
+
+		SAFE_TEST_RET_VAL(findidx, INVALID_IDX, INVALID_IDX);
+
+		int32_t iteridx = m_pool.getnextidx(findidx);
+
+		Node & node = m_pool[findidx];
+
+		int32_t nextidx = node.nextindex;
+		int32_t preindex = node.preindex;
+
+		node.nextindex = INVALID_IDX;
+		node.preindex = INVALID_IDX;
+
+		m_pool.deallocindex(findidx);
+
+		if (nextidx != INVALID_IDX)
+		{
+			m_pool[nextidx].preindex = preindex;
+		}
+
+		if (preindex != INVALID_IDX)
+		{
+			m_pool[preindex].nextindex = nextidx;
+		}
+
+		if (findidx == m_indexarray[hashidx])
+		{
+			m_indexarray[hashidx] = nextidx;
+		}
+
+		return iteridx;
 	}
 
 private:

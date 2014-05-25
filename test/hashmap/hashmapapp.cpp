@@ -8,15 +8,61 @@ bool hashmapapp::ini( int argc, char *argv[] )
 
 bool hashmapapp::heartbeat()
 {
-    fhashset<int,1141> testset;
-    int size = fhashset<int,1141>::SIZE;
+	typedef fhashset<int,1141> myhashset;
+    myhashset testset;
+    int size = myhashset::SIZE;
     testset.insert(1);
     testset.insert(1544);
     testset.insert(3);
     testset.insert(1);
-	std::map<int,int> a;
-	a.begin() == a.end();
+	myhashset::iterator it = testset.find(1);
+	if (it != testset.end())
+	{
+		int a = *it;
+		a++;
+	}
+	it = testset.find(2);
+	bool b = (it == testset.end());
     
+	for (myhashset::iterator it = testset.begin(); it != testset.end(); it++)
+	{
+		int a = *it;
+		a++;
+	}
+
+	testset.erase(2);
+	for (myhashset::iterator it = testset.begin(); it != testset.end(); it++)
+	{
+		int a = *it;
+		a++;
+	}
+
+	testset.erase(3);
+	for (myhashset::iterator it = testset.begin(); it != testset.end(); it++)
+	{
+		int a = *it;
+		a++;
+	}
+
+	testset.erase(1544);
+	for (myhashset::iterator it = testset.begin(); it != testset.end(); it++)
+	{
+		int a = *it;
+		a++;
+	}
+
+	it = testset.find(1);
+	b = (it == testset.end());
+	int aa = *it;
+
+	testset.erase(1);
+	for (myhashset::iterator it = testset.begin(); it != testset.end(); it++)
+	{
+		int a = *it;
+		a++;
+	}
+	size = testset.size();
+
 /*	fhashmap<int, int, 100, 32> testhashmap;
 	std::map<int, int> testmap;
 	for (int i = 0; i < 10000; i++)

@@ -87,12 +87,12 @@ public:
 
 	T & operator*() const
 	{	// return designated value
-		return (*m_Container)[m_index];
+		return m_Container->getbyidx(m_index);
 	}
 
 	T * operator->() const
 	{	// return pointer to class object
-		return &((*m_Container)[m_index]);
+		return &(m_Container->getbyidx(m_index));
 	}
 
 	fiterator & operator++()
@@ -131,11 +131,16 @@ public:
 		return (!(*this == _Right));
 	}
 
-	fiterator & operator=(const fiterator & _Right) const
+	fiterator & operator=(const fiterator & _Right)
 	{	
 		m_index = _Right.m_index;
 		m_Container = _Right.m_Container;
 		return (*this);
+	}
+
+	int32_t index() const
+	{
+		return m_index;
 	}
 
 private:

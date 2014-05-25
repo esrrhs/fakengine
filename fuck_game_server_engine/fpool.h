@@ -8,6 +8,7 @@ public:
 	typedef fpool<T, N> MyType;
 	typedef T Value;
 	typedef fiterator<MyType> iterator;
+	friend class iterator;
 public:
 	fpool()
 	{
@@ -147,6 +148,39 @@ public:
 		return size() == N;
 	}
 
+    iterator begin()
+    {
+        return iterator(this, m_used);
+    }
+
+    iterator end()
+    {
+        return iterator(this, INVALID_IDX);
+    }
+
+public:
+	T& getbyidx(uint32_t index)
+	{
+		if (index>=N)
+		{
+			FASSERT(index>=N);
+			return tmpdata;
+		}
+
+		return data[index].data;
+	}
+
+	const T& getbyidx(uint32_t index) const
+	{
+		if (index>=N)
+		{
+			FASSERT(index>=N);
+			return tmpdata;
+		}
+
+		return data[index].data;
+	}
+
 	int32_t getnextidx(int32_t idx)
 	{
 		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
@@ -160,16 +194,6 @@ public:
 		SAFE_TEST_INDEX_VAL(idx, N, INVALID_IDX);
 		return data[idx].preindex;
 	}
-
-    iterator begin()
-    {
-        return iterator(this, m_used);
-    }
-
-    iterator end()
-    {
-        return iterator(this, INVALID_IDX);
-    }
 
 private:
 	struct Node

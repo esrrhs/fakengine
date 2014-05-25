@@ -575,6 +575,9 @@
     <ClInclude Include="fhash.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="fmath.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

@@ -7,6 +7,7 @@ public:
 	typedef fstack<T, N> MyType;
 	typedef T Value;
 	typedef fiterator<MyType> iterator;
+	friend class iterator;
 public:
 	fstack()
 	{
@@ -84,24 +85,6 @@ public:
 		return data[index];
 	}
 
-	int32_t getnextidx(int32_t idx)
-	{
-		if (idx >= 0 && idx + 1 < used)
-		{
-		    return idx + 1;
-		}
-		return used;
-	}
-
-	int32_t getpreidx(int32_t idx)
-	{
-		if (idx - 1 >= 0 && idx < used)
-		{
-		    return idx - 1;
-		}
-		return used;
-	}
-
     iterator begin()
     {
         return iterator(this, 0);
@@ -111,6 +94,47 @@ public:
     {
         return iterator(this, used);
     }
+
+private:
+	T& getbyidx(uint32_t index)
+	{
+		if (index>=N)
+		{
+			FASSERT(index>=N);
+			return tmpdata;
+		}
+
+		return data[index];
+	}
+
+	const T& getbyidx(uint32_t index) const
+	{
+		if (index>=N)
+		{
+			FASSERT(index>=N);
+			return tmpdata;
+		}
+
+		return data[index];
+	}
+
+	int32_t getnextidx(int32_t idx)
+	{
+		if (idx >= 0 && idx + 1 < used)
+		{
+			return idx + 1;
+		}
+		return used;
+	}
+
+	int32_t getpreidx(int32_t idx)
+	{
+		if (idx - 1 >= 0 && idx < used)
+		{
+			return idx - 1;
+		}
+		return used;
+	}
 
 private:
 	T data[N];
