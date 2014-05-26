@@ -1,204 +1,139 @@
 #pragma once
-/*
-template <typename K, typename V, size_t N>
-class farraymap
-{
-public:
-	farraymap() 
-	{
-		m_node = new _node[N];
-		m_len = N;
-		m_datalen = 0;
-	}
-	~farraymap()
-	{
-		delete []m_node;
-	}
-	struct _node
-	{
-		_node() : k(K()), v(V()) {}
-		K k;
-		V v;
-	};
-	
-	force_inline bool get(size_t pos, K & k, V & v)
-	{
-		if (pos < m_datalen)
-		{
-			k = m_node[pos].k;
-			v = m_node[pos].v;
-			return true;
-		}
-		return false;
-	}
 
-	force_inline bool add(K k, V v)
-	{
-		if (full())
-		{
-			grow();
-		}
-
-		size_t pos = find_pos(k);
-		if (pos != (size_t)-1)
-		{
-			m_node[pos].v = v;
-			return false;
-		}
-		else
-		{
-			m_node[m_datalen].k = k;
-			m_node[m_datalen].v = v;
-			m_datalen++;
-			return true;
-		}
-	}
-	force_inline V find(K k)
-	{
-		size_t pos = find_pos(k);
-		if (pos != (size_t)-1)
-		{
-			return m_node[pos].v;
-		}
-		return V();
-	}
-	force_inline bool del(K k)
-	{
-		size_t pos = find_pos(k);
-		if (pos != (size_t)-1)
-		{
-			m_node[pos] = m_node[m_datalen - 1];
-			m_node[m_datalen - 1] = _node();
-			m_datalen--;
-			return true;
-		}
-		return false;
-	}
-	force_inline bool full()
-	{
-		return m_datalen >= m_len;
-	}
-	force_inline bool empty()
-	{
-		return m_datalen == 0;
-	}
-	force_inline size_t size()
-	{
-		return m_len;
-	}
-	force_inline size_t data_size()
-	{
-		return m_datalen;
-	}
-private:
-	force_inline size_t find_pos(K k)
-	{
-		for (size_t i = 0; i < m_datalen; i++)
-		{
-			if (m_node[i].k == k)
-			{
-				return i;
-			}
-		}
-		return -1;
-	}
-	force_inline void grow()
-	{
-		size_t newlen = m_datalen + N;
-		_node * pnode = new _node[newlen];
-		memcpy(pnode, m_node, sizeof(_node) * m_datalen);
-		delete []m_node;
-		m_node = pnode;
-		m_len = newlen;
-	}
-private:
-	_node * m_node;
-	size_t m_len;
-	size_t m_datalen;
-};
-
-template <typename K, typename V, size_t N, size_t AN>
+template <typename K, typename V, uint32_t N, typename HashFunc = fhash< K >, typename CmpFunc = fcmp< V > >
 class fhashmap
 {
 public:
+	struct Node
+	{
+		Node()
+		{
+		}
+		Node(const K & _k) : first(_k)
+		{
+		}
+		Node(const K & _k, const V & _v) : first(_k), second(_v)
+		{
+		}
+		~Node()
+		{
+		}
+		K first;
+		V second;
+	};
+public:
+	typedef fhashmap<K, V, N, HashFunc, CmpFunc> MyType;
+	typedef Node Value;
+	typedef fiterator<MyType> iterator;
+	friend class fiterator<MyType>;
+public:
 	fhashmap()
 	{
-		m_array_map = new farraymap<K, V, AN>[N];
-		m_len = N;
-		m_datalen = 0;
-	}
-	~fhashmap()
-	{
-		delete []m_array_map;
+		clear();
 	}
 
-	force_inline void add(K k, V v)
+	~fhashmap()
 	{
-		if (full())
-		{
-			grow();
-		}
-		farraymap<K, V, AN> & array = m_array_map[fhash<K>(k) % m_len];
-		if (array.add(k, v))
-		{
-			m_datalen++;
-		}
+
 	}
-	force_inline V find(K k)
+
+	V& operator [](const K & k)
 	{
-		farraymap<K, V, AN> & array = m_array_map[fhash<K>(k) % m_len];
-		return array.find(k);
+		return m_set[Node(k)].second;
 	}
-	force_inline void del(K k)
+
+	const V& operator [](const K & k) const
 	{
-		farraymap<K, V, AN> & array = m_array_map[fhash<K>(k) % m_len];
-		if (array.del(k))
-		{
-			m_datalen--;
-		}
+		return m_set[Node(k)].second;
 	}
-	force_inline bool full()
+
+	void clear()
 	{
-		return m_datalen >= m_len;
+		m_set.clear();
 	}
-	force_inline bool empty()
+
+	iterator insert(const K & k, const V & v)
 	{
-		return m_datalen == 0;
+		return iterator(this, m_set.insert(Node(k, v)).index());
 	}
-	force_inline size_t size()
+	
+	iterator find(const K & k)
 	{
-		return m_len;
+		return iterator(this, m_set.find(Node(k)).index());
 	}
-	force_inline size_t data_size()
+
+	iterator erase(const K & k)
 	{
-		return m_datalen;
+		return iterator(this, m_set.erase(Node(k)).index());
 	}
+
+	uint32_t size() const
+	{
+		return m_set.size();
+	}
+
+	bool empty() const
+	{
+		return m_set.empty();
+	}
+
+	bool full() const
+	{
+		return m_set.full();
+	}
+
+	iterator begin()
+	{
+		return iterator(this, m_set.begin().index());
+	}
+
+	iterator end()
+	{
+		return iterator(this, m_set.end().index());
+	}
+
 private:
-	void grow()
+
+	Node& getbyidx(uint32_t index)
 	{
-		farraymap<K, V, AN> * old_array_map = m_array_map;
-		size_t oldlen = m_len;
-		size_t newlen = m_len + N;
-		m_array_map = new farraymap<K, V, AN>[newlen];
-		m_datalen = 0;
-		m_len = newlen;
-		for (size_t i = 0; i < oldlen; i++)
-		{
-			farraymap<K, V, AN> & array = old_array_map[i];
-			for (size_t j = 0; j < array.data_size(); j++)
-			{
-				K k;
-				V v;
-				if (array.get(j, k, v))
-				{
-					add(k, v);
-				}
-			}
-		}
-		delete []old_array_map;
+		return m_set.getbyidx(index);
 	}
+
+	const Node& getbyidx(uint32_t index) const
+	{
+		return m_set.getbyidx(index);
+	}
+
+	int32_t getnextidx(int32_t idx)
+	{
+		return m_set.getnextidx(idx);
+	}
+
+	int32_t getpreidx(int32_t idx)
+	{
+		return m_set.getpreidx(idx);
+	}
+
 private:
-	farraymap<K, V, AN> * m_array_map;
-	size_t m_len;
-	size_t m_datalen;
-};*/
+    struct NodeCmp
+    {
+        bool operator()(const Node & n1, const Node & n2) const
+        {
+        	return m_CmpFunc(n1.first, n2.first);
+        }
+	    CmpFunc m_CmpFunc;
+    };
+    struct NodeHash
+    {
+        size_t operator()(const Node & node) const
+        {
+        	return m_HashFunc(node.first);
+        }
+	    HashFunc m_HashFunc;
+    };
+	typedef fhashset<Node, N, NodeHash, NodeCmp> Hashset;
+private:
+	Hashset m_set;
+};
+
+

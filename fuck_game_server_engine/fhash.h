@@ -3,7 +3,7 @@
 template <typename T>
 struct fcmp
 {
-    bool operator()(const T & t1, const T & t2)
+    bool operator()(const T & t1, const T & t2) const
     {
     	return t1 == t2;
     }
@@ -12,7 +12,7 @@ struct fcmp
 template <typename T>
 struct fhash
 {
-    size_t operator()(const T & t)
+    size_t operator()(const T & t) const
     {
     	return size_t(t);
     }

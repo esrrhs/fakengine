@@ -21,14 +21,24 @@ public:
 
 	}
 
-	T& operator [](uint32_t index)
+	T& operator [](const T & t)
 	{
-		return m_pool[index].data;
+	    int32_t idx = real_find(t);
+	    if (idx == INVALID_IDX)
+	    {
+	        idx = real_insert(t);
+	    }
+		return m_pool[idx].data;
 	}
 
-	const T& operator [](uint32_t index) const
+	const T& operator [](const T & t) const
 	{
-		return m_pool[index].data;
+	    int32_t idx = real_find(t);
+	    if (idx == INVALID_IDX)
+	    {
+	        idx = real_insert(t);
+	    }
+		return m_pool[idx].data;
 	}
 
 	void clear()
@@ -67,7 +77,7 @@ public:
 
 	bool full() const
 	{
-		return size() == SIZE;
+		return size() == N;
 	}
 
 	iterator begin()
@@ -80,7 +90,7 @@ public:
 		return iterator(this, m_pool.end().index());
 	}
 
-private:
+public:
 
 	T& getbyidx(uint32_t index)
 	{
@@ -104,6 +114,7 @@ private:
 		return m_pool.getpreidx(idx);
 	}
 
+private:
 	int32_t real_insert(const T & t)
 	{
 	    int32_t hashkey = m_HashFunc(t);

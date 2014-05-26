@@ -8,6 +8,7 @@
 #include "fstack.h"
 #include "fpool.h"
 #include "fhashset.h"
+#include "fhashmap.h"
 
 #include "fengine.h"
 #include "fdouble.h"
@@ -20,7 +21,6 @@
 #include "ftime.h"
 #include "inifile.h"
 #include "ftrie.h"
-#include "fhashmap.h"
 
 #include "allocator.h"
 #include "readonly_allocator.h"

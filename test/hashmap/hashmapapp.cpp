@@ -63,24 +63,72 @@ bool hashmapapp::heartbeat()
 	}
 	size = testset.size();
 
-/*	fhashmap<int, int, 100, 32> testhashmap;
+	testset.insert(3);
+	int ss = testset[3];
+	for (myhashset::iterator it = testset.begin(); it != testset.end(); it++)
+	{
+		int a = *it;
+		a++;
+	}
+	int sss = testset[4];
+	for (myhashset::iterator it = testset.begin(); it != testset.end(); it++)
+	{
+		int a = *it;
+		a++;
+	}
+
+	//////////////////////////////////////////////
+    {
+	    typedef fhashmap<int, int, 3> myhashmap;
+	    myhashmap testhashmap;
+	    testhashmap.insert(1, 3);
+	    testhashmap.insert(1, 5);
+    	for (myhashmap::iterator it = testhashmap.begin(); it != testhashmap.end(); it++)
+    	{
+    		int a = it->first;
+    		int b = it->second;
+    		a++;
+    		b++;
+    	}
+    	testhashmap.erase(1);
+    	for (myhashmap::iterator it = testhashmap.begin(); it != testhashmap.end(); it++)
+    	{
+    		int a = it->first;
+    		int b = it->second;
+    		a++;
+    		b++;
+    	}
+    	testhashmap[1] = 4;
+    	testhashmap[11] = 14;
+    	for (myhashmap::iterator it = testhashmap.begin(); it != testhashmap.end(); it++)
+    	{
+    		int a = it->first;
+    		int b = it->second;
+    		a++;
+    		b++;
+    	}
+    }
+	
+	//////////////////////////////////////////////
+
+	fhashmap<int, int, 10000> testhashmap;
 	std::map<int, int> testmap;
 	for (int i = 0; i < 10000; i++)
 	{
 		int k = rand();
 		int v = rand();
 		testmap[k] = v;
-		testhashmap.add(k, v); 
+		testhashmap[k] = v;
 	}
 	for (int i = 0; i < 10000; i++)
 	{
 		int k = rand();
 		testmap.erase(k);
-		testhashmap.del(k); 
+		testhashmap.erase(k); 
 	}
-	if (testhashmap.data_size() != testmap.size())
+	if (testhashmap.size() != testmap.size())
 	{
-		std::cout<<"test hash map size error"<<testhashmap.data_size()<<" "<<testmap.size()<<std::endl;
+		std::cout<<"test hash map size error"<<testhashmap.size()<<" "<<testmap.size()<<std::endl;
 	}
 	for (std::map<int, int>::iterator it = testmap.begin();
 		it != testmap.end();
@@ -88,11 +136,13 @@ bool hashmapapp::heartbeat()
 	{
 		int k = it->first;
 		int v = it->second;
-		if (v != testhashmap.find(k))
+		fhashmap<int, int, 10000>::iterator ittest = testhashmap.find(k);
+		int v_test = ittest->second;
+		if (v != v_test)
 		{
-			std::cout<<"test hash map error"<<k<<" "<<v<<" "<<testhashmap.find(k)<<std::endl;
+			std::cout<<"test hash map error"<<k<<" "<<v<<" "<<v_test<<std::endl;
 		}
-	}*/
+	}
 	return true;
 }
 
