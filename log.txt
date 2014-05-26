@@ -121,3 +121,4 @@
 2014.5.22：加fmath.h,下一步加mathutil
 2014.5.23：从softpixel和ue4加mathutil，下一步验证pool
 2014.5.25：加完hashset，下次加hashmap
+2014.5.26：fix build，下次加hashmap

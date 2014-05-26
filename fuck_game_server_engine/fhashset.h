@@ -9,7 +9,7 @@ public:
 	typedef fhashset<T, N, HashFunc, CmpFunc> MyType;
 	typedef T Value;
 	typedef fiterator<MyType> iterator;
-	friend class iterator;
+	friend class fiterator<MyType>;
 public:
 	fhashset()
 	{

@@ -7,7 +7,7 @@ public:
 	typedef fstack<T, N> MyType;
 	typedef T Value;
 	typedef fiterator<MyType> iterator;
-	friend class iterator;
+	friend class fiterator<MyType>;
 public:
 	fstack()
 	{
