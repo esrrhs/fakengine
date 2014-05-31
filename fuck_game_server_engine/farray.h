@@ -60,7 +60,7 @@ public:
 		uint32_t index = size();
 
 		uint32_t newidx = m_pool.allocindex();
-		SAFE_TEST_RET_VAL(newidx, INVALID_IDX, false);
+		SAFE_TEST_RET_VAL((int32_t)newidx, INVALID_IDX, false);
 
 		Node & node = m_pool[newidx];
 		node.data = t;
@@ -114,7 +114,7 @@ public:
 		int32_t s = size();
 
 		uint32_t newidx = m_pool.allocindex();
-		SAFE_TEST_RET_VAL(newidx, INVALID_IDX, false);
+		SAFE_TEST_RET_VAL((int32_t)newidx, INVALID_IDX, false);
 
 		Node & node = m_pool[newidx];
 		node.data = t;
@@ -182,7 +182,7 @@ public:
 		}
 
 		uint32_t newidx = m_pool.allocindex();
-		SAFE_TEST_RET_VAL(newidx, INVALID_IDX, false);
+		SAFE_TEST_RET_VAL((int32_t)newidx, INVALID_IDX, false);
 
 		Node & node = m_pool[newidx];
 		node.data = t;
@@ -207,8 +207,6 @@ public:
 		SAFE_TEST_INDEX_VAL(index, s, false);
 
 		uint32_t idx = m_indexarray[index];
-
-		Node & node = m_pool[idx];
 
 		m_pool.deallocindex(idx);
 
@@ -273,7 +271,7 @@ private:
 
 	int32_t getnextidx(int32_t idx)
 	{
-		if (idx >= 0 && idx + 1 < size())
+		if (idx >= 0 && idx + 1 < (int)size())
 		{
 			return idx + 1;
 		}
@@ -282,7 +280,7 @@ private:
 
 	int32_t getpreidx(int32_t idx)
 	{
-		if (idx - 1 >= 0 && idx < size())
+		if (idx - 1 >= 0 && idx < (int)size())
 		{
 			return idx - 1;
 		}

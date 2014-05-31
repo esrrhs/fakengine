@@ -22,8 +22,10 @@ bool fstringapp::heartbeat()
 
 	bc = (b == c);
 	bool bcc = (b < c);
+	bcc = false;
 
 	int c2 = c[2];
+	c2 = 0;
 
 	stringc e = c.make_upper();
 

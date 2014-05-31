@@ -95,3 +95,8 @@
 	#define LOG_SYS(format, ...) flog_system::ptr()->write(FLOGT_SYSTEM, __FILE__, __LINE__, __FUNCTION__, format, ##__VA_ARGS__)
 #endif
 
+template <typename T>
+void FUSE(T t) {}
+
+
+

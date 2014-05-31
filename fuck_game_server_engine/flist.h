@@ -172,7 +172,7 @@ private:
 		}
 
 		uint32_t newidx = m_pool.allocindex();
-		SAFE_TEST_RET_VAL(newidx, INVALID_IDX, false);
+		SAFE_TEST_RET_VAL((int32_t)newidx, INVALID_IDX, false);
 
 		Node & newnode = m_pool[newidx];
 		newnode.preindex = preindex;
@@ -224,7 +224,7 @@ private:
 		}
 
 		uint32_t newidx = m_pool.allocindex();
-		SAFE_TEST_RET_VAL(newidx, INVALID_IDX, false);
+		SAFE_TEST_RET_VAL((int32_t)newidx, INVALID_IDX, false);
 
 		Node & newnode = m_pool[newidx];
 		newnode.preindex = idx;

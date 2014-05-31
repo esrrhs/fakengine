@@ -38,11 +38,13 @@ bool fpoolapp::heartbeat()
 	    stringc & itstr = *it;
 	    itstr = i++;
 	    uint32_t size = itstr.size();
+		size = 0;
 	}
 
 	stringc str1 = pool[index1];
 	stringc str2 = pool[index2];
 	const stringc & str33 = pool[index3];
+	FUSE(str33);
 	stringc str3;
 
 	pool.deallocindex(index1);
@@ -64,18 +66,21 @@ bool fpoolapp::heartbeat()
 	{
 	    stringc & itstr = *it;
 	    uint32_t size = itstr.size();
+		size = 0;
 	}
 	pool.dealloc(*pstr1);
 	for (fpool<stringc, 3>::iterator it = pool.begin(); it != pool.end();it++)
 	{
 	    stringc & itstr = *it;
 	    uint32_t size = itstr.size();
+		size = 0;
 	}
 	pool.dealloc(*pstr3);
 	for (fpool<stringc, 3>::iterator it = pool.begin(); it != pool.end();it++)
 	{
 	    stringc & itstr = *it;
 	    uint32_t size = itstr.size();
+		size = 0;
 	}
 
 	s = pool.size();

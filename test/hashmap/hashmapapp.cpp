@@ -54,6 +54,7 @@ bool hashmapapp::heartbeat()
 	it = testset.find(1);
 	b = (it == testset.end());
 	int aa = *it;
+	aa = 0;
 
 	testset.erase(1);
 	for (myhashset::iterator it = testset.begin(); it != testset.end(); it++)
@@ -65,12 +66,14 @@ bool hashmapapp::heartbeat()
 
 	testset.insert(3);
 	int ss = testset[3];
+	ss = 0;
 	for (myhashset::iterator it = testset.begin(); it != testset.end(); it++)
 	{
 		int a = *it;
 		a++;
 	}
 	int sss = testset[4];
+	sss = 0;
 	for (myhashset::iterator it = testset.begin(); it != testset.end(); it++)
 	{
 		int a = *it;
