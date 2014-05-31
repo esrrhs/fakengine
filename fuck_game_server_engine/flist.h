@@ -1,53 +1,29 @@
 #pragma once
 
 template <typename T, uint32_t N>
-class farray
+class flist
 {
 public:
-	typedef farray<T, N> MyType;
+	typedef flist<T, N> MyType;
 	typedef T Value;
 	typedef fiterator<MyType> iterator;
 	friend class fiterator<MyType>;
 public:
-	farray()
+	flist()
 	{
 		clear();
 	}
 
-	~farray()
+	~flist()
 	{
 
-	}
-
-	T& operator [](uint32_t index)
-	{
-		if (index>=N)
-		{
-			FASSERT(index>=N);
-			return tmpdata;
-		}
-
-		return m_pool[m_indexarray[index]].data;
-	}
-
-	const T& operator [](uint32_t index) const
-	{
-		if (index>=N)
-		{
-			FASSERT(index>=N);
-			return tmpdata;
-		}
-
-		return m_pool[m_indexarray[index]].data;
 	}
 
 	void clear()
 	{
 		m_pool.clear();
-		for (uint32_t i = 0; i < N; i++)
-		{
-			m_indexarray[i] = INVALID_IDX;
-		}
+		m_head = INVALID_IDX;
+		m_tail = INVALID_IDX;
 	}
 
 	bool push_back(const T & t)
@@ -57,15 +33,24 @@ public:
 			return false;
 		}
 
-		uint32_t index = size();
+		uint32_t index = m_tail;
 
 		uint32_t newidx = m_pool.allocindex();
 		SAFE_TEST_RET_VAL(newidx, INVALID_IDX, false);
 
 		Node & node = m_pool[newidx];
+		node.preindex = INVALID_IDX;
+		node.nextindex = INVALID_IDX;
 		node.data = t;
 
-		m_indexarray[index] = newidx;
+		m_tail = newidx;
+
+		if (index != INVALID_IDX)
+		{
+			Node & prenode = m_pool[index];
+			prenode.nextindex = newidx;
+			node.preindex = preidx;
+		}
 
 		return true;
 	}
@@ -81,9 +66,18 @@ public:
 		uint32_t idx = m_indexarray[index];
 
 		Node & node = m_pool[idx];
+		node.preindex = INVALID_IDX;
+		node.nextindex = INVALID_IDX;
 		t = node.data;
 
 		m_pool.deallocindex(idx);
+
+		if (index > 0)
+		{
+			uint32_t preidx = m_indexarray[index - 1];
+			Node & prenode = m_pool[preidx];
+			prenode.nextindex = INVALID_IDX;
+		}
 
 		return true;
 	}
@@ -117,6 +111,8 @@ public:
 		SAFE_TEST_RET_VAL(newidx, INVALID_IDX, false);
 
 		Node & node = m_pool[newidx];
+		node.preindex = INVALID_IDX;
+		node.nextindex = INVALID_IDX;
 		node.data = t;
 
 		if (s > 0)
@@ -124,6 +120,14 @@ public:
 			memmove(m_indexarray + 1, m_indexarray, s * sizeof(int32_t));
 		}
 		m_indexarray[0] = newidx;
+
+		if (s > 0)
+		{
+			uint32_t nextidx = m_indexarray[1];
+			Node & nextnode = m_pool[nextidx];
+			nextnode.preindex = newidx;
+			node.nextindex = nextidx;
+		}
 
 		return true;
 	}
@@ -140,6 +144,8 @@ public:
 		uint32_t idx = m_indexarray[0];
 
 		Node & node = m_pool[idx];
+		node.preindex = INVALID_IDX;
+		node.nextindex = INVALID_IDX;
 		t = node.data;
 
 		m_pool.deallocindex(idx);
@@ -148,6 +154,13 @@ public:
 		if (s > 1)
 		{
 			memmove(m_indexarray, m_indexarray + 1, (s - 1) * sizeof(int32_t));
+		}
+
+		if (s > 1)
+		{
+			uint32_t headidx = m_indexarray[0];
+			Node & headnode = m_pool[headidx];
+			headnode.preindex = INVALID_IDX;
 		}
 
 		return true;
@@ -218,9 +231,27 @@ private:
 
 		Node & node = m_pool[idx];
 
+		int32_t preindex = node.preindex;
+		int32_t nextindex = node.nextindex;
+
+		node.preindex = INVALID_IDX;
+		node.nextindex = INVALID_IDX;
+
 		m_pool.deallocindex(idx);
 
 		m_indexarray[index] = INVALID_IDX;
+
+		if (preindex != INVALID_IDX)
+		{
+			Node & prenode = m_pool[preindex];
+			prenode.nextindex = nextindex;
+		}
+
+		if (nextindex != INVALID_IDX)
+		{
+			Node & nextnode = m_pool[nextindex];
+			nextnode.preindex = preindex;
+		}
 
 		if (s - index > 1)
 		{
@@ -273,21 +304,24 @@ private:
 	}
 
 private:
+	static const int32_t INVALID_IDX = fpool<T, N>::INVALID_IDX;
 	struct Node
 	{
-		Node()
+		Node() : preindex(INVALID_IDX), nextindex(INVALID_IDX)
 		{
 		}
 		~Node()
 		{
 		}
+		int32_t preindex;
+		int32_t nextindex;
 		T data;
 	};
 	typedef fpool<Node, N> Pool;
-	static const int32_t INVALID_IDX = Pool::INVALID_IDX;
 private:
 	Pool m_pool;
-	int32_t m_indexarray[N];
+	int32_t m_head;
+	int32_t m_tail;
 	T tmpdata;
 };
 

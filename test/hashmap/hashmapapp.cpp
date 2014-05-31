@@ -143,6 +143,64 @@ bool hashmapapp::heartbeat()
 			std::cout<<"test hash map error"<<k<<" "<<v<<" "<<v_test<<std::endl;
 		}
 	}
+
+	{
+
+		typedef farray<int,3> myarray;
+		myarray testarray;
+		testarray.push_back(1);
+		testarray.push_back(2);
+		testarray.push_back(3);
+
+		for (myarray::iterator it = testarray.begin(); it != testarray.end(); it++)
+		{
+			int a = *it;
+			a++;
+		}
+
+		int aa;
+		testarray.front(aa);
+
+		int aaa;
+		testarray.back(aaa);
+
+		int i;
+		testarray.pop_front(i);
+		testarray.pop_back(i);
+		testarray.pop_front(i);
+
+		testarray.push_back(1);
+		testarray.push_back(2);
+		testarray.push_back(3);
+		testarray.push_back(4);
+
+		testarray.erase(1);
+		for (myarray::iterator it = testarray.begin(); it != testarray.end(); it++)
+		{
+			int a = *it;
+			a++;
+		}
+
+		testarray.erase(1);
+		for (myarray::iterator it = testarray.begin(); it != testarray.end(); it++)
+		{
+			int a = *it;
+			a++;
+		}
+
+		testarray.erase(0);
+		for (myarray::iterator it = testarray.begin(); it != testarray.end(); it++)
+		{
+			int a = *it;
+			a++;
+		}
+
+		i = testarray.size();
+		i = 0;
+	}
+
+
+
 	return true;
 }
 

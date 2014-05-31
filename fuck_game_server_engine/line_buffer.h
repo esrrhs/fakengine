@@ -14,20 +14,17 @@ template <typename T, size_t N>
 class line_buffer
 {
 public:
-	line_buffer() : m_buffer(0), m_iter(0), m_datasize(0), m_store_iter(0), m_store_datasize(0)
+	line_buffer() : m_iter(0), m_datasize(0), m_store_iter(0), m_store_datasize(0)
 	{
-		m_buffer = (int8_t*)FALLOC(N * sizeof(T));
 	}
 	line_buffer(const line_buffer<T, N> & r) : m_iter(r.m_iter), m_datasize(r.m_datasize), 
 		m_store_iter(r.m_store_iter),
 		m_store_datasize(r.m_store_datasize)
 	{
-		m_buffer = (int8_t*)FALLOC(N * sizeof(T));
 		memcpy(m_buffer, r.m_buffer, sizeof(T) * N);
 	}
 	~line_buffer()
 	{
-		SAFE_FREE(m_buffer);
 	}
 	line_buffer<T, N> & operator = (const line_buffer<T, N> & r)
 	{
@@ -188,7 +185,7 @@ private:
 		memcpy(out, m_buffer + m_iter, size * sizeof(T));
 	}
 private:
-	T * m_buffer;
+	T m_buffer[N];
 	size_t m_iter;
 	size_t m_datasize;
 	size_t m_store_iter;

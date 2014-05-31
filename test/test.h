@@ -11,15 +11,9 @@ class client_processor : public myneteventprocessor
 public:
 	force_inline bool on_recv_msg(mysocket & s, const mymsg & msg)
 	{
-		int8_t buff[1024];
-		msg.read_buffer(buff, 1024);
-		std::string recstr((const char *)buff);
-		std::cout<<"client rec msg "<<recstr<<" from "<<(char *)s.get_peer_ip()
-			<<" port "<<s.get_peer_port()<<std::endl;
-
 		mymsg sendm;
-		std::string str = "hello server";
-		sendm.write_str((const char *)str.c_str(), 1024);
+		int16_t i = 10;
+		sendm.write(i);
 
 		s.send(sendm);
 		return true;
@@ -30,15 +24,9 @@ class server_processor : public myneteventprocessor
 public:
 	force_inline bool on_recv_msg(mysocket & s, const mymsg & msg)
 	{
-		int8_t buff[1024];
-		msg.read_buffer(buff, 1024);
-		std::string recstr((const char *)buff);
-		std::cout<<"server rec msg "<<recstr<<" from "<<(char *)s.get_peer_ip()
-			<<" port "<<s.get_peer_port()<<std::endl;
-
 		mymsg sendm;
-		std::string str = "hello client";
-		sendm.write_str((const char *)str.c_str(), 1024);
+		int16_t i = 11;
+		sendm.write(i);
 
 		s.send(sendm);
 		return true;

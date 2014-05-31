@@ -9,113 +9,29 @@ public:
 	}
 	force_inline ~netmsg()
 	{
-		for (size_t i = 0; i < m_tmp_str.size(); i++)
-		{
-			SAFE_DELETE(std::string, m_tmp_str[i]);
-		}
 	}
 public:
-	force_inline void write_int8(int8_t c, size_t num = 1)
+	template <typename T>
+	bool write(const T & i)
 	{
-		for (size_t i = 0; i < num; i++)
-		{
-			write((const int8_t *)&c, 1);
-		}
+		return write((const int8_t *)&i, sizeof(i));
 	}
-	force_inline void write_int16(int16_t i)
+	template <typename T>
+	bool read(T & i) const
 	{
-		write((const int8_t *)&i, sizeof(i));
-	}
-	force_inline void write_int32(int32_t i)
-	{
-		write((const int8_t *)&i, sizeof(i));
-	}
-	force_inline void write_int64(int64_t i)
-	{
-		write((const int8_t *)&i, sizeof(i));
-	}
-	force_inline void write_str(const char * str, size_t size = 0)
-	{
-		// 自动方式
-		if (size == 0)
-		{
-			uint16_t len = (uint16_t)strlen(str);
-			write((const int8_t *)&len, sizeof(len));
-			write((const int8_t *)str, len);
-		}
-		// 补齐方式
-		else
-		{
-			size_t len = strlen(str);
-
-			if (size <= len)
-			{
-				write((const int8_t *)str, size);
-			}
-			else
-			{
-				write((const int8_t *)str, len);
-				write_int8(0, size - len);
-			}
-		}
-	}
-	force_inline int8_t read_int8() const
-	{
-		int8_t i = 0;
-		read((int8_t *)&i, sizeof(i));
-		return i;
-	}
-	force_inline int16_t read_int16() const
-	{
-		int16_t i = 0;
-		read((int8_t *)&i, sizeof(i));
-		return i;
-	}
-	force_inline int32_t read_int32() const
-	{
-		int32_t i = 0;
-		read((int8_t *)&i, sizeof(i));
-		return i;
-	}
-	force_inline int64_t read_int64() const
-	{
-		int64_t i = 0;
-		read((int8_t *)&i, sizeof(i));
-		return i;
-	}
-	force_inline const char * read_str(size_t size = 0) const
-	{
-		std::string * p = fnew<std::string>();
-		std::string & i = *p;
-		// 自动方式
-		if (size == 0)
-		{
-			uint16_t len = 0;
-			read((int8_t *)&len, sizeof(len));
-			i.resize(len, 0);
-			read((int8_t *)i.c_str(), len);
-		}
-		// 补齐方式
-		else
-		{
-			i.resize(size, 0);
-			read((int8_t *)i.c_str(), size);
-			i[i.size() - 1] = 0;
-		}
-		m_tmp_str.push_back(p);
-		return i.c_str();
+		return read((int8_t *)&i, sizeof(i));
 	}
 	force_inline size_t size() const
 	{
 		return m_buffer.size();
 	}
-	force_inline void write_buffer(const int8_t * p, size_t size)
+	force_inline bool write_buffer(const int8_t * p, size_t size)
 	{
-		write(p, size);
+		return write(p, size);
 	}
-	force_inline void read_buffer(int8_t * p, size_t size) const
+	force_inline bool read_buffer(int8_t * p, size_t size) const
 	{
-		read(p, size);
+		return read(p, size);
 	}
 public:
 	template <typename T>
@@ -171,6 +87,5 @@ private:
 	}
 private:
 	mutable _buffer m_buffer;
-	mutable std::vector<std::string *> m_tmp_str;
 };
 

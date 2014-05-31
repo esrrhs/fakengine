@@ -77,9 +77,6 @@
     <ClInclude Include="socket_link.h">
       <Filter>net</Filter>
     </ClInclude>
-    <ClInclude Include="fstring.h">
-      <Filter>common</Filter>
-    </ClInclude>
     <ClInclude Include="fengine.h">
       <Filter>common</Filter>
     </ClInclude>
@@ -536,9 +533,6 @@
     <ClInclude Include="line_buffer.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="fhashmap.h">
-      <Filter>common</Filter>
-    </ClInclude>
     <ClInclude Include="profile.h">
       <Filter>profile</Filter>
     </ClInclude>
@@ -554,29 +548,38 @@
     <ClInclude Include="fclock.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="farray.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="fsort.h">
-      <Filter>common</Filter>
-    </ClInclude>
     <ClInclude Include="factory.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="fpool.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="fstack.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="fhashset.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="fhash.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="fmath.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="fhash.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="flist.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="fhashset.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="fhashmap.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="fpool.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="fstack.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="fsort.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="fstring.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="farray.h">
+      <Filter>base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -618,6 +621,9 @@
     </Filter>
     <Filter Include="profile">
       <UniqueIdentifier>{26425234-8882-4fbf-aa66-fbba96fb85a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base">
+      <UniqueIdentifier>{138bea86-a4e1-4c85-a611-b84e40413044}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

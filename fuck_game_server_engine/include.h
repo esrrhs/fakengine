@@ -4,11 +4,12 @@
 #include "fhash.h"
 #include "fstring.h"
 #include "fsort.h"
-#include "farray.h"
 #include "fstack.h"
 #include "fpool.h"
+#include "farray.h"
 #include "fhashset.h"
 #include "fhashmap.h"
+#include "flist.h"
 
 #include "fengine.h"
 #include "fdouble.h"

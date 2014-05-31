@@ -35,21 +35,18 @@ template <typename T, size_t N>
 class cirle_buffer
 {
 public:
-	cirle_buffer() : m_buffer(0), m_datasize(0), m_begin(0), m_end(0),
+	cirle_buffer() : m_datasize(0), m_begin(0), m_end(0),
 		m_store_datasize(0), m_store_begin(0), m_store_end(0)
 	{
-		m_buffer = (int8_t*)FALLOC(N * sizeof(T));
 	}
 	cirle_buffer(const cirle_buffer<T, N> & r) : m_datasize(r.m_datasize), 
 		m_begin(r.m_begin), m_end(r.m_end), m_store_datasize(r.m_store_datasize), 
 		m_store_begin(r.m_store_begin), m_store_end(r.m_store_end)
 	{
-		m_buffer = (int8_t*)FALLOC(N * sizeof(T));
 		memcpy(m_buffer, r.m_buffer, sizeof(T) * N);
 	}
 	~cirle_buffer()
 	{
-		SAFE_FREE(m_buffer);
 	}
 	cirle_buffer<T, N> & operator = (const cirle_buffer<T, N> & r)
 	{
@@ -230,7 +227,7 @@ private:
 		}
 	}
 private:
-	T * m_buffer;
+	T m_buffer[N];
 	size_t m_datasize;
 	size_t m_begin;
 	size_t m_end;
