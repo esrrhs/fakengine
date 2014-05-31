@@ -168,14 +168,58 @@ public:
 		return true;
 	}
 
-	iterator erase(int32_t index)
+	bool insert(int32_t index, const T & t)
 	{
-		return iterator(this, real_erase(index));
+		if (full())
+		{
+			return false;
+		}
+
+		int32_t s = size();
+		if (index < 0 || index > s)
+		{
+			return false;
+		}
+
+		uint32_t newidx = m_pool.allocindex();
+		SAFE_TEST_RET_VAL(newidx, INVALID_IDX, false);
+
+		Node & node = m_pool[newidx];
+		node.data = t;
+
+		if (s - index > 0)
+		{
+			memmove(m_indexarray + index + 1, m_indexarray + index, (s - index)*sizeof(int32_t));
+		}
+		m_indexarray[index] = newidx;
+
+		return true;
 	}
 
-	iterator erase(iterator it)
+	bool erase(int32_t index)
 	{
-		return erase(it.index());
+		if (empty())
+		{
+			return false;
+		}
+
+		int32_t s = size();
+		SAFE_TEST_INDEX_VAL(index, s, false);
+
+		uint32_t idx = m_indexarray[index];
+
+		Node & node = m_pool[idx];
+
+		m_pool.deallocindex(idx);
+
+		m_indexarray[index] = INVALID_IDX;
+
+		if (s - index > 1)
+		{
+			memmove(m_indexarray + index, m_indexarray + index + 1, (s - index - 1)*sizeof(int32_t));
+		}
+
+		return true;
 	}
 
 	uint32_t size() const
@@ -201,33 +245,6 @@ public:
 	iterator end()
 	{
 		return iterator(this, size());
-	}
-
-private:
-	int32_t real_erase(int32_t index)
-	{
-		if (empty())
-		{
-			return INVALID_IDX;
-		}
-
-		int32_t s = size();
-		SAFE_TEST_INDEX_VAL(index, s, INVALID_IDX);
-
-		uint32_t idx = m_indexarray[index];
-
-		Node & node = m_pool[idx];
-
-		m_pool.deallocindex(idx);
-
-		m_indexarray[index] = INVALID_IDX;
-
-		if (s - index > 1)
-		{
-			memmove(m_indexarray + index, m_indexarray + index + 1, (s - index - 1)*sizeof(int32_t));
-		}
-
-		return true;
 	}
 
 private:

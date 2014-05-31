@@ -195,11 +195,54 @@ bool hashmapapp::heartbeat()
 			a++;
 		}
 
+		testarray.insert(0, 3);
+		for (myarray::iterator it = testarray.begin(); it != testarray.end(); it++)
+		{
+			int a = *it;
+			a++;
+		}
+
+		testarray.insert(0, 1);
+		for (myarray::iterator it = testarray.begin(); it != testarray.end(); it++)
+		{
+			int a = *it;
+			a++;
+		}
+
+		testarray.insert(0, 2);
+		for (myarray::iterator it = testarray.begin(); it != testarray.end(); it++)
+		{
+			int a = *it;
+			a++;
+		}
+
 		i = testarray.size();
 		i = 0;
 	}
 
+	{
+		typedef flist<int, 3> mylist;
+		mylist list;
+		list.push_back(2);
+		list.push_front(1);
+		list.push_back(3);
+		for (mylist::iterator it = list.begin(); it != list.end(); it++)
+		{
+			int a = *it;
+			a++;
+		}
 
+		int aa;
+		list.back(aa);
+		list.front(aa);
+		list.pop_back(aa);
+		list.pop_front(aa);
+		for (mylist::iterator it = list.begin(); it != list.end(); it++)
+		{
+			int a = *it;
+			a++;
+		}
+	}
 
 	return true;
 }

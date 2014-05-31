@@ -123,3 +123,4 @@
 2014.5.25：加完hashset，下次加hashmap
 2014.5.26：fix build，下次加hashmap
 2014.5.26：加hashmap，下次优化网络层
+2014.5.31：加flist,farray, 优化了底层buffer，下一步继续整理网络层

@@ -28,31 +28,7 @@ public:
 
 	bool push_back(const T & t)
 	{
-		if (full())
-		{
-			return false;
-		}
-
-		uint32_t index = m_tail;
-
-		uint32_t newidx = m_pool.allocindex();
-		SAFE_TEST_RET_VAL(newidx, INVALID_IDX, false);
-
-		Node & node = m_pool[newidx];
-		node.preindex = INVALID_IDX;
-		node.nextindex = INVALID_IDX;
-		node.data = t;
-
-		m_tail = newidx;
-
-		if (index != INVALID_IDX)
-		{
-			Node & prenode = m_pool[index];
-			prenode.nextindex = newidx;
-			node.preindex = preidx;
-		}
-
-		return true;
+		return insert_after(m_tail, t);
 	}
 
 	bool pop_back(T & t)
@@ -62,24 +38,10 @@ public:
 			return false;
 		}
 
-		uint32_t index = size() - 1;
-		uint32_t idx = m_indexarray[index];
-
-		Node & node = m_pool[idx];
-		node.preindex = INVALID_IDX;
-		node.nextindex = INVALID_IDX;
+		Node & node = m_pool[m_tail];
 		t = node.data;
 
-		m_pool.deallocindex(idx);
-
-		if (index > 0)
-		{
-			uint32_t preidx = m_indexarray[index - 1];
-			Node & prenode = m_pool[preidx];
-			prenode.nextindex = INVALID_IDX;
-		}
-
-		return true;
+		return erase(m_tail);
 	}
 
 	bool back(T & t) const
@@ -89,10 +51,7 @@ public:
 			return false;
 		}
 
-		uint32_t index = size() - 1;
-		uint32_t idx = m_indexarray[index];
-
-		const Node & node = m_pool[idx];
+		const Node & node = m_pool[m_tail];
 		t = node.data;
 
 		return true;
@@ -100,36 +59,7 @@ public:
 
 	bool push_front(const T & t)
 	{
-		if (full())
-		{
-			return false;
-		}
-
-		int32_t s = size();
-
-		uint32_t newidx = m_pool.allocindex();
-		SAFE_TEST_RET_VAL(newidx, INVALID_IDX, false);
-
-		Node & node = m_pool[newidx];
-		node.preindex = INVALID_IDX;
-		node.nextindex = INVALID_IDX;
-		node.data = t;
-
-		if (s > 0)
-		{
-			memmove(m_indexarray + 1, m_indexarray, s * sizeof(int32_t));
-		}
-		m_indexarray[0] = newidx;
-
-		if (s > 0)
-		{
-			uint32_t nextidx = m_indexarray[1];
-			Node & nextnode = m_pool[nextidx];
-			nextnode.preindex = newidx;
-			node.nextindex = nextidx;
-		}
-
-		return true;
+		return insert_before(m_head, t);
 	}
 
 	bool pop_front(T & t)
@@ -139,31 +69,10 @@ public:
 			return false;
 		}
 
-		int32_t s = size();
-
-		uint32_t idx = m_indexarray[0];
-
-		Node & node = m_pool[idx];
-		node.preindex = INVALID_IDX;
-		node.nextindex = INVALID_IDX;
+		Node & node = m_pool[m_head];
 		t = node.data;
 
-		m_pool.deallocindex(idx);
-
-		m_indexarray[0] = INVALID_IDX;
-		if (s > 1)
-		{
-			memmove(m_indexarray, m_indexarray + 1, (s - 1) * sizeof(int32_t));
-		}
-
-		if (s > 1)
-		{
-			uint32_t headidx = m_indexarray[0];
-			Node & headnode = m_pool[headidx];
-			headnode.preindex = INVALID_IDX;
-		}
-
-		return true;
+		return erase(m_head);
 	}
 
 	bool front(T & t) const
@@ -173,24 +82,12 @@ public:
 			return false;
 		}
 
-		uint32_t idx = m_indexarray[0];
-
-		const Node & node = m_pool[idx];
+		const Node & node = m_pool[m_head];
 		t = node.data;
 
 		return true;
 	}
-
-	iterator erase(int32_t index)
-	{
-		return iterator(this, real_erase(index));
-	}
-
-	iterator erase(iterator it)
-	{
-		return erase(it.index());
-	}
-
+	
 	uint32_t size() const
 	{
 		return m_pool.size();
@@ -208,27 +105,23 @@ public:
 
 	iterator begin()
 	{
-		return iterator(this, 0);
+		return iterator(this, m_head);
 	}
 
 	iterator end()
 	{
-		return iterator(this, size());
+		return iterator(this, INVALID_IDX);
 	}
 
 private:
-	int32_t real_erase(int32_t index)
+	bool erase(int32_t idx)
 	{
 		if (empty())
 		{
 			return INVALID_IDX;
 		}
 
-		int32_t s = size();
-		SAFE_TEST_INDEX_VAL(index, s, INVALID_IDX);
-
-		uint32_t idx = m_indexarray[index];
-
+		SAFE_TEST_INDEX_VAL(idx, N, false);
 		Node & node = m_pool[idx];
 
 		int32_t preindex = node.preindex;
@@ -238,8 +131,6 @@ private:
 		node.nextindex = INVALID_IDX;
 
 		m_pool.deallocindex(idx);
-
-		m_indexarray[index] = INVALID_IDX;
 
 		if (preindex != INVALID_IDX)
 		{
@@ -253,54 +144,142 @@ private:
 			nextnode.preindex = preindex;
 		}
 
-		if (s - index > 1)
+		if (m_head == idx)
 		{
-			memmove(m_indexarray + index, m_indexarray + index + 1, (s - index - 1)*sizeof(int32_t));
+			m_head = nextindex;
+		}
+
+		if (m_tail == idx)
+		{
+			m_tail = preindex;
 		}
 
 		return true;
 	}
 
+	bool insert_before(int32_t idx, const T & t)
+	{
+		if (full())
+		{
+			return false;
+		}
+
+		int32_t preindex = INVALID_IDX;
+		if (idx != INVALID_IDX)
+		{
+			Node & node = m_pool[idx];
+			preindex = node.preindex;
+		}
+
+		uint32_t newidx = m_pool.allocindex();
+		SAFE_TEST_RET_VAL(newidx, INVALID_IDX, false);
+
+		Node & newnode = m_pool[newidx];
+		newnode.preindex = preindex;
+		newnode.nextindex = idx;
+		newnode.data = t;
+
+		if (preindex != INVALID_IDX)
+		{
+			Node & prenode = m_pool[preindex];
+			prenode.nextindex = newidx;
+		}
+		
+		if (idx != INVALID_IDX)
+		{
+			Node & nextnode = m_pool[idx];
+			nextnode.preindex = newidx;
+		}
+		
+		if (m_head == idx)
+		{
+			m_head = newidx;
+		}
+
+		if (m_head == INVALID_IDX)
+		{
+			m_head = newidx;
+		}
+
+		if (m_tail == INVALID_IDX)
+		{
+			m_tail = newidx;
+		}
+
+		return true;
+	}
+
+	bool insert_after(int32_t idx, const T & t)
+	{
+		if (full())
+		{
+			return false;
+		}
+
+		int32_t nextindex = INVALID_IDX;
+		if (idx != INVALID_IDX)
+		{
+			Node & node = m_pool[idx];
+			nextindex = node.nextindex;
+		}
+
+		uint32_t newidx = m_pool.allocindex();
+		SAFE_TEST_RET_VAL(newidx, INVALID_IDX, false);
+
+		Node & newnode = m_pool[newidx];
+		newnode.preindex = idx;
+		newnode.nextindex = nextindex;
+		newnode.data = t;
+
+		if (nextindex != INVALID_IDX)
+		{
+			Node & nextnode = m_pool[nextindex];
+			nextnode.preindex = newidx;
+		}
+
+		if (idx != INVALID_IDX)
+		{
+			Node & nextnode = m_pool[idx];
+			nextnode.nextindex = newidx;
+		}
+
+		if (m_tail == idx)
+		{
+			m_tail = newidx;
+		}
+
+		if (m_head == INVALID_IDX)
+		{
+			m_head = newidx;
+		}
+
+		if (m_tail == INVALID_IDX)
+		{
+			m_tail = newidx;
+		}
+
+		return true;
+	}
 private:
 
 	T& getbyidx(uint32_t index)
 	{
-		if (index>=N)
-		{
-			FASSERT(index>=N);
-			return tmpdata;
-		}
-
-		return m_pool[m_indexarray[index]].data;
+		return m_pool[index].data;
 	}
 
 	const T& getbyidx(uint32_t index) const
 	{
-		if (index>=N)
-		{
-			FASSERT(index>=N);
-			return tmpdata;
-		}
-
-		return m_pool[m_indexarray[index]].data;
+		return m_pool[index].data;
 	}
 
 	int32_t getnextidx(int32_t idx)
 	{
-		if (idx >= 0 && idx + 1 < size())
-		{
-			return idx + 1;
-		}
-		return size();
+		return m_pool[idx].nextindex;
 	}
 
 	int32_t getpreidx(int32_t idx)
 	{
-		if (idx - 1 >= 0 && idx < size())
-		{
-			return idx - 1;
-		}
-		return size();
+		return m_pool[idx].preindex;
 	}
 
 private:

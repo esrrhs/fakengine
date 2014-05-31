@@ -120,7 +120,7 @@ private:
 
 	int32_t getnextidx(int32_t idx)
 	{
-		if (idx >= 0 && idx + 1 < used)
+		if (idx >= 0 && idx + 1 < (int32_t)used)
 		{
 			return idx + 1;
 		}
@@ -129,7 +129,7 @@ private:
 
 	int32_t getpreidx(int32_t idx)
 	{
-		if (idx - 1 >= 0 && idx < used)
+		if (idx - 1 >= 0 && idx < (int32_t)used)
 		{
 			return idx - 1;
 		}
