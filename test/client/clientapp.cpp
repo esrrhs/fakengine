@@ -3,12 +3,18 @@
 
 bool clientapp::ini( int argc, char *argv[] )
 {
+	tcp_socket_link_param param;
+	bool ret = m_mynetlink.ini(param);
+	if (!ret)
+	{
+		return false;
+	}
 	return true;
 }
 
 bool clientapp::heartbeat()
 {
-	
+	m_mynetlink.tick();
 	return true;
 }
 
@@ -17,7 +23,7 @@ bool clientapp::exit()
 	return true;
 }
 
-clientapp::clientapp() : mainapp("client")
+clientapp::clientapp() : mainapp("clientapp")
 {
 
 }

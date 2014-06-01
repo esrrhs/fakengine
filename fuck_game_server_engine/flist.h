@@ -57,6 +57,17 @@ public:
 		return true;
 	}
 
+	T & back()
+	{
+		if (empty())
+		{
+			return tmpdata;
+		}
+
+		Node & node = m_pool[m_tail];
+		return node.data;
+	}
+
 	bool push_front(const T & t)
 	{
 		return insert_before(m_head, t);
@@ -87,7 +98,23 @@ public:
 
 		return true;
 	}
-	
+
+	T & front()
+	{
+		if (empty())
+		{
+			return tmpdata;
+		}
+
+		Node & node = m_pool[m_head];
+		return node.data;
+	}
+
+	bool erase(iterator it)
+	{
+		return erase(it.index());
+	}
+
 	uint32_t size() const
 	{
 		return m_pool.size();

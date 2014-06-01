@@ -2,7 +2,7 @@
 
 // socket_container 连接服务端类
 template <typename _msg, typename _socket, typename _real_select, 
-	typename _socket_store, typename _event_processor>
+	typename _event_processor, uint32_t N>
 class socket_container
 {
 public:
@@ -47,8 +47,8 @@ private:
 			{
 				// add to container
 				m_socket_store.push_back(s);
-				num++;
 				m_event_processor.on_accept(m_socket_store.back());
+				num++;
 			}
 		}
 		return true;
@@ -140,6 +140,7 @@ private:
 		return true;
 	}
 private:
+	typedef flist<_socket, N> _socket_store;
 	typedef typename _socket_store::iterator _socket_store_iter;
 	_socket m_socket;
 	_real_select m_real_select;
