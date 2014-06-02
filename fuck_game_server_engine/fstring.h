@@ -482,7 +482,7 @@ public:
 
 	force_inline void clear()
 	{
-		array[0]= 0;
+		array[0] = 0;
 		used = 0;
 	}
 
