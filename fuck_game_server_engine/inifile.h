@@ -81,6 +81,10 @@ public:
 		}
 		return false;
 	}
+	force_inline void clear()
+	{
+		m_map.clear();
+	}
 private:
 	force_inline bool open(const stringc & file, stringbuf & buff)
 	{
@@ -91,7 +95,7 @@ private:
 			return false;
 		}
 
-		int8_t readbuff[1024];
+		int8_t readbuff[c_IniFileBufferSize];
 		size_t len = 0;
 		while (!feof(fp))
 		{

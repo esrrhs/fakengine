@@ -25,9 +25,7 @@ public:
 		for (int i = 0; i < (int)N; i++)
 		{
 			m_free.push(i);
-			data[i].preindex = INVALID_IDX;
-			data[i].nextindex = INVALID_IDX;
-			data[i].isdirty = true;
+			data[i] = Node();
 		}
 		m_used = INVALID_IDX;
 	}

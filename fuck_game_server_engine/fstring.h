@@ -1169,7 +1169,7 @@ public:
 			if (j == size)
 			{
 				found += size;
-				i += size;
+				i += size - 1;
 				continue;
 			}
 

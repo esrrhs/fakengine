@@ -8,7 +8,7 @@ bool inifileapp::ini( int argc, char *argv[] )
 
 bool inifileapp::heartbeat()
 {
-	myinifile ifile;
+	ifile.clear();
 	ifile.load("config.ini");
 	stringc ss;
 	ifile.get("sec0", "key0", ss);
