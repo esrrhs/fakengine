@@ -271,7 +271,7 @@ private:
 
 	force_inline int32_t getnextidx(int32_t idx)
 	{
-		if (idx >= 0 && idx + 1 < (int)size())
+		if (idx >= 0 && idx + 1 < (int32_t)size())
 		{
 			return idx + 1;
 		}
@@ -280,7 +280,7 @@ private:
 
 	force_inline int32_t getpreidx(int32_t idx)
 	{
-		if (idx - 1 >= 0 && idx < (int)size())
+		if (idx - 1 >= 0 && idx < (int32_t)size())
 		{
 			return idx - 1;
 		}

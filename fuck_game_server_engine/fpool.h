@@ -22,7 +22,7 @@ public:
 	force_inline void clear()
 	{
 		m_free.clear();
-		for (int i = 0; i < (int)N; i++)
+		for (int32_t i = 0; i < (int32_t)N; i++)
 		{
 			m_free.push(i);
 			data[i] = Node();
@@ -196,7 +196,7 @@ public:
 private:
 	struct Node
 	{
-		Node() : preindex(INVALID_IDX), nextindex(INVALID_IDX), isdirty(true)
+		Node() : preindex(INVALID_IDX), nextindex(INVALID_IDX), isdirty(true), data(T())
 		{
 		}
 		~Node()

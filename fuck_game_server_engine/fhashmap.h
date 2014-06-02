@@ -9,7 +9,7 @@ public:
 		Node()
 		{
 		}
-		Node(const K & _k) : first(_k)
+		Node(const K & _k) : first(_k), second(V())
 		{
 		}
 		Node(const K & _k, const V & _v) : first(_k), second(_v)

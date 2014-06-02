@@ -22,6 +22,10 @@ public:
 	force_inline void clear()
 	{
 		used = 0;
+		for (uint32_t i = 0; i < N; i++)
+		{
+		    data[i] = T();
+		}
 	}
 
 	force_inline bool pop(T & t)

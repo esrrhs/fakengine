@@ -230,7 +230,7 @@ private:
 	static const int32_t INVALID_IDX = fpool<T, SIZE>::INVALID_IDX;
 	struct Node
 	{
-		Node() : preindex(INVALID_IDX), nextindex(INVALID_IDX)
+		Node() : preindex(INVALID_IDX), nextindex(INVALID_IDX), data(T())
 		{
 		}
 		~Node()
