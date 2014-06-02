@@ -32,7 +32,7 @@ public:
 
 	//! Default constructor
 	force_inline fstring()
-		: used(0)
+		: used(0), tmpdata(T())
 	{
 		array[0] = 0;
 	}
@@ -40,7 +40,7 @@ public:
 
 	//! Constructor
 	force_inline fstring(const fstring<T, N>& other)
-		: used(0)
+		: used(0), tmpdata(T())
 	{
 		*this = other;
 	}
@@ -48,7 +48,7 @@ public:
 	//! Constructor from other fstring types
 	template <class B, uint32_t M>
 	force_inline fstring(const fstring<B, M>& other)
-		: used(0)
+		: used(0), tmpdata(T())
 	{
 		*this = other;
 	}
@@ -56,7 +56,7 @@ public:
 
 	//! Constructs a fstring from a float
 	force_inline explicit fstring(const double number)
-		: used(0)
+		: used(0), tmpdata(T())
 	{
 		uint8_t tmpbuf[255];
 		tsnprintf((char*)tmpbuf, 255, "%0.6f", number);
@@ -66,7 +66,7 @@ public:
 
 	//! Constructs a fstring from an int32_t
 	force_inline explicit fstring(int32_t number)
-		: used(0)
+		: used(0), tmpdata(T())
 	{
 		// store if negative and make positive
 
@@ -114,7 +114,7 @@ public:
 
 	//! Constructs a fstring from an uint32_t
 	force_inline explicit fstring(uint32_t number)
-		: used(0)
+		: used(0), tmpdata(T())
 	{
 		// temporary buffer for 16 numbers
 
@@ -145,7 +145,7 @@ public:
 
 	//! Constructs a fstring from a long
 	force_inline explicit fstring(int64_t number)
-		: used(0)
+		: used(0), tmpdata(T())
 	{
 		// store if negative and make positive
 
@@ -193,7 +193,7 @@ public:
 
 	//! Constructs a fstring from an unsigned long
 	force_inline explicit fstring(uint64_t number)
-		: used(0)
+		: used(0), tmpdata(T())
 	{
 		// temporary buffer for 16 numbers
 
@@ -225,7 +225,7 @@ public:
 	//! Constructor for copying a fstring from a pointer with a given length
 	template <class B>
 	force_inline fstring(const B* const c, uint32_t length)
-		: used(0)
+		: used(0), tmpdata(T())
 	{
 		if (!c)
 		{
@@ -251,7 +251,7 @@ public:
 	//! Constructor for unicode and ascii strings
 	template <class B>
 	force_inline fstring(const B* const c)
-		: used(0)
+		: used(0), tmpdata(T())
 	{
 		*this = c;
 	}
@@ -478,6 +478,12 @@ public:
 	force_inline const T* c_str() const
 	{
 		return array;
+	}
+
+	force_inline void clear()
+	{
+		array[0]= 0;
+		used = 0;
 	}
 
 

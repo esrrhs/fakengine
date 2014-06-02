@@ -9,7 +9,7 @@ static force_inline void fdebug_break()
 #endif
 }
 
-static force_inline void fshow_call_stack(std::string & ret)
+static force_inline void fshow_call_stack(stringc & ret)
 {
 #ifdef WIN32
 	// win下太复杂，不提供
@@ -28,7 +28,7 @@ static force_inline void fshow_call_stack(std::string & ret)
 
 	for(int32_t i = 0; i < trace_size; ++i) 
 	{
-		ret += (std::string)messages[i] + "\n";
+		ret += (stringc)messages[i] + "\n";
 	}
 
 	free(messages);

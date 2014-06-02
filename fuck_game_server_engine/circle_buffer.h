@@ -175,7 +175,7 @@ public:
 	}
 	force_inline size_t get_read_line_size()
 	{
-		return std::min<size_t>(m_datasize, N - m_begin);
+		return Min<size_t>(m_datasize, N - m_begin);
 	}
 	force_inline T * get_write_line_buffer()
 	{
@@ -183,7 +183,7 @@ public:
 	}
 	force_inline size_t get_write_line_size()
 	{
-		return std::min<size_t>(N - m_datasize, N - m_end);
+		return Min<size_t>(N - m_datasize, N - m_end);
 	}
 private:
 	force_inline void real_write(const T * p, size_t size)

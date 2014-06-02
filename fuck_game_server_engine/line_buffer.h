@@ -165,7 +165,7 @@ public:
 
 		// ¶Á³ödata
 		FASSERT(data_size <= N * sizeof(T));
-		data_size = std::min<size_t>(data_size, N * sizeof(T));
+		data_size = Min<size_t>(data_size, N * sizeof(T));
 		if (!t.read((int8_t*)m_buffer, data_size))
 		{
 			return false;

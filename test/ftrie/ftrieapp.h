@@ -9,4 +9,4 @@ public:
 	virtual bool exit();
 };
 
-typedef ftrie<int8_t, 10> myftrie;
+typedef ftrie<int8_t, 100, 10> myftrie;

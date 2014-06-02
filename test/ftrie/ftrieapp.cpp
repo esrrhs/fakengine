@@ -9,11 +9,19 @@ bool ftrieapp::ini( int argc, char *argv[] )
 bool ftrieapp::heartbeat()
 {
 	myftrie ftrie;
-	ftrie.insert((int8_t *)"ABC", 3);
-	ftrie.insert((int8_t *)"AB", 2);
-	ftrie.insert((int8_t *)"ABCD", 4);
+	ftrie.insert("ABC");
+	ftrie.insert("ABCD");
 
-	ftrie.ishaveword((int8_t *)"ABCDE", 5, false);
+	int i = ftrie.ishaveword("ABCDE");
+	stringc tmp("ABCDEFGABABCABCCDABCDD");
+	myftrie::ftriestring tmp1 = tmp;
+	int j = ftrie.filterword(tmp1, '*');
+
+	ftrie.erase("ABC");
+	myftrie::ftriestring tmp2 = tmp;
+	j = ftrie.filterword(tmp2, '*');
+	ftrie.erase("ABCD");
+	i = ftrie.ishaveword("ABCDE");
 
 	return true;
 }

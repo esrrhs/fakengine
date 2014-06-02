@@ -9,7 +9,7 @@ public:
 	typedef fiterator<MyType> iterator;
 	friend class fiterator<MyType>;
 public:
-	force_inline flist()
+	force_inline flist() : tmpdata(T())
 	{
 		clear();
 	}

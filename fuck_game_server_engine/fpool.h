@@ -10,7 +10,7 @@ public:
 	typedef fiterator<MyType> iterator;
 	friend class fiterator<MyType>;
 public:
-	force_inline fpool()
+	force_inline fpool() : tmpdata(T())
 	{
 		clear();
 	}

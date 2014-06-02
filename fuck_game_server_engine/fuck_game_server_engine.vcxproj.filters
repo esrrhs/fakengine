@@ -627,7 +627,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="fuck_game_server_engine.cpp" />
     <ClCompile Include="lua_tinker.cpp">
       <Filter>lua</Filter>
     </ClCompile>
