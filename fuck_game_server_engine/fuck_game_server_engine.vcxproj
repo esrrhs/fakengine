@@ -140,6 +140,7 @@
     <ClInclude Include="alloc.h" />
     <ClInclude Include="allocator.h" />
     <ClInclude Include="auto_lock.h" />
+    <ClInclude Include="base.h" />
     <ClInclude Include="calloc.h" />
     <ClInclude Include="circle_buffer.h" />
     <ClInclude Include="cmdcontrol.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="fhash.h" />
     <ClInclude Include="fhashmap.h" />
     <ClInclude Include="fhashset.h" />
+    <ClInclude Include="fiterator.h" />
     <ClInclude Include="flist.h" />
     <ClInclude Include="fmath.h" />
     <ClInclude Include="fpool.h" />
@@ -367,7 +369,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>

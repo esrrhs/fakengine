@@ -57,7 +57,13 @@ public:
 typedef socket_link<mymsg, mysocket, client_processor> mysocketlink;
 typedef netlink<mysocketlink> mynetlink;
 
-typedef socket_container<mymsg, mysocket, selector, server_processor, MAX_LINK_SIZE> mysocketcontainer;
+#ifdef WIN32
+typedef selector serverselector;
+#else
+typedef epollor<10240> serverselector;
+#endif
+
+typedef socket_container<mymsg, mysocket, serverselector, server_processor, MAX_LINK_SIZE> mysocketcontainer;
 typedef netserver<mysocketcontainer> mynetserver;
 
 typedef cmdparser<10> mycmdparser;

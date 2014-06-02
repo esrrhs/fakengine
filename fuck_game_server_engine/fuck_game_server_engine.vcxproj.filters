@@ -581,6 +581,12 @@
     <ClInclude Include="farray.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="fiterator.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base.h">
+      <Filter>base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

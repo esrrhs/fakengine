@@ -43,6 +43,7 @@
 #include <linux/limits.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include <sys/epoll.h>
 #endif
 
 
