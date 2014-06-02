@@ -23,7 +23,7 @@ bool clientapp::exit()
 	return true;
 }
 
-clientapp::clientapp() : mainapp("clientapp")
+clientapp::clientapp() : mainapp("clientapp", c_DefaultCmdKey + 1)
 {
 
 }

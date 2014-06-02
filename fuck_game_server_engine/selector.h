@@ -25,7 +25,7 @@ public:
 		FD_SET(s, &m_readfds);
 		FD_SET(s, &m_writefds);
 		FD_SET(s, &m_exceptfds);
-		m_maxfd = std::max<socket_t>(m_maxfd, s);
+		m_maxfd = Max<socket_t>(m_maxfd, s);
 		return true;
 	}
 	force_inline bool select()

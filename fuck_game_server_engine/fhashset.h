@@ -11,27 +11,17 @@ public:
 	typedef fiterator<MyType> iterator;
 	friend class fiterator<MyType>;
 public:
-	fhashset()
+	force_inline fhashset()
 	{
 		clear();
 	}
 
-	~fhashset()
+	force_inline ~fhashset()
 	{
 
 	}
 
-	T& operator [](const T & t)
-	{
-	    int32_t idx = real_find(t);
-	    if (idx == INVALID_IDX)
-	    {
-	        idx = real_insert(t);
-	    }
-		return m_pool[idx].data;
-	}
-
-	const T& operator [](const T & t) const
+	force_inline T& operator [](const T & t)
 	{
 	    int32_t idx = real_find(t);
 	    if (idx == INVALID_IDX)
@@ -41,7 +31,17 @@ public:
 		return m_pool[idx].data;
 	}
 
-	void clear()
+	force_inline const T& operator [](const T & t) const
+	{
+	    int32_t idx = real_find(t);
+	    if (idx == INVALID_IDX)
+	    {
+	        idx = real_insert(t);
+	    }
+		return m_pool[idx].data;
+	}
+
+	force_inline void clear()
 	{
 		m_pool.clear();
 		for (uint32_t i = 0; i < SIZE; i++)
@@ -50,72 +50,72 @@ public:
 		}
 	}
 
-	iterator insert(const T & t)
+	force_inline iterator insert(const T & t)
 	{
 		return iterator(this, real_insert(t));
 	}
 	
-	iterator find(const T & t)
+	force_inline iterator find(const T & t)
 	{
 		return iterator(this, real_find(t));
 	}
 
-	iterator erase(const T & t)
+	force_inline iterator erase(const T & t)
 	{
 		return iterator(this, real_erase(t));
 	}
 
-	uint32_t size() const
+	force_inline uint32_t size() const
 	{
 		return m_pool.size();
 	}
 
-	bool empty() const
+	force_inline bool empty() const
 	{
 		return size() == 0;
 	}
 
-	bool full() const
+	force_inline bool full() const
 	{
 		return size() == N;
 	}
 
-	iterator begin()
+	force_inline iterator begin()
 	{
 		return iterator(this, m_pool.begin().index());
 	}
 
-	iterator end()
+	force_inline iterator end()
 	{
 		return iterator(this, m_pool.end().index());
 	}
 
 public:
 
-	T& getbyidx(uint32_t index)
+	force_inline T& getbyidx(uint32_t index)
 	{
 		return m_pool[index].data;
 	}
 
-	const T& getbyidx(uint32_t index) const
+	force_inline const T& getbyidx(uint32_t index) const
 	{
 		return m_pool[index].data;
 	}
 
-	int32_t getnextidx(int32_t idx)
+	force_inline int32_t getnextidx(int32_t idx)
 	{
 		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
 		return m_pool.getnextidx(idx);
 	}
 
-	int32_t getpreidx(int32_t idx)
+	force_inline int32_t getpreidx(int32_t idx)
 	{
 		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
 		return m_pool.getpreidx(idx);
 	}
 
 private:
-	int32_t real_insert(const T & t)
+	force_inline int32_t real_insert(const T & t)
 	{
 	    int32_t hashkey = m_HashFunc(t);
 		int32_t hashidx = hashkey % SIZE;
@@ -154,7 +154,7 @@ private:
 		return newidx;
 	}
 
-	int32_t real_find(const T & t)
+	force_inline int32_t real_find(const T & t)
 	{
 		int32_t hashkey = m_HashFunc(t);
 		int32_t hashidx = hashkey % SIZE;
@@ -174,7 +174,7 @@ private:
 		return INVALID_IDX;
 	}
 
-	int32_t real_erase(const T & t)
+	force_inline int32_t real_erase(const T & t)
 	{
 		int32_t findidx = INVALID_IDX;
 

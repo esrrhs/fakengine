@@ -9,22 +9,22 @@ public:
 	typedef fiterator<MyType> iterator;
 	friend class fiterator<MyType>;
 public:
-	fstack()
+	force_inline fstack()
 	{
 		clear();
 	}
 
-	~fstack()
+	force_inline ~fstack()
 	{
 
 	}
 
-	void clear()
+	force_inline void clear()
 	{
 		used = 0;
 	}
 
-	bool pop(T & t)
+	force_inline bool pop(T & t)
 	{
 		if (empty())
 		{
@@ -35,7 +35,7 @@ public:
 		return true;
 	}
 
-	bool push(const T & t)
+	force_inline bool push(const T & t)
 	{
 		if (full())
 		{
@@ -48,22 +48,22 @@ public:
 		return true;
 	}
 
-	uint32_t size() const
+	force_inline uint32_t size() const
 	{
 		return used;
 	}
 
-	bool empty() const
+	force_inline bool empty() const
 	{
 		return used == 0;
 	}
 
-	bool full() const
+	force_inline bool full() const
 	{
 		return used == N;
 	}
 	
-	T& operator [](uint32_t index)
+	force_inline T& operator [](uint32_t index)
 	{
 		if (index>=N)
 		{
@@ -74,7 +74,7 @@ public:
 		return data[index];
 	}
 
-	const T& operator [](uint32_t index) const
+	force_inline const T& operator [](uint32_t index) const
 	{
 		if (index>=N)
 		{
@@ -85,18 +85,18 @@ public:
 		return data[index];
 	}
 
-    iterator begin()
+    force_inline iterator begin()
     {
         return iterator(this, 0);
     }
 
-    iterator end()
+    force_inline iterator end()
     {
         return iterator(this, used);
     }
 
 private:
-	T& getbyidx(uint32_t index)
+	force_inline T& getbyidx(uint32_t index)
 	{
 		if (index>=N)
 		{
@@ -107,7 +107,7 @@ private:
 		return data[index];
 	}
 
-	const T& getbyidx(uint32_t index) const
+	force_inline const T& getbyidx(uint32_t index) const
 	{
 		if (index>=N)
 		{
@@ -118,7 +118,7 @@ private:
 		return data[index];
 	}
 
-	int32_t getnextidx(int32_t idx)
+	force_inline int32_t getnextidx(int32_t idx)
 	{
 		if (idx >= 0 && idx + 1 < (int32_t)used)
 		{
@@ -127,7 +127,7 @@ private:
 		return used;
 	}
 
-	int32_t getpreidx(int32_t idx)
+	force_inline int32_t getpreidx(int32_t idx)
 	{
 		if (idx - 1 >= 0 && idx < (int32_t)used)
 		{

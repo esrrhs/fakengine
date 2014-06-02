@@ -10,16 +10,16 @@ public:
 	typedef fiterator<MyType> iterator;
 	friend class fiterator<MyType>;
 public:
-	fpool()
+	force_inline fpool()
 	{
 		clear();
 	}
-	~fpool()
+	force_inline ~fpool()
 	{
 
 	}
 
-	void clear()
+	force_inline void clear()
 	{
 		m_free.clear();
 		for (int i = 0; i < (int)N; i++)
@@ -32,7 +32,7 @@ public:
 		m_used = INVALID_IDX;
 	}
 
-	int32_t allocindex()
+	force_inline int32_t allocindex()
 	{
 		if (m_free.empty())
 		{
@@ -58,7 +58,7 @@ public:
 		return index;
 	}
 
-	T * alloc()
+	force_inline T * alloc()
 	{
 		int32_t index = allocindex();
 		if (index == INVALID_IDX)
@@ -69,7 +69,7 @@ public:
 		return &data[index].data;
 	}
 
-	bool deallocindex(int32_t index)
+	force_inline bool deallocindex(int32_t index)
 	{
 		SAFE_TEST_INDEX_VAL(index, N, false);
 		if (data[index].isdirty)
@@ -103,14 +103,14 @@ public:
 		return true;
 	}
 
-	bool dealloc(T & t)
+	force_inline bool dealloc(T & t)
 	{
 		const size_t offset = (size_t)&data[0].data - (size_t)&data[0];
 		int32_t index = ((size_t)&t - offset - ((size_t)data))/sizeof(data[0]);
 		return deallocindex(index);
 	}
 
-	T& operator [](uint32_t index)
+	force_inline T& operator [](uint32_t index)
 	{
 		if (index>=N)
 		{
@@ -121,7 +121,7 @@ public:
 		return data[index].data;
 	}
 
-	const T& operator [](uint32_t index) const
+	force_inline const T& operator [](uint32_t index) const
 	{
 		if (index>=N)
 		{
@@ -133,33 +133,33 @@ public:
 	}
 
 	// 使用的大小
-	uint32_t size() const
+	force_inline uint32_t size() const
 	{
 		return N - m_free.size();
 	}
 
-	bool empty() const
+	force_inline bool empty() const
 	{
 		return size() == 0;
 	}
 
-	bool full() const
+	force_inline bool full() const
 	{
 		return size() == N;
 	}
 
-    iterator begin()
+    force_inline iterator begin()
     {
         return iterator(this, m_used);
     }
 
-    iterator end()
+    force_inline iterator end()
     {
         return iterator(this, INVALID_IDX);
     }
 
 public:
-	T& getbyidx(uint32_t index)
+	force_inline T& getbyidx(uint32_t index)
 	{
 		if (index>=N)
 		{
@@ -170,7 +170,7 @@ public:
 		return data[index].data;
 	}
 
-	const T& getbyidx(uint32_t index) const
+	force_inline const T& getbyidx(uint32_t index) const
 	{
 		if (index>=N)
 		{
@@ -181,14 +181,14 @@ public:
 		return data[index].data;
 	}
 
-	int32_t getnextidx(int32_t idx)
+	force_inline int32_t getnextidx(int32_t idx)
 	{
 		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
 		SAFE_TEST_INDEX_VAL(idx, N, INVALID_IDX);
 		return data[idx].nextindex;
 	}
 
-	int32_t getpreidx(int32_t idx)
+	force_inline int32_t getpreidx(int32_t idx)
 	{
 		SAFE_TEST_RET_VAL(idx, INVALID_IDX, INVALID_IDX);
 		SAFE_TEST_INDEX_VAL(idx, N, INVALID_IDX);

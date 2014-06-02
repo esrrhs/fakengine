@@ -9,29 +9,29 @@ public:
 	typedef fiterator<MyType> iterator;
 	friend class fiterator<MyType>;
 public:
-	flist()
+	force_inline flist()
 	{
 		clear();
 	}
 
-	~flist()
+	force_inline ~flist()
 	{
 
 	}
 
-	void clear()
+	force_inline void clear()
 	{
 		m_pool.clear();
 		m_head = INVALID_IDX;
 		m_tail = INVALID_IDX;
 	}
 
-	bool push_back(const T & t)
+	force_inline bool push_back(const T & t)
 	{
 		return insert_after(m_tail, t);
 	}
 
-	bool pop_back(T & t)
+	force_inline bool pop_back(T & t)
 	{
 		if (empty())
 		{
@@ -44,7 +44,7 @@ public:
 		return erase(m_tail);
 	}
 
-	bool back(T & t) const
+	force_inline bool back(T & t) const
 	{
 		if (empty())
 		{
@@ -57,7 +57,7 @@ public:
 		return true;
 	}
 
-	T & back()
+	force_inline T & back()
 	{
 		if (empty())
 		{
@@ -68,12 +68,12 @@ public:
 		return node.data;
 	}
 
-	bool push_front(const T & t)
+	force_inline bool push_front(const T & t)
 	{
 		return insert_before(m_head, t);
 	}
 
-	bool pop_front(T & t)
+	force_inline bool pop_front(T & t)
 	{
 		if (empty())
 		{
@@ -86,7 +86,7 @@ public:
 		return erase(m_head);
 	}
 
-	bool front(T & t) const
+	force_inline bool front(T & t) const
 	{
 		if (empty())
 		{
@@ -99,7 +99,7 @@ public:
 		return true;
 	}
 
-	T & front()
+	force_inline T & front()
 	{
 		if (empty())
 		{
@@ -110,38 +110,38 @@ public:
 		return node.data;
 	}
 
-	bool erase(iterator it)
+	force_inline bool erase(iterator it)
 	{
 		return erase(it.index());
 	}
 
-	uint32_t size() const
+	force_inline uint32_t size() const
 	{
 		return m_pool.size();
 	}
 
-	bool empty() const
+	force_inline bool empty() const
 	{
 		return m_pool.empty();
 	}
 
-	bool full() const
+	force_inline bool full() const
 	{
 		return m_pool.full();
 	}
 
-	iterator begin()
+	force_inline iterator begin()
 	{
 		return iterator(this, m_head);
 	}
 
-	iterator end()
+	force_inline iterator end()
 	{
 		return iterator(this, INVALID_IDX);
 	}
 
 private:
-	bool erase(int32_t idx)
+	force_inline bool erase(int32_t idx)
 	{
 		if (empty())
 		{
@@ -184,7 +184,7 @@ private:
 		return true;
 	}
 
-	bool insert_before(int32_t idx, const T & t)
+	force_inline bool insert_before(int32_t idx, const T & t)
 	{
 		if (full())
 		{
@@ -236,7 +236,7 @@ private:
 		return true;
 	}
 
-	bool insert_after(int32_t idx, const T & t)
+	force_inline bool insert_after(int32_t idx, const T & t)
 	{
 		if (full())
 		{
@@ -289,22 +289,22 @@ private:
 	}
 private:
 
-	T& getbyidx(uint32_t index)
+	force_inline T& getbyidx(uint32_t index)
 	{
 		return m_pool[index].data;
 	}
 
-	const T& getbyidx(uint32_t index) const
+	force_inline const T& getbyidx(uint32_t index) const
 	{
 		return m_pool[index].data;
 	}
 
-	int32_t getnextidx(int32_t idx)
+	force_inline int32_t getnextidx(int32_t idx)
 	{
 		return m_pool[idx].nextindex;
 	}
 
-	int32_t getpreidx(int32_t idx)
+	force_inline int32_t getpreidx(int32_t idx)
 	{
 		return m_pool[idx].preindex;
 	}

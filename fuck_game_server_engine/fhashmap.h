@@ -27,89 +27,89 @@ public:
 	typedef fiterator<MyType> iterator;
 	friend class fiterator<MyType>;
 public:
-	fhashmap()
+	force_inline fhashmap()
 	{
 		clear();
 	}
 
-	~fhashmap()
+	force_inline ~fhashmap()
 	{
 
 	}
 
-	V& operator [](const K & k)
-	{
-		return m_set[Node(k)].second;
-	}
-
-	const V& operator [](const K & k) const
+	force_inline V& operator [](const K & k)
 	{
 		return m_set[Node(k)].second;
 	}
 
-	void clear()
+	force_inline const V& operator [](const K & k) const
+	{
+		return m_set[Node(k)].second;
+	}
+
+	force_inline void clear()
 	{
 		m_set.clear();
 	}
 
-	iterator insert(const K & k, const V & v)
+	force_inline iterator insert(const K & k, const V & v)
 	{
 		return iterator(this, m_set.insert(Node(k, v)).index());
 	}
 	
-	iterator find(const K & k)
+	force_inline iterator find(const K & k)
 	{
 		return iterator(this, m_set.find(Node(k)).index());
 	}
 
-	iterator erase(const K & k)
+	force_inline iterator erase(const K & k)
 	{
 		return iterator(this, m_set.erase(Node(k)).index());
 	}
 
-	uint32_t size() const
+	force_inline uint32_t size() const
 	{
 		return m_set.size();
 	}
 
-	bool empty() const
+	force_inline bool empty() const
 	{
 		return m_set.empty();
 	}
 
-	bool full() const
+	force_inline bool full() const
 	{
 		return m_set.full();
 	}
 
-	iterator begin()
+	force_inline iterator begin()
 	{
 		return iterator(this, m_set.begin().index());
 	}
 
-	iterator end()
+	force_inline iterator end()
 	{
 		return iterator(this, m_set.end().index());
 	}
 
 private:
 
-	Node& getbyidx(uint32_t index)
+	force_inline Node& getbyidx(uint32_t index)
 	{
 		return m_set.getbyidx(index);
 	}
 
-	const Node& getbyidx(uint32_t index) const
+	force_inline const Node& getbyidx(uint32_t index) const
 	{
 		return m_set.getbyidx(index);
 	}
 
-	int32_t getnextidx(int32_t idx)
+	force_inline int32_t getnextidx(int32_t idx)
 	{
 		return m_set.getnextidx(idx);
 	}
 
-	int32_t getpreidx(int32_t idx)
+	force_inline int32_t getpreidx(int32_t idx)
 	{
 		return m_set.getpreidx(idx);
 	}
@@ -117,7 +117,7 @@ private:
 private:
     struct NodeCmp
     {
-        bool operator()(const Node & n1, const Node & n2) const
+        force_inline bool operator()(const Node & n1, const Node & n2) const
         {
         	return m_CmpFunc(n1.first, n2.first);
         }
@@ -125,7 +125,7 @@ private:
     };
     struct NodeHash
     {
-        size_t operator()(const Node & node) const
+        force_inline size_t operator()(const Node & node) const
         {
         	return m_HashFunc(node.first);
         }

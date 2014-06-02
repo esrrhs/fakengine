@@ -31,7 +31,7 @@ public:
 	typedef T char_type;
 
 	//! Default constructor
-	fstring()
+	force_inline fstring()
 		: used(0)
 	{
 		array[0] = 0;
@@ -39,7 +39,7 @@ public:
 
 
 	//! Constructor
-	fstring(const fstring<T, N>& other)
+	force_inline fstring(const fstring<T, N>& other)
 		: used(0)
 	{
 		*this = other;
@@ -47,7 +47,7 @@ public:
 
 	//! Constructor from other fstring types
 	template <class B, uint32_t M>
-	fstring(const fstring<B, M>& other)
+	force_inline fstring(const fstring<B, M>& other)
 		: used(0)
 	{
 		*this = other;
@@ -55,7 +55,7 @@ public:
 
 
 	//! Constructs a fstring from a float
-	explicit fstring(const double number)
+	force_inline explicit fstring(const double number)
 		: used(0)
 	{
 		uint8_t tmpbuf[255];
@@ -65,7 +65,7 @@ public:
 
 
 	//! Constructs a fstring from an int32_t
-	explicit fstring(int32_t number)
+	force_inline explicit fstring(int32_t number)
 		: used(0)
 	{
 		// store if negative and make positive
@@ -113,7 +113,7 @@ public:
 
 
 	//! Constructs a fstring from an uint32_t
-	explicit fstring(uint32_t number)
+	force_inline explicit fstring(uint32_t number)
 		: used(0)
 	{
 		// temporary buffer for 16 numbers
@@ -144,7 +144,7 @@ public:
 
 
 	//! Constructs a fstring from a long
-	explicit fstring(int64_t number)
+	force_inline explicit fstring(int64_t number)
 		: used(0)
 	{
 		// store if negative and make positive
@@ -192,7 +192,7 @@ public:
 
 
 	//! Constructs a fstring from an unsigned long
-	explicit fstring(uint64_t number)
+	force_inline explicit fstring(uint64_t number)
 		: used(0)
 	{
 		// temporary buffer for 16 numbers
@@ -224,7 +224,7 @@ public:
 
 	//! Constructor for copying a fstring from a pointer with a given length
 	template <class B>
-	fstring(const B* const c, uint32_t length)
+	force_inline fstring(const B* const c, uint32_t length)
 		: used(0)
 	{
 		if (!c)
@@ -250,7 +250,7 @@ public:
 
 	//! Constructor for unicode and ascii strings
 	template <class B>
-	fstring(const B* const c)
+	force_inline fstring(const B* const c)
 		: used(0)
 	{
 		*this = c;
@@ -258,41 +258,41 @@ public:
 
 
 	//! Destructor
-	~fstring()
+	force_inline ~fstring()
 	{
 		used = 0;
 		array[0] = 0;
 	}
 
 	// data
-	fstring<T,N>& operator=(const int32_t & data)
+	force_inline fstring<T,N>& operator=(const int32_t & data)
 	{
 		*this = fstring<T,N>(data);
 		return *this;
 	}
-	fstring<T,N>& operator=(const uint32_t & data)
+	force_inline fstring<T,N>& operator=(const uint32_t & data)
 	{
 		*this = fstring<T,N>(data);
 		return *this;
 	}
-	fstring<T,N>& operator=(const int64_t & data)
+	force_inline fstring<T,N>& operator=(const int64_t & data)
 	{
 		*this = fstring<T,N>(data);
 		return *this;
 	}
-	fstring<T,N>& operator=(const uint64_t & data)
+	force_inline fstring<T,N>& operator=(const uint64_t & data)
 	{
 		*this = fstring<T,N>(data);
 		return *this;
 	}
-	fstring<T,N>& operator=(const double & data)
+	force_inline fstring<T,N>& operator=(const double & data)
 	{
 		*this = fstring<T,N>(data);
 		return *this;
 	}
 
 	//! Assignment operator
-	fstring<T,N>& operator=(const fstring<T,N>& other)
+	force_inline fstring<T,N>& operator=(const fstring<T,N>& other)
 	{
 		if (this == &other)
 			return *this;
@@ -314,7 +314,7 @@ public:
 
 	//! Assignment operator for other fstring types
 	template <class B, uint32_t M>
-	fstring<T,N>& operator=(const fstring<B,M>& other)
+	force_inline fstring<T,N>& operator=(const fstring<B,M>& other)
 	{
 		*this = other.c_str();
 		return *this;
@@ -323,7 +323,7 @@ public:
 
 	//! Assignment operator for strings, ascii and unicode
 	template <class B>
-	fstring<T,N>& operator=(const B* const c)
+	force_inline fstring<T,N>& operator=(const B* const c)
 	{
 		if (!c)
 		{
@@ -360,7 +360,7 @@ public:
 
 
 	//! Append operator for other strings
-	fstring<T,N> operator+(const fstring<T,N>& other) const
+	force_inline fstring<T,N> operator+(const fstring<T,N>& other) const
 	{
 		fstring<T,N> str(*this);
 		str.append(other);
@@ -371,7 +371,7 @@ public:
 
 	//! Append operator for strings, ascii and unicode
 	template <class B>
-	fstring<T,N> operator+(const B* const c) const
+	force_inline fstring<T,N> operator+(const B* const c) const
 	{
 		fstring<T,N> str(*this);
 		str.append(c);
@@ -381,7 +381,7 @@ public:
 
 
 	//! Direct access operator
-	T& operator [](const uint32_t index)
+	force_inline T& operator [](const uint32_t index)
 	{
 		if(index>used)
 		{
@@ -393,7 +393,7 @@ public:
 
 
 	//! Direct access operator
-	const T& operator [](const uint32_t index) const
+	force_inline const T& operator [](const uint32_t index) const
 	{
 		if(index>used)
 		{
@@ -405,7 +405,7 @@ public:
 
 
 	//! Equality operator
-	bool operator==(const T* const str) const
+	force_inline bool operator==(const T* const str) const
 	{
 		if (!str)
 			return false;
@@ -420,7 +420,7 @@ public:
 
 
 	//! Equality operator
-	bool operator==(const fstring<T,N>& other) const
+	force_inline bool operator==(const fstring<T,N>& other) const
 	{
 		for (uint32_t i=0; array[i] && other.array[i]; ++i)
 			if (array[i] != other.array[i])
@@ -431,7 +431,7 @@ public:
 
 
 	//! Is smaller comparator
-	bool operator<(const fstring<T,N>& other) const
+	force_inline bool operator<(const fstring<T,N>& other) const
 	{
 		for (uint32_t i=0; array[i] && other.array[i]; ++i)
 		{
@@ -445,14 +445,14 @@ public:
 
 
 	//! Inequality operator
-	bool operator!=(const T* const str) const
+	force_inline bool operator!=(const T* const str) const
 	{
 		return !(*this == str);
 	}
 
 
 	//! Inequality operator
-	bool operator!=(const fstring<T,N>& other) const
+	force_inline bool operator!=(const fstring<T,N>& other) const
 	{
 		return !(*this == other);
 	}
@@ -461,28 +461,28 @@ public:
 	//! Returns length of the fstring's content
 	/** \return Length of the fstring's content in characters, excluding
 	the trailing NUL. */
-	uint32_t size() const
+	force_inline uint32_t size() const
 	{
 		return used;
 	}
 
 	//! Informs if the fstring is empty or not.
 	//! \return True if the fstring is empty, false if not.
-	bool empty() const
+	force_inline bool empty() const
 	{
 		return (size() == 0);
 	}
 
 	//! Returns character fstring
 	/** \return pointer to C-style NUL terminated fstring. */
-	const T* c_str() const
+	force_inline const T* c_str() const
 	{
 		return array;
 	}
 
 
 	//! Makes the fstring lower case.
-	fstring<T,N>& make_lower()
+	force_inline fstring<T,N>& make_lower()
 	{
 		for (uint32_t i=0; array[i]; ++i)
 			array[i] = locale_lower ( array[i] );
@@ -491,7 +491,7 @@ public:
 
 
 	//! Makes the fstring upper case.
-	fstring<T,N>& make_upper()
+	force_inline fstring<T,N>& make_upper()
 	{
 		for (uint32_t i=0; array[i]; ++i)
 			array[i] = locale_upper ( array[i] );
@@ -502,7 +502,7 @@ public:
 	//! Compares the strings ignoring case.
 	/** \param other: Other fstring to compare.
 	\return True if the strings are equal ignoring case. */
-	bool equals_ignore_case(const fstring<T,N>& other) const
+	force_inline bool equals_ignore_case(const fstring<T,N>& other) const
 	{
 		for(uint32_t i=0; array[i] && other[i]; ++i)
 			if (locale_lower( array[i]) != locale_lower(other[i]))
@@ -515,7 +515,7 @@ public:
 	/** \param other: Other fstring to compare.
 	\param sourcePos: where to start to compare in the fstring
 	\return True if the strings are equal ignoring case. */
-	bool equals_substring_ignore_case(const fstring<T,N>&other, const int32_t sourcePos = 0 ) const
+	force_inline bool equals_substring_ignore_case(const fstring<T,N>&other, const int32_t sourcePos = 0 ) const
 	{
 		if ( (uint32_t) sourcePos >= used )
 			return false;
@@ -532,7 +532,7 @@ public:
 	//! Compares the strings ignoring case.
 	/** \param other: Other fstring to compare.
 	\return True if this fstring is smaller ignoring case. */
-	bool lower_ignore_case(const fstring<T,N>& other) const
+	force_inline bool lower_ignore_case(const fstring<T,N>& other) const
 	{
 		for(uint32_t i=0; array[i] && other.array[i]; ++i)
 		{
@@ -549,7 +549,7 @@ public:
 	/** \param other Other fstring to compare.
 	\param n Number of characters to compare
 	\return True if the n first characters of both strings are equal. */
-	bool equalsn(const fstring<T,N>& other, uint32_t n) const
+	force_inline bool equalsn(const fstring<T,N>& other, uint32_t n) const
 	{
 		uint32_t i;
 		for(i=0; array[i] && other[i] && i < n; ++i)
@@ -566,7 +566,7 @@ public:
 	/** \param str Other fstring to compare.
 	\param n Number of characters to compare
 	\return True if the n first characters of both strings are equal. */
-	bool equalsn(const T* const str, uint32_t n) const
+	force_inline bool equalsn(const T* const str, uint32_t n) const
 	{
 		if (!str)
 			return false;
@@ -583,7 +583,7 @@ public:
 
 	//! Appends a character to this fstring
 	/** \param character: Character to append. */
-	fstring<T,N>& append(T character)
+	force_inline fstring<T,N>& append(T character)
 	{
 		++used;
 
@@ -603,7 +603,7 @@ public:
 	//! Appends a char fstring to this fstring
 	/** \param other: Char fstring to append. */
 	/** \param length: The length of the fstring to append. */
-	fstring<T,N>& append(const T* const other, uint32_t length=0xffffffff)
+	force_inline fstring<T,N>& append(const T* const other, uint32_t length=0xffffffff)
 	{
 		if (!other)
 			return *this;
@@ -636,7 +636,7 @@ public:
 
 	//! Appends a fstring to this fstring
 	/** \param other: String to append. */
-	fstring<T,N>& append(const fstring<T,N>& other)
+	force_inline fstring<T,N>& append(const fstring<T,N>& other)
 	{
 		if (other.size() == 0)
 			return *this;
@@ -661,7 +661,7 @@ public:
 	//! Appends a fstring of the length l to this fstring.
 	/** \param other: other String to append to this fstring.
 	\param length: How much characters of the other fstring to add to this one. */
-	fstring<T,N>& append(const fstring<T,N>& other, uint32_t length)
+	force_inline fstring<T,N>& append(const fstring<T,N>& other, uint32_t length)
 	{
 		if (other.size() == 0)
 			return *this;
@@ -690,7 +690,7 @@ public:
 	/** \param c: Character to search for.
 	\return Position where the character has been found,
 	or -1 if not found. */
-	int32_t findFirst(T c) const
+	force_inline int32_t findFirst(T c) const
 	{
 		for (uint32_t i=0; i<used; ++i)
 			if (array[i] == c)
@@ -706,7 +706,7 @@ public:
 	this should be strlen(c)
 	\return Position where one of the characters has been found,
 	or -1 if not found. */
-	int32_t findFirstChar(const T* const c, uint32_t count=1) const
+	force_inline int32_t findFirstChar(const T* const c, uint32_t count=1) const
 	{
 		if (!c || !count)
 			return -1;
@@ -728,7 +728,7 @@ public:
 	\return Position where the character has been found,
 	or -1 if not found. */
 	template <class B>
-	int32_t findFirstCharNotInList(const B* const c, uint32_t count=1) const
+	force_inline int32_t findFirstCharNotInList(const B* const c, uint32_t count=1) const
 	{
 		if (!c || !count)
 			return -1;
@@ -755,7 +755,7 @@ public:
 	\return Position where the character has been found,
 	or -1 if not found. */
 	template <class B>
-	int32_t findLastCharNotInList(const B* const c, uint32_t count=1) const
+	force_inline int32_t findLastCharNotInList(const B* const c, uint32_t count=1) const
 	{
 		if (!c || !count)
 			return -1;
@@ -779,7 +779,7 @@ public:
 	\param startPos: Position in fstring to start searching.
 	\return Position where the character has been found,
 	or -1 if not found. */
-	int32_t findNext(T c, uint32_t startPos) const
+	force_inline int32_t findNext(T c, uint32_t startPos) const
 	{
 		for (uint32_t i=startPos; i<used; ++i)
 			if (array[i] == c)
@@ -794,7 +794,7 @@ public:
 	\param start: start to search reverse ( default = -1, on end )
 	\return Position where the character has been found,
 	or -1 if not found. */
-	int32_t findLast(T c, int32_t start = -1) const
+	force_inline int32_t findLast(T c, int32_t start = -1) const
 	{
 		start = ( start < 0 ? (int32_t)(used) - 1 : start );
 		if (start >= (int32_t)N)
@@ -815,7 +815,7 @@ public:
 	this should be strlen(c)
 	\return Position where one of the characters has been found,
 	or -1 if not found. */
-	int32_t findLastChar(const T* const c, uint32_t count=1) const
+	force_inline int32_t findLastChar(const T* const c, uint32_t count=1) const
 	{
 		if (!c || !count)
 			return -1;
@@ -835,7 +835,7 @@ public:
 	\return Positions where the fstring has been found,
 	or -1 if not found. */
 	template <class B>
-	int32_t find(const B* const str, const uint32_t start = 0) const
+	force_inline int32_t find(const B* const str, const uint32_t start = 0) const
 	{
 		if (str && *str)
 		{
@@ -867,7 +867,7 @@ public:
 	/** \param begin Start of substring.
 	\param length Length of substring.
 	\param make_lower copy only lower case */
-	fstring<T, N> subString(uint32_t begin, int32_t length, bool make_lower = false ) const
+	force_inline fstring<T, N> subString(uint32_t begin, int32_t length, bool make_lower = false ) const
 	{
 		// if start after fstring
 		// or no proper substring length
@@ -900,7 +900,7 @@ public:
 
 	//! Appends a character to this fstring
 	/** \param c Character to append. */
-	fstring<T,N>& operator += (T c)
+	force_inline fstring<T,N>& operator += (T c)
 	{
 		append(c);
 		return *this;
@@ -909,7 +909,7 @@ public:
 
 	//! Appends a char fstring to this fstring
 	/** \param c Char fstring to append. */
-	fstring<T,N>& operator += (const T* const c)
+	force_inline fstring<T,N>& operator += (const T* const c)
 	{
 		append(c);
 		return *this;
@@ -918,7 +918,7 @@ public:
 
 	//! Appends a fstring to this fstring
 	/** \param other String to append. */
-	fstring<T,N>& operator += (const fstring<T,N>& other)
+	force_inline fstring<T,N>& operator += (const fstring<T,N>& other)
 	{
 		append(other);
 		return *this;
@@ -926,7 +926,7 @@ public:
 
 	//! Appends a fstring representation of a number to this fstring
 	/** \param i Number to append. */
-	fstring<T,N>& operator += (const int32_t i)
+	force_inline fstring<T,N>& operator += (const int32_t i)
 	{
 		append(fstring<T,N>(i));
 		return *this;
@@ -935,7 +935,7 @@ public:
 
 	//! Appends a fstring representation of a number to this fstring
 	/** \param i Number to append. */
-	fstring<T,N>& operator += (const uint32_t i)
+	force_inline fstring<T,N>& operator += (const uint32_t i)
 	{
 		append(fstring<T,N>(i));
 		return *this;
@@ -944,7 +944,7 @@ public:
 
 	//! Appends a fstring representation of a number to this fstring
 	/** \param i Number to append. */
-	fstring<T,N>& operator += (const int64_t i)
+	force_inline fstring<T,N>& operator += (const int64_t i)
 	{
 		append(fstring<T,N>(i));
 		return *this;
@@ -953,7 +953,7 @@ public:
 
 	//! Appends a fstring representation of a number to this fstring
 	/** \param i Number to append. */
-	fstring<T,N>& operator += (const uint64_t i)
+	force_inline fstring<T,N>& operator += (const uint64_t i)
 	{
 		append(fstring<T,N>(i));
 		return *this;
@@ -962,7 +962,7 @@ public:
 
 	//! Appends a fstring representation of a number to this fstring
 	/** \param i Number to append. */
-	fstring<T,N>& operator += (const double i)
+	force_inline fstring<T,N>& operator += (const double i)
 	{
 		append(fstring<T,N>(i));
 		return *this;
@@ -971,7 +971,7 @@ public:
 
 	//! Appends a fstring representation of a number to this fstring
 	/** \param i Number to append. */
-	fstring<T,N>& operator += (const float i)
+	force_inline fstring<T,N>& operator += (const float i)
 	{
 		append(fstring<T,N>(i));
 		return *this;
@@ -981,7 +981,7 @@ public:
 	//! Replaces all characters of a special type with another one
 	/** \param toReplace Character to replace.
 	\param replaceWith Character replacing the old one. */
-	fstring<T,N>& replace(T toReplace, T replaceWith)
+	force_inline fstring<T,N>& replace(T toReplace, T replaceWith)
 	{
 		for (uint32_t i=0; i<used; ++i)
 			if (array[i] == toReplace)
@@ -993,7 +993,7 @@ public:
 	//! Replaces all instances of a fstring with another one.
 	/** \param toReplace The fstring to replace.
 	\param replaceWith The fstring replacing the old one. */
-	fstring<T,N>& replace(const fstring<T,N>& toReplace, const fstring<T,N>& replaceWith)
+	force_inline fstring<T,N>& replace(const fstring<T,N>& toReplace, const fstring<T,N>& replaceWith)
 	{
 		if (toReplace.size() == 0)
 			return *this;
@@ -1109,7 +1109,7 @@ public:
 
 	//! Removes characters from a fstring.
 	/** \param c: Character to remove. */
-	fstring<T,N>& remove(T c)
+	force_inline fstring<T,N>& remove(T c)
 	{
 		uint32_t pos = 0;
 		uint32_t found = 0;
@@ -1131,7 +1131,7 @@ public:
 
 	//! Removes a fstring from the fstring.
 	/** \param toRemove: String to remove. */
-	fstring<T,N>& remove(const fstring<T,N>& toRemove)
+	force_inline fstring<T,N>& remove(const fstring<T,N>& toRemove)
 	{
 		uint32_t size = toRemove.size();
 		if ( size == 0 )
@@ -1164,7 +1164,7 @@ public:
 
 	//! Removes characters from a fstring.
 	/** \param characters: Characters to remove. */
-	fstring<T,N>& removeChars(const fstring<T,N> & characters)
+	force_inline fstring<T,N>& removeChars(const fstring<T,N> & characters)
 	{
 		if (characters.size() == 0)
 			return *this;
@@ -1200,7 +1200,7 @@ public:
 	//! Trims the fstring.
 	/** Removes the specified characters (by default, Latin-1 whitespace)
 	from the begining and the end of the fstring. */
-	fstring<T,N>& trim(const fstring<T,N> & whitespace = " \t\n\r")
+	force_inline fstring<T,N>& trim(const fstring<T,N> & whitespace = " \t\n\r")
 	{
 		// find start and end of the substring without the specified characters
 		const int32_t begin = findFirstCharNotInList(whitespace.c_str(), whitespace.used);
@@ -1217,7 +1217,7 @@ public:
 	/** May be slow, because all elements
 	following after the erased element have to be copied.
 	\param index: Index of element to be erased. */
-	fstring<T,N>& erase(uint32_t index)
+	force_inline fstring<T,N>& erase(uint32_t index)
 	{
 		if(index>=used)
 		{
@@ -1232,7 +1232,7 @@ public:
 	}
 
 	//! verify the existing fstring.
-	fstring<T,N>& validate()
+	force_inline fstring<T,N>& validate()
 	{
 		// terminate on existing null
 		for (uint32_t i=0; i<N; ++i)
@@ -1263,7 +1263,7 @@ public:
 	}
 
 	//! gets the last char of a fstring or null
-	T lastChar() const
+	force_inline T lastChar() const
 	{
 		return used > 0 ? array[used-1] : 0;
 	}
@@ -1287,7 +1287,7 @@ public:
 	\return The number of resulting substrings
 	*/
 	template<class container>
-	uint32_t split(container& ret, const T* const c, uint32_t count=1, bool ignoreEmptyTokens=true, bool keepSeparators=false) const
+	force_inline uint32_t split(container& ret, const T* const c, uint32_t count=1, bool ignoreEmptyTokens=true, bool keepSeparators=false) const
 	{
 		if (!c)
 			return 0;

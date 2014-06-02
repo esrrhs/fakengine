@@ -2,6 +2,7 @@
 
 #include "fmath.h"
 #include "fhash.h"
+#include "fiterator.h"
 #include "fstring.h"
 #include "fsort.h"
 #include "fstack.h"

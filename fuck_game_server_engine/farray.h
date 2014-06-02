@@ -9,28 +9,17 @@ public:
 	typedef fiterator<MyType> iterator;
 	friend class fiterator<MyType>;
 public:
-	farray()
+	force_inline farray()
 	{
 		clear();
 	}
 
-	~farray()
+	force_inline ~farray()
 	{
 
 	}
 
-	T& operator [](uint32_t index)
-	{
-		if (index>=N)
-		{
-			FASSERT(index>=N);
-			return tmpdata;
-		}
-
-		return m_pool[m_indexarray[index]].data;
-	}
-
-	const T& operator [](uint32_t index) const
+	force_inline T& operator [](uint32_t index)
 	{
 		if (index>=N)
 		{
@@ -41,7 +30,18 @@ public:
 		return m_pool[m_indexarray[index]].data;
 	}
 
-	void clear()
+	force_inline const T& operator [](uint32_t index) const
+	{
+		if (index>=N)
+		{
+			FASSERT(index>=N);
+			return tmpdata;
+		}
+
+		return m_pool[m_indexarray[index]].data;
+	}
+
+	force_inline void clear()
 	{
 		m_pool.clear();
 		for (uint32_t i = 0; i < N; i++)
@@ -50,7 +50,7 @@ public:
 		}
 	}
 
-	bool push_back(const T & t)
+	force_inline bool push_back(const T & t)
 	{
 		if (full())
 		{
@@ -70,7 +70,7 @@ public:
 		return true;
 	}
 
-	bool pop_back(T & t)
+	force_inline bool pop_back(T & t)
 	{
 		if (empty())
 		{
@@ -88,7 +88,7 @@ public:
 		return true;
 	}
 
-	bool back(T & t) const
+	force_inline bool back(T & t) const
 	{
 		if (empty())
 		{
@@ -104,7 +104,7 @@ public:
 		return true;
 	}
 
-	bool push_front(const T & t)
+	force_inline bool push_front(const T & t)
 	{
 		if (full())
 		{
@@ -128,7 +128,7 @@ public:
 		return true;
 	}
 
-	bool pop_front(T & t)
+	force_inline bool pop_front(T & t)
 	{
 		if (empty())
 		{
@@ -153,7 +153,7 @@ public:
 		return true;
 	}
 
-	bool front(T & t) const
+	force_inline bool front(T & t) const
 	{
 		if (empty())
 		{
@@ -168,7 +168,7 @@ public:
 		return true;
 	}
 
-	bool insert(int32_t index, const T & t)
+	force_inline bool insert(int32_t index, const T & t)
 	{
 		if (full())
 		{
@@ -196,7 +196,7 @@ public:
 		return true;
 	}
 
-	bool erase(int32_t index)
+	force_inline bool erase(int32_t index)
 	{
 		if (empty())
 		{
@@ -220,34 +220,34 @@ public:
 		return true;
 	}
 
-	uint32_t size() const
+	force_inline uint32_t size() const
 	{
 		return m_pool.size();
 	}
 
-	bool empty() const
+	force_inline bool empty() const
 	{
 		return m_pool.empty();
 	}
 
-	bool full() const
+	force_inline bool full() const
 	{
 		return m_pool.full();
 	}
 
-	iterator begin()
+	force_inline iterator begin()
 	{
 		return iterator(this, 0);
 	}
 
-	iterator end()
+	force_inline iterator end()
 	{
 		return iterator(this, size());
 	}
 
 private:
 
-	T& getbyidx(uint32_t index)
+	force_inline T& getbyidx(uint32_t index)
 	{
 		if (index>=N)
 		{
@@ -258,7 +258,7 @@ private:
 		return m_pool[m_indexarray[index]].data;
 	}
 
-	const T& getbyidx(uint32_t index) const
+	force_inline const T& getbyidx(uint32_t index) const
 	{
 		if (index>=N)
 		{
@@ -269,7 +269,7 @@ private:
 		return m_pool[m_indexarray[index]].data;
 	}
 
-	int32_t getnextidx(int32_t idx)
+	force_inline int32_t getnextidx(int32_t idx)
 	{
 		if (idx >= 0 && idx + 1 < (int)size())
 		{
@@ -278,7 +278,7 @@ private:
 		return size();
 	}
 
-	int32_t getpreidx(int32_t idx)
+	force_inline int32_t getpreidx(int32_t idx)
 	{
 		if (idx - 1 >= 0 && idx < (int)size())
 		{

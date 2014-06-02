@@ -16,7 +16,7 @@ public:
 	{
 		int16_t r;
 		msg.read(r);
-		FPRINTF("recv %d", r);
+		//FPRINTF("recv %d", r);
 
 		mymsg sendm;
 		int16_t i = 11;
@@ -34,7 +34,7 @@ public:
 	{
 		int16_t r;
 		msg.read(r);
-		FPRINTF("recv %d", r);
+		//FPRINTF("recv %d", r);
 
 		mymsg sendm;
 		int16_t i = 10;
