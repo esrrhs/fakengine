@@ -60,6 +60,6 @@ typedef netlink<mysocketlink> mynetlink;
 typedef socket_container<mymsg, mysocket, selector, server_processor, MAX_LINK_SIZE> mysocketcontainer;
 typedef netserver<mysocketcontainer> mynetserver;
 
-typedef cmdparser<std::map<std::string, std::string> > mycmdparser;
+typedef cmdparser<10> mycmdparser;
 
-typedef factorymng<mainapp, stringc> myfactorymng;
+typedef factorymng<mainapp, 100, stringc> myfactorymng;

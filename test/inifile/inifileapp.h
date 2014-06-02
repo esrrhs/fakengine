@@ -9,4 +9,4 @@ public:
 	virtual bool exit();
 };
 
-typedef inifile< std::map<std::string, std::map<std::string, std::string> >, std::map<std::string, std::string> > myinifile;
+typedef inifile<10, 10> myinifile;

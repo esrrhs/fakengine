@@ -686,6 +686,11 @@ public:
 		return *this;
 	}
 
+	force_inline int32_t find(T c) const
+	{
+	    return findFirst(c);
+	}
+	
 	//! finds first occurrence of character in fstring
 	/** \param c: Character to search for.
 	\return Position where the character has been found,
@@ -862,7 +867,21 @@ public:
 		return -1;
 	}
 
+    force_inline fstring<T, N> substr(uint32_t begin, bool make_lower = false ) const
+	{
+	    return subString(begin, make_lower);
+	}
+	
+    force_inline fstring<T, N> subString(uint32_t begin, bool make_lower = false ) const
+	{
+	    return subString(begin, size() - begin, make_lower);
+	}
 
+    force_inline fstring<T, N> substr(uint32_t begin, int32_t length, bool make_lower = false ) const
+	{
+	    return subString(begin, length, make_lower);
+	}
+	
 	//! Returns a substring
 	/** \param begin Start of substring.
 	\param length Length of substring.

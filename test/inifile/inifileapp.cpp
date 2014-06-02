@@ -10,7 +10,7 @@ bool inifileapp::heartbeat()
 {
 	myinifile ifile;
 	ifile.load("config.ini");
-	std::string ss;
+	stringc ss;
 	ifile.get("sec0", "key0", ss);
 
 	std::cout<<".";

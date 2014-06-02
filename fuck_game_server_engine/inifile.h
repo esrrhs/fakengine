@@ -24,9 +24,13 @@ key1 = value1;
 
 */
 
-template <typename _secMap, typename _valueMap>
+template <uint32_t SecN, uint32_t ValueN>
 class inifile
 {
+private:
+    typedef fstring<uint8_t, c_IniFileBufferSize> stringbuf;
+    typedef fhashmap<stringc, stringc, ValueN> _valueMap;
+    typedef fhashmap<stringc, _valueMap, SecN> _secMap;
 public:
 	inifile()
 	{
@@ -35,9 +39,9 @@ public:
 	{
 	}
 public:
-	force_inline bool load(const std::string & file)
+	force_inline bool load(const stringc & file)
 	{
-		std::string buff;
+		stringbuf buff;
 		if (!open(file, buff))
 		{
 			return false;
@@ -50,10 +54,10 @@ public:
 		
 		return true;
 	}
-	force_inline bool get(const std::string & sec, const std::string & key, 
+	force_inline bool get(const stringc & sec, const stringc & key, 
 		int32_t & value)
 	{
-		std::string tmp;
+		stringc tmp;
 		if (get(sec, key, tmp))
 		{
 			value = atoi(tmp.c_str());
@@ -61,8 +65,8 @@ public:
 		}
 		return false;
 	}
-	force_inline bool get(const std::string & sec, const std::string & key, 
-		std::string & value)
+	force_inline bool get(const stringc & sec, const stringc & key, 
+		stringc & value)
 	{
 		typename _secMap::iterator it = m_map.find(sec);
 		if (it != m_map.end())
@@ -78,9 +82,10 @@ public:
 		return false;
 	}
 private:
-	force_inline bool open(const std::string & file, std::string & buff)
+	force_inline bool open(const stringc & file, stringbuf & buff)
 	{
-		FILE * fp = fopen(file.c_str(), "r");
+	    const char * filename = (const char *)file.c_str();
+		FILE * fp = fopen(filename, "r");
 		if (!fp)
 		{
 			return false;
@@ -99,17 +104,17 @@ private:
 
 		return true;
 	}
-	force_inline bool parse(std::string & buff)
+	force_inline bool parse(stringbuf & buff)
 	{
 		while (buff.size() > 0)
 		{
-			std::string sec;
+			stringc sec;
 			if (!get_sec(buff, sec))
 			{
 				break;
 			}
 			
-			std::string value;
+			stringc value;
 			if (!get_value(buff, value))
 			{
 				break;
@@ -129,31 +134,27 @@ private:
 
 		return true;
 	}
-	force_inline bool get_sec(std::string & buff, std::string & sec)
+	force_inline bool get_sec(stringbuf & buff, stringc & sec)
 	{
-		int32_t pos = buff.find('[');
+		int32_t pos = buff.findFirst('[');
 		SAFE_TEST_RET_VAL(pos, -1, false);
 
-		buff = buff.substr(pos + 1);
-		pos = buff.find(']');
+		buff = buff.subString(pos + 1);
+		pos = buff.findFirst(']');
 		SAFE_TEST_RET_VAL(pos, -1, false);
 
-		sec = buff.substr(0, pos);
-		buff = buff.substr(pos + 1);
-
-		trim_string(sec);
+		sec = buff.subString(0, pos);
+		buff = buff.subString(pos + 1);
 
 		return true;
 	}
-	force_inline bool get_value(std::string & buff, std::string & value)
+	force_inline bool get_value(stringbuf & buff, stringc & value)
 	{
-		int32_t pos = buff.find('[');
+		int32_t pos = buff.findFirst('[');
 		if (pos != -1)
 		{
-			value = buff.substr(0, pos);
-			buff = buff.substr(pos);
-
-			trim_string(value);
+			value = buff.subString(0, pos);
+			buff = buff.subString(pos);
 		}
 		else
 		{
@@ -163,11 +164,11 @@ private:
 
 		return true;
 	}
-	force_inline bool parse_value(std::string & value, _valueMap & valueMap)
+	force_inline bool parse_value(stringc & value, _valueMap & valueMap)
 	{
 		while (value.size() > 0)
 		{
-			std::string line_value;
+			stringc line_value;
 			if (!get_line_value(value, line_value))
 			{
 				break;
@@ -181,28 +182,23 @@ private:
 		}
 		return true;
 	}
-	force_inline bool get_line_value(std::string & value, std::string & line_value)
+	force_inline bool get_line_value(stringc & value, stringc & line_value)
 	{
-		int32_t pos = value.find(';');
+		int32_t pos = value.findFirst(';');
 		SAFE_TEST_RET_VAL(pos, -1, false);
 
-		line_value = value.substr(0, pos);
-		value = value.substr(pos + 1);
-
-		trim_string(line_value);
-	
+		line_value = value.subString(0, pos);
+		value = value.subString(pos + 1);
+		
 		return true;
 	}
-	force_inline bool parse_line_value(std::string & line_value, _valueMap & valueMap)
+	force_inline bool parse_line_value(stringc & line_value, _valueMap & valueMap)
 	{
-		int32_t pos = line_value.find('=');
+		int32_t pos = line_value.findFirst('=');
 		SAFE_TEST_RET_VAL(pos, -1, false);
 
-		std::string key = line_value.substr(0, pos);
-		std::string value = line_value.substr(pos + 1);
-
-		trim_string(key);
-		trim_string(value);
+		stringc key = line_value.subString(0, pos);
+		stringc value = line_value.subString(pos + 1);
 
 		if (!key.empty() && !value.empty())
 		{
@@ -211,12 +207,12 @@ private:
 
 		return true;
 	}
-	force_inline void trim_string(std::string & str)
+	force_inline void trim_string(stringbuf & str)
 	{
 		bool iscomment = false;
 		for (int i = 0; i < (int)str.size(); i++)
 		{
-			char & c = str[i];
+			char & c = (char &)str[i];
 			if (c == '#')
 			{
 				iscomment = !iscomment;
@@ -228,10 +224,10 @@ private:
 			}
 		}
 
-		str.erase(std::remove(str.begin(), str.end(), '\t'), str.end());
-		str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
-		str.erase(std::remove(str.begin(), str.end(), '\r'), str.end());
-		str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
+        str.remove("\t");
+        str.remove("\n");
+        str.remove("\r");
+        str.remove(" ");
 	}
 private:
 	_secMap m_map;

@@ -3,6 +3,14 @@
 
 bool serverapp::ini( int argc, char *argv[] )
 {
+    mycmdparser cp;
+    cp.parse(argc, argv);
+    stringc ip;
+    cp.get("ip", ip);
+    int32_t port;
+    cp.get("port", port);
+    FPRINTF("%s:%d", ip.c_str(), port);
+
 	tcp_socket_server_param param;
 	bool ret = m_mynetserver.ini(param);
 	if (!ret)

@@ -25,3 +25,4 @@ const int32_t c_ClockStringBuffer = 128;
 
 const int32_t c_DefaultStringBuffer = 256;
 
+const int32_t c_IniFileBufferSize = 10240;

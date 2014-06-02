@@ -1,6 +1,6 @@
 #pragma once
 
-template <typename _cmdMap>
+template <uint32_t N>
 class cmdparser
 {
 public:
@@ -18,19 +18,19 @@ public:
 		}
 		return true;
 	}
-	force_inline bool get(const std::string & key, int32_t & value)
+	force_inline bool get(const stringc & key, int32_t & value)
 	{
-		std::string tmp;
+		stringc tmp;
 		if (get(key, tmp))
 		{
-			value = atoi(tmp.c_str());
+			value = atoi((const char *)tmp.c_str());
 			return true;
 		}
 		return false;
 	}
-	force_inline bool get(const std::string & key, std::string & value)
+	force_inline bool get(const stringc & key, stringc & value)
 	{
-		typename _cmdMap::iterator it = m_map.find(key);
+		_cmdMapIter it = m_map.find(key);
 		if (it != m_map.end())
 		{
 			value = it->second;
@@ -39,17 +39,17 @@ public:
 		return false;
 	}
 private:
-	force_inline bool parse_arg(std::string str)
+	force_inline bool parse_arg(stringc str)
 	{
-		int32_t pos = str.find_first_not_of('-');
+		int32_t pos = str.findFirstCharNotInList("-");
 		SAFE_TEST_RET_VAL(pos, -1, false);
 
-		str = str.substr(pos);
-		pos = str.find('=');
+		str = str.subString(pos);
+		pos = str.findFirst('=');
 		SAFE_TEST_RET_VAL(pos, -1, false);
 
-		std::string key = str.substr(0, pos);
-		std::string value = str.substr(pos + 1);
+		stringc key = str.subString(0, pos);
+		stringc value = str.subString(pos + 1);
 		
 		SAFE_TEST_RET_VAL(key.empty(), true, false);
 		SAFE_TEST_RET_VAL(value.empty(), true, false);
@@ -59,5 +59,7 @@ private:
 		return true;
 	}
 private:
+    typedef fhashmap<stringc, stringc, N> _cmdMap;
+    typedef typename _cmdMap::iterator _cmdMapIter;
 	_cmdMap m_map;
 };

@@ -30,12 +30,12 @@ private:
 	Alloctor m_alloctor;
 };
 
-template <typename Base, typename Key=uint32_t>
-class factorymng : public singleton< factorymng<Base, Key> >
+template <typename Base, uint32_t N, typename Key=uint32_t>
+class factorymng : public singleton< factorymng<Base, N, Key> >
 {
 public:
 	typedef ifactory<Base> IFactory;
-	typedef std::map<Key, IFactory*> FactoryMap;
+	typedef fhashmap<Key, IFactory*, N> FactoryMap;
 public:
 	bool regist(Key type, IFactory * pfactory)
 	{

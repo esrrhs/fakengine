@@ -21,6 +21,9 @@
 // 内存管理
 #include "calloc.h"
 
+// 基本数据结构算法
+#include "base.h"
+
 // 常用结构体
 #include "struct.h"
 

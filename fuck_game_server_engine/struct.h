@@ -7,7 +7,7 @@ struct tcp_socket_server_param
 		socket_send_buffer_size(1024), socket_recv_buffer_size(1024) 
 	{
 	}
-	std::string ip;
+	stringc ip;
 	uint16_t port;
 	uint32_t backlog;
 	uint32_t lingertime;
@@ -22,7 +22,7 @@ struct tcp_socket_link_param
 		is_non_blocking(true), socket_send_buffer_size(1024), socket_recv_buffer_size(1024) 
 	{
 	}
-	std::string ip;
+	stringc ip;
 	uint16_t port;
 	uint32_t lingertime;
 	bool is_non_blocking;

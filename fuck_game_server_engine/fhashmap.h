@@ -1,6 +1,6 @@
 #pragma once
 
-template <typename K, typename V, uint32_t N, typename HashFunc = fhash< K >, typename CmpFunc = fcmp< V > >
+template <typename K, typename V, uint32_t N, typename HashFunc = fhash< K >, typename CmpFunc = fcmp< K > >
 class fhashmap
 {
 public:

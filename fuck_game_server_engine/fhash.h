@@ -10,11 +10,30 @@ struct fcmp
 };
 
 template <typename T>
+force_inline size_t fhash_value(const T & t)
+{
+	return size_t(t);
+}
+
+template <typename T, uint32_t N>
+force_inline size_t fhash_value(const fstring<T, N> & t)
+{
+    const T * buffer = t.c_str();
+    size_t length = t.size();
+	size_t result = 0;
+	for (; length > 0; --length)
+	{
+        result = (result * 131) + *buffer++;
+	}
+	return result;    	
+}
+
+template <typename T>
 struct fhash
 {
     size_t operator()(const T & t) const
     {
-    	return size_t(t);
+    	return fhash_value(t);
     }
 };
 
