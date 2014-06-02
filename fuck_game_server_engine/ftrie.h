@@ -1,7 +1,6 @@
 #pragma once
 
-// _dicmapµÄkeyÎª_c£¬valueÎªstd::pair<void*£¬bool>
-template<typename _c, typename _dicmap>
+template<typename _c, uint32_t N>
 class ftrie
 {
 public:
@@ -183,6 +182,7 @@ public:
 		}
 	}
 private:
-	typedef typename _dicmap::mapped_type _dic_mapped_type;
+    typedef fpair<void *, bool> _dic_mapped_type;
+    typedef fhashmap<int8_t, _dic_mapped_type, N> _dicmap;
 	_dicmap * m_root;
 };

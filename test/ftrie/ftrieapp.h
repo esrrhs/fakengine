@@ -9,4 +9,4 @@ public:
 	virtual bool exit();
 };
 
-typedef ftrie<int8_t, std::map<int8_t, std::pair<void *, bool> > > myftrie;
+typedef ftrie<int8_t, 10> myftrie;

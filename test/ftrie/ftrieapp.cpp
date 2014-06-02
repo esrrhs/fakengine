@@ -23,7 +23,7 @@ bool ftrieapp::exit()
 	return true;
 }
 
-ftrieapp::ftrieapp() : mainapp("ftrie")
+ftrieapp::ftrieapp() : mainapp("ftrieapp")
 {
 
 }
