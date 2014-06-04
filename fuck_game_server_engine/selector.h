@@ -25,7 +25,14 @@ public:
 		FD_SET(s, &m_readfds);
 		FD_SET(s, &m_writefds);
 		FD_SET(s, &m_exceptfds);
-		m_maxfd = Max<socket_t>(m_maxfd, s);
+		m_maxfd = Max<socket_t>(m_maxfd, s + 1);
+		return true;
+	}
+	force_inline bool del(socket_t s)
+	{
+		FD_CLR(s, &m_readfds);
+		FD_CLR(s, &m_writefds);
+		FD_CLR(s, &m_exceptfds);
 		return true;
 	}
 	force_inline bool select()

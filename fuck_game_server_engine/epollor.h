@@ -7,7 +7,8 @@ class epollor
 public:
 	force_inline epollor()
 	{
-		m_epollfd = epoll_create(N);
+        m_epollfd = epoll_create(N);
+	    clear();
 	}
 	force_inline ~epollor()
 	{
@@ -22,12 +23,22 @@ public:
 	force_inline bool add(socket_t s)
 	{
 		epoll_event ev;
-		ev.events = EPOLLIN | EPOLLOUT | EPOLLERR | EPOLLONESHOT;
+		ev.events = EPOLLIN | EPOLLOUT | EPOLLERR;
 		ev.data.fd = s;
 		if (epoll_ctl(m_epollfd, EPOLL_CTL_ADD, s, &ev) == -1) 
 		{
-			FASSERT(0);
-			return false;
+		    FASSERT(0);
+    		return false;
+		}
+
+		return true;
+	}
+	force_inline bool del(socket_t s)
+	{
+		if (epoll_ctl(m_epollfd, EPOLL_CTL_DEL, s, 0) == -1) 
+		{
+		    FASSERT(0);
+    		return false;
 		}
 
 		return true;
@@ -60,6 +71,14 @@ public:
 	{
 		return m_events[m_pollmap[s]].events & EPOLLERR;
 	}
+private:
+    force_inline epollor(const epollor<N> & r)
+    {
+    }
+    force_inline epollor<N> & operator =(const epollor<N> & r)
+    {
+		return *this;
+    }
 private:
 	int32_t m_epollfd;
 	epoll_event m_events[N];

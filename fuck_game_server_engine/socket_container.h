@@ -48,6 +48,7 @@ private:
 				// add to container
 				m_socket_store.push_back(s);
 				m_event_processor.on_accept(m_socket_store.back());
+			    m_real_select.add(s.get_socket_t());
 				num++;
 			}
 		}
@@ -55,15 +56,6 @@ private:
 	}
 	force_inline bool select()
 	{
-		m_real_select.clear();
-
-		// add
-		for (_socket_store_iter it = m_socket_store.begin(); it != m_socket_store.end(); it++)
-		{
-			_socket & s = *it;
-			m_real_select.add(s.get_socket_t());
-		}
-
 		return m_real_select.select();
 	}
 	force_inline bool tick_read()
@@ -105,6 +97,7 @@ private:
 					s.get_peer_port());
 
 				m_event_processor.on_close(s);
+				m_real_select.del(s.get_socket_t());
 				m_socket_store.erase(it++);
 			}
 			else if (m_real_select.is_except(s.get_socket_t()))
@@ -114,6 +107,7 @@ private:
 					s.get_peer_port());
 
 				m_event_processor.on_close(s);
+				m_real_select.del(s.get_socket_t());
 				m_socket_store.erase(it++);
 			}
 			else
