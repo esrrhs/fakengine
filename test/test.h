@@ -4,7 +4,7 @@
 #define MAX_MSG_SIZE 50
 #define MAX_LINK_SIZE 1000
 
-typedef tcpsocket<cirle_buffer<int8_t, MAX_BUFF_SIZE>, selector> mysocket;
+typedef tcpsocket<cirle_buffer<int8_t, MAX_BUFF_SIZE>, selector<1> > mysocket;
 typedef line_buffer<int8_t, MAX_MSG_SIZE> mylinebuffer;
 typedef netmsg<mylinebuffer> mymsg;
 typedef neteventprocessor<mysocket, mymsg> myneteventprocessor;
@@ -58,7 +58,7 @@ typedef socket_link<mymsg, mysocket, client_processor> mysocketlink;
 typedef netlink<mysocketlink> mynetlink;
 
 #ifdef WIN32
-typedef selector serverselector;
+typedef selector<1000> serverselector;
 #else
 typedef epollor<10240> serverselector;
 #endif
