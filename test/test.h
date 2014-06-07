@@ -2,9 +2,12 @@
 
 #include "../tools/genmsg/Struct.h"
 
-#define MAX_BUFF_SIZE 1024
-#define MAX_MSG_SIZE 50
+#define MAX_BUFF_SIZE 10240
+#define MAX_MSG_SIZE 1024
 #define MAX_LINK_SIZE 1000
+
+extern char g_msg_buffer[MAX_MSG_SIZE];
+extern Protocol::NetMsg g_netmsg;
 
 typedef tcpsocket<cirle_buffer<int8_t, MAX_BUFF_SIZE>, selector<1> > mysocket;
 typedef line_buffer<int8_t, MAX_MSG_SIZE> mylinebuffer;
@@ -16,14 +19,21 @@ class server_processor : public myneteventprocessor
 public:
 	force_inline bool on_recv_msg(mysocket & s, const mymsg & msg)
 	{
-		int16_t r;
-		msg.read(r);
-		//FPRINTF("recv %d", r);
+		msg.read_buffer((int8_t*)g_msg_buffer, sizeof(g_msg_buffer));
+		int32_t recvmsgsize = g_netmsg.Unmarshal(g_msg_buffer, sizeof(g_msg_buffer));
+		FPRINTF("recv id %d size %d\n", g_netmsg.m_NetMsgPara.m_Type, recvmsgsize);
+
+		// send
+		g_netmsg.m_NetMsgPara.m_Type = Protocol::SC_RES_LOGIN;
+		Protocol::SCResLogin & para = g_netmsg.m_NetMsgPara.m_SCResLogin;
+		memset(&para, 0, sizeof(para));
+		para.m_Ret = 0;
+		para.m_RoleInfoNum = 5;
+		int32_t msgsize = g_netmsg.Marshal(g_msg_buffer, sizeof(g_msg_buffer));
+		FASSERT(msgsize > 0);
 
 		mymsg sendm;
-		int16_t i = 11;
-		sendm.write(i);
-
+		sendm.write_buffer((const int8_t*)g_msg_buffer, msgsize);
 		s.send(sendm);
 		return true;
 	}
@@ -34,14 +44,21 @@ class client_processor : public myneteventprocessor
 public:
 	force_inline bool on_recv_msg(mysocket & s, const mymsg & msg)
 	{
-		int16_t r;
-		msg.read(r);
-		//FPRINTF("recv %d", r);
+		msg.read_buffer((int8_t*)g_msg_buffer, sizeof(g_msg_buffer));
+		int32_t recvmsgsize = g_netmsg.Unmarshal(g_msg_buffer, sizeof(g_msg_buffer));
+		FPRINTF("recv id %d size %d\n", g_netmsg.m_NetMsgPara.m_Type, recvmsgsize);
+
+		// send
+		g_netmsg.m_NetMsgPara.m_Type = Protocol::CS_REQ_LOGIN;
+		Protocol::CSReqLogin & para = g_netmsg.m_NetMsgPara.m_CSReqLogin;
+		memset(&para, 0, sizeof(para));
+		fstrcopy(para.m_Acc, "test");
+		fstrcopy(para.m_Pwd, "123");
+		int32_t msgsize = g_netmsg.Marshal(g_msg_buffer, sizeof(g_msg_buffer));
+		FASSERT(msgsize > 0);
 
 		mymsg sendm;
-		int16_t i = 10;
-		sendm.write(i);
-
+		sendm.write_buffer((const int8_t*)g_msg_buffer, msgsize);
 		s.send(sendm);
 		return true;
 	}

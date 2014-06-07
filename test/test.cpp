@@ -10,6 +10,9 @@
 #include "./fstring/fstringapp.h"
 #include "./fpool/fpoolapp.h"
 
+char g_msg_buffer[MAX_MSG_SIZE];
+Protocol::NetMsg g_netmsg;
+
 #define REG(type) {\
 	ifactory<mainapp> * p = fnew< factory<type, mainapp> >();\
 	myfactorymng::ptr()->regist(#type, p);\
