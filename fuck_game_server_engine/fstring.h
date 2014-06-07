@@ -1,17 +1,5 @@
 #pragma once
 
-template <size_t N>  
-force_inline void fstrcopy(int8_t (&des)[N], const int8_t * src)  
-{ 
-	fstrcopy(des, src, N);
-}
-
-template <size_t N>  
-force_inline void fstrcopy(char (&des)[N], const char * src)  
-{ 
-	fstrcopy((int8_t *)des, (const int8_t *)src, N);
-}
-
 static force_inline void fstrcopy(char * des, const char * src, size_t dest_size)
 {
 	if (dest_size > 0)
@@ -28,6 +16,18 @@ static force_inline void fstrcopy(int8_t * des, const int8_t * src, size_t dest_
 		strncpy((char*)des, (char*)src, dest_size - 1);
 		des[dest_size - 1] = 0;
 	}
+}
+
+template <size_t N>  
+force_inline void fstrcopy(int8_t (&des)[N], const int8_t * src)  
+{ 
+	fstrcopy(des, src, N);
+}
+
+template <size_t N>  
+force_inline void fstrcopy(char (&des)[N], const char * src)  
+{ 
+	fstrcopy((int8_t *)des, (const int8_t *)src, N);
 }
 
 //! Returns a character converted to lower case
