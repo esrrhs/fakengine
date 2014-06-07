@@ -22,10 +22,11 @@ public:
 	force_inline void clear()
 	{
 		m_free.clear();
+		Node tmp = Node();
 		for (int32_t i = 0; i < (int32_t)N; i++)
 		{
 			m_free.push(i);
-			data[i] = Node();
+			data[i] = tmp;
 		}
 		m_used = INVALID_IDX;
 	}
