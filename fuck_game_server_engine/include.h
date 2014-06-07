@@ -32,6 +32,7 @@
 #include "tcpsocket.h"
 #include "socket_container.h"
 #include "selector.h"
+#include "simpleselector.h"
 #include "epollor.h"
 #include "neteventprocessor.h"
 #include "profile.h"

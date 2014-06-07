@@ -147,6 +147,7 @@
     <ClInclude Include="cmdparser.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="const.h" />
+    <ClInclude Include="epollor.h" />
     <ClInclude Include="expat\amigaconfig.h" />
     <ClInclude Include="expat\ascii.h" />
     <ClInclude Include="expat\asciitab.h" />
@@ -309,6 +310,7 @@
     <ClInclude Include="readonly_allocator.h" />
     <ClInclude Include="selector.h" />
     <ClInclude Include="sharemm.h" />
+    <ClInclude Include="simpleselector.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="slot.h" />
     <ClInclude Include="socket_container.h" />

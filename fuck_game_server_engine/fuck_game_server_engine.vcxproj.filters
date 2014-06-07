@@ -587,6 +587,12 @@
     <ClInclude Include="base.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="epollor.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="simpleselector.h">
+      <Filter>net</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

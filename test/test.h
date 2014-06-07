@@ -9,7 +9,7 @@
 extern char g_msg_buffer[MAX_MSG_SIZE];
 extern Protocol::NetMsg g_netmsg;
 
-typedef tcpsocket<cirle_buffer<int8_t, MAX_BUFF_SIZE>, selector<1> > mysocket;
+typedef tcpsocket<cirle_buffer<int8_t, MAX_BUFF_SIZE>, simpleselector> mysocket;
 typedef line_buffer<int8_t, MAX_MSG_SIZE> mylinebuffer;
 typedef netmsg<mylinebuffer> mymsg;
 typedef neteventprocessor<mysocket, mymsg> myneteventprocessor;
