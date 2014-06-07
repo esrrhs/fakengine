@@ -24,7 +24,7 @@ public:
 		used = 0;
 		for (uint32_t i = 0; i < N; i++)
 		{
-		    data[i] = T();
+		    data[i] = tmpdata;
 		}
 	}
 
