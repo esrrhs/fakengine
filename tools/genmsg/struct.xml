@@ -8,7 +8,7 @@
 	
 	<enum name="ConstDefine" comment="常量">  
 		<member name="ACC_LEN" type="32" comment="用户名"/>
-		<member name="NAME_LEN" type="32" comment="角色名"/>
+		<member name="ROLE_NAME_LEN" type="32" comment="角色名"/>
 		<member name="PWD_LEN" type="32" comment="密码"/>
 		<member name="ROLE_INFO_NUM" type="5" comment="密码"/>
 		<member name="FRIEND_LEN" type="50" comment="好友"/>
@@ -26,7 +26,7 @@
 	
 	<struct name="RoleInfo" comment="玩家信息">  
 		<member name="Guid" type="uint64_t" comment="唯一id"/>
-		<member name="Name" type="char" length="NAME_LEN" comment="角色名"/>
+		<member name="Name" type="char" length="ROLE_NAME_LEN" comment="角色名"/>
 		<member name="Hp" type="uint32_t" comment="血量"/>
 		<member name="Mp" type="uint32_t" comment="魔量"/>
 		<member name="X" type="float" comment="x"/>

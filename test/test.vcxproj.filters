@@ -59,6 +59,7 @@
     <ClInclude Include="fpool\fpoolapp.h">
       <Filter>fpool</Filter>
     </ClInclude>
+    <ClInclude Include="..\tools\genmsg\Struct.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="hashmap">

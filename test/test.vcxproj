@@ -98,6 +98,7 @@
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\tools\genmsg\Struct.h" />
     <ClInclude Include="client\clientapp.h" />
     <ClInclude Include="compress\compressapp.h" />
     <ClInclude Include="fpool\fpoolapp.h" />

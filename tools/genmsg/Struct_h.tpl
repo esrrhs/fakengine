@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-#define PROTO_MIN(a,b) ((a) < (b) ? (a) : (b))
+#define PROTO_MIN(a,b) Min<int32_t>((int32_t)a, (int32_t)b)
 
 namespace Protocol
 {

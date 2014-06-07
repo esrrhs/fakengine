@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../tools/genmsg/Struct.h"
+
 #define MAX_BUFF_SIZE 1024
 #define MAX_MSG_SIZE 50
 #define MAX_LINK_SIZE 1000
