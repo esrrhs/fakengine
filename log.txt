@@ -128,3 +128,4 @@
 2014.6.2：测试网络层效率，添加inline
 2014.6.2：重构ftrie，下一步加genmsg
 2014.6.4：add epoll,下一步加genmsg
+2014.6.7：加genmsg，下一步加genxml

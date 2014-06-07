@@ -1,8 +1,6 @@
-﻿添加genmsg组件
+﻿添加genxml组件，生成读xml代码
 加vector2，matrix2，point2d等
-测试下现有tcp框架效率问题
 添加proxy组件，隔离server间通信
 添加bus组件，通过共享内存快速通信
-添加genxml组件，生成读xml代码
 
 
