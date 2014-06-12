@@ -41,10 +41,6 @@ func main() {
 		return
 	}
 
-	if !output("code_cpp.tpl", "code.cpp") {
-		return
-	}
-
 	fmt.Println("OK")
 }
 
@@ -136,9 +132,17 @@ func parse(filename string) bool {
 	var t xml.Token
 
 	decoder := xml.NewDecoder(file)
-	t, decerr := decoder.Token()
-	if decerr != nil {
-		fmt.Println(decerr)
+	find := false
+	for t, err = decoder.Token(); err == nil && find == false; {
+		switch t.(type) {
+		case xml.StartElement:
+			find = true
+		default:
+			t, err = decoder.Token()
+		}
+	}
+	if err != nil {
+		fmt.Println(err)
 		return false
 	}
 	parse_token(decoder, t, &result.Root)
