@@ -115,19 +115,19 @@ public:
         return m_STResult;
     }
     
-    bool LoadCfg()
+    bool LoadCfg(const stringc & file)
 	{
 		TiXmlDocument document;
-		if (!document.LoadFile("sample.xml"))
+		if (!document.LoadFile((const char*)file.c_str()))
 		{
-			MERROR("CResultLoader::LoadCfg(%s) failed", "sample.xml");
+			LOG_ERROR("CResultLoader::LoadCfg(%s) failed", (const char*)file.c_str());
 			return false;
 		}
 		
 		TiXmlElement* pResult = document.RootElement();
 		if (!pResult)
 		{
-			MERROR("document.RootElement failed");
+			LOG_ERROR("document.RootElement failed");
 			return false;
 		}
 		
@@ -143,11 +143,11 @@ public:
 			
             STResult::STEnum tmpEnum;
             
-            _ReadXMLStringFromAttr(tmpEnum.m_strcomment, (TiXmlElement *)pEnum, "comment");
-            MCFG("        comment %s", tmpEnum.m_strcomment.c_str());
+            tmpEnum.m_strcomment = ((TiXmlElement *)pEnum)->Attribute("comment");
+            LOG_DEBUG("        comment %s", tmpEnum.m_strcomment.c_str());
             
-            _ReadXMLStringFromAttr(tmpEnum.m_strname, (TiXmlElement *)pEnum, "name");
-            MCFG("        name %s", tmpEnum.m_strname.c_str());
+            tmpEnum.m_strname = ((TiXmlElement *)pEnum)->Attribute("name");
+            LOG_DEBUG("        name %s", tmpEnum.m_strname.c_str());
             
             
             for (TiXmlNode * pMember = pEnum->FirstChild("Member"); NULL != pMember; pMember = pMember->NextSibling("Member"))
@@ -155,14 +155,14 @@ public:
             
                 STResult::STEnum::STMember tmpMember;
                 
-                _ReadXMLStringFromAttr(tmpMember.m_strcomment, (TiXmlElement *)pMember, "comment");
-                MCFG("            comment %s", tmpMember.m_strcomment.c_str());
+                tmpMember.m_strcomment = ((TiXmlElement *)pMember)->Attribute("comment");
+                LOG_DEBUG("            comment %s", tmpMember.m_strcomment.c_str());
                 
-                _ReadXMLStringFromAttr(tmpMember.m_strname, (TiXmlElement *)pMember, "name");
-                MCFG("            name %s", tmpMember.m_strname.c_str());
+                tmpMember.m_strname = ((TiXmlElement *)pMember)->Attribute("name");
+                LOG_DEBUG("            name %s", tmpMember.m_strname.c_str());
                 
-                _ReadXMLNumFromAttr(&tmpMember.m_itype, (TiXmlElement *)pMember, "type");
-                MCFG("            type %d", tmpMember.m_itype);
+                ((TiXmlElement *)pMember)->Attribute("type", &tmpMember.m_itype);
+                LOG_DEBUG("            type %d", tmpMember.m_itype);
                 
                 
 
@@ -176,11 +176,11 @@ public:
 			
             STResult::STStruct tmpStruct;
             
-            _ReadXMLStringFromAttr(tmpStruct.m_strcomment, (TiXmlElement *)pStruct, "comment");
-            MCFG("        comment %s", tmpStruct.m_strcomment.c_str());
+            tmpStruct.m_strcomment = ((TiXmlElement *)pStruct)->Attribute("comment");
+            LOG_DEBUG("        comment %s", tmpStruct.m_strcomment.c_str());
             
-            _ReadXMLStringFromAttr(tmpStruct.m_strname, (TiXmlElement *)pStruct, "name");
-            MCFG("        name %s", tmpStruct.m_strname.c_str());
+            tmpStruct.m_strname = ((TiXmlElement *)pStruct)->Attribute("name");
+            LOG_DEBUG("        name %s", tmpStruct.m_strname.c_str());
             
             
             for (TiXmlNode * pMember = pStruct->FirstChild("Member"); NULL != pMember; pMember = pMember->NextSibling("Member"))
@@ -188,14 +188,14 @@ public:
             
                 STResult::STStruct::STMember tmpMember;
                 
-                _ReadXMLStringFromAttr(tmpMember.m_strcomment, (TiXmlElement *)pMember, "comment");
-                MCFG("            comment %s", tmpMember.m_strcomment.c_str());
+                tmpMember.m_strcomment = ((TiXmlElement *)pMember)->Attribute("comment");
+                LOG_DEBUG("            comment %s", tmpMember.m_strcomment.c_str());
                 
-                _ReadXMLStringFromAttr(tmpMember.m_strname, (TiXmlElement *)pMember, "name");
-                MCFG("            name %s", tmpMember.m_strname.c_str());
+                tmpMember.m_strname = ((TiXmlElement *)pMember)->Attribute("name");
+                LOG_DEBUG("            name %s", tmpMember.m_strname.c_str());
                 
-                _ReadXMLStringFromAttr(tmpMember.m_strtype, (TiXmlElement *)pMember, "type");
-                MCFG("            type %s", tmpMember.m_strtype.c_str());
+                tmpMember.m_strtype = ((TiXmlElement *)pMember)->Attribute("type");
+                LOG_DEBUG("            type %s", tmpMember.m_strtype.c_str());
                 
                 
 

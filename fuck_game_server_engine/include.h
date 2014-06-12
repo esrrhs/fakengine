@@ -72,4 +72,6 @@ extern "C"
 
 #include "./expat/expat.h"
 
+#include "./tinyxml/tinyxml.h"
+
 #include "mainapp.h"

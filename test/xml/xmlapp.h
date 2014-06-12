@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../tools/genxml/code.h"
+
 class xmlapp : public mainapp
 {
 public:

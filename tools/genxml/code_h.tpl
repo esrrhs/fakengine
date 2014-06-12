@@ -26,9 +26,9 @@
 {{define "ReadToken"}}{{add_tab}}
     {{gen_tab}}{{gen_class}}ST{{.Name}} tmp{{.Name}};
     {{gen_tab}}{{$StructName := .Name}}{{range .Attributes}}
-    {{gen_tab}}{{if eq .Type "int"}}_ReadXMLNumFromAttr(&tmp{{$StructName}}.m_i{{.Name}}, (TiXmlElement *)p{{$StructName}}, "{{.Name}}");
-    {{gen_tab}}MCFG("{{gen_tab}}{{.Name}} %d", tmp{{$StructName}}.m_i{{.Name}});{{end}}{{if eq .Type "string"}}_ReadXMLStringFromAttr(tmp{{$StructName}}.m_str{{.Name}}, (TiXmlElement *)p{{$StructName}}, "{{.Name}}");
-    {{gen_tab}}MCFG("{{gen_tab}}{{.Name}} %s", tmp{{$StructName}}.m_str{{.Name}}.c_str());{{end}}
+    {{gen_tab}}{{if eq .Type "int"}}((TiXmlElement *)p{{$StructName}})->Attribute("{{.Name}}", &tmp{{$StructName}}.m_i{{.Name}});
+    {{gen_tab}}LOG_DEBUG("{{gen_tab}}{{.Name}} %d", tmp{{$StructName}}.m_i{{.Name}});{{end}}{{if eq .Type "string"}}tmp{{$StructName}}.m_str{{.Name}} = ((TiXmlElement *)p{{$StructName}})->Attribute("{{.Name}}");
+    {{gen_tab}}LOG_DEBUG("{{gen_tab}}{{.Name}} %s", tmp{{$StructName}}.m_str{{.Name}}.c_str());{{end}}
     {{gen_tab}}{{end}}
     {{gen_tab}}{{$StructName := .Name}}{{push_class "ST" .Name}}{{range .Tokens}}
     {{gen_tab}}{{if .IsArray}}for (TiXmlNode * p{{.Name}} = p{{$StructName}}->FirstChild("{{.Name}}"); NULL != p{{.Name}}; p{{.Name}} = p{{.Name}}->NextSibling("{{.Name}}")){{else}}TiXmlNode * p{{.Name}} = p{{$StructName}}->FirstChild("{{.Name}}");
@@ -62,19 +62,19 @@ public:{{add_tab}}
         return m_ST{{.Name}};
     }
     
-    bool LoadCfg()
+    bool LoadCfg(const stringc & file)
 	{
 		TiXmlDocument document;
-		if (!document.LoadFile("sample.xml"))
+		if (!document.LoadFile((const char*)file.c_str()))
 		{
-			MERROR("C{{.Name}}Loader::LoadCfg(%s) failed", "sample.xml");
+			LOG_ERROR("C{{.Name}}Loader::LoadCfg(%s) failed", (const char*)file.c_str());
 			return false;
 		}
 		
 		TiXmlElement* p{{.Name}} = document.RootElement();
 		if (!p{{.Name}})
 		{
-			MERROR("document.RootElement failed");
+			LOG_ERROR("document.RootElement failed");
 			return false;
 		}
 		
@@ -83,9 +83,9 @@ public:{{add_tab}}
 		m_ST{{.Name}} = tmp;
 		
 		{{$StructName := .Name}}{{range .Attributes}}
-		{{if eq .Type "int"}}_ReadXMLNumFromAttr(&m_ST{{$StructName}}.m_i{{.Name}}, (TiXmlElement *)p{{$StructName}}, "{{.Name}}");
-		MCFG("{{.Name}} %d", m_ST{{$StructName}}.m_i{{.Name}});{{end}}{{if eq .Type "string"}}_ReadXMLStringFromAttr(m_ST{{$StructName}}.m_str{{.Name}}, (TiXmlElement *)p{{$StructName}}, "{{.Name}}");
-		MCFG("{{.Name}} %s", m_ST{{$StructName}}.m_str{{.Name}}.c_str());{{end}}
+		{{if eq .Type "int"}}((TiXmlElement *)p{{$StructName}})->Attribute("{{.Name}}", &m_ST{{$StructName}}.m_i{{.Name}});
+		LOG_DEBUG("{{.Name}} %d", m_ST{{$StructName}}.m_i{{.Name}});{{end}}{{if eq .Type "string"}}m_ST{{$StructName}}.m_str{{.Name}} = ((TiXmlElement *)p{{$StructName}})->Attribute("{{.Name}}");
+		LOG_DEBUG("{{.Name}} %s", m_ST{{$StructName}}.m_str{{.Name}}.c_str());{{end}}
 		{{end}}
 		
 		{{$StructName := .Name}}{{push_class "ST" .Name}}{{range .Tokens}}
