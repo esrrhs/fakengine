@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<result>
+
+    <struct name="GameStat" comment="gamesvrd统计结构">
+        <member name="LoadAvg" comment="系统负荷"/>
+        <member name="CPU" comment="cpu占用"/>
+        <member name="CurCPU" comment="当前进程的cpu占用"/>
+        <member name="RES" comment="物理内存占用"/>
+        <member name="VIRT" comment="虚拟内存占用"/>
+        <member name="FPS" comment="帧率"/>
+        
+        <member name="PlayerPoolNum" comment="玩家池使用数目"/>
+        <member name="PlayerDBActivePoolNum" comment="db保活池使用数目"/>
+        <member name="PlayerActivePoolNum" comment="保活池使用数目"/>
+        <member name="PlayerActiveArrayNum" comment="保活池数组使用数目"/>
+        <member name="OnlineNum" comment="在线玩家数目"/>
+        <member name="LoginedNum" comment="登录成功的玩家数目"/>
+        <member name="LogingNum" comment="发起登录的玩家数目"/>
+        
+        <member name="MapPoolNum" comment="地图池数目"/>
+        <member name="GameLogicPoolNum" comment="地图逻辑池数目"/>
+        <member name="MapPlayerListNum" comment="地图的玩家列表池数目"/>
+		
+		<member name="ModifyAntiDataNum" comment="修改安全数据类型的次数"/>
+		<member name="ModifyAntiDataPlayerNum" comment="修改安全数据类型的玩家数"/>
+		<member name="StageCheatNum" comment="版边作弊的数目"/>
+		<member name="StageVerifyNum" comment="版边校验的数目"/>
+        
+        <member name="MatchOKNum" comment="匹配成功人数"/>
+        <member name="MatchFailNum" comment="匹配失败人数"/>
+        <member name="MatchPoolUseTime" comment="匹配池停留时间"/>
+		
+        <member name="PvPRoomKillNum" comment="pvp房间 打死数目"/>
+        <member name="PvPRoomQuitNum" comment="pvp房间 逃跑数目"/>
+        <member name="PvPRoomTimeoutNum" comment="pvp房间 超时数目"/>
+		
+		<array name="PvPRoomStateNum" comment="pvp房间 各状态数目" length="7"/>
+		<array name="PvPRoomStateTime" comment="pvp房间 各状态持续时间" length="7"/>
+		
+        <member name="SceneNum" comment="场景中人数"/>
+        <member name="DungeonNum" comment="副本中人数"/>
+        
+        <hashmap name="TopSceneNum" comment="Top场景人数" length="100" top="5"/>
+        <hashmap name="TopDungeonNum" comment="Top副本人数" length="100" top="5"/>
+        
+        <member name="FriendPoolNum" comment="公共游戏好友池数目"/>
+        <member name="OpenFriendPoolNum" comment="公共开平好友池数目"/>
+        <member name="ItemPoolNum" comment="道具池数目"/>
+        <member name="TimerPoolNum" comment="定时器池数目"/>
+        <member name="ReverseViewPoolNum" comment="反向视野池数目"/>
+        <member name="DropPoolNum" comment="掉落池数目"/>
+        <member name="EmployPoolNum" comment="雇佣实例池数目"/>
+        <member name="EquipPoolNum" comment="装备池数目"/>
+        <member name="MonsterPoolNum" comment="怪物池数目"/>
+        <member name="TransactionPoolNum" comment="事务池数目"/>
+        <member name="TFrameHeadPoolNum" comment="tframehead池数目"/>
+        <member name="ConnIdxPoolNum" comment="ConnIdx池数目"/>
+        <member name="IDMapPoolNum" comment="IDMap池数目"/>
+        <member name="GroupMatchPoolNum" comment="组队匹配池数目"/>
+        <member name="GroupMatchMapNum" comment="组队匹配map数目"/>
+        <member name="MatchFightPowerPoolNum" comment="战斗力匹配的池子数目"/>
+        <member name="MatchMapNum" comment="玩家匹配信息数目"/>
+        <member name="PvpRoomPoolNum" comment="房间数目"/>
+        <member name="RoomMapNum" comment="玩家房间信息数目"/>
+        
+        <member name="CLRecvPacketNum" comment="client端 收包数目"/>
+        <member name="CLSendPacketNum" comment="client端 发包数目"/>
+        <member name="CLRecvSizeNum" comment="client端 收包流量"/>
+        <member name="CLSendSizeNum" comment="client端 发包流量"/>
+        <member name="CLProcessTime" comment="client端 处理耗时"/>
+        
+        <toparray name="TopCLRecvPacketNum" comment="client端 Top收包数目" length="2000" top="5"/>
+        <toparray name="TopCLSendPacketNum" comment="client端 Top发包数目" length="2000" top="5"/>
+        <toparray name="TopCLRecvSizeNum" comment="client端 Top收包流量" length="2000" top="5"/>
+        <toparray name="TopCLSendSizeNum" comment="client端 Top发包流量" length="2000" top="5"/>
+        <toparray name="TopCLProcessTime" comment="client端 Top收包处理时间" length="2000" top="5"/>
+        
+        <member name="ProxyRecvPacketNum" comment="proxy端 收包数目"/>
+        <member name="ProxySendPacketNum" comment="proxy端 发包数目"/>
+        <member name="ProxyRecvSizeNum" comment="proxy端 收包流量"/>
+        <member name="ProxySendSizeNum" comment="proxy端 发包流量"/>
+        
+        <hashmap name="TopProxyRecvPacketNum" comment="proxy端 Top收包数目" length="2000" top="5"/>
+        <hashmap name="TopProxySendPacketNum" comment="proxy端 Top发包数目" length="2000" top="5"/>
+        <hashmap name="TopProxyRecvSizeNum" comment="proxy端 Top收包流量" length="2000" top="5"/>
+        <hashmap name="TopProxySendSizeNum" comment="proxy端 Top发包流量" length="2000" top="5"/>
+        
+		<member name="DeleteMapNum" comment="定时器删除map数目"/>
+		<member name="DeleteTimeOutMapNum" comment="超时删除map数目"/>
+		<hashmap name="TopDeleteMapNum" comment="Top定时器删除map数目" length="100" top="5"/>
+		<hashmap name="TopDeleteTimeOutMapNum" comment="Top超时删除map数目" length="100" top="5"/>
+		
+        <member name="TransStartNum" comment="发起事务数"/>
+        <member name="TransDoneNum" comment="完成事务数"/>
+        <member name="TransErrorNum" comment="错误事务数"/>
+        <member name="TransTimeOutNum" comment="超时事务数"/>
+        <member name="TransTerminNum" comment="终止事务数"/>
+		
+		<hashmap name="TopTransStartNum" comment="Top发起事务数" length="100" top="5"/>
+        <hashmap name="TopTransDoneNum" comment="Top完成事务数" length="100" top="5"/>
+        <hashmap name="TopTransErrorNum" comment="Top错误事务数" length="100" top="5"/>
+        <hashmap name="TopTransTimeOutNum" comment="Top超时事务数" length="100" top="5"/>
+        <hashmap name="TopTransTerminNum" comment="Top终止事务数" length="100" top="5"/>
+		
+		<member name="TransUseTime" comment="完成的事务时间"/>
+		<hashmap name="TopTransUseTime" comment="Top完成的事务时间" length="100" top="5"/>
+		
+        <member name="TCondSendError" comment="发送到tcond的错误数"/>
+		
+        <member name="BigProxyRecvBuffNum" comment="大区proxy端 活跃链接 收包缓冲区大小"/>
+        <member name="BigProxySendBuffNum" comment="大区proxy端 活跃链接 发包缓冲区大小"/>
+		<member name="BigProxyConnNum" comment="大区proxy端 活跃链接数目"/>
+		
+        <member name="TotalLoginStartNum" comment="总共登录开始数目"/>
+        <member name="TotalLoginDoneNum" comment="总共登录成功数目"/>
+        <member name="TotalLoginTimeOutNum" comment="总共登录超时数目"/>
+        <member name="TotalLoginErrorNum" comment="总共登录错误数目"/>
+        <member name="TotalLoginTerminateNum" comment="总共登录终止数目"/>
+		
+        <member name="TotalLoginDoneTime" comment="总共登录成功时间"/>
+        <member name="TotalLoginTimeOutTime" comment="总共登录超时时间"/>
+        <member name="TotalLoginErrorTime" comment="总共登录错误时间"/>
+        <member name="TotalLoginTerminateTime" comment="总共登录终止时间"/>
+		
+        <array name="LoginTimeOutNum" comment="登录超时 各状态数目" length="14"/>
+        <array name="LoginErrorNum" comment="登录错误 各状态数目" length="14"/>
+        <array name="LoginTerminateNum" comment="登录终止 各状态数目" length="14"/>
+		
+        <array name="LoginStatusNum" comment="各个登录状态数目" length="14"/>
+		
+        <member name="Login_GetOpenInfo" comment="登录事务时间 GetOpenInfo"/>
+        <member name="Login_GetOpenVipInfo" comment="登录事务时间 GetOpenVipInfo"/>
+        <member name="Login_LoginGameDB" comment="登录事务时间 LoginGameDB"/>
+        <member name="Login_AllocatingUid" comment="登录事务时间 AllocatingUid"/>
+        <member name="Login_RegisterGamedb" comment="登录事务时间 RegisterGamedb"/>
+        <member name="Login_GetBalance" comment="登录事务时间 GetBalance"/>
+        <member name="Login_GetOpenFriendInfo" comment="登录事务时间 GetOpenFriendInfo"/>
+        <member name="Login_CheckExistOpenfriendInfo" comment="登录事务时间 CheckExistOpenfriendInfo"/>
+        <member name="Login_CheckNewOpenFriendInfo" comment="登录事务时间 CheckNewOpenFriendInfo"/>		
+		
+        <array name="TconndCloseReasonNum" comment="tconnd关闭原因数目" length="28"/>
+    </struct>
+    
+    <struct name="DBStat" comment="dbsvrd统计结构">
+        <member name="LoadAvg" comment="系统负荷"/>
+        <member name="CPU" comment="cpu占用"/>
+        <member name="CurCPU" comment="当前进程的cpu占用"/>
+        <member name="RES" comment="物理内存占用"/>
+        <member name="VIRT" comment="虚拟内存占用"/>
+        <member name="FPS" comment="帧率"/>
+				
+		<member name="HandleFPS" comment="DBHandle帧率"/>
+		<member name="ExecutorFPS" comment="DBExecutor帧率"/>
+		
+		<array name="PerHandleFPS" comment="每个Handle帧率" length="8"/>
+		<toparray name="TopExecutorFPS" comment="Top DBExecutor帧率"  length="100" top="5" cmp="min"/>
+		
+		<member name="QueryNum" comment="Mysql查询次数"/>
+		<member name="QueryTime" comment="Mysql查询耗时"/>
+		<member name="QueryErrorNum" comment="Mysql查询错误数目"/>
+		
+		<member name="LogingNum" comment="请求登入数目"/>
+		<member name="LoginedNum" comment="成功登入数目"/>
+		<member name="LogoutNum" comment="登出数目"/>
+		<member name="DirtySessionNum" comment="脏Session数目"/>
+		<member name="LogoutPoolNum" comment="登出队列数目"/>
+		
+		<member name="LoginCacheNum" comment="登入命中cache数目"/>
+		<member name="LoginNoCacheNum" comment="登入未命中cache数目"/>
+		
+		<member name="LogingRoleNum" comment="请求角色登入数目"/>
+		<member name="LoginedRoleNum" comment="成功角色登入数目"/>
+		<member name="LoginRoleCacheNum" comment="登入角色命中cache数目"/>
+		<member name="LoginRoleNoCacheNum" comment="登入角色未命中cache数目"/>
+		
+		<member name="RegisterNum" comment="注册数目"/>
+		<member name="NewRoleNum" comment="新建角色数目"/>
+		
+		<member name="CheckPlayerIDNum" comment="请求检测玩家id数目"/>
+		<member name="CheckPlayerIDCacheNum" comment="请求检测玩家id命中cache数目"/>
+		<member name="CheckPlayerIDNoCacheNum" comment="请求检测玩家id未命中cache数目"/>
+		
+		<member name="FreeSessionNum" comment="空闲Session总数"/>
+		<member name="ActiveSessionNum" comment="活跃Session总数"/>
+		<member name="CacheSessionNum" comment="缓存Session总数"/>
+		
+		<member name="FreeRoleSessionNum" comment="空闲RoleSession总数"/>
+		<member name="ActiveRoleSessionNum" comment="活跃RoleSession总数"/>
+		<member name="CacheRoleSessionNum" comment="缓存RoleSession总数"/>
+
+		<array name="HandleFreeSessionNum" comment="Handle 空闲Session总数" length="8"/>
+		<array name="HandleActiveSessionNum" comment="Handle 活跃Session总数" length="8"/>
+		<array name="HandleCacheSessionNum" comment="Handle 缓存Session总数" length="8"/>
+		
+		<array name="HandleFreeRoleSessionNum" comment="Handle 空闲RoleSession总数" length="8"/>
+		<array name="HandleActiveRoleSessionNum" comment="Handle 活跃RoleSession总数" length="8"/>
+		<array name="HandleCacheRoleSessionNum" comment="Handle 缓存RoleSession总数" length="8"/>
+
+        <member name="AvtiveRecvBuffNum" comment="proxy端 活跃链接 收包缓冲区大小"/>
+        <member name="AvtiveSendBuffNum" comment="proxy端 活跃链接 发包缓冲区大小"/>
+		<member name="AvtiveConnNum" comment="proxy端 活跃链接数目"/>
+		
+        <member name="RecvPacketNum" comment="proxy端 收包数目"/>
+        <member name="SendPacketNum" comment="proxy端 发包数目"/>
+        <member name="RecvSizeNum" comment="proxy端 收包流量"/>
+        <member name="SendSizeNum" comment="proxy端 发包流量"/>
+        <member name="ProcessTime" comment="proxy端 处理耗时"/>
+        
+        <hashmap name="TopRecvPacketNum" comment="proxy端 Top收包数目" length="2000" top="5"/>
+        <hashmap name="TopSendPacketNum" comment="proxy端 Top发包数目" length="2000" top="5"/>
+        <hashmap name="TopRecvSizeNum" comment="proxy端 Top收包流量" length="2000" top="5"/>
+        <hashmap name="TopSendSizeNum" comment="proxy端 Top发包流量" length="2000" top="5"/>
+        <hashmap name="TopProcessTime" comment="proxy端 Top收包处理时间" length="2000" top="5"/>
+        
+        <toparray name="TopQueryNum" comment="Top Mysql查询次数" length="500" top="5"/>
+        <toparray name="TopQueryTime" comment="Top Mysql查询耗时" length="500" top="5"/>
+        <toparray name="TopQueryErrorNum" comment="Top Mysql查询错误数目" length="500" top="5"/>
+	
+        <member name="C_H_BuffNum" comment="ctrl -> handle缓冲区大小"/>
+        <member name="H_C_BuffNum" comment="handle -> ctrl缓冲区大小"/>
+		
+        <member name="C_H_PacketNum" comment="ctrl -> handle包数目"/>
+        <member name="H_C_PacketNum" comment="handle -> ctrl包数目"/>
+        <member name="C_H_SizeNum" comment="ctrl -> handle包流量"/>
+        <member name="H_C_SizeNum" comment="handle -> ctrl包流量"/>
+        <member name="C_H_ProcessTime" comment="ctrl -> handle 处理耗时"/>
+		
+        <toparray name="TopC_H_PacketNum" comment="ctrl -> handle包数目" length="7000" top="5"/>
+        <toparray name="TopH_C_PacketNum" comment="handle -> ctrl包数目" length="7000" top="5"/>
+        <toparray name="TopC_H_SizeNum" comment="ctrl -> handle包流量" length="7000" top="5"/>
+        <toparray name="TopH_C_SizeNum" comment="handle -> ctrl包流量" length="7000" top="5"/>
+        <toparray name="TopC_H_ProcessTime" comment="ctrl -> handle 处理时间" length="7000" top="5"/>
+        
+        <member name="E_H_BuffNum" comment="executor -> handle缓冲区大小"/>
+        <member name="H_E_BuffNum" comment="handle -> executor缓冲区大小"/>
+		
+        <member name="E_H_PacketNum" comment="executor -> handle包数目"/>
+        <member name="H_E_PacketNum" comment="handle -> executor包数目"/>
+        <member name="E_H_SizeNum" comment="executor -> handle包流量"/>
+        <member name="H_E_SizeNum" comment="handle -> executor包流量"/>
+        <member name="H_E_ProcessTime" comment="executor -> handle 处理耗时"/>
+		
+        <toparray name="TopE_H_PacketNum" comment="executor -> handle包数目" length="7000" top="5"/>
+        <toparray name="TopH_E_PacketNum" comment="handle -> executor包数目" length="7000" top="5"/>
+        <toparray name="TopE_H_SizeNum" comment="executor -> handle包流量" length="7000" top="5"/>
+        <toparray name="TopH_E_SizeNum" comment="handle -> executor包流量" length="7000" top="5"/>
+        <toparray name="TopH_E_ProcessTime" comment="executor -> handle 处理时间" length="7000" top="5"/>
+        
+		<array name="PerExecutorFPS" comment="每个DBExecutor帧率"  length="64"/>
+		<array name="PerQueryNum" comment="每个DBExecutor查询次数"  length="64"/>
+		<array name="PerQueryTime" comment="每个DBExecutor查询耗时"  length="64"/>
+    </struct>
+    
+    <struct name="DirStat" comment="dirsvrd统计结构">
+        <member name="LoadAvg" comment="系统负荷"/>
+        <member name="CPU" comment="cpu占用"/>
+        <member name="CurCPU" comment="当前进程的cpu占用"/>
+        <member name="RES" comment="物理内存占用"/>
+        <member name="VIRT" comment="虚拟内存占用"/>
+        <member name="FPS" comment="帧率"/>
+		
+        <member name="CLRecvPacketNum" comment="client端 收包数目"/>
+        <member name="CLSendPacketNum" comment="client端 发包数目"/>
+        <member name="CLRecvSizeNum" comment="client端 收包流量"/>
+        <member name="CLSendSizeNum" comment="client端 发包流量"/>
+		
+        <member name="UDPRecvPacketNum" comment="UDP 收包数目"/>
+        <member name="UDPSendPacketNum" comment="UDP 发包数目"/>
+        <member name="UDPRecvSizeNum" comment="UDP 收包流量"/>
+        <member name="UDPSendSizeNum" comment="UDP 发包流量"/>
+		
+		<member name="GetWorldListNum" comment="请求获取小区列表消息数目"/>
+		<member name="GetWorldDetailNum" comment="请求获取小区GS列表消息数目"/>
+		
+		<member name="ConnectNum" comment="链接数"/>
+		<member name="TotalOnlineNum" comment="总人数"/>
+		<array name="WorldOnlineNum" comment="小区人数" length="20"/>
+	</struct>
+	
+    <struct name="NameStat" comment="namesvrd统计结构">
+        <member name="LoadAvg" comment="系统负荷"/>
+        <member name="CPU" comment="cpu占用"/>
+        <member name="CurCPU" comment="当前进程的cpu占用"/>
+        <member name="RES" comment="物理内存占用"/>
+        <member name="VIRT" comment="虚拟内存占用"/>
+        <member name="FPS" comment="帧率"/>
+		
+		<member name="HandleFPS" comment="NameHandle帧率"/>
+		
+		<member name="RegisterNameNum" comment="注册名字数目"/>
+		<member name="RegisterNameErrorNum" comment="注册名字失败数目"/>
+		<member name="ModifyNameNum" comment="修改名字数目"/>
+		<member name="DeleteNameNum" comment="删除名字数目"/>
+		<member name="SearchNameNum" comment="查找名字数目"/>
+		
+	</struct>
+	
+    <struct name="UidStat" comment="uidsvrd统计结构">
+        <member name="LoadAvg" comment="系统负荷"/>
+        <member name="CPU" comment="cpu占用"/>
+        <member name="CurCPU" comment="当前进程的cpu占用"/>
+        <member name="RES" comment="物理内存占用"/>
+        <member name="VIRT" comment="虚拟内存占用"/>
+        <member name="FPS" comment="帧率"/>
+		
+		<member name="HandleFPS" comment="UidHandle帧率"/>
+		
+		<member name="AllocateUIDNum" comment="分配uid数目"/>
+		<member name="AllocateUIDErrorNum" comment="分配uid失败数目"/>
+		
+	</struct>
+	
+    <struct name="ProxyStat" comment="proxysvrd统计结构">
+        <member name="LoadAvg" comment="系统负荷"/>
+        <member name="CPU" comment="cpu占用"/>
+        <member name="CurCPU" comment="当前进程的cpu占用"/>
+        <member name="RES" comment="物理内存占用"/>
+        <member name="VIRT" comment="虚拟内存占用"/>
+        <member name="FPS" comment="帧率"/>
+		
+		<member name="HandleFPS" comment="ProxyHandle帧率"/>
+		
+		<member name="ConnInfoNum" comment="连接池数量" />
+		<member name="UnRegInfoNum" comment="未注册池数量" />
+		
+		<member name="ConnRecvBuffSize" comment="连接的收包缓冲区大小" />
+		<member name="ConnSendBuffSize" comment="连接的发包缓冲区大小" />
+		
+		<array name="HandleRecvMsgNum" comment="Handle 收包数目" length="4"/>
+		<array name="HandleRecvMsgSize" comment="Handle 收包流量" length="4"/>
+		<array name="HandleSendMsgNum" comment="Handle 发包数目" length="4"/>
+		<array name="HandleSendMsgSize" comment="Handle 发包流量" length="4"/>
+		<array name="HandleRecvBufNum" comment="Handle 收包缓冲区大小" length="4"/>
+		<array name="HandleSendBufNum" comment="Handle 发包缓冲区大小" length="4"/>
+		
+		<array name="HandleConnInfoNum" comment="Handle 连接池数量" length="4"/>
+		<array name="HandleRecycleInfoNum" comment="Handle 回收池数量" length="4"/>
+		<array name="HandleKeepAliveInfoNum" comment="Handle 心跳池数量" length="4"/>
+		<array name="HandleSvrIDMapNum" comment="Handle SvrID数量" length="4"/>
+		
+	</struct>
+	
+    <struct name="BossStat" comment="bosssvrd统计结构">
+        <member name="LoadAvg" comment="系统负荷"/>
+        <member name="CPU" comment="cpu占用"/>
+        <member name="CurCPU" comment="当前进程的cpu占用"/>
+        <member name="RES" comment="物理内存占用"/>
+        <member name="VIRT" comment="虚拟内存占用"/>
+        <member name="FPS" comment="帧率"/>
+		
+		<member name="HandleFPS" comment="BossHandle帧率"/>
+		
+		<member name="OpenedBossNum" comment="开启boss的数目"/>
+		
+		<member name="OpenBossMsgNum" comment="开启boss消息数目"/>
+		<member name="NfyHurtMsgNum" comment="上报伤害消息数目"/>
+		<member name="EnterBossMsgNum" comment="进入副本消息的数目"/>
+		
+        <member name="RecvPacketNum" comment="proxy端 收包数目"/>
+        <member name="SendPacketNum" comment="proxy端 发包数目"/>
+        <member name="RecvSizeNum" comment="proxy端 收包流量"/>
+        <member name="SendSizeNum" comment="proxy端 发包流量"/>		
+		
+        <hashmap name="TopRecvPacketNum" comment="proxy端 Top收包数目" length="2000" top="5"/>
+        <hashmap name="TopSendPacketNum" comment="proxy端 Top发包数目" length="2000" top="5"/>
+        <hashmap name="TopRecvSizeNum" comment="proxy端 Top收包流量" length="2000" top="5"/>
+        <hashmap name="TopSendSizeNum" comment="proxy端 Top发包流量" length="2000" top="5"/>
+		
+		<array name="OpenBossNum" comment="开启的boss" length="10"/>
+		<array name="BossPlayerNum" comment="开启boss的参与的玩家人数" length="10"/>
+		<array name="BossFullHP" comment="boss血量上限，单位w" length="10"/>
+		<array name="BossNowHP" comment="boss当前血量，单位w" length="10"/>
+		<array name="BossHurtHP" comment="boss被伤害量，单位w" length="10"/>
+		<array name="BroadcastSvrNum" comment="boss广播的服务器数目" length="10"/>
+		<array name="SyncUserInfoNum" comment="boss同步人数数目" length="10"/>
+		
+	</struct>
+	
+	
+    <struct name="MailStat" comment="mailsvrd统计结构">
+        <member name="LoadAvg" comment="系统负荷"/>
+        <member name="CPU" comment="cpu占用"/>
+        <member name="CurCPU" comment="当前进程的cpu占用"/>
+        <member name="RES" comment="物理内存占用"/>
+        <member name="VIRT" comment="虚拟内存占用"/>
+        <member name="FPS" comment="帧率"/>
+		
+		<member name="HandleFPS" comment="MailHandle帧率"/>
+		<member name="ExecutorFPS" comment="MailExecutor帧率"/>
+		
+		<member name="FreeSessionNum" comment="空闲Session总数"/>
+		<member name="ActiveSessionNum" comment="活跃Session总数"/>
+		<member name="CacheSessionNum" comment="缓存Session总数"/>
+		
+		<member name="TotalMailNum" comment="邮件总数"/>
+		<member name="TotalUnOpenedMailNum" comment="未读邮件总数"/>
+		<member name="SYSMailNum" comment="系统邮件总数"/>
+		<member name="UnOpenedSYSMailNum" comment="未读系统邮件总数"/>
+		<member name="P2PMailNum" comment="个人邮件总数"/>
+		<member name="UnOpenedP2PMailNum" comment="未读个人邮件总数"/>
+		
+		<array name="HandleFreeSessionNum" comment="Handle 空闲Session总数" length="4"/>
+		<array name="HandleActiveSessionNum" comment="Handle 活跃Session总数" length="4"/>
+		<array name="HandleCacheSessionNum" comment="Handle 缓存Session总数" length="4"/>
+		
+		<array name="HandleUIDMapNum" comment="Handle UIDMap数量" length="4"/>
+		<array name="HandleDirtyQueueNum" comment="Handle 脏集合数量" length="4"/>
+		<array name="HandleLogoutUIDMapNum" comment="Handle 登出UIDMap数量" length="4"/>
+		<array name="HandleLogoutPoolNum" comment="Handle 登出池数量" length="4"/>
+		
+		<array name="HandleMailBodyIDMapNum" comment="Handle 邮件体map数量" length="4"/>
+		<array name="HandleMailBodyPoolNum" comment="Handle 邮件体池数量" length="4"/>
+		<array name="HandleMailBodyCacheHit" comment="Handle 邮件体命中率" length="4"/>
+		
+		<array name="HandleTotalMailNum" comment="Handle 邮件总数" length="4"/>
+		<array name="HandleTotalUnOpenedMailNum" comment="Handle 未读邮件总数" length="4"/>
+		<array name="HandleSYSMailNum" comment="系统邮件总数" length="4"/>
+		<array name="HandleUnOpenedSYSMailNum" comment="未读系统邮件总数" length="4"/>
+		<array name="HandleP2PMailNum" comment="个人邮件总数" length="4"/>
+		<array name="HandleUnOpenedP2PMailNum" comment="未读个人邮件总数" length="4"/>
+	</struct>
+	
+</result>
