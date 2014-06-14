@@ -58,7 +58,7 @@ func main() {
 		return
 	}
 
-	if !output("StatMgr_h.tpl", "StatMng.h") {
+	if !output("StatMng_h.tpl", "StatMng.h") {
 		return
 	}
 
