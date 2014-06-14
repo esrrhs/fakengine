@@ -33,7 +33,19 @@ bool xmlapp::heartbeat()
 
 	CSampleCfgLoader cfgloader;
 	ret = cfgloader.LoadCfg("../tools/gencfg/sample.cfg");
-	
+
+	CGameStatMng::ptr()->AddCPU(1);
+	CGameStatMng::ptr()->AddPvPRoomStateNum(1, Rand());
+	CGameStatMng::ptr()->AddPvPRoomStateNum(2, Rand());
+	CGameStatMng::ptr()->AddPvPRoomStateNum(3, Rand());
+	CGameStatMng::ptr()->AddTopSceneNum(1, Rand());
+	CGameStatMng::ptr()->AddTopSceneNum(2, Rand());
+	CGameStatMng::ptr()->AddTopSceneNum(3, Rand());
+	CGameStatMng::ptr()->AddTopCLRecvPacketNum(1, Rand());
+	CGameStatMng::ptr()->AddTopCLRecvPacketNum(2, Rand());
+	CGameStatMng::ptr()->AddTopCLRecvPacketNum(3, Rand());
+	CGameStatMng::ptr()->PrintLog("stat.txt");
+
 	return true;
 }
 

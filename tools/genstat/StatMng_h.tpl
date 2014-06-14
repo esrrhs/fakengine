@@ -5,15 +5,193 @@
 
 {{range .}}  
 // {{iconv .Comment}}
-class C{{.Name}}Mgr : public Singleton<C{{.Name}}Mgr>
+class C{{.Name}}Mng : public singleton<C{{.Name}}Mng>
 {
 public:
-    C{{.Name}}Mgr();
-    ~C{{.Name}}Mgr();
-    
+	// {{iconv .Comment}}
+    C{{.Name}}Mng()
+	{
+		Clear();
+	}
+	// {{iconv .Comment}}
+    ~C{{.Name}}Mng()
+	{
+		Clear();
+	}
+		
+	void SortArray(uint32_t * src, int srcSize, uint32_t * desId, uint32_t * desVal, int desSize, bool isMax)
+	{
+		if (isMax)
+		{
+			for (int i = 0; i < desSize; i++)
+			{
+				desId[i] = 0;
+				desVal[i] = 0;
+				uint32_t max = 0;
+				for (int j = 0; j < srcSize; j++)
+				{
+					if (src[j] > max)
+					{
+						desId[i] = j;
+						desVal[i] = src[j];
+						max = src[j];
+					}
+				}
+				src[desId[i]] = 0;
+			}
+		}
+		else
+		{
+			for (int i = 0; i < desSize; i++)
+			{
+				desId[i] = 0;
+				desVal[i] = 0;
+				uint32_t min = 0xFFFFFFFF;
+				for (int j = 0; j < srcSize; j++)
+				{
+					if (src[j] < min && src[j] > 0)
+					{
+						desId[i] = j;
+						desVal[i] = src[j];
+						min = src[j];
+					}
+				}
+				src[desId[i]] = 0xFFFFFFFF;
+			}
+		}
+	}
+
+	template <typename Map>
+	void SortHashMap(Map & map, uint32_t * desId, uint32_t * desVal, int desSize, bool isMax)
+	{
+		if (isMax)
+		{
+			for (int i = 0; i < desSize; i++)
+			{
+				desId[i] = 0;
+				desVal[i] = 0;
+				uint32_t max = 0;
+				for (typename Map::iterator it = map.begin(); it != map.end(); it++)
+				{
+					if (it->second > max)
+					{
+						desId[i] = it->first;
+						desVal[i] = it->second;
+						max = it->second;
+					}
+				}
+				typename Map::iterator it = map.find(desId[i]);
+				if (it != map.end())
+				{
+					it->second = 0;
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < desSize; i++)
+			{
+				desId[i] = 0;
+				desVal[i] = 0;
+				uint32_t min = 0xFFFFFFFF;
+				for (typename Map::iterator it = map.begin(); it != map.end(); it++)
+				{
+					if (it->second < min && it->second > 0)
+					{
+						desId[i] = it->first;
+						desVal[i] = it->second;
+						min = it->second;
+					}
+				}
+				typename Map::iterator it = map.find(desId[i]);
+				if (it != map.end())
+				{
+					it->second = 0xFFFFFFFF;
+				}
+			}
+		}
+	}
+		
 // 操作函数
 public:
-    int PrintLog(const char * strStatDir);
+    int PrintLog(const char * strFile)
+	{
+		FILE *pLog = NULL;
+		if ((pLog = fopen(strFile, "a+")) == NULL)
+		{
+			LOG_ERROR("open %s fail", strFile);
+			return -2;
+		}
+		
+		{{range .TopArrays}}
+		// {{iconv .Comment}}
+		uint32_t u{{.Name}}Id[{{.Top}}] = {0};
+		uint32_t u{{.Name}}Val[{{.Top}}] = {0};
+		SortArray(m_{{.Name}}, {{.Length}}, u{{.Name}}Id, u{{.Name}}Val, {{.Top}}, {{if .Cmp}}false{{else}}true{{end}});
+		{{end}}
+		{{range .HashMaps}}
+		// {{iconv .Comment}}
+		uint32_t u{{.Name}}Id[{{.Top}}] = {0};
+		uint32_t u{{.Name}}Val[{{.Top}}] = {0};
+		SortHashMap< fhashmap<uint32_t, uint32_t, {{.Length}}> >(m_{{.Name}}, u{{.Name}}Id, u{{.Name}}Val, {{.Top}}, {{if .Cmp}}false{{else}}true{{end}});
+		{{end}}
+		
+		fprintf(pLog, "=============================%s=============================\n"
+			{{range .Members}}
+			// {{iconv .Comment}}
+			"{{.Name}}\t%u\t{{iconv .Comment}}\n"
+			{{end}}
+			{{range .Arrays}}{{$comment := iconv .Comment}}{{$name := iconv .Name}}
+			{{range $i,$e := genlist .Length}}
+			// {{$comment}} {{$i}}
+			"{{$name}}{{$i}}\t%u\t{{$comment}}{{$i}}\n"
+			{{end}}
+			{{end}}
+			{{range .TopArrays}}{{$comment := iconv .Comment}}{{$name := iconv .Name}}
+			{{range $i,$e := genlist .Top}}
+			// {{$comment}} {{$i}}
+			"{{$name}}Id{{$i}}\t%u\t{{$comment}}Id{{$i}}\n{{$name}}Val{{$i}}\t%u\t{{$comment}}Val{{$i}}\n"
+			{{end}}
+			{{end}}
+			{{range .HashMaps}}{{$comment := iconv .Comment}}{{$name := iconv .Name}}
+			{{range $i,$e := genlist .Top}}
+			// {{$comment}} {{$i}}
+			"{{$name}}Id{{$i}}\t%u\t{{$comment}}Id{{$i}}\n{{$name}}Val{{$i}}\t%u\t{{$comment}}Val{{$i}}\n"
+			{{end}}
+			{{end}}
+			"\n"
+			
+			, (const char *)fclock::ptr()->nowstr()
+			{{range .Members}}
+			// {{iconv .Comment}}
+			, m_{{.Name}}
+			{{end}}
+			{{range .Arrays}}{{$comment := iconv .Comment}}{{$name := .Name}}
+			{{range $i,$e := genlist .Length}}
+			// {{$comment}} {{$i}}
+			, m_{{$name}}[{{$i}}]
+			{{end}}
+			{{end}}
+			{{range .TopArrays}}{{$comment := iconv .Comment}}{{$name := .Name}}
+			{{range $i,$e := genlist .Top}}
+			// {{$comment}} {{$i}}
+			, u{{$name}}Id[{{$i}}], u{{$name}}Val[{{$i}}]
+			{{end}}
+			{{end}}
+			{{range .HashMaps}}{{$comment := iconv .Comment}}{{$name := .Name}}
+			{{range $i,$e := genlist .Top}}
+			// {{$comment}} {{$i}}
+			, u{{$name}}Id[{{$i}}], u{{$name}}Val[{{$i}}]
+			{{end}}
+			{{end}}
+			);
+			
+		fclose(pLog);
+		
+		Clear();
+
+		return 0;
+	}
     
 // 属性操作函数
 public:
@@ -85,7 +263,7 @@ public:
 	// Set {{iconv .Comment}}
     void Set{{.Name}}(uint32_t index, uint32_t _{{.Name}})
     {
-		CHashMap<{{.Length}}, uint32_t, uint32_t>::iterator it = m_{{.Name}}.find(index);
+		fhashmap<uint32_t, uint32_t, {{.Length}}>::iterator it = m_{{.Name}}.find(index);
         if (it == m_{{.Name}}.end())
         {
             m_{{.Name}}.insert(index, _{{.Name}});
@@ -100,7 +278,7 @@ public:
     // Add {{iconv .Comment}}
     void Add{{.Name}}(uint32_t index, uint32_t _{{.Name}} = 1)
     {
-        CHashMap<{{.Length}}, uint32_t, uint32_t>::iterator it = m_{{.Name}}.find(index);
+        fhashmap<uint32_t, uint32_t, {{.Length}}>::iterator it = m_{{.Name}}.find(index);
         if (it == m_{{.Name}}.end())
         {
             m_{{.Name}}.insert(index, _{{.Name}});
@@ -115,7 +293,25 @@ public:
     
 // 内部函数
 private:
-    void Clear();
+    void Clear()
+	{
+		{{range .Members}}
+		// {{iconv .Comment}}
+		m_{{.Name}} = 0;
+		{{end}}
+		{{range .Arrays}}
+		// {{iconv .Comment}}
+		memset(m_{{.Name}}, 0, sizeof(m_{{.Name}}));
+		{{end}}
+		{{range .TopArrays}}
+		// {{iconv .Comment}}
+		memset(m_{{.Name}}, 0, sizeof(m_{{.Name}}));
+		{{end}}
+		{{range .HashMaps}}
+		// {{iconv .Comment}}
+		m_{{.Name}}.clear();
+		{{end}}
+	}
 
 // 属性
 private:
@@ -133,7 +329,7 @@ private:
     {{end}}    
     {{range .HashMaps}}
     // {{iconv .Comment}}
-    CHashMap<{{.Length}}, uint32_t, uint32_t> m_{{.Name}};
+    fhashmap<uint32_t, uint32_t, {{.Length}}> m_{{.Name}};
     {{end}}    
 };
 {{end}}

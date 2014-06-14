@@ -2,6 +2,7 @@
 
 #include "../tools/genxml/code.h"
 #include "../tools/gencfg/SampleCfgLoader.h"
+#include "../tools/genstat/StatMng.h"
 
 class xmlapp : public mainapp
 {
