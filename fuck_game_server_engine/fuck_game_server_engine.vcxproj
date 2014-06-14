@@ -120,6 +120,10 @@
     <ClCompile Include="lzo\lzo_str.c" />
     <ClCompile Include="lzo\lzo_util.c" />
     <ClCompile Include="profile.cpp" />
+    <ClCompile Include="tinyxml\tinystr.cpp" />
+    <ClCompile Include="tinyxml\tinyxml.cpp" />
+    <ClCompile Include="tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="tinyxml\tinyxmlparser.cpp" />
     <ClCompile Include="zlib\adler32.c" />
     <ClCompile Include="zlib\compress.c" />
     <ClCompile Include="zlib\crc32.c" />
@@ -166,6 +170,7 @@
     <ClInclude Include="factory.h" />
     <ClInclude Include="farray.h" />
     <ClInclude Include="fclock.h" />
+    <ClInclude Include="fconv.h" />
     <ClInclude Include="fdebug.h" />
     <ClInclude Include="fenum.h" />
     <ClInclude Include="fhash.h" />
@@ -323,6 +328,8 @@
     <ClInclude Include="thread_lock.h" />
     <ClInclude Include="thread_tls.h" />
     <ClInclude Include="thread_util.h" />
+    <ClInclude Include="tinyxml\tinystr.h" />
+    <ClInclude Include="tinyxml\tinyxml.h" />
     <ClInclude Include="type.h" />
     <ClInclude Include="zlib\crc32.h" />
     <ClInclude Include="zlib\deflate.h" />

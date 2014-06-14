@@ -131,3 +131,4 @@
 2014.6.7：加genmsg，下一步加genxml
 2014.6.12：加tinyxml
 2014.6.13：加gencfg、genstat
+2014.6.14：移植gencfg、genstat

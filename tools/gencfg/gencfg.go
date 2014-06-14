@@ -53,10 +53,6 @@ func main() {
 		return
 	}
 
-	if !output("CfgLoader_cpp.tpl", desFile+"CfgLoader.cpp") {
-		return
-	}
-
 	fmt.Println("OK")
 }
 
@@ -81,6 +77,8 @@ func parse(filename string) bool {
 		line = strings.Trim(line, "\n")
 		line = strings.Trim(line, "\r")
 		line = strings.TrimLeft(line, " ")
+		line = strings.TrimRight(line, ";")
+		line = strings.TrimRight(line, "#")
 		if len(line) == 0 {
 			continue
 		}

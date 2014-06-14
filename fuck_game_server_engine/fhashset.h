@@ -4,7 +4,7 @@ template <typename T, uint32_t N, typename HashFunc = fhash< T >, typename CmpFu
 class fhashset
 {
 public:
-    static const uint32_t SIZE = fhashersize<53ul, N>::SIZE;
+    static const uint32_t SIZE = fhashersize<3ul, N>::SIZE;
 public:
 	typedef fhashset<T, N, HashFunc, CmpFunc> MyType;
 	typedef T Value;

@@ -41,6 +41,8 @@ public:
 public:
 	force_inline bool load(const stringc & file)
 	{
+		clear();
+
 		stringbuf buff;
 		if (!open(file, buff))
 		{
@@ -60,9 +62,21 @@ public:
 		stringc tmp;
 		if (get(sec, key, tmp))
 		{
-			value = atoi(tmp.c_str());
+			value = fatoi(tmp);
 			return true;
 		}
+		return false;
+	}
+	force_inline bool get(const stringc & sec, const stringc & key, 
+		int32_t & value, int32_t defaultvalue)
+	{
+		stringc tmp;
+		if (get(sec, key, tmp))
+		{
+			value = fatoi(tmp);
+			return true;
+		}
+		value = defaultvalue;
 		return false;
 	}
 	force_inline bool get(const stringc & sec, const stringc & key, 
@@ -79,6 +93,23 @@ public:
 				return true;
 			}
 		}
+		return false;
+	}
+	force_inline bool get(const stringc & sec, const stringc & key, 
+		stringc & value, const stringc & defaultvalue)
+	{
+		typename _secMap::iterator it = m_map.find(sec);
+		if (it != m_map.end())
+		{
+			_valueMap & map = it->second;
+			typename _valueMap::iterator itex = map.find(key);
+			if (itex != map.end())
+			{
+				value = itex->second;
+				return true;
+			}
+		}
+		value = defaultvalue;
 		return false;
 	}
 	force_inline void clear()

@@ -23,7 +23,7 @@ public:
 		stringc tmp;
 		if (get(key, tmp))
 		{
-			value = atoi((const char *)tmp.c_str());
+			value = fatoi(tmp);
 			return true;
 		}
 		return false;

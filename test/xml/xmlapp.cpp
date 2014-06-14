@@ -26,11 +26,14 @@ bool xmlapp::heartbeat()
         FPRINTF("Enum %s", ((TiXmlElement *)pEnum)->Attribute("name"));
     }
 
-    CResultLoader loader;
+	CResultLoader loader;
     bool ret = loader.LoadCfg("../tools/genxml/sample.xml");
     FPRINTF("type %s", (const char *)loader.GetResult().m_vecSTStruct[0].m_vecSTMember[0].m_strtype.c_str());
     FUSE(ret);
-    
+
+	CSampleCfgLoader cfgloader;
+	ret = cfgloader.LoadCfg("../tools/gencfg/sample.cfg");
+	
 	return true;
 }
 

@@ -96,6 +96,7 @@
     <ClCompile Include="mysql\mysqlapp.cpp" />
     <ClCompile Include="server\serverapp.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="xml\xmlapp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\tools\genmsg\Struct.h" />
@@ -109,6 +110,7 @@
     <ClInclude Include="mysql\mysqlapp.h" />
     <ClInclude Include="server\serverapp.h" />
     <ClInclude Include="test.h" />
+    <ClInclude Include="xml\xmlapp.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

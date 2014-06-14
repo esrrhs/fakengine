@@ -1,5 +1,6 @@
 #pragma once
 
+#include "fconv.h"
 #include "fengine.h"
 #include "fdouble.h"
 #include "fdebug.h"

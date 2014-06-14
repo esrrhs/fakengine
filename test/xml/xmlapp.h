@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../tools/genxml/code.h"
+#include "../tools/gencfg/SampleCfgLoader.h"
 
 class xmlapp : public mainapp
 {
