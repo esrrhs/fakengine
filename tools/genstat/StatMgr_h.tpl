@@ -3,11 +3,6 @@
 
 #pragma once
 
-#include "Define.h"
-#include <string>
-
-namespace PROJ_NS
-{
 {{range .}}  
 // {{iconv .Comment}}
 class C{{.Name}}Mgr : public Singleton<C{{.Name}}Mgr>
@@ -142,5 +137,3 @@ private:
     {{end}}    
 };
 {{end}}
-
-}

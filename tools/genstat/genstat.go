@@ -58,11 +58,7 @@ func main() {
 		return
 	}
 
-	if !output("StatMgr_h.tpl", "../../libs/common/StatMgr.h") {
-		return
-	}
-
-	if !output("StatMgr_cpp.tpl", "../../libs/common/StatMgr.cpp") {
+	if !output("StatMgr_h.tpl", "StatMng.h") {
 		return
 	}
 

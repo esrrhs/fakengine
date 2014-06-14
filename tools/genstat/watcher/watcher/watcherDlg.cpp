@@ -70,19 +70,19 @@ BOOL CwatcherDlg::OnInitDialog()
 	//用户数据名
 	LVCOLUMN lc;
 	lc.mask = LVCF_WIDTH | LVCF_FMT | LVCF_TEXT | LVCF_SUBITEM;
-	lc.cx = 200;
+	lc.cx = 100;
 	lc.fmt = LVCFMT_RIGHT;
 	lc.pszText = "项目";
 	lc.iSubItem = 0;
 	m_ctlListUser.InsertColumn(0, &lc);
 	//用户数据值
-	lc.cx = 100;
+	lc.cx = 50;
 	lc.fmt = LVCFMT_LEFT;
 	lc.pszText = "值";
 	lc.iSubItem = 1;
 	m_ctlListUser.InsertColumn(1, &lc);
 	//用户注释
-	lc.cx = 200;
+	lc.cx = 100;
 	lc.fmt = LVCFMT_LEFT;
 	lc.pszText = "注释";
 	lc.iSubItem = 2;
