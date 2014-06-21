@@ -611,6 +611,12 @@
     <ClInclude Include="fmd5.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="fcrc32.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="fsha1.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

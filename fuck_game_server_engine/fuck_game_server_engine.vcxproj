@@ -173,6 +173,7 @@
     <ClInclude Include="farray.h" />
     <ClInclude Include="fclock.h" />
     <ClInclude Include="fconv.h" />
+    <ClInclude Include="fcrc32.h" />
     <ClInclude Include="fdebug.h" />
     <ClInclude Include="fenum.h" />
     <ClInclude Include="fhash.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="fmath.h" />
     <ClInclude Include="fmd5.h" />
     <ClInclude Include="fpool.h" />
+    <ClInclude Include="fsha1.h" />
     <ClInclude Include="fsort.h" />
     <ClInclude Include="fstack.h" />
     <ClInclude Include="ftrie.h" />

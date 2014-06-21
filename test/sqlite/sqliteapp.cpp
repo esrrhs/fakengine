@@ -13,6 +13,9 @@ bool sqliteapp::heartbeat()
 	stringc bb = fitoa16(a);
 	stringc tmp = fmd5(bb.c_str(), bb.size());
 
+	uint32_t cc32 = fcrc32(bb.c_str(), bb.size());
+	stringc sha1 = fsha1(bb.c_str(), bb.size());
+
 	sqlite3 * handle = 0;
 	int ret = sqlite3_open("test.db", &handle);
 	sqlite3_stmt *stmt;

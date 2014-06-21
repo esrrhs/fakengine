@@ -98,5 +98,17 @@
 template <typename T>
 void FUSE(T t) {}
 
+#define F_LITTLE_ENDIAN   1234 /* byte 0 is least significant (i386) */
+#define F_BIG_ENDIAN      4321 /* byte 0 is most significant (mc68k) */
+
+#if (('1234' >> 24) == '1')
+#  define FPLATFORM_BYTE_ORDER F_LITTLE_ENDIAN
+#elif (('4321' >> 24) == '1')
+#  define FPLATFORM_BYTE_ORDER F_BIG_ENDIAN
+#endif
+
+#if !defined(FPLATFORM_BYTE_ORDER)
+#  error Please set undetermined byte order.
+#endif
 
 
