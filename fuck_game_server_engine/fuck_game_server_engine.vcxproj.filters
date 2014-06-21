@@ -96,76 +96,76 @@
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="lua_tinker.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lapi.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lauxlib.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lcode.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\ldebug.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\ldo.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lfunc.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lgc.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\llex.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\llimits.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lmem.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lobject.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lopcodes.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lparser.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lstate.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lstring.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\ltable.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\ltm.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lua.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\luaconf.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lualib.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lundump.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lvm.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lzio.h">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClInclude>
     <ClInclude Include="neteventprocessor.h">
       <Filter>net</Filter>
@@ -177,142 +177,142 @@
       <Filter>file</Filter>
     </ClInclude>
     <ClInclude Include="zlib\crc32.h">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClInclude>
     <ClInclude Include="zlib\deflate.h">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClInclude>
     <ClInclude Include="zlib\gzguts.h">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClInclude>
     <ClInclude Include="zlib\inffast.h">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClInclude>
     <ClInclude Include="zlib\inffixed.h">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClInclude>
     <ClInclude Include="zlib\inflate.h">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClInclude>
     <ClInclude Include="zlib\inftrees.h">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClInclude>
     <ClInclude Include="zlib\trees.h">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClInclude>
     <ClInclude Include="zlib\zconf.h">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClInclude>
     <ClInclude Include="zlib\zlib.h">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClInclude>
     <ClInclude Include="zlib\zutil.h">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzo_asm.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzo1.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzo1a.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzo1b.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzo1c.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzo1f.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzo1x.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzo1y.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzo1z.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzo2a.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzoconf.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzodefs.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo\lzoutil.h">
-      <Filter>lzo\lzo</Filter>
+      <Filter>third\lzo\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\compr1b.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\compr1c.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\config1.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\config1a.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\config1b.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\config1c.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\config1f.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\config1x.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\config1y.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\config1z.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\config2a.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo_conf.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo_dict.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo_ptr.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo1a_de.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo1b_cc.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo1b_de.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\lzo1c_cc.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\miniacc.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\stats1a.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\stats1b.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="lzo\stats1c.h">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClInclude>
     <ClInclude Include="fdouble.h">
       <Filter>common</Filter>
@@ -324,208 +324,208 @@
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="mysql\decimal.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\errmsg.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\keycache.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\m_ctype.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\m_string.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_alloc.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_attribute.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_compiler.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_config.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_dbug.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_dir.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_getopt.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_global.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_list.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_net.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_pthread.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_sys.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\my_xml.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql_com.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql_embed.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql_time.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql_version.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysqld_ername.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysqld_error.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\plugin.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\plugin_audit.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\plugin_ftparser.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\sql_common.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\sql_state.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\sslopt-case.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\sslopt-longopts.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\sslopt-vars.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\typelib.h">
-      <Filter>mysql</Filter>
+      <Filter>third\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\client_plugin.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\innodb_priv.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\plugin.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\plugin_audit.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\plugin_auth.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\plugin_auth_common.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\plugin_ftparser.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\service_my_snprintf.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\service_thd_alloc.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\service_thd_wait.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\service_thread_scheduler.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\services.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\thread_pool_priv.h">
-      <Filter>mysql\mysql</Filter>
+      <Filter>third\mysql\mysql</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\psi\mysql_file.h">
-      <Filter>mysql\mysql\psi</Filter>
+      <Filter>third\mysql\mysql\psi</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\psi\mysql_thread.h">
-      <Filter>mysql\mysql\psi</Filter>
+      <Filter>third\mysql\mysql\psi</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\psi\psi.h">
-      <Filter>mysql\mysql\psi</Filter>
+      <Filter>third\mysql\mysql\psi</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\psi\psi_abi_v1.h">
-      <Filter>mysql\mysql\psi</Filter>
+      <Filter>third\mysql\mysql\psi</Filter>
     </ClInclude>
     <ClInclude Include="mysql\mysql\psi\psi_abi_v2.h">
-      <Filter>mysql\mysql\psi</Filter>
+      <Filter>third\mysql\mysql\psi</Filter>
     </ClInclude>
     <ClInclude Include="global.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="expat\amigaconfig.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\ascii.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\asciitab.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\expat.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\expat_external.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\iasciitab.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\internal.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\latin1tab.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\macconfig.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\nametab.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\utf8tab.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\winconfig.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\xmlrole.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\xmltok.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="expat\xmltok_impl.h">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClInclude>
     <ClInclude Include="fenum.h">
       <Filter>common</Filter>
@@ -594,13 +594,19 @@
       <Filter>net</Filter>
     </ClInclude>
     <ClInclude Include="tinyxml\tinystr.h">
-      <Filter>tinyxml</Filter>
+      <Filter>third\tinyxml</Filter>
     </ClInclude>
     <ClInclude Include="tinyxml\tinyxml.h">
-      <Filter>tinyxml</Filter>
+      <Filter>third\tinyxml</Filter>
     </ClInclude>
     <ClInclude Include="fconv.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite\sqlite3.h">
+      <Filter>third\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite\sqlite3ext.h">
+      <Filter>third\sqlite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -613,32 +619,8 @@
     <Filter Include="thread">
       <UniqueIdentifier>{6c802360-f591-469f-83cf-42ce5577dfae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lua">
-      <UniqueIdentifier>{b8823093-ffe6-4022-8e02-170413afc870}</UniqueIdentifier>
-    </Filter>
     <Filter Include="file">
       <UniqueIdentifier>{f41a0a82-64a1-458a-92a3-210811485fa4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="zlib">
-      <UniqueIdentifier>{c4d71e75-5b80-4436-bd13-5e378c6274c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lzo">
-      <UniqueIdentifier>{772ac0e7-9428-407d-8bd3-952ff8809bc3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lzo\lzo">
-      <UniqueIdentifier>{af3f5648-6b8b-474f-8db1-1c5e54231eeb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="mysql">
-      <UniqueIdentifier>{59fb43a8-625b-4a7f-99ab-a239cbc62939}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="mysql\mysql">
-      <UniqueIdentifier>{9a58ac98-8816-40d4-8414-d9ec3097e2f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="mysql\mysql\psi">
-      <UniqueIdentifier>{dfafb1f1-94d9-46f8-b3ea-e77afb64fe62}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="expat">
-      <UniqueIdentifier>{12c7b8fe-612c-4162-851e-4a29c6f29776}</UniqueIdentifier>
     </Filter>
     <Filter Include="profile">
       <UniqueIdentifier>{26425234-8882-4fbf-aa66-fbba96fb85a8}</UniqueIdentifier>
@@ -646,355 +628,385 @@
     <Filter Include="base">
       <UniqueIdentifier>{138bea86-a4e1-4c85-a611-b84e40413044}</UniqueIdentifier>
     </Filter>
-    <Filter Include="tinyxml">
+    <Filter Include="third">
+      <UniqueIdentifier>{5c6ea26b-ea79-4950-986d-b6f89c977e85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third\mysql">
+      <UniqueIdentifier>{59fb43a8-625b-4a7f-99ab-a239cbc62939}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third\mysql\mysql">
+      <UniqueIdentifier>{9a58ac98-8816-40d4-8414-d9ec3097e2f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third\mysql\mysql\psi">
+      <UniqueIdentifier>{dfafb1f1-94d9-46f8-b3ea-e77afb64fe62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third\lzo">
+      <UniqueIdentifier>{772ac0e7-9428-407d-8bd3-952ff8809bc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third\lzo\lzo">
+      <UniqueIdentifier>{af3f5648-6b8b-474f-8db1-1c5e54231eeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third\lua">
+      <UniqueIdentifier>{b8823093-ffe6-4022-8e02-170413afc870}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third\expat">
+      <UniqueIdentifier>{12c7b8fe-612c-4162-851e-4a29c6f29776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third\sqlite">
+      <UniqueIdentifier>{fc18ac85-fdd9-4f1c-8569-c734730d7e5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third\zlib">
+      <UniqueIdentifier>{c4d71e75-5b80-4436-bd13-5e378c6274c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third\tinyxml">
       <UniqueIdentifier>{e61b7116-7d67-4918-acde-c1bed9169853}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lua_tinker.cpp">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lapi.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lauxlib.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lbaselib.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lcode.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\ldblib.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\ldebug.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\ldo.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\ldump.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lfunc.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lgc.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\linit.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\liolib.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\llex.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lmathlib.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lmem.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\loadlib.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lobject.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lopcodes.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\loslib.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lparser.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lstate.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lstring.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lstrlib.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\ltable.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\ltablib.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\ltm.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lua.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\luac.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lundump.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lvm.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\lzio.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="lua\print.c">
-      <Filter>lua</Filter>
+      <Filter>third\lua</Filter>
     </ClCompile>
     <ClCompile Include="zlib\adler32.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\compress.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\crc32.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\deflate.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\gzclose.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\gzlib.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\gzread.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\gzwrite.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\infback.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\inffast.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\inflate.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\inftrees.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\trees.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\uncompr.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="zlib\zutil.c">
-      <Filter>zlib</Filter>
+      <Filter>third\zlib</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo_crc.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo_init.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo_ptr.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo_str.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo_util.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1_99.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1a.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1a_99.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_2.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_3.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_4.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_5.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_6.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_7.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_8.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_9.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_9x.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_99.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_cc.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_d1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_d2.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_rr.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1b_xx.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_2.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_3.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_4.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_5.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_6.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_7.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_8.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_9.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_9x.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_99.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_cc.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_d1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_d2.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_rr.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1c_xx.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1f_1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1f_9x.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1f_d1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1f_d2.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1x_1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1x_1k.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1x_1l.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1x_1o.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1x_9x.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1x_d1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1x_d2.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1x_d3.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1x_o.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1y_1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1y_9x.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1y_d1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1y_d2.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1y_d3.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1y_o.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1z_9x.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1z_d1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1z_d2.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo1z_d3.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo2a_9x.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo2a_d1.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="lzo\lzo2a_d2.c">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </ClCompile>
     <ClCompile Include="fengine.cpp">
       <Filter>common</Filter>
@@ -1006,96 +1018,102 @@
       <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="expat\xmlparse.c">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClCompile>
     <ClCompile Include="expat\xmlrole.c">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClCompile>
     <ClCompile Include="expat\xmltok.c">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClCompile>
     <ClCompile Include="expat\xmltok_impl.c">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClCompile>
     <ClCompile Include="expat\xmltok_ns.c">
-      <Filter>expat</Filter>
+      <Filter>third\expat</Filter>
     </ClCompile>
     <ClCompile Include="profile.cpp">
       <Filter>profile</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinystr.cpp">
-      <Filter>tinyxml</Filter>
+      <Filter>third\tinyxml</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxml.cpp">
-      <Filter>tinyxml</Filter>
+      <Filter>third\tinyxml</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxmlerror.cpp">
-      <Filter>tinyxml</Filter>
+      <Filter>third\tinyxml</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxmlparser.cpp">
-      <Filter>tinyxml</Filter>
+      <Filter>third\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite\shell.c">
+      <Filter>third\sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite\sqlite3.c">
+      <Filter>third\sqlite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lzo\lzo_dll.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo_func.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo_mchw.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo_swd.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1_cm.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1_d.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1a_cm.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1a_cr.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1b_c.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1b_cm.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1b_cr.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1b_d.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1b_r.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1b_sm.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1b_tm.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1f_d.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1x_c.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1x_d.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo1x_oo.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
     <None Include="lzo\lzo2a_d.ch">
-      <Filter>lzo</Filter>
+      <Filter>third\lzo</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

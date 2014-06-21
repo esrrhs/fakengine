@@ -95,6 +95,7 @@
     <ClCompile Include="inifile\inifileapp.cpp" />
     <ClCompile Include="mysql\mysqlapp.cpp" />
     <ClCompile Include="server\serverapp.cpp" />
+    <ClCompile Include="sqlite\sqliteapp.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="xml\xmlapp.cpp" />
   </ItemGroup>
@@ -109,6 +110,7 @@
     <ClInclude Include="inifile\inifileapp.h" />
     <ClInclude Include="mysql\mysqlapp.h" />
     <ClInclude Include="server\serverapp.h" />
+    <ClInclude Include="sqlite\sqliteapp.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="xml\xmlapp.h" />
   </ItemGroup>

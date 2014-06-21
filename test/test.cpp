@@ -10,6 +10,7 @@
 #include "./fstring/fstringapp.h"
 #include "./fpool/fpoolapp.h"
 #include "./xml/xmlapp.h"
+#include "./sqlite/sqliteapp.h"
 
 char g_msg_buffer[MAX_MSG_SIZE];
 Protocol::NetMsg g_netmsg;
@@ -30,6 +31,7 @@ int main(int argc, char *argv[])
 	REG(fstringapp);
 	REG(fpoolapp);
 	REG(xmlapp);
+	REG(sqliteapp);
 	
 	if (argc <= 1)
 	{

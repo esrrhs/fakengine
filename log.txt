@@ -132,3 +132,4 @@
 2014.6.12：加tinyxml
 2014.6.13：加gencfg、genstat
 2014.6.14：移植gencfg、genstat
+2014.6.21：加sqlite

@@ -120,6 +120,8 @@
     <ClCompile Include="lzo\lzo_str.c" />
     <ClCompile Include="lzo\lzo_util.c" />
     <ClCompile Include="profile.cpp" />
+    <ClCompile Include="sqlite\shell.c" />
+    <ClCompile Include="sqlite\sqlite3.c" />
     <ClCompile Include="tinyxml\tinystr.cpp" />
     <ClCompile Include="tinyxml\tinyxml.cpp" />
     <ClCompile Include="tinyxml\tinyxmlerror.cpp" />
@@ -319,6 +321,8 @@
     <ClInclude Include="singleton.h" />
     <ClInclude Include="slot.h" />
     <ClInclude Include="socket_container.h" />
+    <ClInclude Include="sqlite\sqlite3.h" />
+    <ClInclude Include="sqlite\sqlite3ext.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="netlink.h" />
     <ClInclude Include="netserver.h" />

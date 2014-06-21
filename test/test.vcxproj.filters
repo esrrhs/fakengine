@@ -30,6 +30,7 @@
       <Filter>fpool</Filter>
     </ClCompile>
     <ClCompile Include="xml\xmlapp.cpp" />
+    <ClCompile Include="sqlite\sqliteapp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h" />
@@ -62,6 +63,7 @@
     </ClInclude>
     <ClInclude Include="..\tools\genmsg\Struct.h" />
     <ClInclude Include="xml\xmlapp.h" />
+    <ClInclude Include="sqlite\sqliteapp.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="hashmap">
