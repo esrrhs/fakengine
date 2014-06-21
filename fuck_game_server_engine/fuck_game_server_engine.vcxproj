@@ -181,6 +181,7 @@
     <ClInclude Include="fiterator.h" />
     <ClInclude Include="flist.h" />
     <ClInclude Include="fmath.h" />
+    <ClInclude Include="fmd5.h" />
     <ClInclude Include="fpool.h" />
     <ClInclude Include="fsort.h" />
     <ClInclude Include="fstack.h" />

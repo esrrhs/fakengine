@@ -608,6 +608,9 @@
     <ClInclude Include="sqlite\sqlite3ext.h">
       <Filter>third\sqlite</Filter>
     </ClInclude>
+    <ClInclude Include="fmd5.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

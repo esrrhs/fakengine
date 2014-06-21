@@ -163,6 +163,47 @@ public:
 		*this = &tmpbuf[idx];
 	}
 
+	// hex
+	force_inline explicit fstring(uint32_t number, uint32_t radix)
+		: used(0), tmpdata(T())
+	{
+		if (radix == 10)
+		{
+			*this = number;
+		}
+		else if (radix == 16)
+		{
+			// temporary buffer for 16 numbers
+
+			uint8_t tmpbuf[16]={0};
+			uint32_t idx = 15;
+
+			// special case '0'
+
+			if (!number)
+			{
+				tmpbuf[14] = '0';
+				*this = &tmpbuf[14];
+				return;
+			}
+
+			// add numbers
+			const uint8_t chars[]="0123456789ABCDEF";
+			while(number && idx)
+			{
+				--idx;
+				tmpbuf[idx] = chars[(number % 16)];
+				number /= 16;
+			}
+
+			*this = &tmpbuf[idx];
+		}
+		else
+		{
+			*this = "fstring not support ";
+			*this += radix;
+		}
+	}
 
 	//! Constructs a fstring from a long
 	force_inline explicit fstring(int64_t number)

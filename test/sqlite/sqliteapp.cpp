@@ -8,6 +8,11 @@ bool sqliteapp::ini( int argc, char *argv[] )
 
 bool sqliteapp::heartbeat()
 {
+	int a = 0xA0F980;
+	stringc aa(a, 16);
+	stringc bb = fitoa16(a);
+	stringc tmp = fmd5(bb.c_str(), bb.size());
+
 	sqlite3 * handle = 0;
 	int ret = sqlite3_open("test.db", &handle);
 	sqlite3_stmt *stmt;
