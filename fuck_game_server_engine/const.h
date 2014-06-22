@@ -26,3 +26,10 @@ const int32_t c_ClockStringBuffer = 128;
 const int32_t c_DefaultStringBuffer = 256;
 
 const int32_t c_IniFileBufferSize = 10240;
+
+const size_t c_falloc_max_size = 100 * 1024;
+const size_t c_falloc_hashstep = 32;
+const size_t c_falloc_hasharray = c_falloc_max_size / c_falloc_hashstep;
+const int32_t c_falloc_magic_head = 0xDEADBEEF;
+const int32_t c_falloc_magic_tail = 0xBADDDADD;
+

@@ -1023,9 +1023,6 @@
     <ClCompile Include="global.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="calloc.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
     <ClCompile Include="expat\xmlparse.c">
       <Filter>third\expat</Filter>
     </ClCompile>
