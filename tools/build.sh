@@ -5,4 +5,4 @@ find ./ -name CMakeFiles | xargs rm -r
 
 cmake .
 make clean
-make
+make -j8
