@@ -5,28 +5,28 @@
 #define SHA2_GOOD         0
 #define SHA2_BAD          1
 
-#define rotl32(x,n) (((x) << n) | ((x) >> (32 - n)))
+#define sha1_rotl32(x,n) (((x) << n) | ((x) >> (32 - n)))
 
 #if (FPLATFORM_BYTE_ORDER == F_BIG_ENDIAN)
-#define swap_b32(x) (x)
+#define sha1_swap_b32(x) (x)
 #else
-#define swap_b32(x) ((rotl32((x), 8) & 0x00ff00ff) | (rotl32((x), 24) & 0xff00ff00))
+#define sha1_swap_b32(x) ((sha1_rotl32((x), 8) & 0x00ff00ff) | (sha1_rotl32((x), 24) & 0xff00ff00))
 #endif
 
 #define SHA1_MASK   (SHA1_BLOCK_SIZE - 1)
 
 /* reverse byte order in 32-bit words   */
 
-#define ch(x,y,z)       (((x) & (y)) ^ (~(x) & (z)))
-#define parity(x,y,z)   ((x) ^ (y) ^ (z))
-#define maj(x,y,z)      (((x) & (y)) ^ ((x) & (z)) ^ ((y) & (z)))
+#define sha1_ch(x,y,z)       (((x) & (y)) ^ (~(x) & (z)))
+#define sha1_parity(x,y,z)   ((x) ^ (y) ^ (z))
+#define sha1_maj(x,y,z)      (((x) & (y)) ^ ((x) & (z)) ^ ((y) & (z)))
 
 /* A normal version as set out in the FIPS. This version uses   */
 /* partial loop unrolling and is optimised for the Pentium 4    */
 
-#define rnd(f,k)    \
-    t = a; a = rotl32(a,5) + f(b,c,d) + e + k + w[i]; \
-    e = d; d = c; c = rotl32(b, 30); b = t
+#define sha1_rnd(f,k)    \
+    t = a; a = sha1_rotl32(a,5) + f(b,c,d) + e + k + w[i]; \
+    e = d; d = c; c = sha1_rotl32(b, 30); b = t
 
 #define sha1_compile()\
 {   \
@@ -36,10 +36,10 @@
     /* words in big-endian order so an order reversal is needed */\
     /* here on little endian machines                           */\
     for(i = 0; i < SHA1_BLOCK_SIZE / 4; ++i)\
-        w[i] = swap_b32(ctx_wbuf[i]);\
+        w[i] = sha1_swap_b32(ctx_wbuf[i]);\
 		\
     for(i = SHA1_BLOCK_SIZE / 4; i < 80; ++i)\
-        w[i] = rotl32(w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16], 1);\
+        w[i] = sha1_rotl32(w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16], 1);\
 		\
     a = ctx_hash[0];\
     b = ctx_hash[1];\
@@ -49,22 +49,22 @@
 	\
     for(i = 0; i < 20; ++i)\
     {\
-        rnd(ch, 0x5a827999);  \
+        sha1_rnd(sha1_ch, 0x5a827999);  \
     }\
 		\
     for(i = 20; i < 40; ++i)\
     {\
-        rnd(parity, 0x6ed9eba1);\
+        sha1_rnd(sha1_parity, 0x6ed9eba1);\
     }\
 	\
     for(i = 40; i < 60; ++i)\
     {\
-        rnd(maj, 0x8f1bbcdc);\
+        sha1_rnd(sha1_maj, 0x8f1bbcdc);\
     }\
 	\
     for(i = 60; i < 80; ++i)\
     {\
-        rnd(parity, 0xca62c1d6);\
+        sha1_rnd(sha1_parity, 0xca62c1d6);\
     }\
 	\
     ctx_hash[0] += a; \
@@ -109,29 +109,31 @@
 /* SHA1 final padding and digest calculation  */
 
 #if (FPLATFORM_BYTE_ORDER == F_LITTLE_ENDIAN)
-static const uint32_t  mask[4] = 
+static const uint32_t  sha1_mask[4] = 
 	{   0x00000000, 0x000000ff, 0x0000ffff, 0x00ffffff };
-static const uint32_t  bits[4] = 
+static const uint32_t  sha1_bits[4] = 
 	{   0x00000080, 0x00008000, 0x00800000, 0x80000000 };
-#else
-static const uint32_t  mask[4] = 
+#elif (FPLATFORM_BYTE_ORDER == F_BIG_ENDIAN)
+static const uint32_t  sha1_mask[4] = 
 	{   0x00000000, 0xff000000, 0xffff0000, 0xffffff00 };
-static const uint32_t  bits[4] = 
+static const uint32_t  sha1_bits[4] = 
 	{   0x80000000, 0x00800000, 0x00008000, 0x00000080 };
+#else
+#  error Please set undetermined byte order.
 #endif
 
 #define sha1_end(hval)\
 {   \
 	uint32_t    i = (uint32_t)(ctx_count[0] & SHA1_MASK);\
 	\
-    /* mask out the rest of any partial 32-bit word and then set    */\
+    /* sha1_mask out the rest of any partial 32-bit word and then set    */\
     /* the next byte to 0x80. On big-endian machines any bytes in   */\
     /* the buffer will be at the top end of 32 bit words, on little */\
     /* endian machines they will be at the bottom. Hence the AND    */\
     /* and OR masks above are reversed for little endian systems    */\
 	/* Note that we can always add the first padding byte at this	*/\
 	/* because the buffer always contains at least one empty slot	*/ \
-    ctx_wbuf[i >> 2] = (ctx_wbuf[i >> 2] & mask[i & 3]) | bits[i & 3];\
+    ctx_wbuf[i >> 2] = (ctx_wbuf[i >> 2] & sha1_mask[i & 3]) | sha1_bits[i & 3];\
 	\
     /* we need 9 or more empty positions, one for the padding byte  */\
     /* (above) and eight for the length count.  If there is not     */\
@@ -149,8 +151,8 @@ static const uint32_t  bits[4] =
         ctx_wbuf[i++] = 0;\
     \
     /* assemble the eight byte counter in in big-endian format		*/\
-    ctx_wbuf[14] = swap_b32((ctx_count[1] << 3) | (ctx_count[0] >> 29));\
-    ctx_wbuf[15] = swap_b32(ctx_count[0] << 3);\
+    ctx_wbuf[14] = sha1_swap_b32((ctx_count[1] << 3) | (ctx_count[0] >> 29));\
+    ctx_wbuf[15] = sha1_swap_b32(ctx_count[0] << 3);\
 	\
     sha1_compile();\
 	\

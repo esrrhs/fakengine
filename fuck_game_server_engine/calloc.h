@@ -1,11 +1,11 @@
 #pragma once
 
-extern "C" static force_inline void * sys_alloc(size_t size)
+extern "C" force_inline void * sys_alloc(size_t size)
 {
 	return malloc(size);
 }
 
-extern "C" static force_inline void sys_free(void * p)
+extern "C" force_inline void sys_free(void * p)
 {
 	FASSERT(p);
 	free(p);
@@ -129,7 +129,7 @@ public:
 		for (size_t i = c_falloc_hashstep; i <= c_falloc_max_size; i += c_falloc_hashstep)
 		{
 			int32_t index = 0;
-			for (int j = 0; j < ARRAY_SIZE(g_falloc_align); j++)
+			for (int32_t j = 0; j < (int32_t)ARRAY_SIZE(g_falloc_align); j++)
 			{
 				if (g_falloc_align[j].begin <= i && 
 					i <= g_falloc_align[j].end)
@@ -218,7 +218,7 @@ private:
 	falloc_list m_falloc_list[c_falloc_hasharray];
 };
 
-extern "C" static force_inline void * falloc(size_t size)
+extern "C" force_inline void * falloc(size_t size)
 {
 	if (!g_falloc_instance)
 	{
@@ -229,7 +229,7 @@ extern "C" static force_inline void * falloc(size_t size)
 	return ((falloc_instance*)g_falloc_instance)->falloc(size);
 }
 
-extern "C" static force_inline void ffree(void * p)
+extern "C" force_inline void ffree(void * p)
 {
 	if (!g_falloc_instance)
 	{

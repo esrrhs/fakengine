@@ -247,7 +247,7 @@ static force_inline stringc fmd5(const uint8_t *str, uint32_t len)
 
 	const int32_t MD5STR_LEN = 32;
     uint8_t md5_str[MD5STR_LEN+1];
-    uint8_t hash[16], tmp[3];
+    uint8_t hash[16];
     md5_str[0] = 0;
             
     MD5_init();
