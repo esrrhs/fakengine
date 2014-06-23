@@ -8,6 +8,12 @@ bool xmlapp::ini( int argc, char *argv[] )
 
 bool xmlapp::heartbeat()
 {
+	void * p = falloc(100);
+	ffree(p);
+
+	p = falloc(100*1024 - 12);
+	ffree(p);
+
     TiXmlDocument doc("../tools/genxml/sample.xml");		
     bool loadOkay = doc.LoadFile();		
     if (!loadOkay)		
