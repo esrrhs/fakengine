@@ -126,7 +126,7 @@ public:
 	force_inline falloc_instance()
 	{
 		// ini
-		for (size_t i = c_falloc_hashstep; i <= c_falloc_max_size; i += c_falloc_hashstep)
+		for (size_t i = c_falloc_hashstep; i < c_falloc_max_size; i += c_falloc_hashstep)
 		{
 			int32_t index = 0;
 			for (int32_t j = 0; j < (int32_t)ARRAY_SIZE(g_falloc_align); j++)
@@ -144,6 +144,7 @@ public:
 			m_size_index[i / c_falloc_hashstep] = index;
 			m_falloc_list[index].set_ele(i);
 		}
+		m_size_index[0] = 0;
 	}
 	force_inline ~falloc_instance()
 	{
@@ -172,14 +173,16 @@ public:
 	{
 		size_t realsize = size + sizeof(AllocHead) + sizeof(AllocTail);
 		void * p = NULL;
-		if (realsize > c_falloc_max_size)
+		if (realsize >= c_falloc_max_size)
 		{
-			void * p = sys_alloc(realsize);
+			p = sys_alloc(realsize);
 			SAFE_TEST_RET_VAL(p, NULL, NULL);
 		}
-
-		int32_t index = size_to_index(realsize);
-		m_falloc_list[index].falloc(realsize);
+		else
+		{
+			int32_t index = size_to_index(realsize);
+			p = m_falloc_list[index].falloc(realsize);
+		}
 		
 		AllocHead* head = (AllocHead*)p;
 		head->magic = c_falloc_magic_head;
@@ -204,14 +207,15 @@ public:
 		head->magic = 0;
 		tail->magic = 0;
 
-		if (realsize > c_falloc_max_size)
+		if (realsize >= c_falloc_max_size)
 		{
-			sys_free(p);
-			return;
+			sys_free(head);
 		}
-
-		int32_t index = size_to_index(realsize);
-		m_falloc_list[index].ffree(head);
+		else
+		{
+			int32_t index = size_to_index(realsize);
+			m_falloc_list[index].ffree(head);
+		}
 	}
 private:
 	size_t m_size_index[c_falloc_hasharray];
@@ -231,11 +235,8 @@ extern "C" force_inline void * falloc(size_t size)
 
 extern "C" force_inline void ffree(void * p)
 {
-	if (!g_falloc_instance)
-	{
-		g_falloc_instance = sys_alloc(sizeof(falloc_instance));
-		new (g_falloc_instance) falloc_instance ();
-	}
+	FASSERT(g_falloc_instance);
+	SAFE_TEST_RET(g_falloc_instance, NULL);
 
 	((falloc_instance*)g_falloc_instance)->ffree(p);
 }
