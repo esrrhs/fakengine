@@ -164,7 +164,7 @@ public:
 
 	force_inline int32_t size_to_index(size_t size)
 	{
-		size_t step = size / c_falloc_hashstep;
+		size_t step = (size + c_falloc_hashstep - 1) / c_falloc_hashstep;
 		FASSERT(step < c_falloc_hasharray);
 		return m_size_index[step];
 	}
