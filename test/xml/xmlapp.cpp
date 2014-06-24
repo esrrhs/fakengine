@@ -8,11 +8,19 @@ bool xmlapp::ini( int argc, char *argv[] )
 
 bool xmlapp::heartbeat()
 {
-	void * p = falloc(100);
+	void * p = falloc(20);
+	ffree(p);
+	p = falloc(21);
+	ffree(p);
+	p = falloc(19);
 	ffree(p);
 
-	p = falloc(100*1024 - 12);
-	ffree(p);
+	for (int i = 1; i < 99*1024;i++)
+	{
+		void * p = falloc(i);
+		memset(p, 1, i);
+		ffree(p);
+	}
 
     TiXmlDocument doc("../tools/genxml/sample.xml");		
     bool loadOkay = doc.LoadFile();		
@@ -51,7 +59,7 @@ bool xmlapp::heartbeat()
 	CGameStatMng::ptr()->AddTopCLRecvPacketNum(2, Rand());
 	CGameStatMng::ptr()->AddTopCLRecvPacketNum(3, Rand());
 	CGameStatMng::ptr()->PrintLog("stat.txt");
-
+	
 	return true;
 }
 
