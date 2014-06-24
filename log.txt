@@ -137,3 +137,4 @@
 2014.6.21：加crc32、sha1，从rehash_src复制
 2014.6.22：加alloc内存池
 2014.6.23：fix build
+2014.6.24：修复内存池bug，下一步重载所有的malloc
