@@ -240,3 +240,55 @@ extern "C" force_inline void ffree(void * p)
 
 	((falloc_instance*)g_falloc_instance)->ffree(p);
 }
+
+extern "C" force_inline void * frealloc(void * p, size_t size)
+{
+	if (!g_falloc_instance)
+	{
+		g_falloc_instance = sys_alloc(sizeof(falloc_instance));
+		new (g_falloc_instance) falloc_instance ();
+	}
+	
+	((falloc_instance*)g_falloc_instance)->frealloc(p, size);
+}
+
+extern "C" force_inline void * fmemalign(size_t align, size_t size)
+{
+	if (!g_falloc_instance)
+	{
+		g_falloc_instance = sys_alloc(sizeof(falloc_instance));
+		new (g_falloc_instance) falloc_instance ();
+	}
+	
+	((falloc_instance*)g_falloc_instance)->fmemalign(align, size);
+}
+
+#ifndef WIN32
+extern "C" force_inline void* glibc_override_malloc(size_t size, const void *caller) 
+{
+    return falloc(size);
+}
+extern "C" force_inline void* glibc_override_realloc(void *ptr, size_t size, const void *caller) 
+{
+    return frealloc(ptr, size);
+}
+extern "C" force_inline void glibc_override_free(void *ptr, const void *caller) 
+{
+    ffree(ptr);
+}
+extern "C" force_inline void* glibc_override_memalign(size_t align, size_t size, const void *caller) 
+{
+    return fmemalign(align, size);
+}
+
+void* (* __malloc_hook)(size_t, const void*)
+    = &glibc_override_malloc;
+void* (* __realloc_hook)(void*, size_t, const void*)
+    = &glibc_override_realloc;
+void (* __free_hook)(void*, const void*)
+    = &glibc_override_free;
+void* (* __memalign_hook)(size_t,size_t, const void*)
+    = &glibc_override_memalign;
+    
+#endif
+
