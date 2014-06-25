@@ -10,6 +10,15 @@ bool fengine::ini()
 
 	g_ini = true;
 
+#ifndef WIN32
+#ifdef USE_ALLOC_HOOK
+    __malloc_hook = &glibc_override_malloc;
+    __realloc_hook = &glibc_override_realloc;
+    __free_hook = &glibc_override_free;
+    __memalign_hook = &glibc_override_memalign;
+#endif
+#endif
+
 	flog_system::ptr()->setname((const int8_t*)(m_name + ".log").c_str());
 
 	// logo

@@ -44,6 +44,7 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/epoll.h>
+#include <sys/mman.h>
 #endif
 
 

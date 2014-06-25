@@ -1,7 +1,7 @@
 #pragma once
 
 // alloc∫Í∂®“Â
-#define USE_DEFAULT_ALLOC
+#define USE_FUCK_ALLOC
 
 // assert
 #define USE_DEFAULT_ASSERT
@@ -12,5 +12,7 @@
 // force inline
 #define USE_FORCE_INLINE
 
+// alloc÷ÿ‘ÿ
+//#define USE_ALLOC_HOOK
 
 
