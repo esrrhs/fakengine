@@ -1059,6 +1059,9 @@
     <ClCompile Include="sqlite\sqlite3.c">
       <Filter>third\sqlite</Filter>
     </ClCompile>
+    <ClCompile Include="calloc.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lzo\lzo_dll.ch">

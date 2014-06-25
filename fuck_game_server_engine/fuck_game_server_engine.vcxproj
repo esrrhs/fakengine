@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="calloc.cpp" />
     <ClCompile Include="expat\xmlparse.c" />
     <ClCompile Include="expat\xmlrole.c" />
     <ClCompile Include="expat\xmltok.c" />
