@@ -24,8 +24,11 @@
 #endif
 
 // ·ÖÅä
-#ifdef USE_DEFAULT_ALLOC
-	#define FALLOC(size) sys_alloc(size)
+#ifdef USE_FUCK_ALLOC
+	#define FALLOC(size) falloc(size)
+	#define FFREE(p) ffree(p)
+#else
+    #define FALLOC(size) sys_alloc(size)
 	#define FFREE(p) sys_free(p)
 #endif
 

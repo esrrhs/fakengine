@@ -55,6 +55,10 @@ public:
 		if (empty())
 		{
 			fetch(m_use_num + 1);
+			if (empty())
+			{
+			    return NULL;
+			}
 		}
 
 		void * p = SLL_Pop(&m_list);
@@ -79,6 +83,11 @@ public:
 	{
 		m_ele_size = size;
 	}
+	
+	force_inline size_t get_ele() const
+	{
+		return m_ele_size;
+	}
 
 	force_inline bool empty() const
 	{
@@ -87,12 +96,36 @@ public:
 
 	force_inline void fetch(size_t size)
 	{
+	#ifdef WIN32
 		for (size_t i = 0; i < size; i++)
 		{
 			void * p = sys_alloc(m_ele_size);
+            FASSERT(p);
+			SAFE_TEST_RET(p, NULL);
 			SLL_Push(&m_list, p);
+		    m_free_num++;
 		}
 		m_total_num += size;
+	#else
+	    size_t realsize = ((m_ele_size * size + c_falloc_pagesize - 1) & (~(c_falloc_pagesize - 1)));
+	    realsize = realsize ? realsize : c_falloc_pagesize;
+	    size = realsize / m_ele_size;
+	    
+	    void * p = mmap(NULL, realsize, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
+        if (p == reinterpret_cast<void*>(MAP_FAILED))
+        {
+            FASSERT(0);
+            return;
+        }
+        
+	    for (size_t i = 0; i < size; i++)
+	    {
+			SLL_Push(&m_list, p);
+	        p = (void *)((int8_t*)p + m_ele_size);
+		    m_free_num++;
+	    }
+		m_total_num += size;
+	#endif
 	}
 
 private:
@@ -126,7 +159,7 @@ public:
 	force_inline falloc_instance()
 	{
 		// ini
-		for (size_t i = c_falloc_hashstep; i < c_falloc_max_size; i += c_falloc_hashstep)
+		for (size_t i = 1; i < c_falloc_max_size; i++)
 		{
 			int32_t index = 0;
 			for (int32_t j = 0; j < (int32_t)ARRAY_SIZE(g_falloc_align); j++)
@@ -141,30 +174,42 @@ public:
 				index += (g_falloc_align[j].end - g_falloc_align[j].begin) / 
 					g_falloc_align[j].align;
 			}
+			FASSERT(i / c_falloc_hashstep < c_falloc_hasharray);
 			m_size_index[i / c_falloc_hashstep] = index;
+			FASSERT(index < (int32_t)c_falloc_hasharray);
 			m_falloc_list[index].set_ele(i);
 		}
-		m_size_index[0] = 0;
+
+		// check
+		for (size_t i = 1; i < c_falloc_max_size; i++)
+		{
+		    int32_t index = size_to_index(i);
+		    FASSERT(index < (int32_t)c_falloc_hasharray);
+		    FASSERT(m_falloc_list[index].get_ele() >= i);
+	    }
 	}
 	force_inline ~falloc_instance()
 	{
 
 	}
 
+    #pragma pack(1)
 	struct AllocHead
 	{
-		int32_t magic;
-		int32_t size;
+		uint32_t magic;
+		size_t size;
+		uint32_t offset;
 	};
 
 	struct AllocTail
 	{
-		int32_t magic;
+		uint32_t magic;
 	};
-
+    #pragma pack()
+    
 	force_inline int32_t size_to_index(size_t size)
 	{
-		size_t step = (size + c_falloc_hashstep - 1) / c_falloc_hashstep;
+		size_t step = size / c_falloc_hashstep;
 		FASSERT(step < c_falloc_hasharray);
 		return m_size_index[step];
 	}
@@ -181,12 +226,14 @@ public:
 		else
 		{
 			int32_t index = size_to_index(realsize);
+			FASSERT(index < (int32_t)c_falloc_hasharray);
 			p = m_falloc_list[index].falloc(realsize);
 		}
 		
 		AllocHead* head = (AllocHead*)p;
 		head->magic = c_falloc_magic_head;
 		head->size = realsize;
+		head->offset = sizeof(AllocHead);
 		AllocTail* tail = (AllocTail*)((int8_t*)p + realsize) - 1;
 		tail->magic = c_falloc_magic_tail;
 
@@ -195,7 +242,8 @@ public:
 
 	force_inline void ffree(void * p)
 	{
-		AllocHead* head = (AllocHead*)p - 1;
+	    uint32_t offset = *((uint32_t*)p - 1);
+		AllocHead* head = (AllocHead*)((int8_t*)p - offset);
 		FASSERT(head->magic == c_falloc_magic_head);
 		SAFE_DIFFER_TEST_RET(head->magic, c_falloc_magic_head);
 		size_t realsize = head->size;
@@ -214,53 +262,116 @@ public:
 		else
 		{
 			int32_t index = size_to_index(realsize);
+			FASSERT(index < (int32_t)c_falloc_hasharray);
 			m_falloc_list[index].ffree(head);
 		}
 	}
+
+    force_inline size_t fmemsize(void * p)
+    {
+	    uint32_t offset = *((uint32_t*)p - 1);
+		AllocHead* head = (AllocHead*)((int8_t*)p - offset);
+		FASSERT(head->magic == c_falloc_magic_head);
+		SAFE_DIFFER_TEST_RET_VAL(head->magic, c_falloc_magic_head, 0);
+		size_t realsize = head->size;
+		AllocTail* tail = (AllocTail*)((int8_t*)head + realsize) - 1;
+		FASSERT(tail->magic == c_falloc_magic_tail);
+		SAFE_DIFFER_TEST_RET_VAL(tail->magic, c_falloc_magic_tail, 0);
+
+        return realsize - (sizeof(AllocHead) + sizeof(AllocTail));
+    }
+
+	force_inline void * frealloc(void * p, size_t size)
+	{
+        if (!p)
+        {
+            return falloc(size);
+        }
+        if (!size)
+        {
+            ffree(p);
+            return NULL;
+        }
+
+        size_t oldsize = fmemsize(p);
+        if (oldsize >= size)
+        {
+            return p;
+        }
+        else
+        {
+            void * np = falloc(size);
+            memcpy(np, p, oldsize);
+            ffree(p);
+    	    return np;
+        }
+	}
+
+	force_inline void * fmemalign(size_t align, size_t size)
+	{
+	    size_t realsize = size + align;
+	    void * p = falloc(realsize);
+	    SAFE_TEST_RET_VAL(p, NULL, NULL);
+
+        void * ret = (void *)(((size_t)p + align - 1) & (~(align - 1)));
+	    
+	    uint32_t offset = *((uint32_t*)p - 1);
+		AllocHead* head = (AllocHead*)((int8_t*)p - offset);
+        FASSERT(head->magic == c_falloc_magic_head);
+		SAFE_DIFFER_TEST_RET_VAL(head->magic, c_falloc_magic_head, NULL);
+		
+        uint32_t & newoffset = *((uint32_t*)ret - 1);
+        newoffset = (int8_t*)ret - (int8_t*)head;
+        
+	    return ret;
+	}
+	
 private:
 	size_t m_size_index[c_falloc_hasharray];
 	falloc_list m_falloc_list[c_falloc_hasharray];
 };
 
-extern "C" force_inline void * falloc(size_t size)
+extern "C" force_inline void checkfalloc()
 {
 	if (!g_falloc_instance)
 	{
+#ifdef WIN32
 		g_falloc_instance = sys_alloc(sizeof(falloc_instance));
+#else
+        g_falloc_instance = mmap(NULL, sizeof(falloc_instance), PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
+#endif
 		new (g_falloc_instance) falloc_instance ();
 	}
+}
 
+extern "C" force_inline void * falloc(size_t size)
+{
+    checkfalloc();
 	return ((falloc_instance*)g_falloc_instance)->falloc(size);
 }
 
 extern "C" force_inline void ffree(void * p)
 {
 	FASSERT(g_falloc_instance);
-	SAFE_TEST_RET(g_falloc_instance, NULL);
-
 	((falloc_instance*)g_falloc_instance)->ffree(p);
+}
+
+extern "C" force_inline size_t fmemsize(void * p)
+{
+	FASSERT(g_falloc_instance);
+	return ((falloc_instance*)g_falloc_instance)->fmemsize(p);
 }
 
 extern "C" force_inline void * frealloc(void * p, size_t size)
 {
-	if (!g_falloc_instance)
-	{
-		g_falloc_instance = sys_alloc(sizeof(falloc_instance));
-		new (g_falloc_instance) falloc_instance ();
-	}
-	
-	((falloc_instance*)g_falloc_instance)->frealloc(p, size);
+    checkfalloc();
+	return ((falloc_instance*)g_falloc_instance)->frealloc(p, size);
 }
 
 extern "C" force_inline void * fmemalign(size_t align, size_t size)
 {
-	if (!g_falloc_instance)
-	{
-		g_falloc_instance = sys_alloc(sizeof(falloc_instance));
-		new (g_falloc_instance) falloc_instance ();
-	}
-	
-	((falloc_instance*)g_falloc_instance)->fmemalign(align, size);
+    checkfalloc();
+	return ((falloc_instance*)g_falloc_instance)->fmemalign(align, size);
 }
 
 #ifndef WIN32
@@ -281,14 +392,5 @@ extern "C" force_inline void* glibc_override_memalign(size_t align, size_t size,
     return fmemalign(align, size);
 }
 
-void* (* __malloc_hook)(size_t, const void*)
-    = &glibc_override_malloc;
-void* (* __realloc_hook)(void*, size_t, const void*)
-    = &glibc_override_realloc;
-void (* __free_hook)(void*, const void*)
-    = &glibc_override_free;
-void* (* __memalign_hook)(size_t,size_t, const void*)
-    = &glibc_override_memalign;
-    
 #endif
 
