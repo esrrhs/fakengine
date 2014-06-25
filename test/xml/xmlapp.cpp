@@ -11,11 +11,12 @@ bool xmlapp::heartbeat()
     int * pp = new int;
     delete pp;
 
-    void * p = malloc(10);
-    free(p);
+    void * p1 = malloc(10);
+	p1 = realloc(p1, 123);
+    free(p1);
     
-    p = falloc(2);
-    ffree(p);
+    p1 = falloc(2);
+    ffree(p1);
 
     void * p = 0;
 
