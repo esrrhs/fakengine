@@ -235,10 +235,8 @@ void profiledata::reset()
     // by stop to print information about the profile after reset, and are  
     // cleared by start when starting a new profile.  
     close(out_);  
-    delete[] hash_;  
-    hash_ = 0;  
-    delete[] evict_;  
-    evict_ = 0;  
+    memset(hash_, 0, sizeof(hash_));  
+    memset(evict_, 0, sizeof(evict_)); 
     num_evicted_ = 0;  
     free(fname_);  
     fname_ = 0;  
@@ -248,9 +246,7 @@ void profiledata::reset()
 }  
       
 profiledata::profiledata()  
-    : hash_(0),  
-        evict_(0),  
-        num_evicted_(0),  
+    : num_evicted_(0),  
         out_(-1),  
         count_(0),  
         evictions_(0),  
@@ -289,8 +285,6 @@ bool profiledata::start(const char* fname)
     evictions_   = 0;  
     total_bytes_ = 0;  
       
-    hash_ = new bucket[kBuckets];  
-    evict_ = new slot[kBufferLength];  
     memset(hash_, 0, sizeof(hash_[0]) * kBuckets);  
       
     // Record special entries  

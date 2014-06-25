@@ -45,6 +45,7 @@
 #include <sys/shm.h>
 #include <sys/epoll.h>
 #include <sys/mman.h>
+#include <malloc.h>
 #endif
 
 

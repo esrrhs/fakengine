@@ -1,15 +1,7 @@
 #pragma once
 
-extern "C" force_inline void * sys_alloc(size_t size)
-{
-	return malloc(size);
-}
-
-extern "C" force_inline void sys_free(void * p)
-{
-	FASSERT(p);
-	free(p);
-}
+extern "C" void * sys_alloc(size_t size);
+extern "C" void sys_free(void * p);
 
 static force_inline void * SLL_Next(void *t) 
 {
@@ -96,7 +88,6 @@ public:
 
 	force_inline void fetch(size_t size)
 	{
-	#ifdef WIN32
 		for (size_t i = 0; i < size; i++)
 		{
 			void * p = sys_alloc(m_ele_size);
@@ -106,26 +97,6 @@ public:
 		    m_free_num++;
 		}
 		m_total_num += size;
-	#else
-	    size_t realsize = ((m_ele_size * size + c_falloc_pagesize - 1) & (~(c_falloc_pagesize - 1)));
-	    realsize = realsize ? realsize : c_falloc_pagesize;
-	    size = realsize / m_ele_size;
-	    
-	    void * p = mmap(NULL, realsize, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
-        if (p == reinterpret_cast<void*>(MAP_FAILED))
-        {
-            FASSERT(0);
-            return;
-        }
-        
-	    for (size_t i = 0; i < size; i++)
-	    {
-			SLL_Push(&m_list, p);
-	        p = (void *)((int8_t*)p + m_ele_size);
-		    m_free_num++;
-	    }
-		m_total_num += size;
-	#endif
 	}
 
 private:
@@ -242,6 +213,7 @@ public:
 
 	force_inline void ffree(void * p)
 	{
+	    SAFE_TEST_RET(p, NULL);
 	    uint32_t offset = *((uint32_t*)p - 1);
 		AllocHead* head = (AllocHead*)((int8_t*)p - offset);
 		FASSERT(head->magic == c_falloc_magic_head);
@@ -335,11 +307,7 @@ extern "C" force_inline void checkfalloc()
 {
 	if (!g_falloc_instance)
 	{
-#ifdef WIN32
 		g_falloc_instance = sys_alloc(sizeof(falloc_instance));
-#else
-        g_falloc_instance = mmap(NULL, sizeof(falloc_instance), PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
-#endif
 		new (g_falloc_instance) falloc_instance ();
 	}
 }
@@ -375,22 +343,9 @@ extern "C" force_inline void * fmemalign(size_t align, size_t size)
 }
 
 #ifndef WIN32
-extern "C" force_inline void* glibc_override_malloc(size_t size, const void *caller) 
-{
-    return falloc(size);
-}
-extern "C" force_inline void* glibc_override_realloc(void *ptr, size_t size, const void *caller) 
-{
-    return frealloc(ptr, size);
-}
-extern "C" force_inline void glibc_override_free(void *ptr, const void *caller) 
-{
-    ffree(ptr);
-}
-extern "C" force_inline void* glibc_override_memalign(size_t align, size_t size, const void *caller) 
-{
-    return fmemalign(align, size);
-}
-
+extern "C" force_inline void* glibc_override_malloc(size_t size, const void *caller);
+extern "C" force_inline void* glibc_override_realloc(void *ptr, size_t size, const void *caller);
+extern "C" force_inline void glibc_override_free(void *ptr, const void *caller);
+extern "C" force_inline void* glibc_override_memalign(size_t align, size_t size, const void *caller);
 #endif
 

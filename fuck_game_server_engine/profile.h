@@ -66,8 +66,8 @@ private:
         entry entry_[kAssociativity];  
     };  
       
-    bucket*       hash_;          // hash table  
-    slot*         evict_;         // evicted entries  
+    bucket        hash_[kBuckets];          // hash table  
+    slot          evict_[kBufferLength];         // evicted entries  
     int           num_evicted_;   // how many evicted entries?  
     int           out_;           // fd for output file.  
     int           count_;         // How many samples recorded  

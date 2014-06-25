@@ -1,5 +1,4 @@
-﻿修改new和malloc，参考gperftol，采用全局替换原则
-加vector2，matrix2，point2d等
+﻿加vector2，matrix2，point2d等
 添加proxy组件，隔离server间通信
 添加bus组件，通过共享内存快速通信
 添加keyvalue数据库
