@@ -12,10 +12,14 @@ bool fengine::ini()
 
 #ifndef WIN32
 #ifdef USE_ALLOC_HOOK
-    __malloc_hook = &glibc_override_malloc;
-    __realloc_hook = &glibc_override_realloc;
-    __free_hook = &glibc_override_free;
-    __memalign_hook = &glibc_override_memalign;
+    void* (*__malloc_hook)(size_t, const void*) = &glibc_override_malloc;
+    void* (* __realloc_hook)(void*, size_t, const void*) = &glibc_override_realloc;
+    void (* __free_hook)(void*, const void*) = &glibc_override_free;
+    void* (* __memalign_hook)(size_t,size_t, const void*) = &glibc_override_memalign;
+    FUSE(__malloc_hook);
+    FUSE(__realloc_hook);
+    FUSE(__free_hook);
+    FUSE(__memalign_hook);
 #endif
 #endif
 

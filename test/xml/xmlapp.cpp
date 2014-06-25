@@ -8,6 +8,9 @@ bool xmlapp::ini( int argc, char *argv[] )
 
 bool xmlapp::heartbeat()
 {
+    int * pp = new int;
+    delete pp;
+
     void * p = 0;
 
     p = frealloc(0, 2);
@@ -62,7 +65,7 @@ bool xmlapp::heartbeat()
 	    }
 	}
 	
-    /*TiXmlDocument doc("../tools/genxml/sample.xml");		
+    TiXmlDocument doc("../tools/genxml/sample.xml");		
     bool loadOkay = doc.LoadFile();		
     if (!loadOkay)		
     {
@@ -99,7 +102,7 @@ bool xmlapp::heartbeat()
 	CGameStatMng::ptr()->AddTopCLRecvPacketNum(2, Rand());
 	CGameStatMng::ptr()->AddTopCLRecvPacketNum(3, Rand());
 	CGameStatMng::ptr()->PrintLog("stat.txt");
-	*/
+	
 	return true;
 }
 

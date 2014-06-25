@@ -13,6 +13,6 @@
 #define USE_FORCE_INLINE
 
 // alloc÷ÿ‘ÿ
-//#define USE_ALLOC_HOOK
+#define USE_ALLOC_HOOK
 
 
