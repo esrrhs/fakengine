@@ -142,3 +142,4 @@
 2014.6.25：重载所有的malloc，坑有待验证
 2014.6.25：重载window下所有的malloc，debug的delete有问题，需要处理
 2014.6.26：重载win下的new、delete有问题
+2014.6.26：linux下hook后继续用malloc分配大内存会挂掉，改为用mmap吧，目前没看到问题

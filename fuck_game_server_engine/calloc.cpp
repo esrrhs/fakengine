@@ -123,7 +123,7 @@ extern "C" void * sys_alloc(size_t size)
 #endif
 }
 
-extern "C" void sys_free(void * p)
+extern "C" void sys_free(void * p, size_t size)
 {
 #ifndef USE_ALLOC_HOOK
 	FASSERT(p);
@@ -148,56 +148,18 @@ extern "C" void * sys_alloc(size_t size)
 #ifndef USE_ALLOC_HOOK
 	return malloc(size);
 #else
-    /* Restore all old hooks */
-    __malloc_hook = old_malloc_hook;
-    __realloc_hook = old_realloc_hook;
-    __free_hook = old_free_hook;
-    __memalign_hook = old_memalign_hook;
-    
-	void *result = malloc(size);
-	
-    /* Save underlying hooks */
-    old_malloc_hook = __malloc_hook;
-    old_realloc_hook = __realloc_hook;
-    old_free_hook = __free_hook;
-    old_memalign_hook = __memalign_hook;
-    
-    /* Restore our own hooks */
-    __malloc_hook = glibc_override_malloc;
-    __realloc_hook = glibc_override_realloc;
-    __free_hook = glibc_override_free;
-    __memalign_hook = glibc_override_memalign;
-
+	void *result = mmap(NULL, size, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
     return result;
 #endif
 }
 
-extern "C" void sys_free(void * p)
+extern "C" void sys_free(void * p, size_t size)
 {
 #ifndef USE_ALLOC_HOOK
 	FASSERT(p);
 	free(p);
 #else
-    /* Restore all old hooks */
-    __malloc_hook = old_malloc_hook;
-    __realloc_hook = old_realloc_hook;
-    __free_hook = old_free_hook;
-    __memalign_hook = old_memalign_hook;
-    
-	free(p);
-	
-    /* Save underlying hooks */
-    old_malloc_hook = __malloc_hook;
-    old_realloc_hook = __realloc_hook;
-    old_free_hook = __free_hook;
-    old_memalign_hook = __memalign_hook;
-    
-    /* Restore our own hooks */
-    __malloc_hook = glibc_override_malloc;
-    __realloc_hook = glibc_override_realloc;
-    __free_hook = glibc_override_free;
-    __memalign_hook = glibc_override_memalign;
-
+    munmap(p, size);
 #endif
 }
 #endif

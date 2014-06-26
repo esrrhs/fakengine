@@ -1,7 +1,7 @@
 #pragma once
 
 extern "C" void * sys_alloc(size_t size);
-extern "C" void sys_free(void * p);
+extern "C" void sys_free(void * p, size_t size = 0);
 
 static force_inline void * SLL_Next(void *t) 
 {
@@ -229,7 +229,7 @@ public:
 
 		if (realsize >= c_falloc_max_size)
 		{
-			sys_free(head);
+			sys_free(head, realsize);
 		}
 		else
 		{

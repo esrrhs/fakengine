@@ -1,4 +1,5 @@
-﻿加vector2，matrix2，point2d等
+﻿加个手动合并lib的脚本
+加vector2，matrix2，point2d等
 添加proxy组件，隔离server间通信
 添加bus组件，通过共享内存快速通信
 添加keyvalue数据库
