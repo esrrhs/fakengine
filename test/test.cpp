@@ -32,13 +32,13 @@ int main(int argc, char *argv[])
 	REG(fpoolapp);
 	REG(xmlapp);
 	REG(sqliteapp);
-	
+
 	if (argc <= 1)
 	{
 		std::cout<<"need arg: [name]"<<std::endl;
 		return 0;
 	}
-	
+
 	stringc name = argv[1];
 
 	mainapp * papp = myfactorymng::ptr()->alloc(name);
