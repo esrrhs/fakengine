@@ -74,6 +74,12 @@ struct malloc_hook_entry
 		hook_sys_func((uint8_t*)&free, (uint8_t*)&ffree, old_free_hook_mem);
 		hook_sys_func((uint8_t*)&realloc, (uint8_t*)&frealloc, old_realloc_hook_mem);
 	}
+	~malloc_hook_entry()
+	{
+		restore_sys_func((uint8_t*)&malloc, old_malloc_hook_mem);
+		restore_sys_func((uint8_t*)&free, old_free_hook_mem);
+		restore_sys_func((uint8_t*)&realloc, old_realloc_hook_mem);
+	}
 };
 
 static malloc_hook_entry hook_entry;

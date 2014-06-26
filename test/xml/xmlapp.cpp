@@ -9,7 +9,10 @@ bool xmlapp::ini( int argc, char *argv[] )
 bool xmlapp::heartbeat()
 {
     int * pp = new int;
-    delete pp;
+	delete pp;
+
+	pp = new int[10];
+	delete[] pp;
 
     void * p1 = malloc(10);
 	p1 = realloc(p1, 123);
