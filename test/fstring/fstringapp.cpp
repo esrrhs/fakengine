@@ -76,7 +76,7 @@ bool fstringapp::exit()
 	return true;
 }
 
-fstringapp::fstringapp() : mainapp("fstring")
+fstringapp::fstringapp() : mainapp("fstringapp")
 {
 
 }

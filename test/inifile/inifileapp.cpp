@@ -22,7 +22,7 @@ bool inifileapp::exit()
 	return true;
 }
 
-inifileapp::inifileapp() : mainapp("inifile")
+inifileapp::inifileapp() : mainapp("inifileapp")
 {
 
 }

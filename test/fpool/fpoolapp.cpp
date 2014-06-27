@@ -93,7 +93,7 @@ bool fpoolapp::exit()
 	return true;
 }
 
-fpoolapp::fpoolapp() : mainapp("fpool")
+fpoolapp::fpoolapp() : mainapp("fpoolapp")
 {
 
 }

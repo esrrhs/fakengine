@@ -255,7 +255,7 @@ bool hashmapapp::exit()
 	return true;
 }
 
-hashmapapp::hashmapapp() : mainapp("hashmap")
+hashmapapp::hashmapapp() : mainapp("hashmapapp")
 {
 
 }

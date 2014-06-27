@@ -34,7 +34,7 @@ bool mysqlapp::exit()
 	return true;
 }
 
-mysqlapp::mysqlapp() : mainapp("mysql")
+mysqlapp::mysqlapp() : mainapp("mysqlapp")
 {
 
 }
