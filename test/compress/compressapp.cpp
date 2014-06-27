@@ -47,7 +47,7 @@ bool compressapp::exit()
 	return true;
 }
 
-compressapp::compressapp() : mainapp("copress")
+compressapp::compressapp() : mainapp("compressapp")
 {
 
 }
