@@ -617,6 +617,9 @@
     <ClInclude Include="fsha1.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="fhook.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
@@ -1058,9 +1061,6 @@
     </ClCompile>
     <ClCompile Include="sqlite\sqlite3.c">
       <Filter>third\sqlite</Filter>
-    </ClCompile>
-    <ClCompile Include="calloc.cpp">
-      <Filter>common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

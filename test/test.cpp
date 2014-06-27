@@ -23,6 +23,7 @@ Protocol::NetMsg g_netmsg;
 int main(int argc, char *argv[])
 {
 	REG(hashmapapp);
+	REG(mysqlapp);
 	REG(compressapp);
 	REG(inifileapp);
 	REG(ftrieapp);

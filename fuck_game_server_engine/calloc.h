@@ -22,7 +22,7 @@ extern "C" force_inline void sys_free(void * p, size_t size = 0)
 	free(p);
 #else
 #ifdef WIN32
-	VirtualFree(0, p, 0, MEM_RELEASE);
+	VirtualFree(p, 0, MEM_RELEASE);
 #else
     munmap(p, size);
 #endif
@@ -114,12 +114,15 @@ public:
 
 	force_inline void fetch(size_t size)
 	{
+		size_t alignsize = c_falloc_pagesize / m_ele_size;
+		size = alignsize > size ? alignsize : size;
+		void * p = sys_alloc(m_ele_size * size);
+		FASSERT(p);
+		SAFE_TEST_RET(p, NULL);
 		for (size_t i = 0; i < size; i++)
 		{
-			void * p = sys_alloc(m_ele_size);
-            FASSERT(p);
-			SAFE_TEST_RET(p, NULL);
 			SLL_Push(&m_list, p);
+			p = ((int8_t*)p + m_ele_size);
 		    m_free_num++;
 		}
 		m_total_num += size;
@@ -366,6 +369,14 @@ extern "C" force_inline void * fmemalign(size_t align, size_t size)
 {
     checkfalloc();
 	return ((falloc_instance*)g_falloc_instance)->fmemalign(align, size);
+}
+
+extern "C" force_inline void * fcalloc(size_t n, size_t size)
+{
+	void * p = falloc(n * size);
+	SAFE_TEST_RET_VAL(p, NULL, NULL);
+	memset(p, 0, n * size);
+	return p;
 }
 
 #ifdef USE_FUCK_HOOK
