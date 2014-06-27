@@ -54,8 +54,6 @@ extern "C"
 };
 #include "lua_tinker.h"
 
-#include "./zlib/zlib.h"
-
 #include "./lzo/lzo_conf.h"
 #include "./lzo/lzo/lzo1.h"
 #include "./lzo/lzo/lzo1a.h"
@@ -80,5 +78,7 @@ extern "C"
 #include "./tinyxml/tinyxml.h"
 
 #include "./sqlite/sqlite3.h"
+
+#include "./zlib/zlib.h"
 
 #include "mainapp.h"

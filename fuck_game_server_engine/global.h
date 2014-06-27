@@ -12,3 +12,4 @@ extern uint8_t g_old_malloc_hook_mem[JMP_CODE_LEN];
 extern uint8_t g_old_free_hook_mem[JMP_CODE_LEN];
 extern uint8_t g_old_realloc_hook_mem[JMP_CODE_LEN];
 extern uint8_t g_old_memalign_hook_mem[JMP_CODE_LEN];
+extern uint8_t g_old_calloc_hook_mem[JMP_CODE_LEN];

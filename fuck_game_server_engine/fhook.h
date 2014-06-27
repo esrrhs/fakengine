@@ -20,7 +20,7 @@ static force_inline bool fhook_func(uint8_t * target_function, uint8_t * newfuc,
 	// hook
 	*target_function = 0xE9;  
 	int offset = (uint8_t *)newfuc - target_function - JMP_CODE_LEN;  
-	memcpy(target_function + 1, &offset, 4);  
+	memcpy(target_function + 1, &offset, JMP_CODE_LEN - 1);  
 
 	succeeded = ::VirtualProtect(reinterpret_cast<void*>(target_function),  
 		32,  
@@ -134,6 +134,7 @@ static force_inline bool fhook_all_func()
 	fhook_func((uint8_t*)&malloc, (uint8_t*)falloc, g_old_malloc_hook_mem);
 	fhook_func((uint8_t*)&free, (uint8_t*)ffree, g_old_free_hook_mem);
 	fhook_func((uint8_t*)&realloc, (uint8_t*)frealloc, g_old_realloc_hook_mem);
+	fhook_func((uint8_t*)&calloc, (uint8_t*)fcalloc, g_old_calloc_hook_mem);
 #ifndef WIN32
 	fhook_func((uint8_t*)&memalign, (uint8_t*)fmemalign, g_old_memalign_hook_mem);
 #endif
@@ -145,6 +146,7 @@ static force_inline bool frestore_all_func()
 	frestore_func((uint8_t*)&malloc, g_old_malloc_hook_mem);
 	frestore_func((uint8_t*)&free, g_old_free_hook_mem);
 	frestore_func((uint8_t*)&realloc, g_old_realloc_hook_mem);
+	frestore_func((uint8_t*)&calloc, g_old_calloc_hook_mem);
 #ifndef WIN32
 	frestore_func((uint8_t*)&memalign, g_old_memalign_hook_mem);
 #endif

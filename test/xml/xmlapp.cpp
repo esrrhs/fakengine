@@ -8,6 +8,9 @@ bool xmlapp::ini( int argc, char *argv[] )
 
 bool xmlapp::heartbeat()
 {
+	void * pppp = calloc(10, 12);
+	free(pppp);
+
     int * pp = new int;
 	delete pp;
 
@@ -17,7 +20,7 @@ bool xmlapp::heartbeat()
     void * p1 = malloc(10);
 	p1 = realloc(p1, 123);
     free(p1);
-    
+	    
     p1 = falloc(2);
     ffree(p1);
 
