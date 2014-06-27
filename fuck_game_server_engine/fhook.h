@@ -19,7 +19,7 @@ static force_inline bool fhook_func(uint8_t * target_function, uint8_t * newfuc,
 
 	// hook
 	*target_function = 0xE9;  
-	int offset = (uint8_t *)&newfuc - target_function - JMP_CODE_LEN;  
+	int offset = (uint8_t *)newfuc - target_function - JMP_CODE_LEN;  
 	memcpy(target_function + 1, &offset, 4);  
 
 	succeeded = ::VirtualProtect(reinterpret_cast<void*>(target_function),  
