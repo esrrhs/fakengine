@@ -1,7 +1,33 @@
 #pragma once
 
-extern "C" void * sys_alloc(size_t size);
-extern "C" void sys_free(void * p, size_t size = 0);
+extern "C" force_inline void * sys_alloc(size_t size)
+{
+#ifndef USE_FUCK_HOOK
+	return malloc(size);
+#else
+#ifdef WIN32
+	void * ret = VirtualAlloc(0, size, MEM_COMMIT|MEM_RESERVE, PAGE_READWRITE);
+	return ret;
+#else
+	void * ret = mmap(NULL, size, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
+    return ret;
+#endif
+#endif
+}
+
+extern "C" force_inline void sys_free(void * p, size_t size = 0)
+{
+#ifndef USE_FUCK_HOOK
+	FASSERT(p);
+	free(p);
+#else
+#ifdef WIN32
+	VirtualFree(0, p, 0, MEM_RELEASE);
+#else
+    munmap(p, size);
+#endif
+#endif
+}
 
 static force_inline void * SLL_Next(void *t) 
 {
