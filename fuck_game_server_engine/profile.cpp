@@ -238,8 +238,7 @@ void profiledata::reset()
     memset(hash_, 0, sizeof(hash_));  
     memset(evict_, 0, sizeof(evict_)); 
     num_evicted_ = 0;  
-    free(fname_);  
-    fname_ = 0;  
+    fname_.clear();  
     start_time_ = 0;  
       
     out_ = -1;  
@@ -251,7 +250,6 @@ profiledata::profiledata()
         count_(0),  
         evictions_(0),  
         total_bytes_(0),  
-        fname_(0),  
         start_time_(0)   
 {  
 }  
@@ -277,7 +275,7 @@ bool profiledata::start(const char* fname)
     }  
       
     start_time_ = time(NULL);  
-    fname_ = strdup(fname);  
+    fname_ = fname;  
       
     // reset counters  
     num_evicted_ = 0;  

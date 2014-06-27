@@ -138,3 +138,10 @@ void FUSE(T t) {}
 #define TODO(x)
 #endif
 
+// hook
+#ifdef WIN32
+#define JMP_CODE_LEN 5
+#else
+#define JMP_CODE_LEN 12
+#endif
+
