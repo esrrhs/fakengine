@@ -12,7 +12,7 @@
 // force inline
 #define USE_FORCE_INLINE
 
-// alloc÷ÿ‘ÿ
-#define USE_ALLOC_HOOK
+// hook
+#define USE_FUCK_HOOK
 
 

@@ -2,6 +2,8 @@
 
 bool fengine::ini()
 {
+	fhook_all_func();
+
 	if (g_ini)
 	{
 		LOG_ERROR("re ini\n");
@@ -62,6 +64,8 @@ bool fengine::exit()
 	stop_profiler();
 
 	LOG_SYS("fengine exit ok");
+	
+    frestore_all_func();
 
 	return true;
 }

@@ -342,7 +342,7 @@ extern "C" force_inline void * fmemalign(size_t align, size_t size)
 	return ((falloc_instance*)g_falloc_instance)->fmemalign(align, size);
 }
 
-#ifdef USE_ALLOC_HOOK
+#ifdef USE_FUCK_HOOK
 #ifdef WIN32
 force_inline void * __cdecl operator new(size_t cb)
 {
@@ -360,11 +360,6 @@ force_inline void __cdecl operator delete[]( void * p )
 {
 	ffree(p);
 }
-#else
-extern "C" force_inline void* glibc_override_malloc(size_t size, const void *caller);
-extern "C" force_inline void* glibc_override_realloc(void *ptr, size_t size, const void *caller);
-extern "C" force_inline void glibc_override_free(void *ptr, const void *caller);
-extern "C" force_inline void* glibc_override_memalign(size_t align, size_t size, const void *caller);
 #endif
 #endif
 

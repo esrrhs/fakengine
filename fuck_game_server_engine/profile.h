@@ -73,7 +73,7 @@ private:
     int           count_;         // How many samples recorded  
     int           evictions_;     // How many evictions  
     size_t        total_bytes_;   // How much output  
-    char*         fname_;         // Profile file name  
+    stringc       fname_;         // Profile file name  
     time_t        start_time_;    // Start time, or 0  
       
     // Move 'entry' to the eviction buffer.  
