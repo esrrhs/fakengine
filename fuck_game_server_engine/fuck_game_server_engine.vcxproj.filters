@@ -620,6 +620,9 @@
     <ClInclude Include="fhook.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="fkeybuffer.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

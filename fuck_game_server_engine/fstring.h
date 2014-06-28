@@ -18,14 +18,8 @@ static force_inline void fstrcopy(int8_t * des, const int8_t * src, size_t dest_
 	}
 }
 
-template <size_t N>  
-force_inline void fstrcopy(int8_t (&des)[N], const int8_t * src)  
-{ 
-	fstrcopy(des, src, N);
-}
-
-template <size_t N>  
-force_inline void fstrcopy(char (&des)[N], const char * src)  
+template <typename T, size_t N>  
+force_inline void fstrcopy(T (&des)[N], const T * src)  
 { 
 	fstrcopy((int8_t *)des, (const int8_t *)src, N);
 }

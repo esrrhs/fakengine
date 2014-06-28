@@ -16,6 +16,7 @@
 #include "inifile.h"
 #include "ftrie.h"
 #include "fhook.h"
+#include "fkeybuffer.h"
 
 #include "allocator.h"
 #include "readonly_allocator.h"
