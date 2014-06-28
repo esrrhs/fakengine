@@ -33,3 +33,6 @@ const size_t c_falloc_hasharray = c_falloc_max_size / c_falloc_hashstep;
 const uint32_t c_falloc_magic_head = 0xDEADBEEF;
 const uint32_t c_falloc_magic_tail = 0xBADDDADD;
 const uint32_t c_falloc_pagesize = 4096;
+
+const uint32_t c_fkeybuffer_magic = 0xABABAABB;
+
