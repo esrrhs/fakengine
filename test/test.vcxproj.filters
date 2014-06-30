@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="hashmap\hashmapapp.cpp">
+      <Filter>hashmap</Filter>
+    </ClCompile>
+    <ClCompile Include="compress\compressapp.cpp">
+      <Filter>compress</Filter>
+    </ClCompile>
+    <ClCompile Include="inifile\inifileapp.cpp">
+      <Filter>inifile</Filter>
+    </ClCompile>
+    <ClCompile Include="ftrie\ftrieapp.cpp">
+      <Filter>ftrie</Filter>
+    </ClCompile>
+    <ClCompile Include="client\clientapp.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="server\serverapp.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="mysql\mysqlapp.cpp">
+      <Filter>mysql</Filter>
+    </ClCompile>
+    <ClCompile Include="fstring\fstringapp.cpp">
+      <Filter>fstring</Filter>
+    </ClCompile>
+    <ClCompile Include="fpool\fpoolapp.cpp">
+      <Filter>fpool</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\xmlapp.cpp" />
+    <ClCompile Include="sqlite\sqliteapp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="test.h" />
+    <ClInclude Include="hashmap\hashmapapp.h">
+      <Filter>hashmap</Filter>
+    </ClInclude>
+    <ClInclude Include="compress\compressapp.h">
+      <Filter>compress</Filter>
+    </ClInclude>
+    <ClInclude Include="inifile\inifileapp.h">
+      <Filter>inifile</Filter>
+    </ClInclude>
+    <ClInclude Include="ftrie\ftrieapp.h">
+      <Filter>ftrie</Filter>
+    </ClInclude>
+    <ClInclude Include="client\clientapp.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="server\serverapp.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql\mysqlapp.h">
+      <Filter>mysql</Filter>
+    </ClInclude>
+    <ClInclude Include="fstring\fstringapp.h">
+      <Filter>fstring</Filter>
+    </ClInclude>
+    <ClInclude Include="fpool\fpoolapp.h">
+      <Filter>fpool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\tools\genmsg\Struct.h" />
+    <ClInclude Include="xml\xmlapp.h" />
+    <ClInclude Include="sqlite\sqliteapp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="hashmap">
+      <UniqueIdentifier>{eabf79cd-8dfb-4176-bec8-43a3c194aaac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compress">
+      <UniqueIdentifier>{3acc589c-a1b4-4532-95d6-ff545698c40b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inifile">
+      <UniqueIdentifier>{2f3f789a-10a3-4213-8256-93afd90a52f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ftrie">
+      <UniqueIdentifier>{2253f686-95bc-471c-9e60-ebc5df925eec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="client">
+      <UniqueIdentifier>{c7342ae7-1b7d-4013-af91-4e81b1a5d8d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="server">
+      <UniqueIdentifier>{5228425f-0bd8-4402-a4ba-e114739a0c86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mysql">
+      <UniqueIdentifier>{faa50035-7261-4b39-b2ff-a42969947f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fstring">
+      <UniqueIdentifier>{60217415-b16e-4bd9-9b42-e8d97d0ed178}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fpool">
+      <UniqueIdentifier>{5ea8950d-5534-4210-bb92-fab1dd031ba1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+</Project>

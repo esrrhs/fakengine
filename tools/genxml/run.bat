@@ -1,0 +1,1 @@
+genxml.exe sample.xml
