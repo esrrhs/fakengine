@@ -332,7 +332,7 @@ private:
 	falloc_list m_falloc_list[c_falloc_hasharray];
 };
 
-extern "C" force_inline void checkfalloc()
+extern "C" static force_inline void * falloc(size_t size)
 {
 	if (!g_falloc_instance)
 	{
