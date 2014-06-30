@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+<result>  
+	
+	<enum name="MsgID" comment="消息id">  
+		<member name="CS_REQ_LOGIN" type="1" comment="请求登录"/>  
+		<member name="SC_RES_LOGIN" type="2" comment="返回登录"/>  
+	</enum>  
+	
+	<enum name="ConstDefine" comment="常量">  
+		<member name="ACC_LEN" type="32" comment="用户名"/>
+		<member name="ROLE_NAME_LEN" type="32" comment="角色名"/>
+		<member name="PWD_LEN" type="32" comment="密码"/>
+		<member name="ROLE_INFO_NUM" type="5" comment="密码"/>
+		<member name="FRIEND_LEN" type="50" comment="好友"/>
+	</enum>  
+	
+	<struct name="AccInfo" comment="账号信息">  
+		<member name="Acc" type="char" length="ACC_LEN" comment="用户名"/>  
+		<member name="diamond" type="uint32_t" comment="钻石"/>
+	</struct> 
+	
+	<struct name="FriendInfo" comment="好友信息"> 
+		<member name="Num" type="uint8_t" comment="数目"/>  
+		<member name="Guid" type="uint64_t" length="FRIEND_LEN" ref="Num" comment="唯一id"/>
+	</struct> 
+	
+	<struct name="RoleInfo" comment="玩家信息">  
+		<member name="Guid" type="uint64_t" comment="唯一id"/>
+		<member name="Name" type="char" length="ROLE_NAME_LEN" comment="角色名"/>
+		<member name="Hp" type="uint32_t" comment="血量"/>
+		<member name="Mp" type="uint32_t" comment="魔量"/>
+		<member name="X" type="float" comment="x"/>
+		<member name="Y" type="float" comment="y"/>
+		<member name="FriendInfo" type="FriendInfo" comment="好友信息"/>
+	</struct> 
+	
+	<struct name="CSReqLogin" comment="请求登录">  
+		<member name="Acc" type="char" length="ACC_LEN" comment="用户名"/>  
+		<member name="Pwd" type="char" length="PWD_LEN" comment="密码"/> 
+	</struct>  
+	
+	<struct name="SCResLogin" comment="返回登录">  
+		<member name="Ret" type="uint8_t" comment="结果"/>  
+		<member name="AccInfo" type="AccInfo" comment="账号信息"/>  
+		<member name="RoleInfoNum" type="uint8_t" comment="玩家数目"/>  
+		<member name="RoleInfo" type="RoleInfo" length="ROLE_INFO_NUM" ref="RoleInfoNum" comment="玩家信息"/>  
+	</struct>  
+	
+	<struct name="NetMsgHead" comment="网络头消息">  
+		<member name="Time" type="uint32_t" comment="时间戳"/>  
+		<member name="Index" type="uint32_t" comment="序列号"/>  
+	</struct>  
+	
+	<struct name="NetMsgPara" comment="网络消息内容" type="union"> 
+		<member name="CSReqLogin" type="CSReqLogin" ref="CS_REQ_LOGIN" comment="请求登录"/>  
+		<member name="SCResLogin" type="SCResLogin" ref="SC_RES_LOGIN" comment="返回登录"/>  
+	</struct>  
+	
+	<struct name="NetMsg" comment="网络消息">  
+		<member name="NetMsgHead" type="NetMsgHead" comment="网络头消息"/>
+		<member name="NetMsgPara" type="NetMsgPara" comment="网络消息内容"/>  
+	</struct>  
+	
+</result>  
