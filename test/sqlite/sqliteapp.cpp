@@ -14,10 +14,21 @@ bool sqliteapp::heartbeat()
 	stringc tmp = fmd5(bb.c_str(), bb.size());
 
 	uint32_t cc32 = fcrc32(bb.c_str(), bb.size());
+	uint32_t cc32a = fcrc32a(bb.c_str(), bb.size());
 	FUSE(cc32);
+	FUSE(cc32a);
 	stringc sha1 = fsha1(bb.c_str(), bb.size());
     FUSE(sha1);
-
+    
+    uint8_t src[]="12345678";
+    uint8_t des[8];
+    uint8_t ddes[8];
+    fdes("12345678", src, 8, des);
+    fundes("12345678", des, 8, ddes);
+    stringc des1 = fdes("12345678", "12345678");
+    stringc src1 = fundes("12345678", des1);
+    FUSE(src1);
+    
 	sqlite3 * handle = 0;
 	int ret = sqlite3_open("test.db", &handle);
 	sqlite3_stmt *stmt;
