@@ -64,6 +64,36 @@ struct AccInfo
 	uint32_t m_diamond;  
 	  
 	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		 
+		// 用户名	
+		SAFE_TEST_RET_VAL(buffer.Add("m_Acc", m_Acc, ACC_LEN), false, false);
+		 
+		 
+		// 钻石	
+		SAFE_TEST_RET_VAL(buffer.Add("m_diamond", m_diamond), false, false);
+		 
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// 用户名	
+		SAFE_TEST_RET_VAL(buffer.Get("m_Acc", m_Acc, ACC_LEN), false, false);
+		 
+		 
+		// 钻石	
+		SAFE_TEST_RET_VAL(buffer.Get("m_diamond", m_diamond), false, false);
+		 
+		
+		return true;
+	}
+	
 	int32_t Marshal(char * destbuffer, int32_t size)
 	{
 		int32_t ret = 0;
@@ -131,6 +161,38 @@ struct FriendInfo
 	// 唯一id  
 	uint64_t m_Guid[FRIEND_LEN];  
 	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		 
+		// 数目	
+		SAFE_TEST_RET_VAL(buffer.Add("m_Num", m_Num), false, false);
+		 
+		 
+		// 唯一id	
+		int32_t copyGuidSize = sizeof(uint64_t) * PROTO_MIN(FRIEND_LEN, m_Num);
+		SAFE_TEST_RET_VAL(buffer.Add("m_Guid", m_Guid, copyGuidSize), false, false);
+		 
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// 数目	
+		SAFE_TEST_RET_VAL(buffer.Get("m_Num", m_Num), false, false);
+		 
+		 
+		// 唯一id	
+		int32_t copyGuidSize = sizeof(uint64_t) * PROTO_MIN(FRIEND_LEN, m_Num);
+		SAFE_TEST_RET_VAL(buffer.Get("m_Guid", m_Guid, copyGuidSize), false, false);
+		 
+		
+		return true;
+	}
 	
 	int32_t Marshal(char * destbuffer, int32_t size)
 	{
@@ -223,6 +285,82 @@ struct RoleInfo
 	// 好友信息  
 	FriendInfo m_FriendInfo;  
 	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		 
+		// 唯一id	
+		SAFE_TEST_RET_VAL(buffer.Add("m_Guid", m_Guid), false, false);
+		 
+		 
+		// 角色名	
+		SAFE_TEST_RET_VAL(buffer.Add("m_Name", m_Name, ROLE_NAME_LEN), false, false);
+		 
+		 
+		// 血量	
+		SAFE_TEST_RET_VAL(buffer.Add("m_Hp", m_Hp), false, false);
+		 
+		 
+		// 魔量	
+		SAFE_TEST_RET_VAL(buffer.Add("m_Mp", m_Mp), false, false);
+		 
+		 
+		// x	
+		SAFE_TEST_RET_VAL(buffer.Add("m_X", m_X), false, false);
+		 
+		 
+		// y	
+		SAFE_TEST_RET_VAL(buffer.Add("m_Y", m_Y), false, false);
+		 
+		 
+		// 好友信息	
+		{
+			T tmpFriendInfoBuff;
+			SAFE_TEST_RET_VAL(m_FriendInfo.Marshal(tmpFriendInfoBuff), false, false);
+			SAFE_TEST_RET_VAL(buffer.Add("m_FriendInfo", tmpFriendInfoBuff), false, false);
+		} 
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// 唯一id	
+		SAFE_TEST_RET_VAL(buffer.Get("m_Guid", m_Guid), false, false);
+		 
+		 
+		// 角色名	
+		SAFE_TEST_RET_VAL(buffer.Get("m_Name", m_Name, ROLE_NAME_LEN), false, false);
+		 
+		 
+		// 血量	
+		SAFE_TEST_RET_VAL(buffer.Get("m_Hp", m_Hp), false, false);
+		 
+		 
+		// 魔量	
+		SAFE_TEST_RET_VAL(buffer.Get("m_Mp", m_Mp), false, false);
+		 
+		 
+		// x	
+		SAFE_TEST_RET_VAL(buffer.Get("m_X", m_X), false, false);
+		 
+		 
+		// y	
+		SAFE_TEST_RET_VAL(buffer.Get("m_Y", m_Y), false, false);
+		 
+		 
+		// 好友信息	
+		{
+			T tmpFriendInfoBuff;
+			SAFE_TEST_RET_VAL(buffer.Get("m_FriendInfo", tmpFriendInfoBuff), false, false);
+			SAFE_TEST_RET_VAL(m_FriendInfo.Unmarshal(tmpFriendInfoBuff), false, false);
+		} 
+		
+		return true;
+	}
 	
 	int32_t Marshal(char * destbuffer, int32_t size)
 	{
@@ -392,6 +530,36 @@ struct CSReqLogin
 	char m_Pwd[PWD_LEN];  
 	  
 	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		 
+		// 用户名	
+		SAFE_TEST_RET_VAL(buffer.Add("m_Acc", m_Acc, ACC_LEN), false, false);
+		 
+		 
+		// 密码	
+		SAFE_TEST_RET_VAL(buffer.Add("m_Pwd", m_Pwd, PWD_LEN), false, false);
+		 
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// 用户名	
+		SAFE_TEST_RET_VAL(buffer.Get("m_Acc", m_Acc, ACC_LEN), false, false);
+		 
+		 
+		// 密码	
+		SAFE_TEST_RET_VAL(buffer.Get("m_Pwd", m_Pwd, PWD_LEN), false, false);
+		 
+		
+		return true;
+	}
+	
 	int32_t Marshal(char * destbuffer, int32_t size)
 	{
 		int32_t ret = 0;
@@ -465,6 +633,74 @@ struct SCResLogin
 	// 玩家信息  
 	RoleInfo m_RoleInfo[ROLE_INFO_NUM];  
 	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		 
+		// 结果	
+		SAFE_TEST_RET_VAL(buffer.Add("m_Ret", m_Ret), false, false);
+		 
+		 
+		// 账号信息	
+		{
+			T tmpAccInfoBuff;
+			SAFE_TEST_RET_VAL(m_AccInfo.Marshal(tmpAccInfoBuff), false, false);
+			SAFE_TEST_RET_VAL(buffer.Add("m_AccInfo", tmpAccInfoBuff), false, false);
+		} 
+		 
+		// 玩家数目	
+		SAFE_TEST_RET_VAL(buffer.Add("m_RoleInfoNum", m_RoleInfoNum), false, false);
+		 
+		 
+		// 玩家信息	
+		T tmpRoleInfoBuff;
+		stringc tmpRoleInfoName;
+		for (int32_t i = 0; i < ROLE_INFO_NUM && i < m_RoleInfoNum; i++)
+		{
+			tmpRoleInfoBuff.reset();
+			SAFE_TEST_RET_VAL(m_RoleInfo[i].Marshal(tmpRoleInfoBuff), false, false);
+			tmpRoleInfoName = "m_RoleInfo";
+			tmpRoleInfoName += i;
+			SAFE_TEST_RET_VAL(buffer.Add(tmpRoleInfoName, tmpRoleInfoBuff), false, false);
+		} 
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// 结果	
+		SAFE_TEST_RET_VAL(buffer.Get("m_Ret", m_Ret), false, false);
+		 
+		 
+		// 账号信息	
+		{
+			T tmpAccInfoBuff;
+			SAFE_TEST_RET_VAL(buffer.Get("m_AccInfo", tmpAccInfoBuff), false, false);
+			SAFE_TEST_RET_VAL(m_AccInfo.Unmarshal(tmpAccInfoBuff), false, false);
+		} 
+		 
+		// 玩家数目	
+		SAFE_TEST_RET_VAL(buffer.Get("m_RoleInfoNum", m_RoleInfoNum), false, false);
+		 
+		 
+		// 玩家信息	
+		T tmpRoleInfoBuff;
+		stringc tmpRoleInfoName;
+		for (int32_t i = 0; i < ROLE_INFO_NUM && i < m_RoleInfoNum; i++)
+		{
+			tmpRoleInfoBuff.reset();
+			tmpRoleInfoName = "m_RoleInfo";
+			tmpRoleInfoName += i;
+			SAFE_TEST_RET_VAL(buffer.Get(tmpRoleInfoName, tmpRoleInfoBuff), false, false);
+			SAFE_TEST_RET_VAL(m_RoleInfo[i].Unmarshal(tmpRoleInfoBuff), false, false);
+		} 
+		
+		return true;
+	}
 	
 	int32_t Marshal(char * destbuffer, int32_t size)
 	{
@@ -580,6 +816,36 @@ struct NetMsgHead
 	// 序列号  
 	uint32_t m_Index;  
 	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		 
+		// 时间戳	
+		SAFE_TEST_RET_VAL(buffer.Add("m_Time", m_Time), false, false);
+		 
+		 
+		// 序列号	
+		SAFE_TEST_RET_VAL(buffer.Add("m_Index", m_Index), false, false);
+		 
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// 时间戳	
+		SAFE_TEST_RET_VAL(buffer.Get("m_Time", m_Time), false, false);
+		 
+		 
+		// 序列号	
+		SAFE_TEST_RET_VAL(buffer.Get("m_Index", m_Index), false, false);
+		 
+		
+		return true;
+	}
 	
 	int32_t Marshal(char * destbuffer, int32_t size)
 	{
@@ -765,6 +1031,48 @@ struct NetMsg
 	// 网络消息内容  
 	NetMsgPara m_NetMsgPara;  
 	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		 
+		// 网络头消息	
+		{
+			T tmpNetMsgHeadBuff;
+			SAFE_TEST_RET_VAL(m_NetMsgHead.Marshal(tmpNetMsgHeadBuff), false, false);
+			SAFE_TEST_RET_VAL(buffer.Add("m_NetMsgHead", tmpNetMsgHeadBuff), false, false);
+		} 
+		 
+		// 网络消息内容	
+		{
+			T tmpNetMsgParaBuff;
+			SAFE_TEST_RET_VAL(m_NetMsgPara.Marshal(tmpNetMsgParaBuff), false, false);
+			SAFE_TEST_RET_VAL(buffer.Add("m_NetMsgPara", tmpNetMsgParaBuff), false, false);
+		} 
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// 网络头消息	
+		{
+			T tmpNetMsgHeadBuff;
+			SAFE_TEST_RET_VAL(buffer.Get("m_NetMsgHead", tmpNetMsgHeadBuff), false, false);
+			SAFE_TEST_RET_VAL(m_NetMsgHead.Unmarshal(tmpNetMsgHeadBuff), false, false);
+		} 
+		 
+		// 网络消息内容	
+		{
+			T tmpNetMsgParaBuff;
+			SAFE_TEST_RET_VAL(buffer.Get("m_NetMsgPara", tmpNetMsgParaBuff), false, false);
+			SAFE_TEST_RET_VAL(m_NetMsgPara.Unmarshal(tmpNetMsgParaBuff), false, false);
+		} 
+		
+		return true;
+	}
 	
 	int32_t Marshal(char * destbuffer, int32_t size)
 	{
