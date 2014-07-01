@@ -13,7 +13,7 @@
 #include "./sqlite/sqliteapp.h"
 
 char g_msg_buffer[MAX_MSG_SIZE];
-Protocol::NetMsg g_netmsg;
+Fproto::NetMsg g_netmsg;
 
 #define REG(type) {\
 	ifactory<mainapp> * p = fnew< factory<type, mainapp> >();\

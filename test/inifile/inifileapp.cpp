@@ -1,5 +1,6 @@
 #include "fuck_game_server_engine.h"
 #include "inifileapp.h"
+#include "../tools/genmsg/Struct.h"
 
 bool inifileapp::ini( int argc, char *argv[] )
 {
@@ -8,6 +9,25 @@ bool inifileapp::ini( int argc, char *argv[] )
 
 bool inifileapp::heartbeat()
 {
+	fkeybuffer<10240> msgbuff;
+	Fproto::NetMsg msg;
+	msg.Clear();
+	msg.m_NetMsgPara.m_Type = Fproto::SC_RES_LOGIN;
+	Fproto::SCResLogin & para = msg.m_NetMsgPara.m_SCResLogin;
+	para.m_Ret = 1;
+	para.m_RoleInfoNum = 5;
+	for (int32_t i = 0; i < (int32_t)para.m_RoleInfoNum; i++)
+	{
+		para.m_RoleInfo[i].m_Guid = i;
+		para.m_RoleInfo[i].m_FriendInfo.m_Num = 50;
+	}
+	bool ret = msg.Marshal(msgbuff);
+
+	Fproto::NetMsg msg1;
+	ret = msg1.Unmarshal(msgbuff);
+
+	//////////////////////////////////////////////////////////////////////////
+
 	int8_t param1 = 123;
 	int16_t param2 = 1234;
 	int32_t param3 = 123456;
@@ -31,7 +51,7 @@ bool inifileapp::heartbeat()
 	subbuff.add("subparam2", param2);
 	subbuff.end();
 
-	buff.add("subbuff", subbuff.buff(), subbuff.size());
+	buff.add("subbuff", subbuff);
 
 	buff.end();
 
@@ -50,6 +70,16 @@ bool inifileapp::heartbeat()
 	buff.get("param4", tmpparam4);
 	buff.get("param7", tmpparam7);
 	buff.get("param5", tmpparam5);
+
+	fkeybuffer<500> tmpsubbuff;
+
+	buff.get("subbuff", tmpsubbuff);
+	int8_t tmpsubparam1;
+	int16_t tmpsubparam2;
+	tmpsubbuff.get("subparam1", tmpsubparam1);
+	tmpsubbuff.get("subparam2", tmpsubparam2);
+
+	//////////////////////////////////////////////////////////////////////////
 
 	ifile.clear();
 	ifile.load("config.ini");
