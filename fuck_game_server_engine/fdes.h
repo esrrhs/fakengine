@@ -581,11 +581,15 @@ static force_inline stringc fundes(const stringc & strkey, const stringc & s_tex
         stext[i] = fatoi16(tmp);
     }
 
-    uint8_t d_text[DES_BUFF_LEN];
-    memset(d_text, 0, sizeof(d_text));
-    fundes(strkey, stext, DES_BUFF_LEN, d_text);
+	union
+	{
+		uint8_t d_buff[DES_BUFF_LEN + 1];
+		uint8_t d_text[DES_BUFF_LEN];
+	} dtext;
+	memset(&dtext, 0, sizeof(dtext));
+	fundes(strkey, stext, DES_BUFF_LEN, dtext.d_text);
     
-    return stringc(d_text);
+	return stringc(dtext.d_text);
 }
 
 
