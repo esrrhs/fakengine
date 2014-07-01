@@ -131,6 +131,60 @@ struct {{.Name}}
 	{{.Type}} m_{{.Name}}{{if .Length}}[{{.Length}}]{{end}};  
 	{{end}}  
 	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		{{range .Members}} 
+		// {{.Comment}}	
+		{{if eq .Type "char"}}SAFE_TEST_RET_VAL(buffer.Add("m_{{.Name}}", m_{{.Name}}, {{.Length}}), false, false);
+		{{else if .Length}}{{if is_normal_type .Type}}int32_t copy{{.Name}}Size = {{if .Ref}}sizeof({{.Type}}) * PROTO_MIN({{.Length}}, m_{{.Ref}}){{else}}sizeof(m_{{.Name}}){{end}};
+		SAFE_TEST_RET_VAL(buffer.Add("m_{{.Name}}", m_{{.Name}}, copy{{.Name}}Size), false, false);
+		{{else}}T tmp{{.Name}}Buff;
+		stringc tmp{{.Name}}Name;
+		for (int32_t i = 0; i < {{.Length}}{{if .Ref}} && i < m_{{.Ref}}{{end}}; i++)
+		{
+			tmp{{.Name}}Buff.reset();
+			SAFE_TEST_RET_VAL(m_{{.Name}}[i].Marshal(tmp{{.Name}}Buff), false, false);
+			tmp{{.Name}}Name = "m_{{.Name}}";
+			tmp{{.Name}}Name += i;
+			SAFE_TEST_RET_VAL(buffer.Add(tmp{{.Name}}Name, tmp{{.Name}}Buff), false, false);
+		}{{end}}{{else if is_normal_type .Type}}SAFE_TEST_RET_VAL(buffer.Add("m_{{.Name}}", m_{{.Name}}), false, false);
+		{{else}}{
+			T tmp{{.Name}}Buff;
+			SAFE_TEST_RET_VAL(m_{{.Name}}.Marshal(tmp{{.Name}}Buff), false, false);
+			SAFE_TEST_RET_VAL(buffer.Add("m_{{.Name}}", tmp{{.Name}}Buff), false, false);
+		}{{end}} 
+		{{end}}
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		{{range .Members}} 
+		// {{.Comment}}	
+		{{if eq .Type "char"}}SAFE_TEST_RET_VAL(buffer.Get("m_{{.Name}}", m_{{.Name}}, {{.Length}}), false, false);
+		{{else if .Length}}{{if is_normal_type .Type}}int32_t copy{{.Name}}Size = {{if .Ref}}sizeof({{.Type}}) * PROTO_MIN({{.Length}}, m_{{.Ref}}){{else}}sizeof(m_{{.Name}}){{end}};
+		SAFE_TEST_RET_VAL(buffer.Get("m_{{.Name}}", m_{{.Name}}, copy{{.Name}}Size), false, false);
+		{{else}}T tmp{{.Name}}Buff;
+		stringc tmp{{.Name}}Name;
+		for (int32_t i = 0; i < {{.Length}}{{if .Ref}} && i < m_{{.Ref}}{{end}}; i++)
+		{
+			tmp{{.Name}}Buff.reset();
+			tmp{{.Name}}Name = "m_{{.Name}}";
+			tmp{{.Name}}Name += i;
+			SAFE_TEST_RET_VAL(buffer.Get(tmp{{.Name}}Name, tmp{{.Name}}Buff), false, false);
+			SAFE_TEST_RET_VAL(m_{{.Name}}[i].Unmarshal(tmp{{.Name}}Buff), false, false);
+		}{{end}}{{else if is_normal_type .Type}}SAFE_TEST_RET_VAL(buffer.Get("m_{{.Name}}", m_{{.Name}}), false, false);
+		{{else}}{
+			T tmp{{.Name}}Buff;
+			SAFE_TEST_RET_VAL(buffer.Get("m_{{.Name}}", tmp{{.Name}}Buff), false, false);
+			SAFE_TEST_RET_VAL(m_{{.Name}}.Unmarshal(tmp{{.Name}}Buff), false, false);
+		}{{end}} 
+		{{end}}
+		return true;
+	}
+	
 	int32_t Marshal(char * destbuffer, int32_t size)
 	{
 		int32_t ret = 0;
