@@ -40,9 +40,24 @@ public:
 		return m_databuffer;
 	}
 
+	force_inline uint8_t * buff()
+	{
+		return m_databuffer;
+	}
+
+	force_inline void setsize(size_t size)
+	{
+		m_datasize = size;
+	}
+
 	force_inline size_t size() const
 	{
 		return m_datasize;
+	}
+
+	force_inline size_t maxsize() const
+	{
+		return N;
 	}
 
 	#pragma pack(1)
@@ -54,8 +69,6 @@ public:
 		}
 		uint32_t magic;
 		uint32_t version;
-		uint8_t md5[33];
-		uint8_t sha1[41];
 		uint32_t time;
 		uint32_t size;
 		uint32_t nodeoffset;
@@ -94,6 +107,11 @@ public:
 	{
 		return add(name, &data, sizeof(data));
 	}
+	template <size_t M>
+	force_inline bool add(const stringc & name, const fkeybuffer<M> & data)
+	{
+		return add(name, data.buff(), data.size());
+	}
 	force_inline bool add(const stringc & name, const stringc & data)
 	{
 		return add(name, data.c_str(), data.size());
@@ -116,10 +134,6 @@ public:
 	{
 		Head * phead = gethead();
 		phead->size = m_dataiter;
-		stringc md5 = fmd5(m_databuffer + phead->nodeoffset, m_dataiter - phead->nodeoffset);
-		fstrcopy(phead->md5, md5.c_str());
-		stringc sha1 = fsha1(m_databuffer + phead->nodeoffset, m_dataiter - phead->nodeoffset);
-		fstrcopy(phead->sha1, sha1.c_str());
 		m_datasize = m_dataiter;
 		reset();
 		return true;
@@ -130,6 +144,14 @@ public:
 	{
 		return get(name, &data, sizeof(data));
 	}
+	template <size_t M>
+	force_inline bool get(const stringc & name, fkeybuffer<M> & data)
+	{
+		size_t retsize = 0;
+		SAFE_TEST_RET_VAL(get(name, data.buff(), data.maxsize(), &retsize), false, false);
+		data.setsize(retsize);
+		return true;
+	}
 	force_inline bool get(const stringc & name, stringc & data)
 	{
 		uint8_t strbuff[c_DefaultStringBuffer];
@@ -138,7 +160,7 @@ public:
 		data = strbuff;
 		return true;
 	}
-	force_inline bool get(const stringc & name, void * data, size_t size)
+	force_inline bool get(const stringc & name, void * data, size_t size, size_t * retsize = NULL)
 	{
 		Head * phead = gethead();
 		m_dataiter = phead->nodeoffset;
@@ -160,6 +182,11 @@ public:
 			SAFE_TEST_RET_VAL(read(valuesize), false, false);
 			SAFE_TEST_RET_VAL(valuesize <= size, false, false);
 			SAFE_TEST_RET_VAL(read_buffer((uint8_t *)data, valuesize), false, false);
+
+			if (retsize)
+			{
+				*retsize = valuesize;
+			}
 
 			return true;
 		}

@@ -7,7 +7,7 @@
 #define MAX_LINK_SIZE 1000
 
 extern char g_msg_buffer[MAX_MSG_SIZE];
-extern Protocol::NetMsg g_netmsg;
+extern Fproto::NetMsg g_netmsg;
 
 typedef tcpsocket<cirle_buffer<int8_t, MAX_BUFF_SIZE>, simpleselector> mysocket;
 typedef line_buffer<int8_t, MAX_MSG_SIZE> mylinebuffer;
@@ -24,8 +24,8 @@ public:
 		FPRINTF("recv id %d size %d\n", g_netmsg.m_NetMsgPara.m_Type, recvmsgsize);
 
 		// send
-		g_netmsg.m_NetMsgPara.m_Type = Protocol::SC_RES_LOGIN;
-		Protocol::SCResLogin & para = g_netmsg.m_NetMsgPara.m_SCResLogin;
+		g_netmsg.m_NetMsgPara.m_Type = Fproto::SC_RES_LOGIN;
+		Fproto::SCResLogin & para = g_netmsg.m_NetMsgPara.m_SCResLogin;
 		memset(&para, 0, sizeof(para));
 		para.m_Ret = 0;
 		para.m_RoleInfoNum = 5;
@@ -49,8 +49,8 @@ public:
 		FPRINTF("recv id %d size %d\n", g_netmsg.m_NetMsgPara.m_Type, recvmsgsize);
 
 		// send
-		g_netmsg.m_NetMsgPara.m_Type = Protocol::CS_REQ_LOGIN;
-		Protocol::CSReqLogin & para = g_netmsg.m_NetMsgPara.m_CSReqLogin;
+		g_netmsg.m_NetMsgPara.m_Type = Fproto::CS_REQ_LOGIN;
+		Fproto::CSReqLogin & para = g_netmsg.m_NetMsgPara.m_CSReqLogin;
 		memset(&para, 0, sizeof(para));
 		fstrcopy(para.m_Acc, "test");
 		fstrcopy(para.m_Pwd, "123");
