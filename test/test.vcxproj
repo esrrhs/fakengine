@@ -88,6 +88,9 @@
   <ItemGroup>
     <ClCompile Include="client\clientapp.cpp" />
     <ClCompile Include="compress\compressapp.cpp" />
+    <ClCompile Include="falloc\fallocapp.cpp" />
+    <ClCompile Include="fkeybuffer\fkeybufferapp.cpp" />
+    <ClCompile Include="fmd5\fmd5app.cpp" />
     <ClCompile Include="fpool\fpoolapp.cpp" />
     <ClCompile Include="fstring\fstringapp.cpp" />
     <ClCompile Include="ftrie\ftrieapp.cpp" />
@@ -103,6 +106,9 @@
     <ClInclude Include="..\tools\genmsg\Struct.h" />
     <ClInclude Include="client\clientapp.h" />
     <ClInclude Include="compress\compressapp.h" />
+    <ClInclude Include="falloc\fallocapp.h" />
+    <ClInclude Include="fkeybuffer\fkeybufferapp.h" />
+    <ClInclude Include="fmd5\fmd5app.h" />
     <ClInclude Include="fpool\fpoolapp.h" />
     <ClInclude Include="fstring\fstringapp.h" />
     <ClInclude Include="ftrie\ftrieapp.h" />

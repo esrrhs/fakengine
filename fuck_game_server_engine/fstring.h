@@ -1134,8 +1134,8 @@ public:
 					if (j == other_size)
 					{
 		                memcpy(array + i, replace, sizeof(T) * replace_size);
-						i += replace_size;
-						pos += other_size;
+						i += replace_size - 1;
+						pos += other_size - 1;
 						continue;
 					}
 				}
@@ -1163,20 +1163,9 @@ public:
 		pos = 0;
 		while ((pos = find(other, pos)) != -1)
 		{
-			T* start = array + pos + other_size;
-			T* ptr   = array + used;
-			T* end   = array + delta + used;
-
 			// Shift characters to make room for the fstring.
-			while (ptr != start)
-			{
-				if (end < array + N)
-				{
-					*end = *ptr;
-				}
-				--ptr;
-				--end;
-			}
+			memmove(array + pos + other_size + delta, array + pos + other_size,
+				Min(used - (pos + other_size), (N - (pos + other_size + delta))));
 
 			// Add the new fstring now.
 		    memcpy(array + pos, replace, sizeof(T) * replace_size);
@@ -1193,8 +1182,8 @@ public:
 		if (used >= N)
 		{
 			used = N - 1;
-			array[used]=0;
 		}
+		array[used] = 0;
 		return *this;
 	}
 
