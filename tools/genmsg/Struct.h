@@ -94,11 +94,11 @@ struct AccInfo
 	{			
 		 
 		// 用户名	
-		SAFE_TEST_RET_VAL(buffer.get("m_Acc", m_Acc, ACC_LEN), false, false);
+		buffer.get("m_Acc", m_Acc, ACC_LEN);
 		 
 		 
 		// 钻石	
-		SAFE_TEST_RET_VAL(buffer.get("m_diamond", m_diamond), false, false);
+		buffer.get("m_diamond", m_diamond);
 		 
 		
 		return true;
@@ -203,12 +203,12 @@ struct FriendInfo
 	{			
 		 
 		// 数目	
-		SAFE_TEST_RET_VAL(buffer.get("m_Num", m_Num), false, false);
+		buffer.get("m_Num", m_Num);
 		 
 		 
 		// 唯一id	
 		int32_t copyGuidSize = sizeof(uint64_t) * PROTO_MIN(FRIEND_LEN, m_Num);
-		SAFE_TEST_RET_VAL(buffer.get("m_Guid", m_Guid, copyGuidSize), false, false);
+		buffer.get("m_Guid", m_Guid, copyGuidSize);
 		 
 		
 		return true;
@@ -359,35 +359,38 @@ struct RoleInfo
 	{			
 		 
 		// 唯一id	
-		SAFE_TEST_RET_VAL(buffer.get("m_Guid", m_Guid), false, false);
+		buffer.get("m_Guid", m_Guid);
 		 
 		 
 		// 角色名	
-		SAFE_TEST_RET_VAL(buffer.get("m_Name", m_Name, ROLE_NAME_LEN), false, false);
+		buffer.get("m_Name", m_Name, ROLE_NAME_LEN);
 		 
 		 
 		// 血量	
-		SAFE_TEST_RET_VAL(buffer.get("m_Hp", m_Hp), false, false);
+		buffer.get("m_Hp", m_Hp);
 		 
 		 
 		// 魔量	
-		SAFE_TEST_RET_VAL(buffer.get("m_Mp", m_Mp), false, false);
+		buffer.get("m_Mp", m_Mp);
 		 
 		 
 		// x	
-		SAFE_TEST_RET_VAL(buffer.get("m_X", m_X), false, false);
+		buffer.get("m_X", m_X);
 		 
 		 
 		// y	
-		SAFE_TEST_RET_VAL(buffer.get("m_Y", m_Y), false, false);
+		buffer.get("m_Y", m_Y);
 		 
 		 
 		// 好友信息	
+		
+		do
 		{
 			T tmpFriendInfoBuff;
-			SAFE_TEST_RET_VAL(buffer.get("m_FriendInfo", tmpFriendInfoBuff), false, false);
-			SAFE_TEST_RET_VAL(m_FriendInfo.Unmarshal(tmpFriendInfoBuff), false, false);
-		} 
+			SAFE_TEST_BREAK(buffer.get("m_FriendInfo", tmpFriendInfoBuff), false);
+			SAFE_TEST_BREAK(m_FriendInfo.Unmarshal(tmpFriendInfoBuff), false);
+		}
+		while(0); 
 		
 		return true;
 	}
@@ -590,11 +593,11 @@ struct CSReqLogin
 	{			
 		 
 		// 用户名	
-		SAFE_TEST_RET_VAL(buffer.get("m_Acc", m_Acc, ACC_LEN), false, false);
+		buffer.get("m_Acc", m_Acc, ACC_LEN);
 		 
 		 
 		// 密码	
-		SAFE_TEST_RET_VAL(buffer.get("m_Pwd", m_Pwd, PWD_LEN), false, false);
+		buffer.get("m_Pwd", m_Pwd, PWD_LEN);
 		 
 		
 		return true;
@@ -723,18 +726,21 @@ struct SCResLogin
 	{			
 		 
 		// 结果	
-		SAFE_TEST_RET_VAL(buffer.get("m_Ret", m_Ret), false, false);
+		buffer.get("m_Ret", m_Ret);
 		 
 		 
 		// 账号信息	
+		
+		do
 		{
 			T tmpAccInfoBuff;
-			SAFE_TEST_RET_VAL(buffer.get("m_AccInfo", tmpAccInfoBuff), false, false);
-			SAFE_TEST_RET_VAL(m_AccInfo.Unmarshal(tmpAccInfoBuff), false, false);
-		} 
+			SAFE_TEST_BREAK(buffer.get("m_AccInfo", tmpAccInfoBuff), false);
+			SAFE_TEST_BREAK(m_AccInfo.Unmarshal(tmpAccInfoBuff), false);
+		}
+		while(0); 
 		 
 		// 玩家数目	
-		SAFE_TEST_RET_VAL(buffer.get("m_RoleInfoNum", m_RoleInfoNum), false, false);
+		buffer.get("m_RoleInfoNum", m_RoleInfoNum);
 		 
 		 
 		// 玩家信息	
@@ -745,8 +751,8 @@ struct SCResLogin
 			tmpRoleInfoBuff.reset();
 			tmpRoleInfoName = "m_RoleInfo";
 			tmpRoleInfoName += i;
-			SAFE_TEST_RET_VAL(buffer.get(tmpRoleInfoName, tmpRoleInfoBuff), false, false);
-			SAFE_TEST_RET_VAL(m_RoleInfo[i].Unmarshal(tmpRoleInfoBuff), false, false);
+			SAFE_TEST_CONTINUE(buffer.get(tmpRoleInfoName, tmpRoleInfoBuff), false);
+			SAFE_TEST_CONTINUE(m_RoleInfo[i].Unmarshal(tmpRoleInfoBuff), false);
 		} 
 		
 		return true;
@@ -897,11 +903,11 @@ struct NetMsgHead
 	{			
 		 
 		// 时间戳	
-		SAFE_TEST_RET_VAL(buffer.get("m_Time", m_Time), false, false);
+		buffer.get("m_Time", m_Time);
 		 
 		 
 		// 序列号	
-		SAFE_TEST_RET_VAL(buffer.get("m_Index", m_Index), false, false);
+		buffer.get("m_Index", m_Index);
 		 
 		
 		return true;
@@ -1203,18 +1209,24 @@ struct NetMsg
 	{			
 		 
 		// 网络头消息	
+		
+		do
 		{
 			T tmpNetMsgHeadBuff;
-			SAFE_TEST_RET_VAL(buffer.get("m_NetMsgHead", tmpNetMsgHeadBuff), false, false);
-			SAFE_TEST_RET_VAL(m_NetMsgHead.Unmarshal(tmpNetMsgHeadBuff), false, false);
-		} 
+			SAFE_TEST_BREAK(buffer.get("m_NetMsgHead", tmpNetMsgHeadBuff), false);
+			SAFE_TEST_BREAK(m_NetMsgHead.Unmarshal(tmpNetMsgHeadBuff), false);
+		}
+		while(0); 
 		 
 		// 网络消息内容	
+		
+		do
 		{
 			T tmpNetMsgParaBuff;
-			SAFE_TEST_RET_VAL(buffer.get("m_NetMsgPara", tmpNetMsgParaBuff), false, false);
-			SAFE_TEST_RET_VAL(m_NetMsgPara.Unmarshal(tmpNetMsgParaBuff), false, false);
-		} 
+			SAFE_TEST_BREAK(buffer.get("m_NetMsgPara", tmpNetMsgParaBuff), false);
+			SAFE_TEST_BREAK(m_NetMsgPara.Unmarshal(tmpNetMsgParaBuff), false);
+		}
+		while(0); 
 		
 		return true;
 	}
@@ -1317,11 +1329,11 @@ struct TestW1
 	{			
 		 
 		// a	
-		SAFE_TEST_RET_VAL(buffer.get("m_a", m_a), false, false);
+		buffer.get("m_a", m_a);
 		 
 		 
 		// b	
-		SAFE_TEST_RET_VAL(buffer.get("m_b", m_b), false, false);
+		buffer.get("m_b", m_b);
 		 
 		
 		return true;
@@ -1432,15 +1444,15 @@ struct TestR1
 	{			
 		 
 		// a	
-		SAFE_TEST_RET_VAL(buffer.get("m_a", m_a), false, false);
+		buffer.get("m_a", m_a);
 		 
 		 
 		// b	
-		SAFE_TEST_RET_VAL(buffer.get("m_b", m_b), false, false);
+		buffer.get("m_b", m_b);
 		 
 		 
 		// c	
-		SAFE_TEST_RET_VAL(buffer.get("m_c", m_c), false, false);
+		buffer.get("m_c", m_c);
 		 
 		
 		return true;
@@ -1565,12 +1577,12 @@ struct TestW2
 	{			
 		 
 		// 数目	
-		SAFE_TEST_RET_VAL(buffer.get("m_Num", m_Num), false, false);
+		buffer.get("m_Num", m_Num);
 		 
 		 
 		// test	
 		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(100, m_Num);
-		SAFE_TEST_RET_VAL(buffer.get("m_test", m_test, copytestSize), false, false);
+		buffer.get("m_test", m_test, copytestSize);
 		 
 		
 		return true;
@@ -1684,12 +1696,12 @@ struct TestR2
 	{			
 		 
 		// 数目	
-		SAFE_TEST_RET_VAL(buffer.get("m_Num", m_Num), false, false);
+		buffer.get("m_Num", m_Num);
 		 
 		 
 		// test	
 		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(200, m_Num);
-		SAFE_TEST_RET_VAL(buffer.get("m_test", m_test, copytestSize), false, false);
+		buffer.get("m_test", m_test, copytestSize);
 		 
 		
 		return true;
@@ -1798,11 +1810,14 @@ struct TestW3
 	{			
 		 
 		// test	
+		
+		do
 		{
 			T tmptestBuff;
-			SAFE_TEST_RET_VAL(buffer.get("m_test", tmptestBuff), false, false);
-			SAFE_TEST_RET_VAL(m_test.Unmarshal(tmptestBuff), false, false);
-		} 
+			SAFE_TEST_BREAK(buffer.get("m_test", tmptestBuff), false);
+			SAFE_TEST_BREAK(m_test.Unmarshal(tmptestBuff), false);
+		}
+		while(0); 
 		
 		return true;
 	}
@@ -1881,11 +1896,14 @@ struct TestR3
 	{			
 		 
 		// test	
+		
+		do
 		{
 			T tmptestBuff;
-			SAFE_TEST_RET_VAL(buffer.get("m_test", tmptestBuff), false, false);
-			SAFE_TEST_RET_VAL(m_test.Unmarshal(tmptestBuff), false, false);
-		} 
+			SAFE_TEST_BREAK(buffer.get("m_test", tmptestBuff), false);
+			SAFE_TEST_BREAK(m_test.Unmarshal(tmptestBuff), false);
+		}
+		while(0); 
 		
 		return true;
 	}
@@ -1976,7 +1994,7 @@ struct TestW4
 	{			
 		 
 		// 数目	
-		SAFE_TEST_RET_VAL(buffer.get("m_Num", m_Num), false, false);
+		buffer.get("m_Num", m_Num);
 		 
 		 
 		// test	
@@ -1987,8 +2005,8 @@ struct TestW4
 			tmptestBuff.reset();
 			tmptestName = "m_test";
 			tmptestName += i;
-			SAFE_TEST_RET_VAL(buffer.get(tmptestName, tmptestBuff), false, false);
-			SAFE_TEST_RET_VAL(m_test[i].Unmarshal(tmptestBuff), false, false);
+			SAFE_TEST_CONTINUE(buffer.get(tmptestName, tmptestBuff), false);
+			SAFE_TEST_CONTINUE(m_test[i].Unmarshal(tmptestBuff), false);
 		} 
 		
 		return true;
@@ -2107,7 +2125,7 @@ struct TestR4
 	{			
 		 
 		// 数目	
-		SAFE_TEST_RET_VAL(buffer.get("m_Num", m_Num), false, false);
+		buffer.get("m_Num", m_Num);
 		 
 		 
 		// test	
@@ -2118,8 +2136,8 @@ struct TestR4
 			tmptestBuff.reset();
 			tmptestName = "m_test";
 			tmptestName += i;
-			SAFE_TEST_RET_VAL(buffer.get(tmptestName, tmptestBuff), false, false);
-			SAFE_TEST_RET_VAL(m_test[i].Unmarshal(tmptestBuff), false, false);
+			SAFE_TEST_CONTINUE(buffer.get(tmptestName, tmptestBuff), false);
+			SAFE_TEST_CONTINUE(m_test[i].Unmarshal(tmptestBuff), false);
 		} 
 		
 		return true;
