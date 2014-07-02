@@ -31,6 +31,15 @@
     </ClCompile>
     <ClCompile Include="xml\xmlapp.cpp" />
     <ClCompile Include="sqlite\sqliteapp.cpp" />
+    <ClCompile Include="fkeybuffer\fkeybufferapp.cpp">
+      <Filter>fkeybuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="falloc\fallocapp.cpp">
+      <Filter>falloc</Filter>
+    </ClCompile>
+    <ClCompile Include="fmd5\fmd5app.cpp">
+      <Filter>fmd5</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h" />
@@ -64,6 +73,15 @@
     <ClInclude Include="..\tools\genmsg\Struct.h" />
     <ClInclude Include="xml\xmlapp.h" />
     <ClInclude Include="sqlite\sqliteapp.h" />
+    <ClInclude Include="fkeybuffer\fkeybufferapp.h">
+      <Filter>fkeybuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="falloc\fallocapp.h">
+      <Filter>falloc</Filter>
+    </ClInclude>
+    <ClInclude Include="fmd5\fmd5app.h">
+      <Filter>fmd5</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="hashmap">
@@ -92,6 +110,15 @@
     </Filter>
     <Filter Include="fpool">
       <UniqueIdentifier>{5ea8950d-5534-4210-bb92-fab1dd031ba1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fkeybuffer">
+      <UniqueIdentifier>{69fc13aa-6bfa-417a-a6bb-0e43868c28cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="falloc">
+      <UniqueIdentifier>{c2829f43-b2ea-4635-8c5b-ac29d3c7d80f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fmd5">
+      <UniqueIdentifier>{bb12b6dd-2abd-41e2-905a-4c9640ddaf90}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
