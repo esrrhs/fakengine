@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<result>
+
+    <struct name="GameStat" comment="gamesvrd统计结构">
+        <member name="LoadAvg" comment="系统负荷"/>
+        <member name="CPU" comment="cpu占用"/>
+        <member name="CurCPU" comment="当前进程的cpu占用"/>
+        <member name="RES" comment="物理内存占用"/>
+        <member name="VIRT" comment="虚拟内存占用"/>
+        <member name="FPS" comment="帧率"/>
+        
+		<array name="PvPRoomStateNum" comment="pvp房间 各状态数目" length="7"/>
+		<array name="PvPRoomStateTime" comment="pvp房间 各状态持续时间" length="7"/>
+		
+        <hashmap name="TopSceneNum" comment="Top场景人数" length="100" top="5"/>
+        <hashmap name="TopDungeonNum" comment="Top副本人数" length="100" top="5"/>
+        
+        <toparray name="TopCLRecvPacketNum" comment="client端 Top收包数目" length="2000" top="5"/>
+        <toparray name="TopCLSendPacketNum" comment="client端 Top发包数目" length="2000" top="5"/>
+        <toparray name="TopCLRecvSizeNum" comment="client端 Top收包流量" length="2000" top="5"/>
+        <toparray name="TopCLSendSizeNum" comment="client端 Top发包流量" length="2000" top="5"/>
+        <toparray name="TopCLProcessTime" comment="client端 Top收包处理时间" length="2000" top="5"/>
+        
+    </struct>
+    
+    <struct name="DBStat" comment="dbsvrd统计结构">
+        <member name="LoadAvg" comment="系统负荷"/>
+        <member name="CPU" comment="cpu占用"/>
+        <member name="CurCPU" comment="当前进程的cpu占用"/>
+        <member name="RES" comment="物理内存占用"/>
+        <member name="VIRT" comment="虚拟内存占用"/>
+        <member name="FPS" comment="帧率"/>
+				
+		<array name="PerHandleFPS" comment="每个Handle帧率" length="8"/>
+		<toparray name="TopExecutorFPS" comment="Top DBExecutor帧率"  length="100" top="5" cmp="min"/>
+		
+    </struct>
+    
+</result>
