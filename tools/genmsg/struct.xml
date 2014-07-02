@@ -61,4 +61,43 @@
 		<member name="NetMsgPara" type="NetMsgPara" comment="网络消息内容"/>  
 	</struct>  
 	
+	<struct name="TestW1" comment="test">  
+		<member name="a" type="uint32_t" comment="a"/>
+		<member name="b" type="uint32_t" comment="b"/>
+	</struct> 
+	
+	<struct name="TestR1" comment="test">  
+		<member name="a" type="uint32_t" comment="a"/>
+		<member name="b" type="uint32_t" comment="b"/>
+		<member name="c" type="uint32_t" comment="c"/>
+	</struct> 
+	
+	<struct name="TestW2" comment="test">  
+		<member name="Num" type="uint8_t" comment="数目"/>  
+		<member name="test" type="uint64_t" length="100" ref="Num" comment="test"/>
+	</struct> 
+	
+	<struct name="TestR2" comment="test">  
+		<member name="Num" type="uint8_t" comment="数目"/>  
+		<member name="test" type="uint64_t" length="200" ref="Num" comment="test"/>
+	</struct> 
+	
+	<struct name="TestW3" comment="test">  
+		<member name="test" type="TestW1" comment="test"/>  
+	</struct> 
+	
+	<struct name="TestR3" comment="test">  
+		<member name="test" type="TestR1" comment="test"/> 
+	</struct> 
+	
+	<struct name="TestW4" comment="test">    
+		<member name="Num" type="uint8_t" comment="数目"/>  
+		<member name="test" type="TestW1" length="100" ref="Num" comment="test"/>  
+	</struct> 
+	
+	<struct name="TestR4" comment="test">  
+		<member name="Num" type="uint8_t" comment="数目"/>  
+		<member name="test" type="TestR1" length="100" ref="Num" comment="test"/>  
+	</struct> 
+	
 </result>  
