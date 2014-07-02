@@ -1274,6 +1274,919 @@ struct NetMsg
 	}
 	
 };  
+    
+// test  
+struct TestW1  
+{  
+	void Clear()
+	{
+		memset(this, 0, sizeof(*this));
+	}
+
+	
+	  
+	// a  
+	uint32_t m_a;  
+	  
+	// b  
+	uint32_t m_b;  
+	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		buffer.begin("TestW1");
+			
+		 
+		// a	
+		SAFE_TEST_RET_VAL(buffer.add("m_a", m_a), false, false);
+		 
+		 
+		// b	
+		SAFE_TEST_RET_VAL(buffer.add("m_b", m_b), false, false);
+		 
+		
+		
+		buffer.end();
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// a	
+		SAFE_TEST_RET_VAL(buffer.get("m_a", m_a), false, false);
+		 
+		 
+		// b	
+		SAFE_TEST_RET_VAL(buffer.get("m_b", m_b), false, false);
+		 
+		
+		return true;
+	}
+	
+	int32_t Marshal(char * destbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// a	
+		if (ret + (int32_t)sizeof(m_a) > size)
+		{
+			return -ret;
+		}
+		*(uint32_t*)destbuffer = m_a;
+		ret += sizeof(m_a);
+		destbuffer += sizeof(m_a);
+		 
+		 
+		// b	
+		if (ret + (int32_t)sizeof(m_b) > size)
+		{
+			return -ret;
+		}
+		*(uint32_t*)destbuffer = m_b;
+		ret += sizeof(m_b);
+		destbuffer += sizeof(m_b);
+		 
+		 
+		return ret;
+	}
+	
+	int32_t Unmarshal(char * srcbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// a	
+		if (ret + (int32_t)sizeof(m_a) > size)
+		{
+			return -ret;
+		}
+		m_a = *(uint32_t*)srcbuffer;
+		ret += sizeof(m_a);
+		srcbuffer += sizeof(m_a);
+		 
+		 
+		// b	
+		if (ret + (int32_t)sizeof(m_b) > size)
+		{
+			return -ret;
+		}
+		m_b = *(uint32_t*)srcbuffer;
+		ret += sizeof(m_b);
+		srcbuffer += sizeof(m_b);
+		 
+		 
+		return ret;
+	}
+	
+};  
+    
+// test  
+struct TestR1  
+{  
+	void Clear()
+	{
+		memset(this, 0, sizeof(*this));
+	}
+
+	
+	  
+	// a  
+	uint32_t m_a;  
+	  
+	// b  
+	uint32_t m_b;  
+	  
+	// c  
+	uint32_t m_c;  
+	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		buffer.begin("TestR1");
+			
+		 
+		// a	
+		SAFE_TEST_RET_VAL(buffer.add("m_a", m_a), false, false);
+		 
+		 
+		// b	
+		SAFE_TEST_RET_VAL(buffer.add("m_b", m_b), false, false);
+		 
+		 
+		// c	
+		SAFE_TEST_RET_VAL(buffer.add("m_c", m_c), false, false);
+		 
+		
+		
+		buffer.end();
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// a	
+		SAFE_TEST_RET_VAL(buffer.get("m_a", m_a), false, false);
+		 
+		 
+		// b	
+		SAFE_TEST_RET_VAL(buffer.get("m_b", m_b), false, false);
+		 
+		 
+		// c	
+		SAFE_TEST_RET_VAL(buffer.get("m_c", m_c), false, false);
+		 
+		
+		return true;
+	}
+	
+	int32_t Marshal(char * destbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// a	
+		if (ret + (int32_t)sizeof(m_a) > size)
+		{
+			return -ret;
+		}
+		*(uint32_t*)destbuffer = m_a;
+		ret += sizeof(m_a);
+		destbuffer += sizeof(m_a);
+		 
+		 
+		// b	
+		if (ret + (int32_t)sizeof(m_b) > size)
+		{
+			return -ret;
+		}
+		*(uint32_t*)destbuffer = m_b;
+		ret += sizeof(m_b);
+		destbuffer += sizeof(m_b);
+		 
+		 
+		// c	
+		if (ret + (int32_t)sizeof(m_c) > size)
+		{
+			return -ret;
+		}
+		*(uint32_t*)destbuffer = m_c;
+		ret += sizeof(m_c);
+		destbuffer += sizeof(m_c);
+		 
+		 
+		return ret;
+	}
+	
+	int32_t Unmarshal(char * srcbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// a	
+		if (ret + (int32_t)sizeof(m_a) > size)
+		{
+			return -ret;
+		}
+		m_a = *(uint32_t*)srcbuffer;
+		ret += sizeof(m_a);
+		srcbuffer += sizeof(m_a);
+		 
+		 
+		// b	
+		if (ret + (int32_t)sizeof(m_b) > size)
+		{
+			return -ret;
+		}
+		m_b = *(uint32_t*)srcbuffer;
+		ret += sizeof(m_b);
+		srcbuffer += sizeof(m_b);
+		 
+		 
+		// c	
+		if (ret + (int32_t)sizeof(m_c) > size)
+		{
+			return -ret;
+		}
+		m_c = *(uint32_t*)srcbuffer;
+		ret += sizeof(m_c);
+		srcbuffer += sizeof(m_c);
+		 
+		 
+		return ret;
+	}
+	
+};  
+    
+// test  
+struct TestW2  
+{  
+	void Clear()
+	{
+		memset(this, 0, sizeof(*this));
+	}
+
+	
+	  
+	// 数目  
+	uint8_t m_Num;  
+	  
+	// test  
+	uint64_t m_test[100];  
+	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		buffer.begin("TestW2");
+			
+		 
+		// 数目	
+		SAFE_TEST_RET_VAL(buffer.add("m_Num", m_Num), false, false);
+		 
+		 
+		// test	
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(100, m_Num);
+		SAFE_TEST_RET_VAL(buffer.add("m_test", m_test, copytestSize), false, false);
+		 
+		
+		
+		buffer.end();
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// 数目	
+		SAFE_TEST_RET_VAL(buffer.get("m_Num", m_Num), false, false);
+		 
+		 
+		// test	
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(100, m_Num);
+		SAFE_TEST_RET_VAL(buffer.get("m_test", m_test, copytestSize), false, false);
+		 
+		
+		return true;
+	}
+	
+	int32_t Marshal(char * destbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// 数目	
+		if (ret + (int32_t)sizeof(m_Num) > size)
+		{
+			return -ret;
+		}
+		*(uint8_t*)destbuffer = m_Num;
+		ret += sizeof(m_Num);
+		destbuffer += sizeof(m_Num);
+		 
+		 
+		// test	
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(100, m_Num);
+		if (ret + copytestSize > size)
+		{
+			return -ret;
+		}
+		if (copytestSize > 0)
+		{
+			memcpy(destbuffer, m_test, copytestSize);
+		}
+		ret += copytestSize;
+		destbuffer += copytestSize;
+		 
+		 
+		return ret;
+	}
+	
+	int32_t Unmarshal(char * srcbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// 数目	
+		if (ret + (int32_t)sizeof(m_Num) > size)
+		{
+			return -ret;
+		}
+		m_Num = *(uint8_t*)srcbuffer;
+		ret += sizeof(m_Num);
+		srcbuffer += sizeof(m_Num);
+		 
+		 
+		// test	
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(100, m_Num);
+		if (ret + copytestSize > size)
+		{
+			return -ret;
+		}
+		if (copytestSize > 0)
+		{
+			memcpy(m_test, srcbuffer, copytestSize);
+		}
+		ret += copytestSize;
+		srcbuffer += copytestSize;
+		m_Num = PROTO_MIN(m_Num, 100);
+		 
+		 
+		return ret;
+	}
+	
+};  
+    
+// test  
+struct TestR2  
+{  
+	void Clear()
+	{
+		memset(this, 0, sizeof(*this));
+	}
+
+	
+	  
+	// 数目  
+	uint8_t m_Num;  
+	  
+	// test  
+	uint64_t m_test[200];  
+	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		buffer.begin("TestR2");
+			
+		 
+		// 数目	
+		SAFE_TEST_RET_VAL(buffer.add("m_Num", m_Num), false, false);
+		 
+		 
+		// test	
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(200, m_Num);
+		SAFE_TEST_RET_VAL(buffer.add("m_test", m_test, copytestSize), false, false);
+		 
+		
+		
+		buffer.end();
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// 数目	
+		SAFE_TEST_RET_VAL(buffer.get("m_Num", m_Num), false, false);
+		 
+		 
+		// test	
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(200, m_Num);
+		SAFE_TEST_RET_VAL(buffer.get("m_test", m_test, copytestSize), false, false);
+		 
+		
+		return true;
+	}
+	
+	int32_t Marshal(char * destbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// 数目	
+		if (ret + (int32_t)sizeof(m_Num) > size)
+		{
+			return -ret;
+		}
+		*(uint8_t*)destbuffer = m_Num;
+		ret += sizeof(m_Num);
+		destbuffer += sizeof(m_Num);
+		 
+		 
+		// test	
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(200, m_Num);
+		if (ret + copytestSize > size)
+		{
+			return -ret;
+		}
+		if (copytestSize > 0)
+		{
+			memcpy(destbuffer, m_test, copytestSize);
+		}
+		ret += copytestSize;
+		destbuffer += copytestSize;
+		 
+		 
+		return ret;
+	}
+	
+	int32_t Unmarshal(char * srcbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// 数目	
+		if (ret + (int32_t)sizeof(m_Num) > size)
+		{
+			return -ret;
+		}
+		m_Num = *(uint8_t*)srcbuffer;
+		ret += sizeof(m_Num);
+		srcbuffer += sizeof(m_Num);
+		 
+		 
+		// test	
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(200, m_Num);
+		if (ret + copytestSize > size)
+		{
+			return -ret;
+		}
+		if (copytestSize > 0)
+		{
+			memcpy(m_test, srcbuffer, copytestSize);
+		}
+		ret += copytestSize;
+		srcbuffer += copytestSize;
+		m_Num = PROTO_MIN(m_Num, 200);
+		 
+		 
+		return ret;
+	}
+	
+};  
+    
+// test  
+struct TestW3  
+{  
+	void Clear()
+	{
+		memset(this, 0, sizeof(*this));
+	}
+
+	
+	  
+	// test  
+	TestW1 m_test;  
+	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		buffer.begin("TestW3");
+			
+		 
+		// test	
+		{
+			T tmptestBuff;
+			SAFE_TEST_RET_VAL(m_test.Marshal(tmptestBuff), false, false);
+			SAFE_TEST_RET_VAL(buffer.add("m_test", tmptestBuff), false, false);
+		} 
+		
+		
+		buffer.end();
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// test	
+		{
+			T tmptestBuff;
+			SAFE_TEST_RET_VAL(buffer.get("m_test", tmptestBuff), false, false);
+			SAFE_TEST_RET_VAL(m_test.Unmarshal(tmptestBuff), false, false);
+		} 
+		
+		return true;
+	}
+	
+	int32_t Marshal(char * destbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// test	
+		int32_t rettest = m_test.Marshal(destbuffer, size - ret);
+		if (rettest <= 0)
+		{
+			return -ret + rettest;
+		}
+		ret += rettest;
+		destbuffer += rettest;
+		 
+		 
+		return ret;
+	}
+	
+	int32_t Unmarshal(char * srcbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// test	
+		int32_t rettest = m_test.Unmarshal(srcbuffer, size - ret);
+		if (rettest <= 0)
+		{
+			return -ret + rettest;
+		}
+		ret += rettest;
+		srcbuffer += rettest;
+		 
+		 
+		return ret;
+	}
+	
+};  
+    
+// test  
+struct TestR3  
+{  
+	void Clear()
+	{
+		memset(this, 0, sizeof(*this));
+	}
+
+	
+	  
+	// test  
+	TestR1 m_test;  
+	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		buffer.begin("TestR3");
+			
+		 
+		// test	
+		{
+			T tmptestBuff;
+			SAFE_TEST_RET_VAL(m_test.Marshal(tmptestBuff), false, false);
+			SAFE_TEST_RET_VAL(buffer.add("m_test", tmptestBuff), false, false);
+		} 
+		
+		
+		buffer.end();
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// test	
+		{
+			T tmptestBuff;
+			SAFE_TEST_RET_VAL(buffer.get("m_test", tmptestBuff), false, false);
+			SAFE_TEST_RET_VAL(m_test.Unmarshal(tmptestBuff), false, false);
+		} 
+		
+		return true;
+	}
+	
+	int32_t Marshal(char * destbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// test	
+		int32_t rettest = m_test.Marshal(destbuffer, size - ret);
+		if (rettest <= 0)
+		{
+			return -ret + rettest;
+		}
+		ret += rettest;
+		destbuffer += rettest;
+		 
+		 
+		return ret;
+	}
+	
+	int32_t Unmarshal(char * srcbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// test	
+		int32_t rettest = m_test.Unmarshal(srcbuffer, size - ret);
+		if (rettest <= 0)
+		{
+			return -ret + rettest;
+		}
+		ret += rettest;
+		srcbuffer += rettest;
+		 
+		 
+		return ret;
+	}
+	
+};  
+    
+// test  
+struct TestW4  
+{  
+	void Clear()
+	{
+		memset(this, 0, sizeof(*this));
+	}
+
+	
+	  
+	// 数目  
+	uint8_t m_Num;  
+	  
+	// test  
+	TestW1 m_test[100];  
+	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		buffer.begin("TestW4");
+			
+		 
+		// 数目	
+		SAFE_TEST_RET_VAL(buffer.add("m_Num", m_Num), false, false);
+		 
+		 
+		// test	
+		T tmptestBuff;
+		stringc tmptestName;
+		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		{
+			tmptestBuff.reset();
+			SAFE_TEST_RET_VAL(m_test[i].Marshal(tmptestBuff), false, false);
+			tmptestName = "m_test";
+			tmptestName += i;
+			SAFE_TEST_RET_VAL(buffer.add(tmptestName, tmptestBuff), false, false);
+		} 
+		
+		
+		buffer.end();
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// 数目	
+		SAFE_TEST_RET_VAL(buffer.get("m_Num", m_Num), false, false);
+		 
+		 
+		// test	
+		T tmptestBuff;
+		stringc tmptestName;
+		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		{
+			tmptestBuff.reset();
+			tmptestName = "m_test";
+			tmptestName += i;
+			SAFE_TEST_RET_VAL(buffer.get(tmptestName, tmptestBuff), false, false);
+			SAFE_TEST_RET_VAL(m_test[i].Unmarshal(tmptestBuff), false, false);
+		} 
+		
+		return true;
+	}
+	
+	int32_t Marshal(char * destbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// 数目	
+		if (ret + (int32_t)sizeof(m_Num) > size)
+		{
+			return -ret;
+		}
+		*(uint8_t*)destbuffer = m_Num;
+		ret += sizeof(m_Num);
+		destbuffer += sizeof(m_Num);
+		 
+		 
+		// test	
+		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		{
+			int32_t rettest = m_test[i].Marshal(destbuffer, size - ret);
+			if (rettest <= 0)
+			{
+				return -ret + rettest;
+			}
+			ret += rettest;
+			destbuffer += rettest;
+		}
+		 
+		 
+		return ret;
+	}
+	
+	int32_t Unmarshal(char * srcbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// 数目	
+		if (ret + (int32_t)sizeof(m_Num) > size)
+		{
+			return -ret;
+		}
+		m_Num = *(uint8_t*)srcbuffer;
+		ret += sizeof(m_Num);
+		srcbuffer += sizeof(m_Num);
+		 
+		 
+		// test	
+		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		{
+			int32_t rettest = m_test[i].Unmarshal(srcbuffer, size - ret);
+			if (rettest <= 0)
+			{
+				return -ret + rettest;
+			}
+			ret += rettest;
+			srcbuffer += rettest;
+		}
+		m_Num = PROTO_MIN(m_Num, 100);
+		 
+		 
+		return ret;
+	}
+	
+};  
+    
+// test  
+struct TestR4  
+{  
+	void Clear()
+	{
+		memset(this, 0, sizeof(*this));
+	}
+
+	
+	  
+	// 数目  
+	uint8_t m_Num;  
+	  
+	// test  
+	TestR1 m_test[100];  
+	  
+	
+	template <typename T>
+	bool Marshal(T & buffer)
+	{			
+		buffer.begin("TestR4");
+			
+		 
+		// 数目	
+		SAFE_TEST_RET_VAL(buffer.add("m_Num", m_Num), false, false);
+		 
+		 
+		// test	
+		T tmptestBuff;
+		stringc tmptestName;
+		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		{
+			tmptestBuff.reset();
+			SAFE_TEST_RET_VAL(m_test[i].Marshal(tmptestBuff), false, false);
+			tmptestName = "m_test";
+			tmptestName += i;
+			SAFE_TEST_RET_VAL(buffer.add(tmptestName, tmptestBuff), false, false);
+		} 
+		
+		
+		buffer.end();
+		
+		return true;
+	}
+	
+	template <typename T>
+	bool Unmarshal(T & buffer)
+	{			
+		 
+		// 数目	
+		SAFE_TEST_RET_VAL(buffer.get("m_Num", m_Num), false, false);
+		 
+		 
+		// test	
+		T tmptestBuff;
+		stringc tmptestName;
+		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		{
+			tmptestBuff.reset();
+			tmptestName = "m_test";
+			tmptestName += i;
+			SAFE_TEST_RET_VAL(buffer.get(tmptestName, tmptestBuff), false, false);
+			SAFE_TEST_RET_VAL(m_test[i].Unmarshal(tmptestBuff), false, false);
+		} 
+		
+		return true;
+	}
+	
+	int32_t Marshal(char * destbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// 数目	
+		if (ret + (int32_t)sizeof(m_Num) > size)
+		{
+			return -ret;
+		}
+		*(uint8_t*)destbuffer = m_Num;
+		ret += sizeof(m_Num);
+		destbuffer += sizeof(m_Num);
+		 
+		 
+		// test	
+		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		{
+			int32_t rettest = m_test[i].Marshal(destbuffer, size - ret);
+			if (rettest <= 0)
+			{
+				return -ret + rettest;
+			}
+			ret += rettest;
+			destbuffer += rettest;
+		}
+		 
+		 
+		return ret;
+	}
+	
+	int32_t Unmarshal(char * srcbuffer, int32_t size)
+	{
+		int32_t ret = 0;
+		 
+		// 数目	
+		if (ret + (int32_t)sizeof(m_Num) > size)
+		{
+			return -ret;
+		}
+		m_Num = *(uint8_t*)srcbuffer;
+		ret += sizeof(m_Num);
+		srcbuffer += sizeof(m_Num);
+		 
+		 
+		// test	
+		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		{
+			int32_t rettest = m_test[i].Unmarshal(srcbuffer, size - ret);
+			if (rettest <= 0)
+			{
+				return -ret + rettest;
+			}
+			ret += rettest;
+			srcbuffer += rettest;
+		}
+		m_Num = PROTO_MIN(m_Num, 100);
+		 
+		 
+		return ret;
+	}
+	
+};  
   
 
 }
