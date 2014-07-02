@@ -65,7 +65,7 @@ struct {{.Name}}
 	{		
 		buffer.begin("{{.Name}}");
 		
-		SAFE_TEST_RET_VAL(buffer.add("m_Type", m_Type), false, false);
+		SAFE_TEST_RET_VAL(buffer.add("Type", m_Type), false, false);
 		
 		switch (m_Type)
 		{
@@ -75,7 +75,7 @@ struct {{.Name}}
 			{
 				T tmp{{.Name}}Buff;
 				SAFE_TEST_RET_VAL(m_{{.Name}}.Marshal(tmp{{.Name}}Buff), false, false);
-				SAFE_TEST_RET_VAL(buffer.add("m_{{.Name}}", tmp{{.Name}}Buff), false, false);
+				SAFE_TEST_RET_VAL(buffer.add("{{.Name}}", tmp{{.Name}}Buff), false, false);
 			}
 			break;
 		{{end}}  
@@ -91,7 +91,7 @@ struct {{.Name}}
 	template <typename T>
 	bool Unmarshal(T & buffer)
 	{			
-		SAFE_TEST_RET_VAL(buffer.get("m_Type", m_Type), false, false);
+		SAFE_TEST_RET_VAL(buffer.get("Type", m_Type), false, false);
 		
 		switch (m_Type)
 		{
@@ -100,7 +100,7 @@ struct {{.Name}}
 		case {{.Ref}}:
 			{
 				T tmp{{.Name}}Buff;
-				SAFE_TEST_RET_VAL(buffer.get("m_{{.Name}}", tmp{{.Name}}Buff), false, false);
+				SAFE_TEST_RET_VAL(buffer.get("{{.Name}}", tmp{{.Name}}Buff), false, false);
 				SAFE_TEST_RET_VAL(m_{{.Name}}.Unmarshal(tmp{{.Name}}Buff), false, false);
 			}
 			break;
@@ -195,23 +195,23 @@ struct {{.Name}}
 			
 		{{range .Members}} 
 		// {{.Comment}}	
-		{{if eq .Type "char"}}SAFE_TEST_RET_VAL(buffer.add("m_{{.Name}}", m_{{.Name}}, {{.Length}}), false, false);
+		{{if eq .Type "char"}}SAFE_TEST_RET_VAL(buffer.add("{{.Name}}", m_{{.Name}}, {{.Length}}), false, false);
 		{{else if .Length}}{{if is_normal_type .Type}}int32_t copy{{.Name}}Size = {{if .Ref}}sizeof({{.Type}}) * PROTO_MIN({{.Length}}, m_{{.Ref}}){{else}}sizeof(m_{{.Name}}){{end}};
-		SAFE_TEST_RET_VAL(buffer.add("m_{{.Name}}", m_{{.Name}}, copy{{.Name}}Size), false, false);
+		SAFE_TEST_RET_VAL(buffer.add("{{.Name}}", m_{{.Name}}, copy{{.Name}}Size), false, false);
 		{{else}}T tmp{{.Name}}Buff;
 		stringc tmp{{.Name}}Name;
 		for (int32_t i = 0; i < {{.Length}}{{if .Ref}} && i < m_{{.Ref}}{{end}}; i++)
 		{
 			tmp{{.Name}}Buff.reset();
 			SAFE_TEST_RET_VAL(m_{{.Name}}[i].Marshal(tmp{{.Name}}Buff), false, false);
-			tmp{{.Name}}Name = "m_{{.Name}}";
+			tmp{{.Name}}Name = "{{.Name}}";
 			tmp{{.Name}}Name += i;
 			SAFE_TEST_RET_VAL(buffer.add(tmp{{.Name}}Name, tmp{{.Name}}Buff), false, false);
-		}{{end}}{{else if is_normal_type .Type}}SAFE_TEST_RET_VAL(buffer.add("m_{{.Name}}", m_{{.Name}}), false, false);
+		}{{end}}{{else if is_normal_type .Type}}SAFE_TEST_RET_VAL(buffer.add("{{.Name}}", m_{{.Name}}), false, false);
 		{{else}}{
 			T tmp{{.Name}}Buff;
 			SAFE_TEST_RET_VAL(m_{{.Name}}.Marshal(tmp{{.Name}}Buff), false, false);
-			SAFE_TEST_RET_VAL(buffer.add("m_{{.Name}}", tmp{{.Name}}Buff), false, false);
+			SAFE_TEST_RET_VAL(buffer.add("{{.Name}}", tmp{{.Name}}Buff), false, false);
 		}{{end}} 
 		{{end}}
 		
@@ -225,24 +225,24 @@ struct {{.Name}}
 	{			
 		{{range .Members}} 
 		// {{.Comment}}	
-		{{if eq .Type "char"}}buffer.get("m_{{.Name}}", m_{{.Name}}, {{.Length}});
+		{{if eq .Type "char"}}buffer.get("{{.Name}}", m_{{.Name}}, {{.Length}});
 		{{else if .Length}}{{if is_normal_type .Type}}int32_t copy{{.Name}}Size = {{if .Ref}}sizeof({{.Type}}) * PROTO_MIN({{.Length}}, m_{{.Ref}}){{else}}sizeof(m_{{.Name}}){{end}};
-		buffer.get("m_{{.Name}}", m_{{.Name}}, copy{{.Name}}Size);
+		buffer.get("{{.Name}}", m_{{.Name}}, copy{{.Name}}Size);
 		{{else}}T tmp{{.Name}}Buff;
 		stringc tmp{{.Name}}Name;
 		for (int32_t i = 0; i < {{.Length}}{{if .Ref}} && i < m_{{.Ref}}{{end}}; i++)
 		{
 			tmp{{.Name}}Buff.reset();
-			tmp{{.Name}}Name = "m_{{.Name}}";
+			tmp{{.Name}}Name = "{{.Name}}";
 			tmp{{.Name}}Name += i;
 			SAFE_TEST_CONTINUE(buffer.get(tmp{{.Name}}Name, tmp{{.Name}}Buff), false);
 			SAFE_TEST_CONTINUE(m_{{.Name}}[i].Unmarshal(tmp{{.Name}}Buff), false);
-		}{{end}}{{else if is_normal_type .Type}}buffer.get("m_{{.Name}}", m_{{.Name}});
+		}{{end}}{{else if is_normal_type .Type}}buffer.get("{{.Name}}", m_{{.Name}});
 		{{else}}
 		do
 		{
 			T tmp{{.Name}}Buff;
-			SAFE_TEST_BREAK(buffer.get("m_{{.Name}}", tmp{{.Name}}Buff), false);
+			SAFE_TEST_BREAK(buffer.get("{{.Name}}", tmp{{.Name}}Buff), false);
 			SAFE_TEST_BREAK(m_{{.Name}}.Unmarshal(tmp{{.Name}}Buff), false);
 		}
 		while(0);{{end}} 
