@@ -290,15 +290,22 @@ public:
 			return;
 		}
 
+		if (sizeof(T) != sizeof(B))
+		{
+		    FASSERT(0);
+		    *this = "badstring";
+			*this += sizeof(B);
+			return;
+		}
+
 		used = length;
 
 		if (used >= N)
 		{
 			used = N - 1;
 		}
-
-		for (uint32_t l = 0; l<used; ++l)
-			array[l] = (T)c[l];
+		
+        memcpy(array, c, sizeof(T) * used);
 
 		array[used] = 0;
 	}
@@ -360,8 +367,7 @@ public:
 		}
 
 		const T* p = other.c_str();
-		for (uint32_t i=0; i<used; ++i, ++p)
-			array[i] = *p;
+        memcpy(array, p, sizeof(T) * used);
 
 		array[used] = 0;
 
@@ -388,6 +394,14 @@ public:
 			return *this;
 		}
 
+		if (sizeof(T) != sizeof(B))
+		{
+		    FASSERT(0);
+			used = 0;
+			array[0] = 0x0;
+			return *this;
+		}
+
 		if ((void*)c == (void*)array)
 			return *this;
 
@@ -406,8 +420,7 @@ public:
 			len = used = N - 1;
 		}
 
-		for (uint32_t l = 0; l<len; ++l)
-			array[l] = (T)c[l];
+        memcpy(array, c, sizeof(T) * used);
 
 		array[used] = 0;
 
@@ -689,8 +702,7 @@ public:
 			len = N - used - 1;
 		}
 
-		for (uint32_t l=0; l<len; ++l)
-			array[l+used] = *(other+l);
+        memcpy(array + used, other, sizeof(T) * len);
 
 		used += len;
 		array[used] = 0;
@@ -713,8 +725,8 @@ public:
 			len = N - used - 1;
 		}
 
-		for (uint32_t l=0; l<len; ++l)
-			array[used+l] = other[l];
+        const T * pother = other.c_str();
+        memcpy(array + used, pother, sizeof(T) * len);
 
 		used += len;
 		array[used] = 0;
@@ -742,8 +754,8 @@ public:
 			length = N - used - 1;
 		}
 
-		for (uint32_t l=0; l<length; ++l)
-			array[l+used] = other[l];
+        const T * pother = other.c_str();
+        memcpy(array + used, pother, sizeof(T) * length);
 
 		used += length;
 		array[used]=0;
@@ -966,8 +978,7 @@ public:
 		int32_t i;
 		if ( !make_lower )
 		{
-			for (i=0; i<length; ++i)
-				o.array[i] = array[i+begin];
+		    memcpy(o.array, array + begin, sizeof(T) * length);
 		}
 		else
 		{
@@ -1096,8 +1107,7 @@ public:
 			int32_t pos = 0;
 			while ((pos = find(other, pos)) != -1)
 			{
-				for (uint32_t i = 0; i < replace_size; ++i)
-					array[pos + i] = replace[i];
+		        memcpy(array + pos, replace, sizeof(T) * replace_size);
 				++pos;
 			}
 			return *this;
@@ -1123,8 +1133,7 @@ public:
 					// If we have a match, replace characters.
 					if (j == other_size)
 					{
-						for (j = 0; j < replace_size; ++j)
-							array[i + j] = replace[j];
+		                memcpy(array + i, replace, sizeof(T) * replace_size);
 						i += replace_size;
 						pos += other_size;
 						continue;
@@ -1170,8 +1179,7 @@ public:
 			}
 
 			// Add the new fstring now.
-			for (uint32_t i = 0; i < replace_size; ++i)
-				array[pos + i] = replace[i];
+		    memcpy(array + pos, replace, sizeof(T) * replace_size);
 
 			pos += replace_size;
 			used += delta;
@@ -1308,8 +1316,7 @@ public:
 			return *this;
 		}
 
-		for (uint32_t i=index+1; i<=used; ++i)
-			array[i-1] = array[i];
+		memmove(array + index, array + index + 1, sizeof(T) * (used - index));
 
 		--used;
 		return *this;
