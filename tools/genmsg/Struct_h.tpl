@@ -225,9 +225,9 @@ struct {{.Name}}
 	{			
 		{{range .Members}} 
 		// {{.Comment}}	
-		{{if eq .Type "char"}}SAFE_TEST_RET_VAL(buffer.get("m_{{.Name}}", m_{{.Name}}, {{.Length}}), false, false);
+		{{if eq .Type "char"}}buffer.get("m_{{.Name}}", m_{{.Name}}, {{.Length}});
 		{{else if .Length}}{{if is_normal_type .Type}}int32_t copy{{.Name}}Size = {{if .Ref}}sizeof({{.Type}}) * PROTO_MIN({{.Length}}, m_{{.Ref}}){{else}}sizeof(m_{{.Name}}){{end}};
-		SAFE_TEST_RET_VAL(buffer.get("m_{{.Name}}", m_{{.Name}}, copy{{.Name}}Size), false, false);
+		buffer.get("m_{{.Name}}", m_{{.Name}}, copy{{.Name}}Size);
 		{{else}}T tmp{{.Name}}Buff;
 		stringc tmp{{.Name}}Name;
 		for (int32_t i = 0; i < {{.Length}}{{if .Ref}} && i < m_{{.Ref}}{{end}}; i++)
@@ -235,14 +235,17 @@ struct {{.Name}}
 			tmp{{.Name}}Buff.reset();
 			tmp{{.Name}}Name = "m_{{.Name}}";
 			tmp{{.Name}}Name += i;
-			SAFE_TEST_RET_VAL(buffer.get(tmp{{.Name}}Name, tmp{{.Name}}Buff), false, false);
-			SAFE_TEST_RET_VAL(m_{{.Name}}[i].Unmarshal(tmp{{.Name}}Buff), false, false);
-		}{{end}}{{else if is_normal_type .Type}}SAFE_TEST_RET_VAL(buffer.get("m_{{.Name}}", m_{{.Name}}), false, false);
-		{{else}}{
+			SAFE_TEST_CONTINUE(buffer.get(tmp{{.Name}}Name, tmp{{.Name}}Buff), false);
+			SAFE_TEST_CONTINUE(m_{{.Name}}[i].Unmarshal(tmp{{.Name}}Buff), false);
+		}{{end}}{{else if is_normal_type .Type}}buffer.get("m_{{.Name}}", m_{{.Name}});
+		{{else}}
+		do
+		{
 			T tmp{{.Name}}Buff;
-			SAFE_TEST_RET_VAL(buffer.get("m_{{.Name}}", tmp{{.Name}}Buff), false, false);
-			SAFE_TEST_RET_VAL(m_{{.Name}}.Unmarshal(tmp{{.Name}}Buff), false, false);
-		}{{end}} 
+			SAFE_TEST_BREAK(buffer.get("m_{{.Name}}", tmp{{.Name}}Buff), false);
+			SAFE_TEST_BREAK(m_{{.Name}}.Unmarshal(tmp{{.Name}}Buff), false);
+		}
+		while(0);{{end}} 
 		{{end}}
 		return true;
 	}
