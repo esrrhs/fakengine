@@ -6,19 +6,19 @@ template <typename T> class matrix3
     
     public:
         
-        matrix3()
+        force_inline matrix3()
         {
             reset();
         }
-        matrix3(const T (&Other)[9])
+        force_inline matrix3(const T (&Other)[9])
         {
             *this = Other;
         }
-        matrix3(const matrix3<T> &Other)
+        force_inline matrix3(const matrix3<T> &Other)
         {
             *this = Other;
         }
-        matrix3(
+        force_inline matrix3(
             T m1n1, T m2n1, T m3n1,
             T m1n2, T m2n2, T m3n2,
             T m1n3, T m2n3, T m3n3)
@@ -27,31 +27,31 @@ template <typename T> class matrix3
             M[1] = m1n2; M[4] = m2n2; M[7] = m3n2;
             M[2] = m1n3; M[5] = m2n3; M[8] = m3n3;
         }
-        ~matrix3()
+        force_inline ~matrix3()
         {
         }
         
         /* === Operators === */
         
-        inline const T& operator () (int32_t row, int32_t col) const
+        force_inline const T& operator () (int32_t row, int32_t col) const
         {
             return M[ (row * 3) + col ];
         }
-        inline T& operator () (int32_t row, int32_t col)
+        force_inline T& operator () (int32_t row, int32_t col)
         {
             return M[ (row * 3) + col ];
         }
         
-        inline const T operator [] (uint32_t i) const
+        force_inline const T operator [] (uint32_t i) const
         {
             return i < 9 ? M[i] : (T)0;
         }
-        inline T& operator [] (uint32_t i)
+        force_inline T& operator [] (uint32_t i)
         {
             return M[i];
         }
         
-        inline bool operator == (const matrix3<T> &other)
+        force_inline bool operator == (const matrix3<T> &other)
         {
             for (int32_t i = 0; i < 9; ++i)
             {
@@ -60,7 +60,7 @@ template <typename T> class matrix3
             }
             return true;
         }
-        inline bool operator != (const matrix3<T> &other)
+        force_inline bool operator != (const matrix3<T> &other)
         {
             for (int32_t i = 0; i < 9; ++i)
             {
@@ -70,27 +70,27 @@ template <typename T> class matrix3
             return false;
         }
         
-        inline matrix3<T>& operator = (const T (&other)[9])
+        force_inline matrix3<T>& operator = (const T (&other)[9])
         {
             M[0] = other[0]; M[3] = other[3]; M[6] = other[6];
             M[1] = other[1]; M[4] = other[4]; M[7] = other[7];
             M[2] = other[2]; M[5] = other[5]; M[8] = other[8];
             return *this;
         }
-        inline matrix3<T>& operator = (const matrix3<T> &other)
+        force_inline matrix3<T>& operator = (const matrix3<T> &other)
         {
             M[0] = other[0]; M[3] = other[3]; M[6] = other[6];
             M[1] = other[1]; M[4] = other[4]; M[7] = other[7];
             M[2] = other[2]; M[5] = other[5]; M[8] = other[8];
             return *this;
         }
-        inline matrix3<T>& operator = (T Scalar)
+        force_inline matrix3<T>& operator = (T Scalar)
         {
             memset(M, Scalar, sizeof(M));
             return *this;
         }
         
-        inline matrix3<T> operator + (const matrix3<T> &mltMatrix) const
+        force_inline matrix3<T> operator + (const matrix3<T> &mltMatrix) const
         {
             matrix3<T> other;
             
@@ -101,7 +101,7 @@ template <typename T> class matrix3
             return other;
         }
         
-        inline matrix3<T>& operator += (const matrix3<T> &mltMatrix)
+        force_inline matrix3<T>& operator += (const matrix3<T> &mltMatrix)
         {
             M[0] += mltMatrix[0]; M[3] += mltMatrix[3]; M[6] += mltMatrix[6];
             M[1] += mltMatrix[1]; M[4] += mltMatrix[4]; M[7] += mltMatrix[7];
@@ -109,7 +109,7 @@ template <typename T> class matrix3
             return *this;
         }
         
-        inline matrix3<T> operator - (const matrix3<T> &mltMatrix) const
+        force_inline matrix3<T> operator - (const matrix3<T> &mltMatrix) const
         {
             matrix3<T> other;
             other[0] = M[0] - mltMatrix[0]; other[3] = M[3] - mltMatrix[3]; other[6] = M[6] - mltMatrix[6];
@@ -117,7 +117,7 @@ template <typename T> class matrix3
             other[2] = M[2] - mltMatrix[2]; other[5] = M[5] - mltMatrix[5]; other[8] = M[8] - mltMatrix[8];
             return other;
         }
-        inline matrix3<T>& operator -= (const matrix3<T> &mltMatrix)
+        force_inline matrix3<T>& operator -= (const matrix3<T> &mltMatrix)
         {
             M[0] -= mltMatrix[0]; M[3] -= mltMatrix[3]; M[6] -= mltMatrix[6];
             M[1] -= mltMatrix[1]; M[4] -= mltMatrix[4]; M[7] -= mltMatrix[7];
@@ -125,7 +125,7 @@ template <typename T> class matrix3
             return *this;
         }
         
-        inline matrix3<T> operator * (const matrix3<T> &mltMatrix) const
+        force_inline matrix3<T> operator * (const matrix3<T> &mltMatrix) const
         {
             matrix3<T> m3;
             const T* m1 = M;
@@ -146,7 +146,7 @@ template <typename T> class matrix3
             return m3;
         }
         
-        inline matrix3<T> operator * (const T &Scalar) const
+        force_inline matrix3<T> operator * (const T &Scalar) const
         {
             matrix3<T> other;
             
@@ -157,7 +157,7 @@ template <typename T> class matrix3
             return other;
         }
         
-        inline matrix3<T>& operator *= (const matrix3<T> &mltMatrix)
+        force_inline matrix3<T>& operator *= (const matrix3<T> &mltMatrix)
         {
             T m1[16];
             memcpy(m1, M, sizeof(M));
@@ -178,7 +178,7 @@ template <typename T> class matrix3
             return *this;
         }
         
-        inline matrix3<T>& operator *= (T Scalar)
+        force_inline matrix3<T>& operator *= (T Scalar)
         {
             M[0] *= Scalar; M[3] *= Scalar; M[6] *= Scalar;
             M[1] *= Scalar; M[4] *= Scalar; M[7] *= Scalar;
@@ -191,7 +191,7 @@ template <typename T> class matrix3
         |  1-2  2-2  3-2  |  *  | y |
         (  1-3  2-3  3-3  )     ( z )
         */
-        inline vector3d<T> operator * (const vector3d<T> &Vector) const
+        force_inline vector3d<T> operator * (const vector3d<T> &Vector) const
         {
             return vector3d<T>(
                 Vector.X*M[0] + Vector.Y*M[3] + Vector.Z*M[6],
@@ -200,7 +200,7 @@ template <typename T> class matrix3
             );
         }
         
-        inline point2d<T> operator * (const point2d<T> &Vector) const
+        force_inline point2d<T> operator * (const point2d<T> &Vector) const
         {
             return point2d<T>(
                 Vector.X*M[0] + Vector.Y*M[3],
@@ -208,7 +208,7 @@ template <typename T> class matrix3
             );
         }
         
-        inline triangle3d<T> operator * (const triangle3d<T> &Triangle) const
+        force_inline triangle3d<T> operator * (const triangle3d<T> &Triangle) const
         {
             return triangle3d<T>(
                 *this * Triangle.PointA,
@@ -217,7 +217,7 @@ template <typename T> class matrix3
             );
         }
         
-        inline triangle3d<T> operator * (const triangle3d<T, vector3d<T>*> &Triangle) const
+        force_inline triangle3d<T> operator * (const triangle3d<T, vector3d<T>*> &Triangle) const
         {
             return triangle3d<T>(
                 *this * (*Triangle.PointA),
@@ -226,7 +226,7 @@ template <typename T> class matrix3
             );
         }
         
-        inline plane3d<T> operator * (const plane3d<T> &Plane) const
+        force_inline plane3d<T> operator * (const plane3d<T> &Plane) const
         {
             plane3d<T> NewPlane(Plane);
             
@@ -244,7 +244,7 @@ template <typename T> class matrix3
         
         /* === Transformation functions === */
         
-        inline vector3d<T> vecRotate(const vector3d<T> &Vector) const
+        force_inline vector3d<T> vecRotate(const vector3d<T> &Vector) const
         {
             return vector3d<T>(
                 Vector.X*M[0] + Vector.Y*M[3] + Vector.Z*M[6],
@@ -253,7 +253,7 @@ template <typename T> class matrix3
             );
         }
         
-        inline vector3d<T> vecRotateInverse(const vector3d<T> &Vector) const
+        force_inline vector3d<T> vecRotateInverse(const vector3d<T> &Vector) const
         {
             return vector3d<T>(
                 Vector.X*M[0] + Vector.Y*M[1] + Vector.Z*M[2],
@@ -262,7 +262,7 @@ template <typename T> class matrix3
             );
         }
         
-        inline void clear()
+        force_inline void clear()
         {
             memset(M, 0, sizeof(M));
         }
@@ -272,7 +272,7 @@ template <typename T> class matrix3
         |  0  1  0  |
         (  0  0  1  )
         */
-        inline matrix3<T>& reset() // Loads identity
+        force_inline matrix3<T>& reset() // Loads identity
         {
             M[0] = 1; M[3] = 0; M[6] = 0;
             M[1] = 0; M[4] = 1; M[7] = 0;
@@ -280,7 +280,7 @@ template <typename T> class matrix3
             return *this;
         }
         
-        inline void multiplySingleMatrix(const T (&other)[3]) // Multiplies this matrix with a ( 1 x 3 ) matrix
+        force_inline void multiplySingleMatrix(const T (&other)[3]) // Multiplies this matrix with a ( 1 x 3 ) matrix
         {
             T Result[3];
             
@@ -291,7 +291,7 @@ template <typename T> class matrix3
             other[0] = Result[0]; other[1] = Result[1]; other[2] = Result[2];
         }
         
-        inline void matrixLookAt(const vector3d<T> &Position, const vector3d<T> &LookAt, const vector3d<T> &upVector)
+        force_inline void matrixLookAt(const vector3d<T> &Position, const vector3d<T> &LookAt, const vector3d<T> &upVector)
         {
             vector3d<T> ZAxis = LookAt - Position;
             ZAxis.normalize();
@@ -306,7 +306,7 @@ template <typename T> class matrix3
             M[2] = ZAxis.X; M[5] = ZAxis.Y; M[8] = ZAxis.Z;
         }
         
-        inline bool getInverse(matrix3<T> &InverseMat) const
+        force_inline bool getInverse(matrix3<T> &InverseMat) const
         {
             const matrix3<T> &m = *this;
             
@@ -331,7 +331,7 @@ template <typename T> class matrix3
             return true;
         }
         
-        inline bool setInverse()
+        force_inline bool setInverse()
         {
             matrix3<T> Matrix;
             
@@ -344,7 +344,7 @@ template <typename T> class matrix3
             return false;
         }
         
-        inline matrix3<T> getInverse() const
+        force_inline matrix3<T> getInverse() const
         {
             matrix3<T> Mat;
             getInverse(Mat);
@@ -356,7 +356,7 @@ template <typename T> class matrix3
         |  0  y  0  |
         (  0  0  z  )
         */
-        inline matrix3<T>& scale(const vector3d<T> &Vector)
+        force_inline matrix3<T>& scale(const vector3d<T> &Vector)
         {
             matrix3<T> other;
             
@@ -372,7 +372,7 @@ template <typename T> class matrix3
         | yx(1-c)+zs  yy(1-c)+c   yz(1-c)-xs |
         ( xz(1-c)-ys  yz(1-c)+xs  zz(1-c)+c  )
         */
-        inline matrix3<T>& rotate(const T &Angle, vector3d<T> Rotation)
+        force_inline matrix3<T>& rotate(const T &Angle, vector3d<T> Rotation)
         {
             matrix3<T> other;
             
@@ -395,7 +395,7 @@ template <typename T> class matrix3
             return *this *= other;
         }
         
-        inline matrix3<T>& rotateX(const T &Angle)
+        force_inline matrix3<T>& rotateX(const T &Angle)
         {
             matrix3<T> other;
             T c = Cos(Angle);
@@ -409,7 +409,7 @@ template <typename T> class matrix3
             return *this *= other;
         }
         
-        inline matrix3<T>& rotateY(const T &Angle)
+        force_inline matrix3<T>& rotateY(const T &Angle)
         {
             matrix3<T> other;
             T c = Cos(Angle);
@@ -423,7 +423,7 @@ template <typename T> class matrix3
             return *this *= other;
         }
         
-        inline matrix3<T>& rotateZ(const T &Angle)
+        force_inline matrix3<T>& rotateZ(const T &Angle)
         {
             matrix3<T> other;
             T c = Cos(Angle);
@@ -437,21 +437,21 @@ template <typename T> class matrix3
             return *this *= other;
         }
         
-        inline void rotateYXZ(const vector3df &Rotation)
+        force_inline void rotateYXZ(const vector3df &Rotation)
         {
             rotateY(Rotation.Y);
             rotateX(Rotation.X);
             rotateZ(Rotation.Z);
         }
         
-        inline void rotateZXY(const vector3df &Rotation)
+        force_inline void rotateZXY(const vector3df &Rotation)
         {
             rotateZ(Rotation.Z);
             rotateX(Rotation.X);
             rotateY(Rotation.Y);
         }
         
-        inline void setRotation(vector3df Rotation, bool UseDegrees = true)
+        force_inline void setRotation(vector3df Rotation, bool UseDegrees = true)
         {
             if (UseDegrees)
                 Rotation = Rotation * M_PI / 180.0;
@@ -479,7 +479,7 @@ template <typename T> class matrix3
             M[8] = (T)(cx*cy);
         }
         
-        inline void setInverseRotation(vector3df Rotation, bool UseDegrees = true)
+        force_inline void setInverseRotation(vector3df Rotation, bool UseDegrees = true)
         {
             if (UseDegrees)
                 Rotation = Rotation * M_PI / 180.0;
@@ -507,7 +507,7 @@ template <typename T> class matrix3
             M[8] = (T)(cx*cy);
         }
         
-        inline void setTextureRotation(const T &Degree)
+        force_inline void setTextureRotation(const T &Degree)
         {
             T c = Cos(Degree);
             T s = Sin(Degree);
@@ -523,7 +523,7 @@ template <typename T> class matrix3
         
         /* === Row & columns === */
         
-        inline vector3d<T> getRow(int32_t Position) const
+        force_inline vector3d<T> getRow(int32_t Position) const
         {
             switch (Position) {
                 case 0:
@@ -536,7 +536,7 @@ template <typename T> class matrix3
             return vector3d<T>();
         }
         
-        inline vector3d<T> getColumn(int32_t Position) const
+        force_inline vector3d<T> getColumn(int32_t Position) const
         {
             switch (Position) {
                 case 0:
@@ -549,16 +549,16 @@ template <typename T> class matrix3
             return vector3d<T>();
         }
         
-        inline void setScale(const vector3d<T> &Scale)
+        force_inline void setScale(const vector3d<T> &Scale)
         {
             M[0] = Scale.X; M[4] = Scale.Y; M[8] = Scale.Z;
         }
-        inline vector3d<T> getScale() const
+        force_inline vector3d<T> getScale() const
         {
             return vector3d<T>(M[0], M[5], M[10]);
         }
         
-        inline vector3d<T> getRotation() const
+        force_inline vector3d<T> getRotation() const
         {
             const matrix3<T> &Mat = *this;
             
@@ -593,21 +593,21 @@ template <typename T> class matrix3
             return vector3d<T>(X, Y, Z);
         }
         
-        inline matrix3<T> getTransposed() const
+        force_inline matrix3<T> getTransposed() const
         {
             matrix3<T> Mat;
             getTransposed(Mat);
             return Mat;
         }
         
-        inline void getTransposed(matrix3<T> &other) const
+        force_inline void getTransposed(matrix3<T> &other) const
         {
             other[0] = M[0]; other[3] = M[1]; other[6] = M[2];
             other[1] = M[3]; other[4] = M[4]; other[7] = M[5];
             other[2] = M[6]; other[5] = M[7]; other[8] = M[8];
         }
         
-        inline matrix3<T> interpolate(const matrix3<T> &other, float seek) const
+        force_inline matrix3<T> interpolate(const matrix3<T> &other, float seek) const
         {
             matrix3<T> Mat;
             
@@ -617,7 +617,7 @@ template <typename T> class matrix3
             return Mat;
         }
         
-        inline bool isIdentity() const
+        force_inline bool isIdentity() const
         {
             for (int32_t i = 0, j; i < 3; ++i)
             {
@@ -634,17 +634,17 @@ template <typename T> class matrix3
             return true;
         }
         
-        inline const T* getArray() const
+        force_inline const T* getArray() const
         {
             return M;
         }
         
-        inline T* getArray()
+        force_inline T* getArray()
         {
             return M;
         }
         
-        template <typename B> inline matrix3<B> cast() const
+        template <typename B> force_inline matrix3<B> cast() const
         {
             B other[9];
             

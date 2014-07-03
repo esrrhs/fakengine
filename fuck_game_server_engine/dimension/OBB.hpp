@@ -7,10 +7,10 @@ template <typename T> class obbox3d
     
     public:
         
-        obbox3d()
+        force_inline obbox3d()
         {
         }
-        obbox3d(const vector3d<T> &Min, const vector3d<T> &Max) :
+        force_inline obbox3d(const vector3d<T> &Min, const vector3d<T> &Max) :
             Center  ((Min + Max) / 2),
             Axis(
                 vector3d<T>(1, 0, 0),
@@ -20,25 +20,25 @@ template <typename T> class obbox3d
             HalfSize((Max - Min) / 2)
         {
         }
-        obbox3d(const vector3d<T> &BoxCenter, const vector3d<T> &AxisX, const vector3d<T> &AxisY, const vector3d<T> &AxisZ) :
+        force_inline obbox3d(const vector3d<T> &BoxCenter, const vector3d<T> &AxisX, const vector3d<T> &AxisY, const vector3d<T> &AxisZ) :
             Center  (BoxCenter          ),
             Axis    (AxisX, AxisY, AxisZ)
         {
             updateHalfSize();
         }
-        obbox3d(const obbox3d<T> &Other) :
+        force_inline obbox3d(const obbox3d<T> &Other) :
             Center  (Other.Center   ),
             Axis    (Other.Axis     ),
             HalfSize(Other.HalfSize )
         {
         }
-        ~obbox3d()
+        force_inline ~obbox3d()
         {
         }
         
         /* === Extra functions === */
         
-        inline void updateHalfSize()
+        force_inline void updateHalfSize()
         {
             /* Store half size */
             HalfSize.X = Axis.X.getLength();
@@ -51,7 +51,7 @@ template <typename T> class obbox3d
             Axis.Z *= (T(1) / HalfSize.Z);
         }
         
-        inline T getVolume() const
+        force_inline T getVolume() const
         {
             return (HalfSize * vector3d<T>(2)).getVolume();
         }
@@ -61,7 +61,7 @@ template <typename T> class obbox3d
         \param[in] InvPoint Specifies the inverse point which must be transformed by the inverse matrix of this box.
         \return True if the specified inverse point is inside the box. 
         */
-        inline bool isInversePointInside(const vector3d<T> &InvPoint) const
+        force_inline bool isInversePointInside(const vector3d<T> &InvPoint) const
         {
             return
                 Abs(InvPoint.X) < T(1) &&
@@ -70,10 +70,10 @@ template <typename T> class obbox3d
         }
         
         //! Returns true if the specified point is inside the box.
-        inline bool isPointInside(const vector3d<T> &Point) const;
+        force_inline bool isPointInside(const vector3d<T> &Point) const;
         
         //! Returns true if the specifies box is inside this box.
-        inline bool isBoxInside(const obbox3d<T> &Other) const;
+        force_inline bool isBoxInside(const obbox3d<T> &Other) const;
         
         /* Members */
         

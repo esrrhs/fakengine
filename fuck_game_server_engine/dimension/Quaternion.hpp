@@ -8,14 +8,14 @@ template <typename T> class quaternion4
     
     public:
         
-        quaternion4() :
+        force_inline quaternion4() :
             X(0),
             Y(0),
             Z(0),
             W(1)
         {
         }
-        quaternion4(const T &x, const T &y, const T &z) :
+        force_inline quaternion4(const T &x, const T &y, const T &z) :
             X(0),
             Y(0),
             Z(0),
@@ -23,14 +23,14 @@ template <typename T> class quaternion4
         {
             set(x, y, z);
         }
-        quaternion4(const T &x, const T &y, const T &z, const T &w) :
+        force_inline quaternion4(const T &x, const T &y, const T &z, const T &w) :
             X(x),
             Y(y),
             Z(z),
             W(w)
         {
         }
-        quaternion4(const vector3d<T> &Vec) :
+        force_inline quaternion4(const vector3d<T> &Vec) :
             X(0),
             Y(0),
             Z(0),
@@ -38,21 +38,21 @@ template <typename T> class quaternion4
         {
             set(Vec);
         }
-        quaternion4(const vector4d<T> &Vec) :
+        force_inline quaternion4(const vector4d<T> &Vec) :
             X(Vec.X),
             Y(Vec.Y),
             Z(Vec.Z),
             W(Vec.W)
         {
         }
-        quaternion4(const quaternion4<T> &Other) :
+        force_inline quaternion4(const quaternion4<T> &Other) :
             X(Other.X),
             Y(Other.Y),
             Z(Other.Z),
             W(Other.W)
         {
         }
-        quaternion4(const matrix4<T> &Matrix) :
+        force_inline quaternion4(const matrix4<T> &Matrix) :
             X(0),
             Y(0),
             Z(0),
@@ -60,13 +60,13 @@ template <typename T> class quaternion4
         {
             setMatrix(Matrix);
         }
-        ~quaternion4()
+        force_inline ~quaternion4()
         {
         }
         
         /* === Operators - copying === */
         
-        inline quaternion4<T>& operator = (const quaternion4<T> &Other)
+        force_inline quaternion4<T>& operator = (const quaternion4<T> &Other)
         {
             set(Other.X, Other.Y, Other.Z, Other.W);
             return *this;
@@ -74,63 +74,63 @@ template <typename T> class quaternion4
         
         /* === Operators - comparisions === */
         
-        inline bool operator == (const quaternion4<T> &Other) const
+        force_inline bool operator == (const quaternion4<T> &Other) const
         {
             return X == Other.X && Y == Other.Y && Z == Other.Z && W == Other.W;
         }
-        inline bool operator != (const quaternion4<T> &Other) const
+        force_inline bool operator != (const quaternion4<T> &Other) const
         {
             return X != Other.X || Y != Other.Y || Z != Other.Z || W != Other.W;
         }
         
-        inline bool operator < (const quaternion4<T> &Other) const
+        force_inline bool operator < (const quaternion4<T> &Other) const
         {
             return (X == Other.X) ? ( (Y == Other.Y) ? ( (Z == Other.Z) ? W < Other.W : Z < Other.Z ) : Y < Other.Y ) : X < Other.X;
         }
-        inline bool operator > (const quaternion4<T> &Other) const
+        force_inline bool operator > (const quaternion4<T> &Other) const
         {
             return (X == Other.X) ? ( (Y == Other.Y) ? ( (Z == Other.Z) ? W > Other.W : Z > Other.Z ) : Y > Other.Y ) : X > Other.X;
         }
         
-        inline bool operator <= (const quaternion4<T> &Other) const
+        force_inline bool operator <= (const quaternion4<T> &Other) const
         {
             return (X == Other.X) ? ( (Y == Other.Y) ? ( (Z == Other.Z) ? W <= Other.W : Z <= Other.Z ) : Y <= Other.Y ) : X <= Other.X;
         }
-        inline bool operator >= (const quaternion4<T> &Other) const
+        force_inline bool operator >= (const quaternion4<T> &Other) const
         {
             return (X == Other.X) ? ( (Y == Other.Y) ? ( (Z == Other.Z) ? W >= Other.W : Z >= Other.Z ) : Y >= Other.Y ) : X >= Other.X;
         }
         
         /* === Operators - addition, subtraction, division, multiplication === */
         
-        inline quaternion4<T> operator + (const quaternion4<T> &Other) const
+        force_inline quaternion4<T> operator + (const quaternion4<T> &Other) const
         {
             return quaternion4<T>(X + Other.X, Y + Other.Y, Z + Other.Z, W + Other.W);
         }
-        inline quaternion4<T>& operator += (const quaternion4<T> &Other)
+        force_inline quaternion4<T>& operator += (const quaternion4<T> &Other)
         {
             X += Other.X; Y += Other.Y; Z += Other.Z; W += Other.W; return *this;
         }
         
-        inline quaternion4<T> operator - (const quaternion4<T> &Other) const
+        force_inline quaternion4<T> operator - (const quaternion4<T> &Other) const
         {
             return quaternion4<T>(X - Other.X, Y - Other.Y, Z - Other.Z, W - Other.W);
         }
-        inline quaternion4<T>& operator -= (const quaternion4<T> &Other)
+        force_inline quaternion4<T>& operator -= (const quaternion4<T> &Other)
         {
             X -= Other.X; Y -= Other.Y; Z -= Other.Z; W -= Other.W; return *this;
         }
         
-        inline quaternion4<T> operator / (const quaternion4<T> &Other) const
+        force_inline quaternion4<T> operator / (const quaternion4<T> &Other) const
         {
             return quaternion4<T>(X / Other.X, Y / Other.Y, Z / Other.Z, W / Other.W);
         }
-        inline quaternion4<T>& operator /= (const quaternion4<T> &Other)
+        force_inline quaternion4<T>& operator /= (const quaternion4<T> &Other)
         {
             X /= Other.X; Y /= Other.Y; Z /= Other.Z; W /= Other.W; return *this;
         }
         
-        inline quaternion4<T> operator * (const quaternion4<T> &Other) const
+        force_inline quaternion4<T> operator * (const quaternion4<T> &Other) const
         {
             quaternion4<T> tmp;
             
@@ -141,12 +141,12 @@ template <typename T> class quaternion4
             
             return tmp;
         }
-        inline quaternion4<T>& operator *= (const quaternion4<T> &Other)
+        force_inline quaternion4<T>& operator *= (const quaternion4<T> &Other)
         {
             *this = *this * Other; return *this;
         }
         
-        inline vector3d<T> operator * (const vector3d<T> &Vector) const
+        force_inline vector3d<T> operator * (const vector3d<T> &Vector) const
         {
             vector3d<T> uv, uuv;
             vector3d<T> qvec(X, Y, Z);
@@ -162,44 +162,44 @@ template <typename T> class quaternion4
             return uv;
         }
         
-        inline quaternion4 operator / (const T &Size) const
+        force_inline quaternion4 operator / (const T &Size) const
         {
             return quaternion4(X / Size, Y / Size, Z / Size, W / Size);
         }
-        inline quaternion4& operator /= (const T &Size)
+        force_inline quaternion4& operator /= (const T &Size)
         {
             X /= Size; Y /= Size; Z /= Size; W /= Size; return *this;
         }
         
-        inline quaternion4 operator * (const T &Size) const
+        force_inline quaternion4 operator * (const T &Size) const
         {
             return quaternion4(X * Size, Y * Size, Z * Size, W * Size);
         }
-        inline quaternion4& operator *= (const T &Size)
+        force_inline quaternion4& operator *= (const T &Size)
         {
             X *= Size; Y *= Size; Z *= Size; W *= Size; return *this;
         }
         
         /* === Additional operators === */
         
-        inline const T operator [] (uint32_t i) const
+        force_inline const T operator [] (uint32_t i) const
         {
             return i < 4 ? *(&X + i) : T(0);
         }
         
-        inline T& operator [] (uint32_t i)
+        force_inline T& operator [] (uint32_t i)
         {
             return *(&X + i);
         }
         
         /* === Extra functions === */
         
-        inline T dot(const quaternion4<T> &Other) const
+        force_inline T dot(const quaternion4<T> &Other) const
         {
             return X*Other.X + Y*Other.Y + Z*Other.Z + W*Other.W;
         }
         
-        inline quaternion4<T>& normalize()
+        force_inline quaternion4<T>& normalize()
         {
             T n = X*X + Y*Y + Z*Z + W*W;
             
@@ -216,16 +216,16 @@ template <typename T> class quaternion4
             return *this;
         } 
         
-        inline quaternion4& setInverse()
+        force_inline quaternion4& setInverse()
         {
             X = -X; Y = -Y; Z = -Z; return *this;
         }
-        inline quaternion4 getInverse() const
+        force_inline quaternion4 getInverse() const
         {
             return quaternion4(-X, -Y, -Z, W);
         }
         
-        inline void set(const T &NewX, const T &NewY, const T &NewZ, const T &NewW)
+        force_inline void set(const T &NewX, const T &NewY, const T &NewZ, const T &NewW)
         {
             X = NewX;
             Y = NewY;
@@ -233,7 +233,7 @@ template <typename T> class quaternion4
             W = NewW;
         }
         
-        inline void set(const T &NewX, const T &NewY, const T &NewZ)
+        force_inline void set(const T &NewX, const T &NewY, const T &NewZ)
         {
             const T cp = cos(NewX/2);
             const T cr = cos(NewZ/2);
@@ -256,16 +256,16 @@ template <typename T> class quaternion4
             normalize();
         }
         
-        inline void set(const vector3d<T> &Vector)
+        force_inline void set(const vector3d<T> &Vector)
         {
             set(Vector.X, Vector.Y, Vector.Z);
         }
-        inline void set(const vector4d<T> &Vector)
+        force_inline void set(const vector4d<T> &Vector)
         {
             set(Vector.X, Vector.Y, Vector.Z, Vector.W);
         }
         
-        inline void getMatrix(matrix4<T> &Mat) const
+        force_inline void getMatrix(matrix4<T> &Mat) const
         {
             Mat[ 0] = 1.0f - T(2)*Y*Y - T(2)*Z*Z;
             Mat[ 1] =        T(2)*X*Y + T(2)*Z*W;
@@ -288,14 +288,14 @@ template <typename T> class quaternion4
             Mat[15] = 1.0f;
         }
         
-        inline matrix4<T> getMatrix() const
+        force_inline matrix4<T> getMatrix() const
         {
             matrix4<T> Mat;
             getMatrix(Mat);
             return Mat;
         }
         
-        inline void getMatrixTransposed(matrix4<T> &Mat) const
+        force_inline void getMatrixTransposed(matrix4<T> &Mat) const
         {
             Mat[ 0] = T(1) - T(2)*Y*Y - T(2)*Z*Z;
             Mat[ 4] =        T(2)*X*Y + T(2)*Z*W;
@@ -318,14 +318,14 @@ template <typename T> class quaternion4
             Mat[15] = T(1);
         }
         
-        inline matrix4<T> getMatrixTransposed() const
+        force_inline matrix4<T> getMatrixTransposed() const
         {
             matrix4<T> Mat;
             getMatrixTransposed(Mat);
             return Mat;
         }
         
-        inline void setMatrix(const matrix4<T> &Mat)
+        force_inline void setMatrix(const matrix4<T> &Mat)
         {
             T trace = Mat(0, 0) + Mat(1, 1) + Mat(2, 2) + 1.0f;
             
@@ -368,7 +368,7 @@ template <typename T> class quaternion4
             normalize();
         }
         
-        inline quaternion4<T>& setAngleAxis(const T &Angle, const vector3d<T> &Axis)
+        force_inline quaternion4<T>& setAngleAxis(const T &Angle, const vector3d<T> &Axis)
         {
             const T HalfAngle   = T(0.5) * Angle;
             const T Sine        = sin(HalfAngle);
@@ -381,7 +381,7 @@ template <typename T> class quaternion4
             return *this;
         }
         
-        inline void getAngleAxis(T &Angle, vector3d<T> &Axis) const
+        force_inline void getAngleAxis(T &Angle, vector3d<T> &Axis) const
         {
             const T Scale = sqrt(X*X + Y*Y + Z*Z);
             
@@ -402,7 +402,7 @@ template <typename T> class quaternion4
             }
         }
         
-        inline void getEuler(vector3d<T> &Euler) const
+        force_inline void getEuler(vector3d<T> &Euler) const
         {
             const T sqX = X*X;
             const T sqY = Y*Y;
@@ -424,7 +424,7 @@ template <typename T> class quaternion4
          * interpolates between two UNIT quaternion positions
          * slerp(p, q, t) = ( p*sin((1 - t)*omega) + q*sin(t*omega) ) / sin(omega)
          */
-        inline void slerp(const quaternion4<T> &to, const T &t)
+        force_inline void slerp(const quaternion4<T> &to, const T &t)
         {
             /* Temporary variables */
             T to1[4];
@@ -477,7 +477,7 @@ template <typename T> class quaternion4
             W = scale0*W + scale1*to1[3];
         }
         
-        inline void slerp(const quaternion4<T> &from, const quaternion4<T> &to, const T &t)
+        force_inline void slerp(const quaternion4<T> &from, const quaternion4<T> &to, const T &t)
         {
             /* Temporary variables */
             T to1[4];
@@ -530,7 +530,7 @@ template <typename T> class quaternion4
             W = scale0*from.W + scale1*to1[3];
         }
         
-        inline void reset() // Load identity
+        force_inline void reset() // Load identity
         {
             X = Y = Z = T(0);
             W = T(1);

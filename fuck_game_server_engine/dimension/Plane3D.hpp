@@ -28,42 +28,42 @@ template <typename T> class plane3d
     
     public:
         
-        plane3d() :
+        force_inline plane3d() :
             Distance(0)
         {
         }
-        plane3d(const vector3d<T> &PlaneNormal, const T Dist) :
+        force_inline plane3d(const vector3d<T> &PlaneNormal, const T Dist) :
             Normal  (PlaneNormal),
             Distance(Dist       )
         {
         }
-        plane3d(const vector3d<T> &PointA, const vector3d<T> &PointB, const vector3d<T> &PointC) :
+        force_inline plane3d(const vector3d<T> &PointA, const vector3d<T> &PointB, const vector3d<T> &PointC) :
             Distance(0)
         {
             computePlane(PointA, PointB, PointC);
         }
-        plane3d(const triangle3d<T> &Triangle) :
+        force_inline plane3d(const triangle3d<T> &Triangle) :
             Distance(0)
         {
             computePlane(Triangle.PointA, Triangle.PointB, Triangle.PointC);
         }
-        plane3d(const quadrangle3d<T> &Quadrangle) :
+        force_inline plane3d(const quadrangle3d<T> &Quadrangle) :
             Distance(0)
         {
             computePlane(Quadrangle.PointA, Quadrangle.PointB, Quadrangle.PointC);
         }
-        plane3d(const plane3d<T> &Other) :
+        force_inline plane3d(const plane3d<T> &Other) :
             Normal  (Other.Normal   ),
             Distance(Other.Distance )
         {
         }
-        ~plane3d()
+        force_inline ~plane3d()
         {
         }
         
         /* === Extra functions === */
         
-        inline void computePlane(
+        force_inline void computePlane(
             const vector3d<T> &PointA, const vector3d<T> &PointB, const vector3d<T> &PointC)
         {
             // Normal := || (PointB - PointA) x (PointC - PointA) ||
@@ -76,7 +76,7 @@ template <typename T> class plane3d
         }
         
         //! \todo Try to generalize this with the 'CollisionLibrary::getLinePlaneIntersection' function.
-        inline bool checkLineIntersection(
+        force_inline bool checkLineIntersection(
             const vector3d<T> &LineStart, const vector3d<T> &LineEnd, vector3d<T> &Intersection) const
         {
             vector3d<T> Direction(LineEnd);
@@ -96,7 +96,7 @@ template <typename T> class plane3d
             return false;
         }
         
-        inline bool checkPlaneIntersection(
+        force_inline bool checkPlaneIntersection(
             const plane3d<T> &Other, vector3d<T> &Intersection, vector3d<T> &Direction) const
         {
             /* Compute the direction of the intersection line */
@@ -121,7 +121,7 @@ template <typename T> class plane3d
             return true;
         }
         
-        inline bool checkMultiplePlaneIntersection(
+        force_inline bool checkMultiplePlaneIntersection(
             const plane3d<T> &Plane1, const plane3d<T> &Plane2, vector3d<T> &Intersection) const
         {
             vector3d<T> u = Plane1.Normal.cross(Plane2.Normal);
@@ -137,7 +137,7 @@ template <typename T> class plane3d
             return true;
         }
         
-        inline T getAABBoxDistance(const aabbox3d<T> &Box) const
+        force_inline T getAABBoxDistance(const aabbox3d<T> &Box) const
         {
             /* These two lines not necessary with a (center, extents) AABB representation */
             vector3d<T> c(Box.getCenter()); // Compute AABB center
@@ -153,7 +153,7 @@ template <typename T> class plane3d
             return Abs(s) - r;
         }
         
-        inline T getOBBoxDistance(const obbox3d<T> &Box) const
+        force_inline T getOBBoxDistance(const obbox3d<T> &Box) const
         {
             /* Compute the projection interval radius of box */
             const T r = (
@@ -169,17 +169,17 @@ template <typename T> class plane3d
             return Abs(s) - r;
         }
         
-        inline bool checkAABBoxIntersection(const aabbox3d<T> &Box) const
+        force_inline bool checkAABBoxIntersection(const aabbox3d<T> &Box) const
         {
             return getAABBoxDistance(Box) <= T(0);
         }
         
-        inline bool checkOBBoxIntersection(const obbox3d<T> &Box) const
+        force_inline bool checkOBBoxIntersection(const obbox3d<T> &Box) const
         {
             return getOBBoxDistance(Box) <= T(0);
         }
         
-        inline EPlaneAABBRelations getAABBoxRelation(const aabbox3d<T> &Box) const
+        force_inline EPlaneAABBRelations getAABBoxRelation(const aabbox3d<T> &Box) const
         {
             vector3d<T> NearPoint(Box.Max);
             vector3d<T> FarPoint(Box.Min);
@@ -208,7 +208,7 @@ template <typename T> class plane3d
             return PLANE_RELATION_BACK;
         }
         
-        inline EPlanePointRelations getPointRelation(const vector3d<T> &Point) const
+        force_inline EPlanePointRelations getPointRelation(const vector3d<T> &Point) const
         {
             const T Dist = Normal.dot(Point) - Distance;
             
@@ -219,13 +219,13 @@ template <typename T> class plane3d
             return POINT_ON_PLANE;
         }
         
-        inline T getPointDistance(const vector3d<T> &Point) const
+        force_inline T getPointDistance(const vector3d<T> &Point) const
         {
             return (Normal.dot(Point) - Distance) / Normal.dot(Normal);
         }
         
         //! Returns the closest point onto the plane from the plane to the specified point.
-        inline vector3d<T> getClosestPoint(const vector3d<T> &Point) const
+        force_inline vector3d<T> getClosestPoint(const vector3d<T> &Point) const
         {
             return Point - Normal * getPointDistance(Point);
         }
@@ -235,24 +235,24 @@ template <typename T> class plane3d
         This function is a little bit faster than the "getClosestPoint" function but the plane's normal must be normalized.
         \see getClosestPoint
         */
-        inline vector3d<T> getClosestPointNormalized(const vector3d<T> &Point) const
+        force_inline vector3d<T> getClosestPointNormalized(const vector3d<T> &Point) const
         {
             return Point - Normal * ( Normal.dot(Point) - Distance );
         }
         
         //! Returns a point which lies onto the plane.
-        inline vector3d<T> getMemberPoint() const
+        force_inline vector3d<T> getMemberPoint() const
         {
             return Normal * Distance;
         }
         
         //! Returns true if the specified point lies on the front plane's side.
-        inline bool isPointFrontSide(const vector3d<T> &Point) const
+        force_inline bool isPointFrontSide(const vector3d<T> &Point) const
         {
             return getPointDistance(Point) >= 0;
         }
         
-        inline bool equal(const plane3d<T> &Other, float Precision = ROUNDING_ERROR) const
+        force_inline bool equal(const plane3d<T> &Other, float Precision = ROUNDING_ERROR) const
         {
             return
                 Normal.equal(Other.Normal, Precision) &&
@@ -260,14 +260,14 @@ template <typename T> class plane3d
                 (Distance - Precision < Other.Distance);
         }
         
-        inline plane3d<T>& swap()
+        force_inline plane3d<T>& swap()
         {
             Normal = -Normal;
             Distance = -Distance;
             return *this;
         }
         
-        inline plane3d<T>& normalize()
+        force_inline plane3d<T>& normalize()
         {
             const T Len = 1.0f / Normal.getLength();
             
@@ -277,7 +277,7 @@ template <typename T> class plane3d
             return *this;
         }
         
-        template <typename B> inline vector3d<B> cast() const
+        template <typename B> force_inline vector3d<B> cast() const
         {
             return plane3d<B>(Normal.cast<B>(), static_cast<B>(Distance));
         }

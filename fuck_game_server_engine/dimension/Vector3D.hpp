@@ -26,62 +26,62 @@ template <typename T> class vector3d
     
     public:
         
-        vector3d() :
+        force_inline vector3d() :
             X(0),
             Y(0),
             Z(0)
         {
         }
-        vector3d(const T &Size) :
+        force_inline vector3d(const T &Size) :
             X(Size),
             Y(Size),
             Z(Size)
         {
         }
-        vector3d(const T &VecX, const T &VecY, const T &VecZ) :
+        force_inline vector3d(const T &VecX, const T &VecY, const T &VecZ) :
             X(VecX),
             Y(VecY),
             Z(VecZ)
         {
         }
-        vector3d(const T &VecX, const T &VecY, const T &VecZ, const T &VecW) :
+        force_inline vector3d(const T &VecX, const T &VecY, const T &VecZ, const T &VecW) :
             X(VecX*VecW),
             Y(VecY*VecW),
             Z(VecZ*VecW)
         {
         }
-        vector3d(const vector3d<T> &Other) :
+        force_inline vector3d(const vector3d<T> &Other) :
             X(Other.X),
             Y(Other.Y),
             Z(Other.Z)
         {
         }
-        vector3d(const vector4d<T> &Other);
-        vector3d(const point2d<T> &Other);
-        vector3d(const size2d<T> &Other);
-        ~vector3d()
+        force_inline vector3d(const vector4d<T> &Other);
+        force_inline vector3d(const point2d<T> &Other);
+        force_inline vector3d(const size2d<T> &Other);
+        force_inline ~vector3d()
         {
         }
         
         /* === Operators - comparisions === */
         
-        inline bool operator == (const vector3d<T> &other) const
+        force_inline bool operator == (const vector3d<T> &other) const
         {
             return Equal(X, other.X) && Equal(Y, other.Y) && Equal(Z, other.Z);
         }
-        inline bool operator != (const vector3d<T> &other) const
+        force_inline bool operator != (const vector3d<T> &other) const
         {
             return !Equal(X, other.X) || !Equal(Y, other.Y) || !Equal(Z, other.Z);
         }
         
-        inline bool operator <= (const vector3d<T> &other) const
+        force_inline bool operator <= (const vector3d<T> &other) const
         {
             return
                 ( X < other.X || Equal(X, other.X) ) ||
                 ( Equal(X, other.X) && ( Y < other.Y || Equal(Y, other.Y) ) ) ||
                 ( Equal(X, other.X) && Equal(Y, other.Y) && ( Z < other.Z || Equal(Z, other.Z) ) );
         }
-        inline bool operator >= (const vector3d<T> &other) const
+        force_inline bool operator >= (const vector3d<T> &other) const
         {
             return
                 ( X > other.X || Equal(X, other.X) ) ||
@@ -89,14 +89,14 @@ template <typename T> class vector3d
                 ( Equal(X, other.X) && Equal(Y, other.Y) && ( Z > other.Z || Equal(Z, other.Z) ) );
         }
         
-        inline bool operator < (const vector3d<T> &other) const
+        force_inline bool operator < (const vector3d<T> &other) const
         {
             return
                 ( X < other.X && !Equal(X, other.X) ) ||
                 ( Equal(X, other.X) && Y < other.Y && !Equal(Y, other.Y) ) ||
                 ( Equal(X, other.X) && Equal(Y, other.Y) && Z < other.Z && !Equal(Z, other.Z) );
         }
-        inline bool operator > (const vector3d<T> &other) const
+        force_inline bool operator > (const vector3d<T> &other) const
         {
             return
                 ( X > other.X && !Equal(X, other.X) ) ||
@@ -107,12 +107,12 @@ template <typename T> class vector3d
         /* === Operators - addition, subtraction, division, multiplication === */
         
         //! Pre-increment operator.
-        inline vector3d<T>& operator ++ ()
+        force_inline vector3d<T>& operator ++ ()
         {
             ++X; ++Y; ++Z; return *this;
         }
         //! Post-increment operator.
-        inline vector3d<T>& operator ++ (int)
+        force_inline vector3d<T>& operator ++ (int)
         {
             const vector3d<T> Tmp(*this);
             ++*this;
@@ -120,85 +120,85 @@ template <typename T> class vector3d
         }
         
         //! Pre-decrement operator.
-        inline vector3d<T>& operator -- ()
+        force_inline vector3d<T>& operator -- ()
         {
             --X; --Y; --Z; return *this;
         }
         //! Post-decrement operator.
-        inline vector3d<T>& operator -- (int)
+        force_inline vector3d<T>& operator -- (int)
         {
             const vector3d<T> Tmp(*this);
             --*this;
             return Tmp;
         }
         
-        inline vector3d<T> operator + (const vector3d<T> &other) const
+        force_inline vector3d<T> operator + (const vector3d<T> &other) const
         {
             return vector3d<T>(X + other.X, Y + other.Y, Z + other.Z);
         }
-        inline vector3d<T>& operator += (const vector3d<T> &other)
+        force_inline vector3d<T>& operator += (const vector3d<T> &other)
         {
             X += other.X; Y += other.Y; Z += other.Z; return *this;
         }
         
-        inline vector3d<T> operator - (const vector3d<T> &other) const
+        force_inline vector3d<T> operator - (const vector3d<T> &other) const
         {
             return vector3d<T>(X - other.X, Y - other.Y, Z - other.Z);
         }
-        inline vector3d<T>& operator -= (const vector3d<T> &other)
+        force_inline vector3d<T>& operator -= (const vector3d<T> &other)
         {
             X -= other.X; Y -= other.Y; Z -= other.Z; return *this;
         }
         
-        inline vector3d<T> operator / (const vector3d<T> &other) const
+        force_inline vector3d<T> operator / (const vector3d<T> &other) const
         {
             return vector3d<T>(X / other.X, Y / other.Y, Z / other.Z);
         }
-        inline vector3d<T>& operator /= (const vector3d<T> &other)
+        force_inline vector3d<T>& operator /= (const vector3d<T> &other)
         {
             X /= other.X; Y /= other.Y; Z /= other.Z; return *this;
         }
         
-        inline vector3d<T> operator * (const vector3d<T> &other) const
+        force_inline vector3d<T> operator * (const vector3d<T> &other) const
         {
             return vector3d<T>(X * other.X, Y * other.Y, Z * other.Z);
         }
-        inline vector3d<T>& operator *= (const vector3d<T> &other)
+        force_inline vector3d<T>& operator *= (const vector3d<T> &other)
         {
             X *= other.X; Y *= other.Y; Z *= other.Z; return *this;
         }
         
-        inline vector3d<T> operator * (const T &Size) const
+        force_inline vector3d<T> operator * (const T &Size) const
         {
             return vector3d<T>(X * Size, Y * Size, Z * Size);
         }
-        inline vector3d<T>& operator *= (const T &Size)
+        force_inline vector3d<T>& operator *= (const T &Size)
         {
             X *= Size; Y *= Size; Z *= Size; return *this;
         }
         
-        inline vector3d<T> operator / (const T &Size) const
+        force_inline vector3d<T> operator / (const T &Size) const
         {
             return *this * (T(1) / Size);
         }
-        inline vector3d<T>& operator /= (const T &Size)
+        force_inline vector3d<T>& operator /= (const T &Size)
         {
             return *this *= (T(1) / Size);
         }
         
-        inline vector3d<T> operator - () const
+        force_inline vector3d<T> operator - () const
         {
             return vector3d<T>(-X, -Y, -Z);
         }
         
         /* === Additional operators === */
         
-        inline const T operator [] (uint32_t i) const
+        force_inline const T operator [] (uint32_t i) const
         {
             return i < 3 ? *(&X + i) : static_cast<T>(0.0);
         }
         
-        inline T& operator [] (uint32_t i)
+        force_inline T& operator [] (uint32_t i)
         {
             return *(&X + i);
         }
@@ -206,13 +206,13 @@ template <typename T> class vector3d
         /* === Extra functions === */
         
         //! Returns the dot (or rather scalar) product between this and the given vector.
-        inline T dot(const vector3d<T> &other) const
+        force_inline T dot(const vector3d<T> &other) const
         {
             return X*other.X + Y*other.Y + Z*other.Z;
         }
         
         //! Returns the cross (or rather vector) product between this and the given vector.
-        inline vector3d<T> cross(const vector3d<T> &other) const
+        force_inline vector3d<T> cross(const vector3d<T> &other) const
         {
             return vector3d<T>(
                 Y*other.Z - other.Y*Z,
@@ -222,33 +222,33 @@ template <typename T> class vector3d
         }
         
         //! Returns the vector's length.
-        inline T getLength() const
+        force_inline T getLength() const
         {
             return sqrt(X*X + Y*Y + Z*Z);
         }
         
         //! Returns the square of the vector's length (Can be used for faster comparision between two distances).
-        inline T getLengthSq() const
+        force_inline T getLengthSq() const
         {
             return X*X + Y*Y + Z*Z;
         }
         
         //! Returns the angle (in degrees) between this and the given vector.
-        inline T getAngle(const vector3d<T> &other) const
+        force_inline T getAngle(const vector3d<T> &other) const
         {
             return static_cast<T>(ACos( dot(other) / (getLength()*other.getLength()) ));
         }
         
-        inline vector3d<T>& setInvert()
+        force_inline vector3d<T>& setInvert()
         {
             X = -X; Y = -Y; Z = -Z; return *this;
         }
-        inline vector3d<T> getInvert() const
+        force_inline vector3d<T> getInvert() const
         {
             return vector3d<T>(-X, -Y, -Z);
         }
         
-        inline vector3d<T>& setRound(int32_t Precision)
+        force_inline vector3d<T>& setRound(int32_t Precision)
         {
             Precision = static_cast<int32_t>(pow(10, Precision));
             X = static_cast<T>(static_cast<int32_t>(X*Precision)) / Precision;
@@ -256,7 +256,7 @@ template <typename T> class vector3d
             Z = static_cast<T>(static_cast<int32_t>(Z*Precision)) / Precision;
             return *this;
         }
-        inline vector3d<T> getRound(int32_t Precision) const
+        force_inline vector3d<T> getRound(int32_t Precision) const
         {
             Precision = static_cast<int32_t>(pow(10, Precision));
             return vector3d<T>(
@@ -266,38 +266,38 @@ template <typename T> class vector3d
             );
         }
         
-        inline bool equal(const vector3d<T> &other, float Tolerance = ROUNDING_ERROR) const
+        force_inline bool equal(const vector3d<T> &other, float Tolerance = ROUNDING_ERROR) const
         {
             return
                 (X + Tolerance > other.X) && (X - Tolerance < other.X) &&
                 (Y + Tolerance > other.Y) && (Y - Tolerance < other.Y) &&
                 (Z + Tolerance > other.Z) && (Z - Tolerance < other.Z);
         }
-        inline bool empty() const
+        force_inline bool empty() const
         {
             return equal(0);
         }
         
-        inline void make2DProjection(int32_t ScreenWidth, int32_t ScreenHeight)
+        force_inline void make2DProjection(int32_t ScreenWidth, int32_t ScreenHeight)
         {
             X =   X * static_cast<float>(ScreenWidth /2) + ScreenWidth /2;
             Y = - Y * static_cast<float>(ScreenHeight/2) + ScreenHeight/2;
             Z = T(0);
         }
-        inline void make2DProjection(float FOV, int32_t ScreenWidth, int32_t ScreenHeight)
+        force_inline void make2DProjection(float FOV, int32_t ScreenWidth, int32_t ScreenHeight)
         {
             X =   X / Z * FOV + ScreenWidth /2;
             Y = - Y / Z * FOV + ScreenHeight/2;
         }
         
-        inline vector3d<T>& setAbs()
+        force_inline vector3d<T>& setAbs()
         {
             X = X > 0 ? X : -X;
             Y = Y > 0 ? Y : -Y;
             Z = Z > 0 ? Z : -Z;
             return *this;
         }
-        inline vector3d<T> getAbs() const
+        force_inline vector3d<T> getAbs() const
         {
             return vector3d<T>(
                 X > 0 ? X : -X,
@@ -306,7 +306,7 @@ template <typename T> class vector3d
             );
         }
         
-        inline vector3d<T>& normalize()
+        force_inline vector3d<T>& normalize()
         {
             T n = X*X + Y*Y + Z*Z;
             
@@ -321,7 +321,7 @@ template <typename T> class vector3d
             
             return *this;
         }
-        inline vector3d<T>& sign()
+        force_inline vector3d<T>& sign()
         {
             if (X > 0) X = 1; else if (X < 0) X = -1;
             if (Y > 0) Y = 1; else if (Y < 0) Y = -1;
@@ -329,30 +329,30 @@ template <typename T> class vector3d
             return *this;
         }
         
-        inline vector3d<T>& setLength(const T &Length)
+        force_inline vector3d<T>& setLength(const T &Length)
         {
             normalize();
             *this *= Length;
             return *this;
         }
         
-        inline T getDistanceFromSq(const vector3d<T> &other) const
+        force_inline T getDistanceFromSq(const vector3d<T> &other) const
         {
             return vector3d<T>(X - other.X, Y - other.Y, Z - other.Z).getLengthSq();
         }
         
-        inline bool isBetweenPoints(const vector3d<T> &Begin, const vector3d<T> &End) const
+        force_inline bool isBetweenPoints(const vector3d<T> &Begin, const vector3d<T> &End) const
         {
             const T Temp = (End - Begin).getLengthSq();
             return getDistanceFromSq(Begin) <= Temp && getDistanceFromSq(End) <= Temp;
         }
         
-        inline bool isPointInsideSphere(const vector3d<T> &Center, const float Radius) const
+        force_inline bool isPointInsideSphere(const vector3d<T> &Center, const float Radius) const
         {
             return Pow2(X - Center.X) + Pow2(Y - Center.Y) + Pow2(Z - Center.Z) < Pow2(Radius);
         }
         
-        inline vector3d<T> getInterpolatedQuadratic(const vector3d<T> &v2, const vector3d<T> &v3, const T d) const
+        force_inline vector3d<T> getInterpolatedQuadratic(const vector3d<T> &v2, const vector3d<T> &v3, const T d) const
         {
             const T inv = static_cast<T>(1.0) - d;
             const T mul0 = inv * inv;
@@ -366,7 +366,7 @@ template <typename T> class vector3d
             );
         }
         
-        inline vector3d<T> getRotatedAxis(const T &Angle, vector3d<T> Axis) const
+        force_inline vector3d<T> getRotatedAxis(const T &Angle, vector3d<T> Axis) const
         {
             if (Angle == T(0))
                 return *this;
@@ -399,7 +399,7 @@ template <typename T> class vector3d
         }
         
         //! Returns the direction type of the dominant axis.
-        inline EAxisTypes getAxisType() const
+        force_inline EAxisTypes getAxisType() const
         {
             const vector3d<T> AbsDir(getAbs());
             
@@ -412,7 +412,7 @@ template <typename T> class vector3d
         }
         
         //! Returns a normal vector to this vector.
-        inline vector3d<T> getNormal() const
+        force_inline vector3d<T> getNormal() const
         {
             if (X > Y && X > Z)
                 return vector3d<T>(Y, -X, 0);
@@ -422,14 +422,14 @@ template <typename T> class vector3d
         }
         
         //! Returns the smalest vector component.
-        inline T getMin() const
+        force_inline T getMin() const
         {
             if (X <= Y && X <= Z) return X;
             if (Y <= X && Y <= Z) return Y;
             return Z;
         }
         //! Returns the greatest vector component.
-        inline T getMax() const
+        force_inline T getMax() const
         {
             if (X >= Y && X >= Z) return X;
             if (Y >= X && Y >= Z) return Y;
@@ -437,7 +437,7 @@ template <typename T> class vector3d
         }
         
         //! Returns the volume of the bounding box clamped by this vector (X*Y*Z).
-        inline T getVolume() const
+        force_inline T getVolume() const
         {
             return X*Y*Z;
         }
@@ -449,17 +449,17 @@ template <typename T> class vector3d
         Some templates expect a class with this function (e.g. 'CollisionLibrary::clipPolygon').
         \see CollisionLibrary::clipPolygon
         */
-        inline vector3d<T> getCoord() const
+        force_inline vector3d<T> getCoord() const
         {
             return *this;
         }
         
-        template <typename B> inline vector3d<B> cast() const
+        template <typename B> force_inline vector3d<B> cast() const
         {
             return vector3d<B>(static_cast<B>(X), static_cast<B>(Y), static_cast<B>(Z));
         }
         
-        static inline bool isPointOnSameSide(
+        static force_inline bool isPointOnSameSide(
             const vector3d<T> &P1, const vector3d<T> &P2, const vector3d<T> &A, const vector3d<T> &B)
         {
             vector3d<T> Difference(B - A);
@@ -488,22 +488,22 @@ template <typename T> class vector4d : public vector3d<T>
     
     public:
         
-        vector4d() : vector3d<T>(), W(1)
+        force_inline vector4d() : vector3d<T>(), W(1)
         {
         }
-        vector4d(T Size) : vector3d<T>(Size), W(1)
+        force_inline vector4d(T Size) : vector3d<T>(Size), W(1)
         {
         }
-        vector4d(T VecX, T VecY, T VecZ, T VecW = static_cast<T>(1)) : vector3d<T>(VecX, VecY, VecZ), W(VecW)
+        force_inline vector4d(T VecX, T VecY, T VecZ, T VecW = static_cast<T>(1)) : vector3d<T>(VecX, VecY, VecZ), W(VecW)
         {
         }
-        vector4d(const vector3d<T> &other, T VecW = static_cast<T>(1)) : vector3d<T>(other.X, other.Y, other.Z), W(VecW)
+        force_inline vector4d(const vector3d<T> &other, T VecW = static_cast<T>(1)) : vector3d<T>(other.X, other.Y, other.Z), W(VecW)
         {
         }
-        vector4d(const vector4d<T> &other) : vector3d<T>(other.X, other.Y, other.Z), W(other.W)
+        force_inline vector4d(const vector4d<T> &other) : vector3d<T>(other.X, other.Y, other.Z), W(other.W)
         {
         }
-        ~vector4d()
+        force_inline ~vector4d()
         {
         }
         
@@ -513,7 +513,7 @@ template <typename T> class vector4d : public vector3d<T>
         
 };
 
-template <typename T> vector3d<T>::vector3d(const vector4d<T> &Other) :
+template <typename T> force_inline vector3d<T>::vector3d(const vector4d<T> &Other) :
     X(Other.X),
     Y(Other.Y),
     Z(Other.Z)
