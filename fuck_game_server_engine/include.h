@@ -48,6 +48,8 @@
 #include "cmdcontrol.h"
 #include "factory.h"
 
+#include "./zlib/zlib.h"
+
 extern "C" 
 {
 #include "./lua/lua.h"
@@ -80,8 +82,6 @@ extern "C"
 #include "./tinyxml/tinyxml.h"
 
 #include "./sqlite/sqlite3.h"
-
-#include "./zlib/zlib.h"
 
 #include "./pcre/pcre.h"
 #include "./pcre/pcrecpp.h"

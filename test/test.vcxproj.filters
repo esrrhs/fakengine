@@ -40,6 +40,8 @@
     <ClCompile Include="fmd5\fmd5app.cpp">
       <Filter>fmd5</Filter>
     </ClCompile>
+    <ClCompile Include="fpoint\fpointapp.cpp" />
+    <ClCompile Include="pcre\pcreapp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h" />
@@ -82,6 +84,8 @@
     <ClInclude Include="fmd5\fmd5app.h">
       <Filter>fmd5</Filter>
     </ClInclude>
+    <ClInclude Include="fpoint\fpointapp.h" />
+    <ClInclude Include="pcre\pcreapp.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="hashmap">

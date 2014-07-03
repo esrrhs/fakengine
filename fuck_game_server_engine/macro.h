@@ -1,6 +1,6 @@
 #pragma once
 
-// °ïÖú
+// 帮助
 #define SAFE_TEST_RET_VAL(EXPRESSION, TESTVALUE, RETURNVALUE) if((EXPRESSION) == (TESTVALUE)) return RETURNVALUE;
 #define SAFE_TEST_RET(EXPRESSION, TESTVALUE) if((EXPRESSION) == (TESTVALUE)) return;
 #define SAFE_TEST_CONTINUE(EXPRESSION, TESTVALUE) if((EXPRESSION) == (TESTVALUE)) continue;
@@ -18,12 +18,12 @@
 #define SAFE_FREE(p) if (p) { FFREE(p); p = 0; }
 #define SAFE_DELETE_ARRAY(T, p, num) if (p) { fdelete_array<T>(p, num); p = 0; }
 
-// ¶ÏÑÔ
+// 断言
 #ifdef USE_DEFAULT_ASSERT
 	#define FASSERT(x) assert(x)
 #endif
 
-// ·ÖÅä
+// 内存
 #ifdef USE_FUCK_ALLOC
 	#define FALLOC(size) falloc(size)
 	#define FFREE(p) ffree(p)
@@ -32,7 +32,7 @@
 	#define FFREE(p) sys_free(p)
 #endif
 
-// ÄÚÁª
+// 内联
 #ifdef USE_FORCE_INLINE
 	#ifdef WIN32
 		#define force_inline __forceinline
@@ -43,7 +43,7 @@
 	#define force_inline
 #endif
 
-// ¸ñÊ½»¯
+// 格式化
 #if defined(WIN32)
 	#define tvsnprintf  _vsnprintf
 	#define tstricmp    _stricmp
@@ -78,12 +78,12 @@
 	#define F64u "llu"
 #endif
 
-// Êý×é´óÐ¡
+// 数组长度
 #define ARRAY_SIZE(a)	\
 	((sizeof(a) / sizeof((*a))) /	\
 	((size_t)!(sizeof(a) % sizeof((*a)))))
 
-// Ïß³Ì¾Ö²¿
+// 线程局部变量
 #ifdef WIN32
 	#define THREAD_LOCAL_VALUE __declspec(thread)
 #else
@@ -107,11 +107,11 @@
 	#define LOG_SYS(format, ...) flog_system::ptr()->write(FLOGT_SYSTEM, __FILE__, __LINE__, __FUNCTION__, format, ##__VA_ARGS__)
 #endif
 
-// È¥³ý¾¯¸æ
+// 去掉警告
 template <typename T>
 void FUSE(T t) {}
 
-// ´óÐ¡¶Ë
+// 大小端
 #define F_LITTLE_ENDIAN   1234 /* byte 0 is least significant (i386) */
 #define F_BIG_ENDIAN      4321 /* byte 0 is most significant (mc68k) */
 
@@ -122,7 +122,7 @@ void FUSE(T t) {}
 #  define FPLATFORM_BYTE_ORDER F_BIG_ENDIAN
 #endif
 #else
-// ÓÐ¾¯¸æ£¬ÊÖ¶¯Ö¸¶¨°É
+// 会报警告，先直接写死
 #  define FPLATFORM_BYTE_ORDER F_LITTLE_ENDIAN
 #endif
 
@@ -130,7 +130,7 @@ void FUSE(T t) {}
 #  error Please set undetermined byte order.
 #endif
 
-// ´òÓ¡TODO
+// 编译器TODO
 #ifndef WIN32 
 #define DO_PRAGMA(x) _Pragma (#x)
 #define TODO(x) DO_PRAGMA(message ("TODO - " #x))
