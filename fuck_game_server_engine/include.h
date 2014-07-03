@@ -83,4 +83,7 @@ extern "C"
 
 #include "./zlib/zlib.h"
 
+#include "./pcre/pcre.h"
+#include "./pcre/pcrecpp.h"
+
 #include "mainapp.h"
