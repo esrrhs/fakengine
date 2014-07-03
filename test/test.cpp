@@ -15,6 +15,7 @@
 #include "./fkeybuffer/fkeybufferapp.h"
 #include "./fmd5/fmd5app.h"
 #include "./fpoint/fpointapp.h"
+#include "./pcre/pcreapp.h"
 
 char g_msg_buffer[MAX_MSG_SIZE];
 Fproto::NetMsg g_netmsg;
@@ -41,6 +42,7 @@ int main(int argc, char *argv[])
 	REG(fkeybufferapp);
 	REG(fmd5app);
 	REG(fpointapp);
+	REG(pcreapp);
 
 	if (argc <= 1)
 	{
