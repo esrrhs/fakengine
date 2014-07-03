@@ -590,7 +590,7 @@ template <typename T> force_inline T getTriangleArea2D(
 }
 
 //! Returns a bezier value used for bezier curves.
-template <typename T> T getBezierValue(const float t, const T &Pos1, const T &Pos2, const T &Radial1, const T &Radial2)
+template <typename T> force_inline T getBezierValue(const float t, const T &Pos1, const T &Pos2, const T &Radial1, const T &Radial2)
 {
     const float invt    = 1.0f - t;
     const float invt2   = invt*invt;
@@ -602,7 +602,7 @@ template <typename T> T getBezierValue(const float t, const T &Pos1, const T &Po
 }
 
 //! Returns a bernstein value used for bezier patch generation.
-template <typename T> T getBernsteinValue(const float t, const T Points[4])
+template <typename T> force_inline T getBernsteinValue(const float t, const T Points[4])
 {
     const float invt = 1.0f - t;
     
@@ -614,7 +614,7 @@ template <typename T> T getBernsteinValue(const float t, const T Points[4])
 }
 
 //! Returns a gaussian value used for gaussian blur.
-template <typename T> T getGaussianValue(const T &X, const T &Mean, const T &StdDeviation)
+template <typename T> force_inline T getGaussianValue(const T &X, const T &Mean, const T &StdDeviation)
 {
     return (
         ( T(1) / sqrt( T(2) * static_cast<T>(PI) * StdDeviation * StdDeviation ) )
@@ -629,7 +629,7 @@ For more details take a look at: http://orion.math.iastate.edu/reu/2001/voronoi/
 \param[in] Base Specifies the sequence base. This has to be a prime number! Usually beginning with 2, 3, etc.
 \todo This is currently not used and has not been tested!
 */
-template <typename T> T getHaltonSequence(int32_t Index, int32_t Base)
+template <typename T> force_inline T getHaltonSequence(int32_t Index, int32_t Base)
 {
     T Result = T(0);
     
@@ -653,7 +653,7 @@ Computes the efficient modular pow value.
 \param[in] Modulus Specifies the modulus value.
 \return 'Base' power of 'Exp' modulo 'Modulus'. This is equivalent to '(Base ^ Exp) % Modulus' but faster.
 */
-template <typename T> T ModularPow(T Base, T Exp, const T &Modulus)
+template <typename T> force_inline T ModularPow(T Base, T Exp, const T &Modulus)
 {
     T Result = T(1);
     
@@ -1020,4 +1020,6 @@ static force_inline void SetBoolInBitField(uint8_t* Ptr, uint32_t Index, bool bS
 		*BytePtr &= ~Mask;
 	}
 }
+
+//////////////////////////// “‘…œue4 ////////////////////////////
 

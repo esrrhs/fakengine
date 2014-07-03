@@ -12,3 +12,4 @@
 #include "fhashset.h"
 #include "fhashmap.h"
 #include "flist.h"
+#include "dimension/Dimension.hpp"

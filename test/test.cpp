@@ -14,6 +14,7 @@
 #include "./falloc/fallocapp.h"
 #include "./fkeybuffer/fkeybufferapp.h"
 #include "./fmd5/fmd5app.h"
+#include "./fpoint/fpointapp.h"
 
 char g_msg_buffer[MAX_MSG_SIZE];
 Fproto::NetMsg g_netmsg;
@@ -39,6 +40,7 @@ int main(int argc, char *argv[])
 	REG(fallocapp);
 	REG(fkeybufferapp);
 	REG(fmd5app);
+	REG(fpointapp);
 
 	if (argc <= 1)
 	{
