@@ -37,18 +37,18 @@ public:
 	typedef ifactory<Base> IFactory;
 	typedef fhashmap<Key, IFactory*, N> FactoryMap;
 public:
-	bool regist(Key type, IFactory * pfactory)
+	force_inline bool regist(Key type, IFactory * pfactory)
 	{
 		m_map[type] = pfactory;
 		return true;
 	}
-	Base * alloc(Key type)
+	force_inline Base * alloc(Key type)
 	{
 		IFactory * pfactory = m_map[type];
 		SAFE_TEST_RET_VAL(pfactory, NULL, NULL);
 		return pfactory->alloc();
 	}
-	bool dealloc(Base * pBase)
+	force_inline bool dealloc(Base * pBase)
 	{
 		Key type = pBase->gettype();
 		IFactory * pfactory = m_map[type];

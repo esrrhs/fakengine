@@ -9,30 +9,30 @@ template <typename T> class quadrangle3d
     
     public:
         
-        quadrangle3d()
+        force_inline quadrangle3d()
         {
         }
-        quadrangle3d(const vector3d<T> &A, const vector3d<T> &B, const vector3d<T> &C, const vector3d<T> &D) :
+        force_inline quadrangle3d(const vector3d<T> &A, const vector3d<T> &B, const vector3d<T> &C, const vector3d<T> &D) :
             PointA(A),
             PointB(B),
             PointC(C),
             PointD(D)
         {
         }
-        quadrangle3d(const quadrangle3d<T> &Other) :
+        force_inline quadrangle3d(const quadrangle3d<T> &Other) :
             PointA(Other.PointA),
             PointB(Other.PointB),
             PointC(Other.PointC),
             PointD(Other.PointD)
         {
         }
-        ~quadrangle3d()
+        force_inline ~quadrangle3d()
         {
         }
         
         /* === Operators === */
         
-        inline void operator = (const quadrangle3d<T> &Other)
+        force_inline void operator = (const quadrangle3d<T> &Other)
         {
             PointA = Other.PointA;
             PointB = Other.PointB;
@@ -42,7 +42,7 @@ template <typename T> class quadrangle3d
         
         /* === Additional operators === */
         
-        inline const vector3d<T> operator [] (int32_t i) const
+        force_inline const vector3d<T> operator [] (int32_t i) const
         {
             switch (i)
             {
@@ -54,30 +54,30 @@ template <typename T> class quadrangle3d
             return vector3d<T>();
         }
         
-        inline vector3d<T>& operator [] (int32_t i)
+        force_inline vector3d<T>& operator [] (int32_t i)
         {
             return *(&PointA + i);
         }
         
         /* === Extra functions === */
         
-        inline vector3d<T> getNormal() const
+        force_inline vector3d<T> getNormal() const
         {
             return vector3d<T>( (PointB - PointA).cross(PointC - PointA) ).normalize();
         }
         
-        inline vector3d<T> getCenter() const
+        force_inline vector3d<T> getCenter() const
         {
             return (PointA + PointB + PointC + PointD) / 4;
         }
         
-        inline T getArea() const
+        force_inline T getArea() const
         {
             return vector3d<T>( (PointB - PointA).cross(PointC - PointA) ).getLength();
         }
         
         //! \todo This has not been tested yet!
-        inline bool isPointInside(const vector3d<T> &Vector) const
+        force_inline bool isPointInside(const vector3d<T> &Vector) const
         {
             return
                 ( vector3d<T>::isPointOnSameSide(Vector, PointA, PointB, PointC) &&
@@ -88,17 +88,17 @@ template <typename T> class quadrangle3d
                   vector3d<T>::isPointOnSameSide(Vector, PointD, PointA, PointC) );
         }
         
-        inline quadrangle3d<T> getSwaped() const
+        force_inline quadrangle3d<T> getSwaped() const
         {
             return quadrangle3d<T>(PointA, PointD, PointC, PointB);
         }
-        inline quadrangle3d<T>& swap()
+        force_inline quadrangle3d<T>& swap()
         {
             Swap(PointB, PointD);
             return *this;
         }
         
-        inline bool equal(const quadrangle3d<T> &other, float Precision = ROUNDING_ERROR) const
+        force_inline bool equal(const quadrangle3d<T> &other, float Precision = ROUNDING_ERROR) const
         {
             return
                 PointA.equal(other.PointA, Precision) &&
@@ -106,12 +106,12 @@ template <typename T> class quadrangle3d
                 PointC.equal(other.PointC, Precision) &&
                 PointD.equal(other.PointC, Precision);
         }
-        inline bool empty() const
+        force_inline bool empty() const
         {
             return PointA.empty() && PointB.empty() && PointC.empty() && PointD.empty();
         }
         
-        template <typename B> inline quadrangle3d<B> cast() const
+        template <typename B> force_inline quadrangle3d<B> cast() const
         {
             return triangle3d<B>(
                 PointA.cast<B>(), PointB.cast<B>(), PointC.cast<B>(), PointD.cast<B>()

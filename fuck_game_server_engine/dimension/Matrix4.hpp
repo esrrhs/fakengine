@@ -40,20 +40,20 @@ template <typename T> class matrix4
     
     public:
         
-        matrix4()
+        force_inline matrix4()
         {
             reset();
         }
-        matrix4(const T (&Other)[16])
+        force_inline matrix4(const T (&Other)[16])
         {
             *this = Other;
         }
-        matrix4(const matrix4<T> &Other)
+        force_inline matrix4(const matrix4<T> &Other)
         {
             *this = Other;
         }
-        matrix4(const matrix3<T> &Other);
-        matrix4(const obbox3d<T> &Box)
+        force_inline matrix4(const matrix3<T> &Other);
+        force_inline matrix4(const obbox3d<T> &Box)
         {
             M[0] = Box.Axis.X.X * Box.HalfSize.X;
             M[1] = Box.Axis.X.Y * Box.HalfSize.X;
@@ -75,7 +75,7 @@ template <typename T> class matrix4
             M[14] = Box.Center.Z;
             M[15] = 1;
         }
-        matrix4(
+        force_inline matrix4(
             T m1n1, T m2n1, T m3n1, T m4n1,
             T m1n2, T m2n2, T m3n2, T m4n2,
             T m1n3, T m2n3, T m3n3, T m4n3,
@@ -86,7 +86,7 @@ template <typename T> class matrix4
             M[2] = m1n3; M[6] = m2n3; M[10] = m3n3; M[14] = m4n3;
             M[3] = m1n4; M[7] = m2n4; M[11] = m3n4; M[15] = m4n4;
         }
-        matrix4(
+        force_inline matrix4(
             const vector4d<T> &XDirection,
             const vector4d<T> &YDirection,
             const vector4d<T> &ZDirection,
@@ -97,7 +97,7 @@ template <typename T> class matrix4
             M[2] = XDirection.Z; M[6] = YDirection.Z; M[10] = ZDirection.Z; M[14] = Position.Z;
             M[3] = XDirection.W; M[7] = YDirection.W; M[11] = ZDirection.W; M[15] = Position.W;
         }
-        ~matrix4()
+        force_inline ~matrix4()
         {
         }
         
@@ -108,26 +108,26 @@ template <typename T> class matrix4
         \param col: Column of the wanted component in the range [0 .. 3].
         \return the matrix component value at the specified location
         */
-        inline const T operator () (uint32_t row, uint32_t col) const
+        force_inline const T operator () (uint32_t row, uint32_t col) const
         {
             return row < 4 && col < 4 ? M[(row << 2) + col] : (T)0;
         }
-        inline T& operator () (uint32_t row, uint32_t col)
+        force_inline T& operator () (uint32_t row, uint32_t col)
         {
             return M[(row << 2) + col];
         }
         
         //! Returns the matrix component value at the specified offset (or rather index) 'i'.
-        inline const T operator [] (uint32_t i) const
+        force_inline const T operator [] (uint32_t i) const
         {
             return i < 16 ? M[i] : (T)0;
         }
-        inline T& operator [] (uint32_t i)
+        force_inline T& operator [] (uint32_t i)
         {
             return M[i];
         }
         
-        inline bool operator == (const matrix4<T> &Other)
+        force_inline bool operator == (const matrix4<T> &Other)
         {
             for (int32_t i = 0; i < 16; ++i)
             {
@@ -136,7 +136,7 @@ template <typename T> class matrix4
             }
             return true;
         }
-        inline bool operator != (const matrix4<T> &Other)
+        force_inline bool operator != (const matrix4<T> &Other)
         {
             for (int32_t i = 0; i < 16; ++i)
             {
@@ -146,7 +146,7 @@ template <typename T> class matrix4
             return false;
         }
         
-        inline matrix4<T>& operator = (const T (&Other)[16])
+        force_inline matrix4<T>& operator = (const T (&Other)[16])
         {
             M[0] = Other[0]; M[4] = Other[4]; M[ 8] = Other[ 8]; M[12] = Other[12];
             M[1] = Other[1]; M[5] = Other[5]; M[ 9] = Other[ 9]; M[13] = Other[13];
@@ -154,7 +154,7 @@ template <typename T> class matrix4
             M[3] = Other[3]; M[7] = Other[7]; M[11] = Other[11]; M[15] = Other[15];
             return *this;
         }
-        inline matrix4<T>& operator = (const matrix4<T> &Other)
+        force_inline matrix4<T>& operator = (const matrix4<T> &Other)
         {
             M[0] = Other[0]; M[4] = Other[4]; M[ 8] = Other[ 8]; M[12] = Other[12];
             M[1] = Other[1]; M[5] = Other[5]; M[ 9] = Other[ 9]; M[13] = Other[13];
@@ -162,13 +162,13 @@ template <typename T> class matrix4
             M[3] = Other[3]; M[7] = Other[7]; M[11] = Other[11]; M[15] = Other[15];
             return *this;
         }
-        inline matrix4<T>& operator = (T Scalar)
+        force_inline matrix4<T>& operator = (T Scalar)
         {
             memset(M, Scalar, sizeof(M));
             return *this;
         }
         
-        inline matrix4<T> operator + (const matrix4<T> &mltMatrix) const
+        force_inline matrix4<T> operator + (const matrix4<T> &mltMatrix) const
         {
             matrix4<T> Other;
             
@@ -180,7 +180,7 @@ template <typename T> class matrix4
             return Other;
         }
         
-        inline matrix4<T>& operator += (const matrix4<T> &mltMatrix)
+        force_inline matrix4<T>& operator += (const matrix4<T> &mltMatrix)
         {
             M[0] += mltMatrix[0]; M[4] += mltMatrix[4]; M[ 8] += mltMatrix[ 8]; M[12] += mltMatrix[12];
             M[1] += mltMatrix[1]; M[5] += mltMatrix[5]; M[ 9] += mltMatrix[ 9]; M[13] += mltMatrix[13];
@@ -189,7 +189,7 @@ template <typename T> class matrix4
             return *this;
         }
         
-        inline matrix4<T> operator - (const matrix4<T> &mltMatrix) const
+        force_inline matrix4<T> operator - (const matrix4<T> &mltMatrix) const
         {
             matrix4<T> Other;
             Other[0] = M[0] - mltMatrix[0]; Other[4] = M[4] - mltMatrix[4]; Other[ 8] = M[ 8] - mltMatrix[ 8]; Other[12] = M[12] - mltMatrix[12];
@@ -198,7 +198,7 @@ template <typename T> class matrix4
             Other[3] = M[3] - mltMatrix[3]; Other[7] = M[7] - mltMatrix[7]; Other[11] = M[11] - mltMatrix[11]; Other[15] = M[15] - mltMatrix[15];
             return Other;
         }
-        inline matrix4<T>& operator -= (const matrix4<T> &mltMatrix)
+        force_inline matrix4<T>& operator -= (const matrix4<T> &mltMatrix)
         {
             M[0] -= mltMatrix[0]; M[4] -= mltMatrix[4]; M[ 8] -= mltMatrix[ 8]; M[12] -= mltMatrix[12];
             M[1] -= mltMatrix[1]; M[5] -= mltMatrix[5]; M[ 9] -= mltMatrix[ 9]; M[13] -= mltMatrix[13];
@@ -207,7 +207,7 @@ template <typename T> class matrix4
             return *this;
         }
         
-        inline matrix4<T> operator * (const matrix4<T> &mltMatrix) const
+        force_inline matrix4<T> operator * (const matrix4<T> &mltMatrix) const
         {
             matrix4<T> m3;
             const T* m1 = M;
@@ -236,7 +236,7 @@ template <typename T> class matrix4
             return m3;
         }
         
-        inline matrix4<T> operator * (T Scalar) const
+        force_inline matrix4<T> operator * (T Scalar) const
         {
             matrix4<T> Other;
             
@@ -248,7 +248,7 @@ template <typename T> class matrix4
             return Other;
         }
         
-        inline matrix4<T>& operator *= (const matrix4<T> &mltMatrix)
+        force_inline matrix4<T>& operator *= (const matrix4<T> &mltMatrix)
         {
             T m1[16];
             memcpy(m1, M, sizeof(M));
@@ -277,7 +277,7 @@ template <typename T> class matrix4
             return *this;
         }
         
-        inline matrix4<T>& operator *= (T Scalar)
+        force_inline matrix4<T>& operator *= (T Scalar)
         {
             M[0] *= Scalar; M[4] *= Scalar; M[ 8] *= Scalar; M[12] *= Scalar;
             M[1] *= Scalar; M[5] *= Scalar; M[ 9] *= Scalar; M[13] *= Scalar;
@@ -286,7 +286,7 @@ template <typename T> class matrix4
             return *this;
         }
         
-        inline vector3d<T> operator * (const vector3d<T> &Vector) const
+        force_inline vector3d<T> operator * (const vector3d<T> &Vector) const
         {
             return vector3d<T>(
                 Vector.X*M[0] + Vector.Y*M[4] + Vector.Z*M[ 8] + M[12],
@@ -295,7 +295,7 @@ template <typename T> class matrix4
             );
         }
         
-        inline point2d<T> operator * (const point2d<T> &Vector) const
+        force_inline point2d<T> operator * (const point2d<T> &Vector) const
         {
             return point2d<T>(
                 Vector.X*M[0] + Vector.Y*M[4] + M[12],
@@ -303,7 +303,7 @@ template <typename T> class matrix4
             );
         }
         
-        inline triangle3d<T> operator * (const triangle3d<T> &Triangle) const
+        force_inline triangle3d<T> operator * (const triangle3d<T> &Triangle) const
         {
             return triangle3d<T>(
                 *this * Triangle.PointA,
@@ -312,7 +312,7 @@ template <typename T> class matrix4
             );
         }
         
-        inline triangle3d<T> operator * (const triangle3d<T, vector3d<T>*> &Triangle) const
+        force_inline triangle3d<T> operator * (const triangle3d<T, vector3d<T>*> &Triangle) const
         {
             return triangle3d<T>(
                 *this * (*Triangle.PointA),
@@ -321,7 +321,7 @@ template <typename T> class matrix4
             );
         }
         
-        inline plane3d<T> operator * (const plane3d<T> &Plane) const
+        force_inline plane3d<T> operator * (const plane3d<T> &Plane) const
         {
             const vector3d<T> Member(*this * Plane.getMemberPoint());
             const matrix4<T> TransposedInverse(getInverse().getTransposed());
@@ -330,7 +330,7 @@ template <typename T> class matrix4
             return plane3d<T>(Normal, Normal.dot(Member));
         }
         
-        inline obbox3d<T> operator * (const obbox3d<T> &Box) const
+        force_inline obbox3d<T> operator * (const obbox3d<T> &Box) const
         {
             return obbox3d<T>(
                 *this * Box.Center,
@@ -338,7 +338,7 @@ template <typename T> class matrix4
             );
         }
         
-        inline line3d<T> operator * (const line3d<T> &Line) const
+        force_inline line3d<T> operator * (const line3d<T> &Line) const
         {
             return line3d<T>(*this * Line.Start, *this * Line.End);
         }
@@ -346,7 +346,7 @@ template <typename T> class matrix4
         /* === Transformation functions === */
         
         //! Returns the rotated specified vector. i.e. the vector will be multiplied with the 2x2 matrix.
-        inline point2d<T> vecRotate(const point2d<T> &Vector) const
+        force_inline point2d<T> vecRotate(const point2d<T> &Vector) const
         {
             return point2d<T>(
                 Vector.X*M[0] + Vector.Y*M[4],
@@ -355,7 +355,7 @@ template <typename T> class matrix4
         }
         
         //! Returns the rotated specified vector. i.e. the vector will be multiplied with the inversed 2x2 matrix.
-        inline point2d<T> vecRotateInverse(const point2d<T> &Vector) const
+        force_inline point2d<T> vecRotateInverse(const point2d<T> &Vector) const
         {
             return point2d<T>(
                 Vector.X*M[0] + Vector.Y*M[1],
@@ -364,7 +364,7 @@ template <typename T> class matrix4
         }
         
         //! Returns the rotated specified vector. i.e. the vector will be multiplied with the 3x3 matrix.
-        inline vector3d<T> vecRotate(const vector3d<T> &Vector) const
+        force_inline vector3d<T> vecRotate(const vector3d<T> &Vector) const
         {
             return vector3d<T>(
                 Vector.X*M[0] + Vector.Y*M[4] + Vector.Z*M[ 8],
@@ -374,7 +374,7 @@ template <typename T> class matrix4
         }
         
         //! Returns the inverse rotated specified vector. i.e. the vector will be multiplied with the inversed 3x3 matrix.
-        inline vector3d<T> vecRotateInverse(const vector3d<T> &Vector) const
+        force_inline vector3d<T> vecRotateInverse(const vector3d<T> &Vector) const
         {
             return vector3d<T>(
                 Vector.X*M[0] + Vector.Y*M[1] + Vector.Z*M[ 2],
@@ -384,7 +384,7 @@ template <typename T> class matrix4
         }
         
         //! Clear the matrix. i.e. each component is set to 0.
-        inline void clear()
+        force_inline void clear()
         {
             memset(M, 0, sizeof(M));
         }
@@ -398,7 +398,7 @@ template <typename T> class matrix4
         (  0  0  0  1  )
         \endcode
         */
-        inline matrix4<T>& reset()
+        force_inline matrix4<T>& reset()
         {
             M[0] = 1; M[4] = 0; M[ 8] = 0; M[12] = 0;
             M[1] = 0; M[5] = 1; M[ 9] = 0; M[13] = 0;
@@ -416,7 +416,7 @@ template <typename T> class matrix4
         (  0  0  0  1  )
         \endcode
         */
-        inline matrix4<T>& reset(const vector3d<T> &InitPosition, const vector3d<T> &InitScale = T(1))
+        force_inline matrix4<T>& reset(const vector3d<T> &InitPosition, const vector3d<T> &InitScale = T(1))
         {
             M[0] = InitScale.X; M[4] = 0;           M[ 8] = 0;           M[12] = InitPosition.X;
             M[1] = 0;           M[5] = InitScale.Y; M[ 9] = 0;           M[13] = InitPosition.Y;
@@ -426,7 +426,7 @@ template <typename T> class matrix4
         }
         
         //! Multiplies this matrix with a 1x4 matrix
-        inline void multiplySingleMatrix(const T (&Other)[4])
+        force_inline void multiplySingleMatrix(const T (&Other)[4])
         {
             T Result[4];
             
@@ -438,7 +438,7 @@ template <typename T> class matrix4
             Other[0] = Result[0]; Other[1] = Result[1]; Other[2] = Result[2]; Other[3] = Result[3];
         }
         
-        inline void matrixLookAt(const vector3d<T> &Position, const vector3d<T> &LookAt, const vector3d<T> &upVector)
+        force_inline void matrixLookAt(const vector3d<T> &Position, const vector3d<T> &LookAt, const vector3d<T> &upVector)
         {
             vector3d<T> ZAxis = LookAt - Position;
             ZAxis.normalize();
@@ -454,7 +454,7 @@ template <typename T> class matrix4
             M[3] = 0;       M[7] = 0;       M[11] = 0;       M[15] = 1;
         }
         
-        inline bool getInverse(matrix4<T> &InverseMat) const
+        force_inline bool getInverse(matrix4<T> &InverseMat) const
         {
             const matrix4<T> &m = *this;
             
@@ -492,7 +492,7 @@ template <typename T> class matrix4
             return true;
         }
         
-        inline bool setInverse()
+        force_inline bool setInverse()
         {
             matrix4<T> Matrix;
             
@@ -505,7 +505,7 @@ template <typename T> class matrix4
             return false;
         }
         
-        inline matrix4<T> getInverse() const
+        force_inline matrix4<T> getInverse() const
         {
             matrix4<T> Mat;
             getInverse(Mat);
@@ -518,7 +518,7 @@ template <typename T> class matrix4
         |  0  0  1  z  |
         (  0  0  0  1  )
         */
-        inline matrix4<T>& translate(const vector3d<T> &Vector)
+        force_inline matrix4<T>& translate(const vector3d<T> &Vector)
         {
             matrix4<T> Other;
             
@@ -535,7 +535,7 @@ template <typename T> class matrix4
         |  0  0  z  0  |
         (  0  0  0  1  )
         */
-        inline matrix4<T>& scale(const vector3d<T> &Vector)
+        force_inline matrix4<T>& scale(const vector3d<T> &Vector)
         {
             matrix4<T> Other;
             
@@ -552,7 +552,7 @@ template <typename T> class matrix4
         | xz(1-c)-ys  yz(1-c)+xs  zz(1-c)+c   0 |
         (     0           0           0       1 )
         */
-        inline matrix4<T>& rotate(const T Angle, vector3d<T> Rotation)
+        force_inline matrix4<T>& rotate(const T Angle, vector3d<T> Rotation)
         {
             matrix4<T> Other;
             
@@ -576,7 +576,7 @@ template <typename T> class matrix4
             return *this *= Other;
         }
         
-        inline matrix4<T>& rotateX(const T Angle)
+        force_inline matrix4<T>& rotateX(const T Angle)
         {
             matrix4<T> Other;
             
@@ -592,7 +592,7 @@ template <typename T> class matrix4
             return *this *= Other;
         }
         
-        inline matrix4<T>& rotateY(const T Angle)
+        force_inline matrix4<T>& rotateY(const T Angle)
         {
             matrix4<T> Other;
             
@@ -608,7 +608,7 @@ template <typename T> class matrix4
             return *this *= Other;
         }
         
-        inline matrix4<T>& rotateZ(const T Angle)
+        force_inline matrix4<T>& rotateZ(const T Angle)
         {
             matrix4<T> Other;
             
@@ -624,21 +624,21 @@ template <typename T> class matrix4
             return *this *= Other;
         }
         
-        inline void rotateYXZ(const vector3df &Rotation)
+        force_inline void rotateYXZ(const vector3df &Rotation)
         {
             rotateY(Rotation.Y);
             rotateX(Rotation.X);
             rotateZ(Rotation.Z);
         }
         
-        inline void rotateZXY(const vector3df &Rotation)
+        force_inline void rotateZXY(const vector3df &Rotation)
         {
             rotateZ(Rotation.Z);
             rotateX(Rotation.X);
             rotateY(Rotation.Y);
         }
         
-        inline void setRotation(vector3d<T> Rotation, bool UseDegrees = true)
+        force_inline void setRotation(vector3d<T> Rotation, bool UseDegrees = true)
         {
             if (UseDegrees)
                 Rotation = Rotation * DEG;
@@ -668,7 +668,7 @@ template <typename T> class matrix4
             M[10] = cx*cy;
         }
         
-        inline void setInverseRotation(vector3df Rotation, bool UseDegrees = true)
+        force_inline void setInverseRotation(vector3df Rotation, bool UseDegrees = true)
         {
             if (UseDegrees)
                 Rotation = Rotation * static_cast<T>(M_PI / 180.0);
@@ -698,7 +698,7 @@ template <typename T> class matrix4
             M[10] = cx*cy;
         }
         
-        inline void setTextureRotation(const T &Degree)
+        force_inline void setTextureRotation(const T &Degree)
         {
             /* Setup rotation degrees */
             const T c = Cos(Degree);
@@ -718,7 +718,7 @@ template <typename T> class matrix4
         // makePerspectiveLH / RH
         // makeOrthoLH / RH
         
-        inline void setPerspectiveLH(T FieldOfView, T Aspect, T Near, T Far)
+        force_inline void setPerspectiveLH(T FieldOfView, T Aspect, T Near, T Far)
         {
             const T h = static_cast<T>(1.0 / tan((FieldOfView * DEG64) / T(2)));
             const T w = h / Aspect;
@@ -748,7 +748,7 @@ template <typename T> class matrix4
             M[15] = 0;
         }
         
-        inline void setPerspectiveRH(T FieldOfView, T Aspect, T Near, T Far)
+        force_inline void setPerspectiveRH(T FieldOfView, T Aspect, T Near, T Far)
         {
             const T h = static_cast<T>(1.0 / tan((FieldOfView * DEG64) / T(2)));
             const T w = h / Aspect;
@@ -778,7 +778,7 @@ template <typename T> class matrix4
             M[15] = 0;
         }
         
-        inline void setOrthoLH(T Left, T Right, T Top, T Bottom, T Near, T Far)
+        force_inline void setOrthoLH(T Left, T Right, T Top, T Bottom, T Near, T Far)
         {
             M[ 0] = T(2)/(Right - Left);
             M[ 1] = 0;
@@ -802,7 +802,7 @@ template <typename T> class matrix4
             M[15] = 1;
         }
         
-        inline void setOrthoRH(T Left, T Right, T Top, T Bottom, T Near, T Far)
+        force_inline void setOrthoRH(T Left, T Right, T Top, T Bottom, T Near, T Far)
         {
             M[ 0] = T(2)/(Right - Left);
             M[ 1] = 0;
@@ -826,7 +826,7 @@ template <typename T> class matrix4
             M[15] = 1;
         }
         
-        inline void make2Dimensional(int32_t Width, int32_t Height, int32_t ScreenWidth, int32_t ScreenHeight)
+        force_inline void make2Dimensional(int32_t Width, int32_t Height, int32_t ScreenWidth, int32_t ScreenHeight)
         {
             reset();
             scale(
@@ -837,7 +837,7 @@ template <typename T> class matrix4
             );
         }
         
-        inline void makeViewport(const rect2di &Viewport, const float DepthScale = 1.0f)
+        force_inline void makeViewport(const rect2di &Viewport, const float DepthScale = 1.0f)
         {
             const T Width   = static_cast<T>( ( Viewport.Right - Viewport.Left - 0.75 ) / 2 );
             const T Height  = static_cast<T>( ( Viewport.Bottom - Viewport.Top - 0.75 ) / 2 );
@@ -868,7 +868,7 @@ template <typename T> class matrix4
         
         /* === Row & columns === */
         
-        vector4d<T> getRow(int32_t Position) const
+        force_inline vector4d<T> getRow(int32_t Position) const
         {
             switch (Position)
             {
@@ -884,7 +884,7 @@ template <typename T> class matrix4
             return vector4d<T>();
         }
         
-        void setRow(int32_t Position, const vector4d<T> &Vec)
+        force_inline void setRow(int32_t Position, const vector4d<T> &Vec)
         {
             switch (Position)
             {
@@ -903,7 +903,7 @@ template <typename T> class matrix4
             }
         }
         
-        vector4d<T> getColumn(int32_t Position) const
+        force_inline vector4d<T> getColumn(int32_t Position) const
         {
             switch (Position)
             {
@@ -919,7 +919,7 @@ template <typename T> class matrix4
             return vector4d<T>();
         }
         
-        void setColumn(int32_t Position, const vector4d<T> &Vec)
+        force_inline void setColumn(int32_t Position, const vector4d<T> &Vec)
         {
             switch (Position)
             {
@@ -938,17 +938,17 @@ template <typename T> class matrix4
             }
         }
         
-        inline void setPosition(const vector3d<T> &Position)
+        force_inline void setPosition(const vector3d<T> &Position)
         {
             M[12] = Position.X; M[13] = Position.Y; M[14] = Position.Z;
         }
-        inline vector3d<T> getPosition() const
+        force_inline vector3d<T> getPosition() const
         {
             return vector3d<T>(M[12], M[13], M[14]);
         }
         
         // Sets the matrix scaling vector.
-        void setScale(const vector3d<T> &Scale)
+        force_inline void setScale(const vector3d<T> &Scale)
         {
             vector3d<T> XAxis(M[0], M[1], M[ 2]);
             vector3d<T> YAxis(M[4], M[5], M[ 6]);
@@ -963,7 +963,7 @@ template <typename T> class matrix4
             M[8] = ZAxis.X, M[9] = ZAxis.Y, M[10] = ZAxis.Z;
         }
         //! Returns the matrix scaling vector.
-        vector3d<T> getScale() const
+        force_inline vector3d<T> getScale() const
         {
             if (Equal(M[1], 0.0f) && Equal(M[2], 0.0f) &&
                 Equal(M[4], 0.0f) && Equal(M[6], 0.0f) &&
@@ -979,7 +979,7 @@ template <typename T> class matrix4
             );
         }
         
-        vector3d<T> getRotation() const
+        force_inline vector3d<T> getRotation() const
         {
             const matrix4<T> &Mat       = *this;
             const vector3d<T> Scale     = getScale();
@@ -1016,7 +1016,7 @@ template <typename T> class matrix4
             return vector3d<T>(X, Y, Z);
         }
         
-        matrix4<T> getRotationMatrix() const
+        force_inline matrix4<T> getRotationMatrix() const
         {
             matrix4<T> Matrix(
                 M[0], M[4], M[ 8], 0,
@@ -1031,7 +1031,7 @@ template <typename T> class matrix4
             return Matrix;
         }
         
-        matrix4<T> getPositionMatrix() const
+        force_inline matrix4<T> getPositionMatrix() const
         {
             return matrix4<T>(
                 1, 0, 0, M[12],
@@ -1041,7 +1041,7 @@ template <typename T> class matrix4
             );
         }
         
-        inline matrix4<T> getPositionScaleMatrix() const
+        force_inline matrix4<T> getPositionScaleMatrix() const
         {
             const vector3d<T> Scale(getScale());
             return matrix4<T>(
@@ -1052,7 +1052,7 @@ template <typename T> class matrix4
             );
         }
         
-        inline matrix4<T> getPositionRotationMatrix() const
+        force_inline matrix4<T> getPositionRotationMatrix() const
         {
             const vector3d<T> Scale(getScale());
             
@@ -1062,14 +1062,14 @@ template <typename T> class matrix4
             return Matrix;
         }
         
-        inline matrix4<T> getTransposed() const
+        force_inline matrix4<T> getTransposed() const
         {
             matrix4<T> Mat;
             getTransposed(Mat);
             return Mat;
         }
         
-        inline void getTransposed(matrix4<T> &Other) const
+        force_inline void getTransposed(matrix4<T> &Other) const
         {
             Other[0] = M[ 0]; Other[4] = M[ 1]; Other[ 8] = M[ 2]; Other[12] = M[ 3];
             Other[1] = M[ 4]; Other[5] = M[ 5]; Other[ 9] = M[ 6]; Other[13] = M[ 7];
@@ -1077,7 +1077,7 @@ template <typename T> class matrix4
             Other[3] = M[12]; Other[7] = M[13]; Other[11] = M[14]; Other[15] = M[15];
         }
         
-        inline matrix4<T> getTextureMatrix() const
+        force_inline matrix4<T> getTextureMatrix() const
         {
             matrix4<T> Mat;
             
@@ -1088,7 +1088,7 @@ template <typename T> class matrix4
             return Mat;
         }
         
-        inline matrix4<T> interpolate(const matrix4<T> &Other, float seek) const
+        force_inline matrix4<T> interpolate(const matrix4<T> &Other, float seek) const
         {
             matrix4<T> Mat;
             
@@ -1098,7 +1098,7 @@ template <typename T> class matrix4
             return Mat;
         }
         
-        inline bool isIdentity() const
+        force_inline bool isIdentity() const
         {
             for (int32_t i = 0, j; i < 4; ++i)
             {
@@ -1115,7 +1115,7 @@ template <typename T> class matrix4
             return true;
         }
         
-        inline bool equal(const matrix4<T> &Other) const
+        force_inline bool equal(const matrix4<T> &Other) const
         {
             for (int32_t i = 0; i < 16; ++i)
             {
@@ -1125,16 +1125,16 @@ template <typename T> class matrix4
             return true;
         }
         
-        inline const T* getArray() const
+        force_inline const T* getArray() const
         {
             return M;
         }
-        inline T* getArray()
+        force_inline T* getArray()
         {
             return M;
         }
         
-        inline matrix3<T> get3x3() const
+        force_inline matrix3<T> get3x3() const
         {
             return matrix3<T>(
                 M[0], M[4], M[ 8],
@@ -1142,7 +1142,7 @@ template <typename T> class matrix4
                 M[2], M[6], M[10]
             );
         }
-        inline matrix2<T> get2x2() const
+        force_inline matrix2<T> get2x2() const
         {
             return matrix2<T>(
                 M[0], M[4],
@@ -1150,7 +1150,7 @@ template <typename T> class matrix4
             );
         }
         
-        template <typename B> inline matrix4<B> cast() const
+        template <typename B> force_inline matrix4<B> cast() const
         {
             matrix4<B> Other;
             
@@ -1162,7 +1162,7 @@ template <typename T> class matrix4
         
         /* === Static functions === */
         
-        static vector3d<T> getProjection(
+        static force_inline vector3d<T> getProjection(
             const vector3d<T> ObjectPosition, const rect2di &Viewport,
             const matrix4<T> &ProjectionMatrix, const matrix4<T> &ModelviewMatrix)
         {
@@ -1198,7 +1198,7 @@ template <typename T> const matrix4<T> matrix4<T>::IDENTITY;
  * Templates
  */
 
-template <typename T> inline matrix4<T> getRotationMatrix(const matrix4<T> &Mat)
+template <typename T> force_inline matrix4<T> getRotationMatrix(const matrix4<T> &Mat)
 {
     return matrix4<T>(
         Mat[0], Mat[4], Mat[ 8], 0,
@@ -1207,7 +1207,7 @@ template <typename T> inline matrix4<T> getRotationMatrix(const matrix4<T> &Mat)
         0, 0, 0, 1
     );
 }
-template <typename T> inline matrix4<T> getScaleMatrix(matrix4<T> Mat)
+template <typename T> force_inline matrix4<T> getScaleMatrix(matrix4<T> Mat)
 {
     Mat.setPosition(0);
     
@@ -1217,28 +1217,28 @@ template <typename T> inline matrix4<T> getScaleMatrix(matrix4<T> Mat)
     return Mat;
 }
 
-template <typename T> inline matrix4<T> getRotationMatrix(const vector3d<T> &Rotation)
+template <typename T> force_inline matrix4<T> getRotationMatrix(const vector3d<T> &Rotation)
 {
     matrix4<T> Mat;
     Mat.setRotation(Rotation);
     return Mat;
 }
 
-template <typename T> inline matrix4<T> getPositionMatrix(const vector3d<T> &Position)
+template <typename T> force_inline matrix4<T> getPositionMatrix(const vector3d<T> &Position)
 {
     matrix4<T> Mat;
     Mat.setPosition(Position);
     return Mat;
 }
 
-template <typename T> inline matrix4<T> getScaleMatrix(const vector3d<T> &Scale)
+template <typename T> force_inline matrix4<T> getScaleMatrix(const vector3d<T> &Scale)
 {
     matrix4<T> Mat;
     Mat.setScale(Scale);
     return Mat;
 }
 
-template <typename T> inline matrix4<T> getDirectionMatrix(const vector3d<T> From, const vector3d<T> To)
+template <typename T> force_inline matrix4<T> getDirectionMatrix(const vector3d<T> From, const vector3d<T> To)
 {
     /* Temporary variables */
     T w = To.X - From.X;
