@@ -626,6 +626,81 @@
     <ClInclude Include="fdes.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="dimension\AABB.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Dimension.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Line3D.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Matrix2.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Matrix3.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Matrix4.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\OBB.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Plane3D.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Point2D.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Quadrangle3D.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Quaternion.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Rect2D.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Size2D.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Triangle3D.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="dimension\Vector3D.hpp">
+      <Filter>dimension</Filter>
+    </ClInclude>
+    <ClInclude Include="pcre\config.h">
+      <Filter>third\pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="pcre\pcre.h">
+      <Filter>third\pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="pcre\pcre_internal.h">
+      <Filter>third\pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="pcre\pcre_scanner.h">
+      <Filter>third\pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="pcre\pcre_stringpiece.h">
+      <Filter>third\pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="pcre\pcrecpp.h">
+      <Filter>third\pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="pcre\pcrecpp_internal.h">
+      <Filter>third\pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="pcre\pcrecpparg.h">
+      <Filter>third\pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="pcre\pcreposix.h">
+      <Filter>third\pcre</Filter>
+    </ClInclude>
+    <ClInclude Include="pcre\ucp.h">
+      <Filter>third\pcre</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
@@ -678,6 +753,12 @@
     </Filter>
     <Filter Include="third\tinyxml">
       <UniqueIdentifier>{e61b7116-7d67-4918-acde-c1bed9169853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dimension">
+      <UniqueIdentifier>{69cda6f2-8d40-4508-a7a5-2fbb87b85f5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third\pcre">
+      <UniqueIdentifier>{cf451504-60e8-450e-a5dc-5f6298366422}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1067,6 +1148,222 @@
     </ClCompile>
     <ClCompile Include="sqlite\sqlite3.c">
       <Filter>third\sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_byte_order.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_chartables.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_compile.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_config.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_dfa_exec.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_exec.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_fullinfo.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_get.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_globals.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_jit_compile.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_maketables.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_newline.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_ord2utf8.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_printint.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_refcount.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_scanner.cc">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_string_utils.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_stringpiece.cc">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_study.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_tables.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_ucd.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_valid_utf8.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_version.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre_xclass.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_byte_order.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_chartables.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_compile.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_config.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_dfa_exec.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_exec.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_fullinfo.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_get.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_globals.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_jit_compile.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_maketables.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_newline.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_ord2utf16.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_printint.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_refcount.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_string_utils.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_study.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_tables.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_ucd.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_utf16_utils.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_valid_utf16.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_version.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre16_xclass.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_byte_order.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_chartables.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_compile.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_config.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_dfa_exec.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_exec.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_fullinfo.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_get.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_globals.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_jit_compile.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_maketables.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_newline.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_ord2utf32.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_printint.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_refcount.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_string_utils.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_study.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_tables.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_ucd.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_utf32_utils.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_valid_utf32.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_version.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcre32_xclass.c">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcrecpp.cc">
+      <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="pcre\pcreposix.c">
+      <Filter>third\pcre</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

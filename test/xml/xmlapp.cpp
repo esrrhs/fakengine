@@ -8,6 +8,9 @@ bool xmlapp::ini( int argc, char *argv[] )
 
 bool xmlapp::heartbeat()
 {
+	XML_Parser pXML_Parser = XML_ParserCreate("../tools/genxml/sample.xml");
+	FUSE(pXML_Parser);
+
     TiXmlDocument doc("../tools/genxml/sample.xml");		
     bool loadOkay = doc.LoadFile();		
     if (!loadOkay)		

@@ -15,4 +15,10 @@
 // hook
 #define USE_FUCK_HOOK
 
-
+// pcre
+#ifndef HAVE_CONFIG_H
+#define HAVE_CONFIG_H
+#endif
+#ifndef PCRE_STATIC
+#define PCRE_STATIC
+#endif
