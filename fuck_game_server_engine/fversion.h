@@ -156,6 +156,7 @@ static const stringc version_logs[] = {
 	"2014.7.3：从SoftPixelEngine加vector等",
 	"2014.7.3：加pcre正则式",
 	"2014.7.5：开始加proxy",
+	"2014.7.5：加proxy消息",
 };
 
 static force_inline int32_t fversion()

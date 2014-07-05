@@ -44,6 +44,8 @@ public:
 
 		m_buff[ARRAY_SIZE(m_buff) - 1] = 0;
 
+		FPRINTF("%s", m_buff);
+
 		write(ret);
 	}
 

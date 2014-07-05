@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+<result>  
+	
+	<enum name="CmdID" comment="命令id">  
+		<member name="CMD_REGISTR" type="1" comment="注册"/>  
+		<member name="CMD_TRANS_BY_KEY_HASH" type="2" comment="通过keyhash"/>  
+		<member name="CMD_TRANS_BY_ID" type="3" comment="直接通过id"/>  
+		<member name="CMD_TRANS_BROADCAST" type="4" comment="广播"/>  
+	</enum>  
+	
+	<enum name="ConstDefine" comment="常量">  
+		<member name="PROXY_MSG_LEN" type="1024*1024" comment="传输消息体最大尺寸"/>
+	</enum>  
+	
+	<struct name="CmdRegister" comment="注册">  
+		<member name="Type" type="uint8_t" comment="类型"/>
+		<member name="ID" type="uint32_t" comment="ID"/>  
+	</struct>  
+	
+	<struct name="CmdTransByKeyHash" comment="通过keyhash">  
+		<member name="Hash" type="uint8_t" comment="hash方法"/>
+		<member name="Key" type="uint32_t" comment="Key"/>  
+	</struct>  
+	
+	<struct name="CmdTransByID" comment="直接通过id">  
+		<member name="DestSvrID" type="uint32_t" comment="SVRID"/>  
+	</struct>  
+	
+	<struct name="CmdTransBroadcast" comment="广播">  
+		<member name="Type" type="uint8_t" comment="类型"/>
+	</struct>  
+	
+	<struct name="CmdMsgPara" comment="传输命令内容" type="union"> 
+		<member name="CmdRegister" type="CmdRegister" ref="CMD_REGISTR" comment="注册"/>  
+		<member name="CmdTransByKeyHash" type="CmdTransByKeyHash" ref="CMD_TRANS_BY_KEY_HASH" comment="通过keyhash"/> 
+		<member name="CmdTransByID" type="CmdTransByID" ref="CMD_TRANS_BY_ID" comment="直接通过id"/> 
+		<member name="CmdTransBroadcast" type="CmdTransBroadcast" ref="CMD_TRANS_BROADCAST" comment="广播"/>  
+	</struct>  
+	
+	<struct name="ProxyMsgHead" comment="网络头消息">  
+		<member name="SrcSvrID" type="uint32_t" comment="SrcSvrID"/>    
+		<member name="CmdMsgPara" type="CmdMsgPara" comment="传输命令内容"/>  
+	</struct>  
+	
+	<struct name="ProxyMsgPara" comment="网络消息内容"> 
+		<member name="Num" type="uint8_t" comment="大小"/>  
+		<member name="Buff" type="uint8_t" length="PROXY_MSG_LEN" ref="Num" comment="消息buffer"/> 
+	</struct>  
+	
+	<struct name="ProxyMsg" comment="网络消息">  
+		<member name="ProxyMsgHead" type="ProxyMsgHead" comment="网络头消息"/>
+		<member name="ProxyMsgPara" type="ProxyMsgPara" comment="网络消息内容"/>  
+	</struct>  
+	
+</result>  
