@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fuck_game_server_engine", "fuck_game_server_engine\fuck_game_server_engine.vcxproj", "{F82E9267-A3DD-4D5C-AFAE-23ECDFE7C09A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{51E71CBB-ADD6-4C52-BFE0-B6DE525891EC}"
@@ -16,6 +18,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{95C26028-E5D9-47EB-B32F-F7F58D178280}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shmclean", "tools\shmclean\shmclean.vcxproj", "{E43F4970-0354-4A93-BE9F-98DCE949FF99}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F82E9267-A3DD-4D5C-AFAE-23ECDFE7C09A} = {F82E9267-A3DD-4D5C-AFAE-23ECDFE7C09A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fproxy", "tools\fproxy\fproxy.vcxproj", "{27555E17-0EA1-4A21-A897-31B8472E076F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F82E9267-A3DD-4D5C-AFAE-23ECDFE7C09A} = {F82E9267-A3DD-4D5C-AFAE-23ECDFE7C09A}
 	EndProjectSection
@@ -42,6 +49,10 @@ Global
 		{E43F4970-0354-4A93-BE9F-98DCE949FF99}.Debug|Win32.Build.0 = Debug|Win32
 		{E43F4970-0354-4A93-BE9F-98DCE949FF99}.Release|Win32.ActiveCfg = Release|Win32
 		{E43F4970-0354-4A93-BE9F-98DCE949FF99}.Release|Win32.Build.0 = Release|Win32
+		{27555E17-0EA1-4A21-A897-31B8472E076F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{27555E17-0EA1-4A21-A897-31B8472E076F}.Debug|Win32.Build.0 = Debug|Win32
+		{27555E17-0EA1-4A21-A897-31B8472E076F}.Release|Win32.ActiveCfg = Release|Win32
+		{27555E17-0EA1-4A21-A897-31B8472E076F}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,5 +60,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{577D7563-0013-47F8-A6AF-2A025CE98E9A} = {95C26028-E5D9-47EB-B32F-F7F58D178280}
 		{E43F4970-0354-4A93-BE9F-98DCE949FF99} = {95C26028-E5D9-47EB-B32F-F7F58D178280}
+		{27555E17-0EA1-4A21-A897-31B8472E076F} = {95C26028-E5D9-47EB-B32F-F7F58D178280}
 	EndGlobalSection
 EndGlobal
