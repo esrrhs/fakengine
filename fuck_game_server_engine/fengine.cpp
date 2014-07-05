@@ -24,6 +24,10 @@ bool fengine::ini()
 		"| F      UUUU  CCCC  K  K   |\n"
 		"*******************************\n");
 
+	LOG_SYS("version[%d][%s] lastlog[%s]", fversion(), 
+		(const char *)fversionstr().c_str(),
+		(const char *)flastlog().c_str());
+
 	// socket
 #ifdef WIN32
 	WORD wVersionRequested;
