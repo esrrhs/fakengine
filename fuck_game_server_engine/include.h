@@ -1,5 +1,6 @@
 #pragma once
 
+#include "fversion.h"
 #include "fmd5.h"
 #include "fcrc32.h"
 #include "fsha1.h"

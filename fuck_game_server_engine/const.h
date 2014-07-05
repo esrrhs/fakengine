@@ -1,6 +1,6 @@
 #pragma once
 
-const int8_t c_version[] = "0.01";
+const uint32_t c_main_version = 1;
 
 const uint32_t c_ip_size = 24;
 

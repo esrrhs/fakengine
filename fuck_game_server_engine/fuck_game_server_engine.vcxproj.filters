@@ -701,6 +701,9 @@
     <ClInclude Include="pcre\ucp.h">
       <Filter>third\pcre</Filter>
     </ClInclude>
+    <ClInclude Include="fversion.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
