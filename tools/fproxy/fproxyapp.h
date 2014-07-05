@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common.h"
+
 class fproxyapp : public mainapp
 {
 public:
@@ -8,4 +10,5 @@ public:
 	virtual bool heartbeat();
 	virtual bool exit();
 private:
+	mynetserver m_mynetserver;
 };
