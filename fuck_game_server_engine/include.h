@@ -87,4 +87,6 @@ extern "C"
 #include "./pcre/pcre.h"
 #include "./pcre/pcrecpp.h"
 
+#include "proxymsg.h"
+
 #include "mainapp.h"

@@ -8,7 +8,7 @@
 		<member name="CMD_TRANS_BROADCAST" type="4" comment="广播"/>  
 	</enum>  
 	
-	<enum name="ConstDefine" comment="常量">  
+	<enum name="ProxyConstDefine" comment="常量">  
 		<member name="PROXY_MSG_LEN" type="1024*1024" comment="传输消息体最大尺寸"/>
 	</enum>  
 	
