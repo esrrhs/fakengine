@@ -157,6 +157,7 @@ static const stringc version_logs[] = {
 	"2014.7.3：加pcre正则式",
 	"2014.7.5：开始加proxy",
 	"2014.7.5：加proxy消息",
+	"2014.7.8：fix linux build",
 };
 
 static force_inline int32_t fversion()
@@ -174,7 +175,7 @@ static force_inline stringc fversionstr()
 
 static force_inline stringc fversionlog(int32_t i)
 {
-	SAFE_TEST_RET_VAL(i >= 0 && i < ARRAY_SIZE(version_logs), false, "none");
+	SAFE_TEST_RET_VAL(i >= 0 && i < (int32_t)ARRAY_SIZE(version_logs), false, "none");
 	return version_logs[i];
 }
 
