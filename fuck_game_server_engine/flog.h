@@ -42,9 +42,9 @@ public:
 		ret += tvsnprintf((char *)m_buff + ret, ARRAY_SIZE(m_buff) - ret - 1, format, ap);
 		va_end(ap);
 
-		m_buff[ARRAY_SIZE(m_buff) - 1] = 0;
+		ret += tsnprintf((char *)m_buff + ret, ARRAY_SIZE(m_buff) - ret - 1, "\n");
 
-		FPRINTF("%s", m_buff);
+		m_buff[ARRAY_SIZE(m_buff) - 1] = 0;
 
 		write(ret);
 	}

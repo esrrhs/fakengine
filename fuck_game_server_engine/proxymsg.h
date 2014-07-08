@@ -27,7 +27,7 @@ enum CmdID
 };
     
 // 常量  
-enum ConstDefine
+enum ProxyConstDefine
 {
 	 
 	// 传输消息体最大尺寸  
