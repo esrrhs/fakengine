@@ -17,6 +17,10 @@ public:
 	{
 		return m_socket.ini(param);
 	}
+	force_inline bool isconnect() const
+	{
+	    return m_connect;
+	}
 	force_inline void tick()
 	{
 		if (m_socket.connected())
