@@ -158,6 +158,7 @@ static const stringc version_logs[] = {
 	"2014.7.5：开始加proxy",
 	"2014.7.5：加proxy消息",
 	"2014.7.8：fix linux build",
+	"2014.7.9：加proxy client",
 };
 
 static force_inline int32_t fversion()
