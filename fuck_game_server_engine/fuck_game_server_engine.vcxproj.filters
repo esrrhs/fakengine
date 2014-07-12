@@ -704,6 +704,12 @@
     <ClInclude Include="fversion.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="fproxyclient.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="proxymsg.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

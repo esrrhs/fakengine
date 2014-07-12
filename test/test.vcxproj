@@ -64,6 +64,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>../bin/fuck_game_server_engine_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMTD.lib</IgnoreSpecificDefaultLibraries>
+      <StackReserveSize>10000000</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -93,6 +94,7 @@
     <ClCompile Include="fmd5\fmd5app.cpp" />
     <ClCompile Include="fpoint\fpointapp.cpp" />
     <ClCompile Include="fpool\fpoolapp.cpp" />
+    <ClCompile Include="fproxyclient\fproxyclientapp.cpp" />
     <ClCompile Include="fstring\fstringapp.cpp" />
     <ClCompile Include="ftrie\ftrieapp.cpp" />
     <ClCompile Include="hashmap\hashmapapp.cpp" />
@@ -113,6 +115,7 @@
     <ClInclude Include="fmd5\fmd5app.h" />
     <ClInclude Include="fpoint\fpointapp.h" />
     <ClInclude Include="fpool\fpoolapp.h" />
+    <ClInclude Include="fproxyclient\fproxyclientapp.h" />
     <ClInclude Include="fstring\fstringapp.h" />
     <ClInclude Include="ftrie\ftrieapp.h" />
     <ClInclude Include="hashmap\hashmapapp.h" />

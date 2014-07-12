@@ -12,7 +12,7 @@ public:
 	}
 	force_inline bool parse(int argc, char *argv[])
 	{
-		for (int i = 1; i < argc; i++)
+		for (int i = 0; i < argc; i++)
 		{
 			SAFE_TEST_RET_VAL(parse_arg(argv[i]), false, false);
 		}

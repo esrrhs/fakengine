@@ -61,7 +61,7 @@ struct {{.Name}}
 	};
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{		
 		buffer.begin("{{.Name}}");
 		
@@ -112,7 +112,7 @@ struct {{.Name}}
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		
@@ -189,7 +189,7 @@ struct {{.Name}}
 	{{end}}  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("{{.Name}}");
 			
@@ -250,7 +250,7 @@ struct {{.Name}}
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		{{range .Members}} 

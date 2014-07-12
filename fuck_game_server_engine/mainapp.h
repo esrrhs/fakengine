@@ -3,10 +3,10 @@
 class mainapp
 {
 public:
-	mainapp(const char * name, int32_t cmdkey = c_DefaultCmdKey) : 
-		m_engine(name), m_exit(false), m_cmdkey((shm_key)cmdkey)
+	mainapp(const char * name, int32_t cmdkey = c_DefaultCmdKey, uint8_t fps = c_DefaultFps) :
+		m_engine(name), m_exit(false), m_cmdkey((shm_key)cmdkey), m_fps(fps)
 	{
-		LOG_SYS("new mainapp %s, %d", name, cmdkey);
+		LOG_SYS("new mainapp %s, %d, %u", name, cmdkey, fps);
 	}
 	virtual ~mainapp()
 	{
@@ -24,8 +24,18 @@ public:
 			LOG_ERROR("ini fail");
 			return;
 		}
+		uint32_t last = get_ms_tick();
+		uint32_t now = last;
+		const uint32_t tps = 1000 / m_fps;
 		while (!m_exit)
 		{
+			now = get_ms_tick();
+			if (now >= last && (now - last) < tps)
+			{
+				fsleep(1);
+				continue;
+			}
+			last = now;
 			_heartbeat();
 			heartbeat();
 		}
@@ -101,6 +111,7 @@ private:
 private:
 	fengine m_engine;
 	bool m_exit;
+	uint8_t m_fps;
 
 	// cmd control
 	shm_key m_cmdkey;

@@ -4,12 +4,14 @@
 
 typedef cmdparser<10> mycmdparser;
 
-#define MAX_BUFF_SIZE 16*1024*1024
-#define MAX_MSG_SIZE 1024*1024
+#define MAX_MSG_SIZE Fproto::PROXY_MSG_LEN + 1024
+
 #ifdef DEBUG
 #define MAX_LINK_SIZE 10
+#define MAX_BUFF_SIZE MAX_MSG_SIZE
 #else
 #define MAX_LINK_SIZE 1000
+#define MAX_BUFF_SIZE 16*1024*1024
 #endif
 
 extern char g_msg_buffer[MAX_MSG_SIZE];
@@ -26,10 +28,10 @@ public:
 	bool on_recv_msg(mysocket & s, const mymsg & msg);
 
 private:
-	bool HandleRegister(const Fproto::ProxyMsg & proxymsg);
-	bool HandleTransByKey(const Fproto::ProxyMsg & proxymsg);
-	bool HandleTransByID(const Fproto::ProxyMsg & proxymsg);
-	bool HandleTransBroadcast(const Fproto::ProxyMsg & proxymsg);
+	bool HandleRegister(mysocket & s, const Fproto::ProxyMsg & proxymsg);
+	bool HandleTransByKey(mysocket & s, const Fproto::ProxyMsg & proxymsg);
+	bool HandleTransByID(mysocket & s, const Fproto::ProxyMsg & proxymsg);
+	bool HandleTransBroadcast(mysocket & s, const Fproto::ProxyMsg & proxymsg);
 };
 
 #ifdef WIN32

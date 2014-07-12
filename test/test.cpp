@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 			return 0;
 	}
 
-	papp->run(argc - 1, argv + 1);
+	papp->run(argc - 2, argv + 2);
 
 	myfactorymng::ptr()->dealloc(papp);
 	

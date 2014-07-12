@@ -70,7 +70,7 @@ struct AccInfo
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("AccInfo");
 			
@@ -104,7 +104,7 @@ struct AccInfo
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -178,7 +178,7 @@ struct FriendInfo
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("FriendInfo");
 			
@@ -214,7 +214,7 @@ struct FriendInfo
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -312,7 +312,7 @@ struct RoleInfo
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("RoleInfo");
 			
@@ -395,7 +395,7 @@ struct RoleInfo
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -569,7 +569,7 @@ struct CSReqLogin
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("CSReqLogin");
 			
@@ -603,7 +603,7 @@ struct CSReqLogin
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -683,7 +683,7 @@ struct SCResLogin
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("SCResLogin");
 			
@@ -758,7 +758,7 @@ struct SCResLogin
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -879,7 +879,7 @@ struct NetMsgHead
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("NetMsgHead");
 			
@@ -913,7 +913,7 @@ struct NetMsgHead
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -993,7 +993,7 @@ struct NetMsgPara
 	};
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{		
 		buffer.begin("NetMsgPara");
 		
@@ -1062,7 +1062,7 @@ struct NetMsgPara
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		
@@ -1179,7 +1179,7 @@ struct NetMsg
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("NetMsg");
 			
@@ -1231,7 +1231,7 @@ struct NetMsg
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -1305,7 +1305,7 @@ struct TestW1
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("TestW1");
 			
@@ -1339,7 +1339,7 @@ struct TestW1
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -1416,7 +1416,7 @@ struct TestR1
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("TestR1");
 			
@@ -1458,7 +1458,7 @@ struct TestR1
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -1552,7 +1552,7 @@ struct TestW2
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("TestW2");
 			
@@ -1588,7 +1588,7 @@ struct TestW2
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -1671,7 +1671,7 @@ struct TestR2
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("TestR2");
 			
@@ -1707,7 +1707,7 @@ struct TestR2
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -1787,7 +1787,7 @@ struct TestW3
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("TestW3");
 			
@@ -1822,7 +1822,7 @@ struct TestW3
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -1873,7 +1873,7 @@ struct TestR3
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("TestR3");
 			
@@ -1908,7 +1908,7 @@ struct TestR3
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -1962,7 +1962,7 @@ struct TestW4
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("TestW4");
 			
@@ -2012,7 +2012,7 @@ struct TestW4
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -2093,7 +2093,7 @@ struct TestR4
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("TestR4");
 			
@@ -2143,7 +2143,7 @@ struct TestR4
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
