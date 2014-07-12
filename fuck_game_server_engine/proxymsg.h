@@ -64,7 +64,7 @@ struct CmdRegister
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("CmdRegister");
 			
@@ -98,7 +98,7 @@ struct CmdRegister
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -167,18 +167,25 @@ struct CmdTransByKeyHash
 	// hash方法  
 	uint8_t m_Hash;  
 	  
+	// 类型  
+	uint8_t m_Type;  
+	  
 	// Key  
 	uint32_t m_Key;  
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("CmdTransByKeyHash");
 			
 		 
 		// hash方法	
 		SAFE_TEST_RET_VAL(buffer.add("Hash", m_Hash), false, false);
+		 
+		 
+		// 类型	
+		SAFE_TEST_RET_VAL(buffer.add("Type", m_Type), false, false);
 		 
 		 
 		// Key	
@@ -199,6 +206,10 @@ struct CmdTransByKeyHash
 		buffer.get("Hash", m_Hash);
 		 
 		 
+		// 类型	
+		buffer.get("Type", m_Type);
+		 
+		 
 		// Key	
 		buffer.get("Key", m_Key);
 		 
@@ -206,7 +217,7 @@ struct CmdTransByKeyHash
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -218,6 +229,16 @@ struct CmdTransByKeyHash
 		*(uint8_t*)destbuffer = m_Hash;
 		ret += sizeof(m_Hash);
 		destbuffer += sizeof(m_Hash);
+		 
+		 
+		// 类型	
+		if (ret + (int32_t)sizeof(m_Type) > size)
+		{
+			return -ret;
+		}
+		*(uint8_t*)destbuffer = m_Type;
+		ret += sizeof(m_Type);
+		destbuffer += sizeof(m_Type);
 		 
 		 
 		// Key	
@@ -245,6 +266,16 @@ struct CmdTransByKeyHash
 		m_Hash = *(uint8_t*)srcbuffer;
 		ret += sizeof(m_Hash);
 		srcbuffer += sizeof(m_Hash);
+		 
+		 
+		// 类型	
+		if (ret + (int32_t)sizeof(m_Type) > size)
+		{
+			return -ret;
+		}
+		m_Type = *(uint8_t*)srcbuffer;
+		ret += sizeof(m_Type);
+		srcbuffer += sizeof(m_Type);
 		 
 		 
 		// Key	
@@ -277,7 +308,7 @@ struct CmdTransByID
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("CmdTransByID");
 			
@@ -303,7 +334,7 @@ struct CmdTransByID
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -354,7 +385,7 @@ struct CmdTransBroadcast
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("CmdTransBroadcast");
 			
@@ -380,7 +411,7 @@ struct CmdTransBroadcast
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -446,7 +477,7 @@ struct CmdMsgPara
 	};
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{		
 		buffer.begin("CmdMsgPara");
 		
@@ -551,7 +582,7 @@ struct CmdMsgPara
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		
@@ -720,7 +751,7 @@ struct ProxyMsgHead
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("ProxyMsgHead");
 			
@@ -763,7 +794,7 @@ struct ProxyMsgHead
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -830,14 +861,14 @@ struct ProxyMsgPara
 	
 	  
 	// 大小  
-	uint8_t m_Num;  
+	uint32_t m_Num;  
 	  
 	// 消息buffer  
 	uint8_t m_Buff[PROXY_MSG_LEN];  
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("ProxyMsgPara");
 			
@@ -873,7 +904,7 @@ struct ProxyMsgPara
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 
@@ -882,7 +913,7 @@ struct ProxyMsgPara
 		{
 			return -ret;
 		}
-		*(uint8_t*)destbuffer = m_Num;
+		*(uint32_t*)destbuffer = m_Num;
 		ret += sizeof(m_Num);
 		destbuffer += sizeof(m_Num);
 		 
@@ -913,7 +944,7 @@ struct ProxyMsgPara
 		{
 			return -ret;
 		}
-		m_Num = *(uint8_t*)srcbuffer;
+		m_Num = *(uint32_t*)srcbuffer;
 		ret += sizeof(m_Num);
 		srcbuffer += sizeof(m_Num);
 		 
@@ -956,7 +987,7 @@ struct ProxyMsg
 	  
 	
 	template <typename T>
-	bool Marshal(T & buffer)
+	bool Marshal(T & buffer) const
 	{			
 		buffer.begin("ProxyMsg");
 			
@@ -1008,7 +1039,7 @@ struct ProxyMsg
 		return true;
 	}
 	
-	int32_t Marshal(char * destbuffer, int32_t size)
+	int32_t Marshal(char * destbuffer, int32_t size) const
 	{
 		int32_t ret = 0;
 		 

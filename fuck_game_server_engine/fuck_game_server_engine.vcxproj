@@ -258,6 +258,7 @@
     <ClInclude Include="fmath.h" />
     <ClInclude Include="fmd5.h" />
     <ClInclude Include="fpool.h" />
+    <ClInclude Include="fproxyclient.h" />
     <ClInclude Include="fsha1.h" />
     <ClInclude Include="fsort.h" />
     <ClInclude Include="fstack.h" />
@@ -402,6 +403,7 @@
     <ClInclude Include="pcre\pcre_stringpiece.h" />
     <ClInclude Include="pcre\ucp.h" />
     <ClInclude Include="profile.h" />
+    <ClInclude Include="proxymsg.h" />
     <ClInclude Include="readonly_allocator.h" />
     <ClInclude Include="selector.h" />
     <ClInclude Include="sharemm.h" />

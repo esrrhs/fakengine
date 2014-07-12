@@ -19,6 +19,7 @@
 	
 	<struct name="CmdTransByKeyHash" comment="通过keyhash">  
 		<member name="Hash" type="uint8_t" comment="hash方法"/>
+		<member name="Type" type="uint8_t" comment="类型"/>
 		<member name="Key" type="uint32_t" comment="Key"/>  
 	</struct>  
 	
@@ -43,7 +44,7 @@
 	</struct>  
 	
 	<struct name="ProxyMsgPara" comment="网络消息内容"> 
-		<member name="Num" type="uint8_t" comment="大小"/>  
+		<member name="Num" type="uint32_t" comment="大小"/>  
 		<member name="Buff" type="uint8_t" length="PROXY_MSG_LEN" ref="Num" comment="消息buffer"/> 
 	</struct>  
 	

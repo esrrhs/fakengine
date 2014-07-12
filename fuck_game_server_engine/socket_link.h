@@ -64,6 +64,10 @@ public:
 	{
 		return m_socket.send(msg);
 	}
+	force_inline void set_event_processor(const _event_processor & pro)
+	{
+		m_event_processor = pro;
+	}
 private:
 	force_inline bool process_msg()
 	{

@@ -88,5 +88,6 @@ extern "C"
 #include "./pcre/pcrecpp.h"
 
 #include "proxymsg.h"
+#include "fproxyclient.h"
 
 #include "mainapp.h"

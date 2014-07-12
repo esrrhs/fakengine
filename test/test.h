@@ -2,9 +2,9 @@
 
 #include "../tools/genmsg/Struct.h"
 
-#define MAX_BUFF_SIZE 10240
-#define MAX_MSG_SIZE 1024
-#define MAX_LINK_SIZE 1000
+#define MAX_MSG_SIZE Fproto::PROXY_MSG_LEN + 1024
+#define MAX_BUFF_SIZE 10 * MAX_MSG_SIZE
+#define MAX_LINK_SIZE 10
 
 extern char g_msg_buffer[MAX_MSG_SIZE];
 extern Fproto::NetMsg g_netmsg;
