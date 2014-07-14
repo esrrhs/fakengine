@@ -4,7 +4,7 @@ class mainapp
 {
 public:
 	mainapp(const char * name, int32_t cmdkey = c_DefaultCmdKey, uint8_t fps = c_DefaultFps) :
-		m_engine(name), m_exit(false), m_cmdkey((shm_key)cmdkey), m_fps(fps)
+		m_engine(name), m_exit(false), m_fps(fps), m_cmdkey((shm_key)cmdkey)
 	{
 		LOG_SYS("new mainapp %s, %d, %u", name, cmdkey, fps);
 	}
