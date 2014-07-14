@@ -139,7 +139,7 @@ private:
 	            return i;
 	        }
 	        m_lastlink++;
-	        if (m_lastlink >= N)
+	        if (m_lastlink >= (int32_t)N)
 	        {
 	            m_lastlink = N - 1;
 	        }
