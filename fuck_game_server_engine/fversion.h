@@ -162,6 +162,7 @@ static const stringc version_logs[] = {
 	"2014.7.12：继续修改proxyclient，下一步加proxy的连接处理，底层需要对上层提供通过socketid查找或者直接通过socketid发包",
 	"2014.7.12：proxy需要维护id->link,type->links，这样就能满足proxy的定向、广播、hash等需求",
 	"2014.7.14：fix linux build",
+	"2014.7.22：加wireshark插件",
 };
 
 static force_inline int32_t fversion()
