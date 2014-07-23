@@ -163,6 +163,7 @@ static const stringc version_logs[] = {
 	"2014.7.12：proxy需要维护id->link,type->links，这样就能满足proxy的定向、广播、hash等需求",
 	"2014.7.14：fix linux build",
 	"2014.7.22：加wireshark插件",
+	"2014.7.23：加wireshark插件，已能加载并显示，下一步整合genmsg里面",
 };
 
 static force_inline int32_t fversion()
