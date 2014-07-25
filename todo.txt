@@ -1,3 +1,4 @@
+genmsg动态解析，用lua实现吧
 添加proxy组件，隔离server间通信
 添加cache组件，缓存数据
 添加fgw组件，隔离客户端链接
