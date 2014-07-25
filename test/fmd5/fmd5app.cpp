@@ -28,6 +28,16 @@ bool fmd5app::heartbeat()
     stringc des1 = fdes("12345678", "12345678");
     stringc src1 = fundes("12345678", des1);
     FUSE(src1);
+   
+    uint8_t aes_src[]="1234567812345678";
+    uint8_t aes_des[16];
+    uint8_t aes_ddes[16];
+    faes("12345678", aes_src, 16, aes_des);
+    funaes("12345678", aes_des, 16, aes_ddes);
+    stringc aes_des1 = faes("12345678", "1234567812345678");
+    stringc aes_src1 = funaes("12345678", aes_des1);
+    FUSE(aes_src1);
+    
 	return true;
 }
 

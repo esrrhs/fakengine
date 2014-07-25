@@ -6,6 +6,7 @@
 #include "fsha1.h"
 #include "fconv.h"
 #include "fdes.h"
+#include "faes.h"
 #include "fengine.h"
 #include "fdouble.h"
 #include "fdebug.h"
