@@ -241,6 +241,7 @@
     <ClInclude Include="expat\xmltok.h" />
     <ClInclude Include="expat\xmltok_impl.h" />
     <ClInclude Include="factory.h" />
+    <ClInclude Include="faes.h" />
     <ClInclude Include="farray.h" />
     <ClInclude Include="fclock.h" />
     <ClInclude Include="fconv.h" />
@@ -258,6 +259,7 @@
     <ClInclude Include="fmath.h" />
     <ClInclude Include="fmd5.h" />
     <ClInclude Include="fpool.h" />
+    <ClInclude Include="fproto.h" />
     <ClInclude Include="fproxyclient.h" />
     <ClInclude Include="fsha1.h" />
     <ClInclude Include="fsort.h" />

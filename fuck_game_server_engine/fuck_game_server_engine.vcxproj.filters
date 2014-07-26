@@ -710,6 +710,12 @@
     <ClInclude Include="proxymsg.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="faes.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="fproto.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
