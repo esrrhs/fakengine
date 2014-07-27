@@ -48,7 +48,7 @@ private:
 		}
 		m_last = m_now;
 		m_nowtm = *gmtime(&m_now);
-		tsnprintf((char *)m_nowstr, ARRAY_SIZE(m_nowstr) - 1, 
+		fsnprintf(m_nowstr, ARRAY_SIZE(m_nowstr), 
 			"%d-%d-%d,%d:%d:%d", 
 			m_nowtm.tm_year + 1900, 
 			m_nowtm.tm_mon + 1, 

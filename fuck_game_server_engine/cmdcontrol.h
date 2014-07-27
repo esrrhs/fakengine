@@ -14,7 +14,7 @@ struct cmdcontrol
 	}
 	bool is_cmd(const int8_t * _cmd)
 	{
-		if (tstricmp((const char *)cmd, (const char *)_cmd) == 0)
+		if (fstricmp(cmd, _cmd) == 0)
 		{
 			return true;
 		}

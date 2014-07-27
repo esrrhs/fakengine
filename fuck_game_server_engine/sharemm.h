@@ -5,7 +5,7 @@ static force_inline shm_handle create_share_mem(shm_key key,size_t size)
 {
 #if defined(WIN32)
 	char keybuf[64] = {0};
-	tsnprintf(keybuf, sizeof(keybuf) - 1, "%d", key);
+	fsnprintf(keybuf, sizeof(keybuf), "%d", key);
 	return CreateFileMapping( (HANDLE)0xFFFFFFFFFFFFFFFF, NULL, PAGE_READWRITE, 0, size, keybuf);
 	
 #else
@@ -21,7 +21,7 @@ static force_inline shm_handle open_share_mem(shm_key key,size_t size)
 {
 #if defined(WIN32)
 	char keybuf[64] = {0};
-	tsnprintf(keybuf, sizeof(keybuf) - 1, "%d", key);
+	fsnprintf(keybuf, sizeof(keybuf), "%d", key);
 	return OpenFileMapping( FILE_MAP_ALL_ACCESS, TRUE, keybuf);
 
 #else

@@ -94,6 +94,7 @@
     <ClCompile Include="fmd5\fmd5app.cpp" />
     <ClCompile Include="fpoint\fpointapp.cpp" />
     <ClCompile Include="fpool\fpoolapp.cpp" />
+    <ClCompile Include="fproto\fprotoapp.cpp" />
     <ClCompile Include="fproxyclient\fproxyclientapp.cpp" />
     <ClCompile Include="fstring\fstringapp.cpp" />
     <ClCompile Include="ftrie\ftrieapp.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="fmd5\fmd5app.h" />
     <ClInclude Include="fpoint\fpointapp.h" />
     <ClInclude Include="fpool\fpoolapp.h" />
+    <ClInclude Include="fproto\fprotoapp.h" />
     <ClInclude Include="fproxyclient\fproxyclientapp.h" />
     <ClInclude Include="fstring\fstringapp.h" />
     <ClInclude Include="ftrie\ftrieapp.h" />
