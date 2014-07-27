@@ -33,16 +33,16 @@ public:
 			return;
 		}
 
-		int32_t ret = tsnprintf((char *)m_buff, ARRAY_SIZE(m_buff) - 1, 
+		int32_t ret = fsnprintf(m_buff, ARRAY_SIZE(m_buff),
 			"---------in [%s:%d,%s]:---------\n[%s][%s]:", 
 			file, pos, funcname, (const char*)fclock::ptr()->nowstr(), gettypename(type));
 
 		va_list ap;
 		va_start(ap, format);
-		ret += tvsnprintf((char *)m_buff + ret, ARRAY_SIZE(m_buff) - ret - 1, format, ap);
+		ret += fvsnprintf(m_buff + ret, ARRAY_SIZE(m_buff) - ret, format, ap);
 		va_end(ap);
 
-		ret += tsnprintf((char *)m_buff + ret, ARRAY_SIZE(m_buff) - ret - 1, "\n");
+		ret += fsnprintf(m_buff + ret, ARRAY_SIZE(m_buff) - ret, "\n");
 
 		m_buff[ARRAY_SIZE(m_buff) - 1] = 0;
 

@@ -1,5 +1,33 @@
 #pragma once
 
+template <typename T>
+static force_inline int32_t fstricmp(const T * dst, const T * src)
+{
+	return tstricmp((const char *)dst, (const char *)src);
+}
+
+template <typename T>
+static force_inline int32_t fvsnprintf(T * str, size_t size, const char * format, va_list ap)
+{
+	SAFE_TEST_RET_VAL(str, 0, 0);
+	SAFE_TEST_RET_VAL(size, 0, 0);
+	int32_t ret = tvsnprintf((char *)str, size - 1, format, ap);
+	str[size - 1] = 0;
+	return ret;
+}
+
+template <typename T>
+static force_inline int32_t fsnprintf(T * str, size_t size, const char *format, ...)
+{
+	SAFE_TEST_RET_VAL(str, 0, 0);
+	SAFE_TEST_RET_VAL(size, 0, 0);
+	va_list ap;
+	va_start(ap, format);
+	int32_t ret = fvsnprintf((char*)str, size, format, ap);
+	va_end(ap);
+	return ret;
+}
+
 static force_inline void fstrcopy(char * des, const char * src, size_t dest_size)
 {
 	if (dest_size > 0)
@@ -74,7 +102,7 @@ public:
 		: used(0), tmpdata(T())
 	{
 		uint8_t tmpbuf[255];
-		tsnprintf((char*)tmpbuf, 255, "%0.6f", number);
+		fsnprintf(tmpbuf, 255, "%0.6f", number);
 		*this = tmpbuf;
 	}
 

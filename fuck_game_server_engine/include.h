@@ -90,5 +90,6 @@ extern "C"
 
 #include "proxymsg.h"
 #include "fproxyclient.h"
+#include "fproto.h"
 
 #include "mainapp.h"

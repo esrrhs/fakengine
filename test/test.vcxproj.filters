@@ -43,6 +43,7 @@
     <ClCompile Include="fpoint\fpointapp.cpp" />
     <ClCompile Include="pcre\pcreapp.cpp" />
     <ClCompile Include="fproxyclient\fproxyclientapp.cpp" />
+    <ClCompile Include="fproto\fprotoapp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="fpoint\fpointapp.h" />
     <ClInclude Include="pcre\pcreapp.h" />
     <ClInclude Include="fproxyclient\fproxyclientapp.h" />
+    <ClInclude Include="fproto\fprotoapp.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="hashmap">
