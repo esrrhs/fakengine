@@ -168,6 +168,7 @@ static const stringc version_logs[] = {
 	"2014.7.25：加aes加密，下一步加genmsg的动态解析",
 	"2014.7.26：加fproto动态解析",
 	"2014.7.26：加fproto校验enum",
+	"2014.7.28：fix linux build",
 };
 
 static force_inline int32_t fversion()

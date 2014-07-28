@@ -17,7 +17,7 @@ static force_inline int32_t fvsnprintf(T * str, size_t size, const char * format
 }
 
 template <typename T>
-static force_inline int32_t fsnprintf(T * str, size_t size, const char *format, ...)
+static int32_t fsnprintf(T * str, size_t size, const char *format, ...)
 {
 	SAFE_TEST_RET_VAL(str, 0, 0);
 	SAFE_TEST_RET_VAL(size, 0, 0);
