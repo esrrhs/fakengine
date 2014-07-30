@@ -169,6 +169,7 @@ static const stringc version_logs[] = {
 	"2014.7.26：加fproto动态解析",
 	"2014.7.26：加fproto校验enum",
 	"2014.7.28：fix linux build",
+	"2014.7.28：加fproto校验struct,下一步加生成实际的对象体",
 };
 
 static force_inline int32_t fversion()
