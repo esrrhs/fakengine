@@ -12,6 +12,7 @@
 		<member name="PWD_LEN" type="32" comment="密码"/>
 		<member name="ROLE_INFO_NUM" type="5" comment="密码"/>
 		<member name="FRIEND_LEN" type="50" comment="好友"/>
+		<member name="TEST_LEN" type="100" comment="test"/>
 	</enum>  
 	
 	<struct name="AccInfo" comment="账号信息">  
@@ -74,12 +75,12 @@
 	
 	<struct name="TestW2" comment="test">  
 		<member name="Num" type="uint8_t" comment="数目"/>  
-		<member name="test" type="uint64_t" length="100" ref="Num" comment="test"/>
+		<member name="test" type="uint64_t" length="TEST_LEN" ref="Num" comment="test"/>
 	</struct> 
 	
 	<struct name="TestR2" comment="test">  
 		<member name="Num" type="uint8_t" comment="数目"/>  
-		<member name="test" type="uint64_t" length="200" ref="Num" comment="test"/>
+		<member name="test" type="uint64_t" length="TEST_LEN" ref="Num" comment="test"/>
 	</struct> 
 	
 	<struct name="TestW3" comment="test">  
@@ -92,12 +93,12 @@
 	
 	<struct name="TestW4" comment="test">    
 		<member name="Num" type="uint8_t" comment="数目"/>  
-		<member name="test" type="TestW1" length="100" ref="Num" comment="test"/>  
+		<member name="test" type="TestW1" length="TEST_LEN" ref="Num" comment="test"/>  
 	</struct> 
 	
 	<struct name="TestR4" comment="test">  
 		<member name="Num" type="uint8_t" comment="数目"/>  
-		<member name="test" type="TestR1" length="100" ref="Num" comment="test"/>  
+		<member name="test" type="TestR1" length="TEST_LEN" ref="Num" comment="test"/>  
 	</struct> 
 	
 </result>  

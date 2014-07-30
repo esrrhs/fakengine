@@ -105,36 +105,268 @@ private:
 		return true;
 	}
 private:
+	force_inline bool is_base_type(const stringc & type)
+	{
+		if (type == "int8_t" ||
+			type == "uint8_t" ||
+			type == "int16_t" ||
+			type == "uint16_t" ||
+			type == "int32_t" ||
+			type == "uint32_t" ||
+			type == "int64_t" ||
+			type == "uint64_t" ||
+			type == "float" ||
+			type == "char")
+		{
+			return true;
+		}
+		return false;
+	}
 	force_inline bool check_proto_enum()
 	{
-		// 检查重名
-		std::set<stringc> nameset;
-		for (int32_t i = 0; i < (int32_t)m_xml_proto.m_xml_enum_vec.size(); i++)
+		// 检查语法
 		{
-			xml_enum & xmlenum = m_xml_proto.m_xml_enum_vec[i];
-			if (nameset.find(xmlenum.m_name) != nameset.end())
+			for (int32_t i = 0; i < (int32_t)m_xml_proto.m_xml_enum_vec.size(); i++)
 			{
-				fsnprintf(m_lasterr, sizeof(m_lasterr),
-					"Enum Double Name %s Error", xmlenum.m_name.c_str());
-				return false;
-			}
-			nameset.insert(xmlenum.m_name);
-			for (int32_t j = 0; j < (int32_t)xmlenum.m_xml_member_vec.size(); j++)
-			{
-				xml_member & xmlmember = xmlenum.m_xml_member_vec[j];
-				if (nameset.find(xmlmember.m_name) != nameset.end())
+				xml_enum & xmlenum = m_xml_proto.m_xml_enum_vec[i];
+				if (xmlenum.m_name.empty())
 				{
 					fsnprintf(m_lasterr, sizeof(m_lasterr),
-						"Enum Member Double Name %s Error", xmlmember.m_name.c_str());
+						"Enum %s Empty Name Comment %s Error", xmlenum.m_name.c_str(), xmlenum.m_comment.c_str());
 					return false;
 				}
-				nameset.insert(xmlmember.m_name);
+
+				for (int32_t j = 0; j < (int32_t)xmlenum.m_xml_member_vec.size(); j++)
+				{
+					xml_member & xmlmember = xmlenum.m_xml_member_vec[j];
+					if (xmlmember.m_name.empty() || xmlmember.m_type.empty())
+					{
+						fsnprintf(m_lasterr, sizeof(m_lasterr),
+							"Enum %s Member Empty Name %s Type %s Error", xmlenum.m_name.c_str(),
+							xmlmember.m_name.c_str(), xmlmember.m_type.c_str());
+						return false;
+					}
+				}
 			}
 		}
+
+		// 检查重名
+		{
+			std::set<stringc> nameset;
+			for (int32_t i = 0; i < (int32_t)m_xml_proto.m_xml_enum_vec.size(); i++)
+			{
+				xml_enum & xmlenum = m_xml_proto.m_xml_enum_vec[i];
+				if (nameset.find(xmlenum.m_name) != nameset.end())
+				{
+					fsnprintf(m_lasterr, sizeof(m_lasterr),
+						"Enum Double Name %s Error", xmlenum.m_name.c_str());
+					return false;
+				}
+				nameset.insert(xmlenum.m_name);
+				for (int32_t j = 0; j < (int32_t)xmlenum.m_xml_member_vec.size(); j++)
+				{
+					xml_member & xmlmember = xmlenum.m_xml_member_vec[j];
+					if (nameset.find(xmlmember.m_name) != nameset.end())
+					{
+						fsnprintf(m_lasterr, sizeof(m_lasterr),
+							"Enum %s Member Double Name %s Error", xmlenum.m_name.c_str(), xmlmember.m_name.c_str());
+						return false;
+					}
+					nameset.insert(xmlmember.m_name);
+				}
+			}
+		}
+
 		return true;
 	}
 	force_inline bool check_proto_struct()
 	{
+		// 检查语法
+		{
+			for (int32_t i = 0; i < (int32_t)m_xml_proto.m_xml_struct_vec.size(); i++)
+			{
+				xml_struct & xmlstruct = m_xml_proto.m_xml_struct_vec[i];
+				if (xmlstruct.m_name.empty())
+				{
+					fsnprintf(m_lasterr, sizeof(m_lasterr),
+						"Struct %s Empty Name Comment %s Error", xmlstruct.m_name.c_str(), xmlstruct.m_comment.c_str());
+					return false;
+				}
+
+				for (int32_t j = 0; j < (int32_t)xmlstruct.m_xml_member_vec.size(); j++)
+				{
+					xml_member & xmlmember = xmlstruct.m_xml_member_vec[j];
+					if (xmlmember.m_name.empty() || xmlmember.m_type.empty())
+					{
+						fsnprintf(m_lasterr, sizeof(m_lasterr),
+							"Struct %s Member Empty Name %s Type %s Error", xmlstruct.m_name.c_str(),
+							xmlmember.m_name.c_str(), xmlmember.m_type.c_str());
+						return false;
+					}
+
+					if (xmlstruct.m_type == "union")
+					{
+						if (xmlmember.m_ref.empty())
+						{
+							fsnprintf(m_lasterr, sizeof(m_lasterr),
+								"Struct %s is Union, Member %s Empty Ref Error", xmlstruct.m_name.c_str(),
+								xmlmember.m_name.c_str());
+							return false;
+						}
+					}
+					else
+					{
+						if (!xmlmember.m_ref.empty() && xmlmember.m_length.empty())
+						{
+							fsnprintf(m_lasterr, sizeof(m_lasterr),
+								"Struct %s Member %s Empty Lenth But Have Ref %s Error", xmlstruct.m_name.c_str(),
+								xmlmember.m_name.c_str(), xmlmember.m_ref.c_str());
+							return false;
+						}
+					}
+				}
+			}
+		}
+
+		// 检查重名
+		{
+			std::set<stringc> nameset;
+			for (int32_t i = 0; i < (int32_t)m_xml_proto.m_xml_struct_vec.size(); i++)
+			{
+				xml_struct & xmlstruct = m_xml_proto.m_xml_struct_vec[i];
+				if (nameset.find(xmlstruct.m_name) != nameset.end())
+				{
+					fsnprintf(m_lasterr, sizeof(m_lasterr),
+						"Struct Double Name %s Error", xmlstruct.m_name.c_str());
+					return false;
+				}
+				nameset.insert(xmlstruct.m_name);
+
+				std::set<stringc> structnameset;
+				for (int32_t j = 0; j < (int32_t)xmlstruct.m_xml_member_vec.size(); j++)
+				{
+					xml_member & xmlmember = xmlstruct.m_xml_member_vec[j];
+					if (structnameset.find(xmlmember.m_name) != structnameset.end())
+					{
+						fsnprintf(m_lasterr, sizeof(m_lasterr),
+							"Struct %s Member Double Name %s Error", xmlstruct.m_name.c_str(), xmlmember.m_name.c_str());
+						return false;
+					}
+					structnameset.insert(xmlmember.m_name);
+				}
+			}
+	}
+
+		// 检查type是否有定义
+		{
+			std::set<stringc> nameset;
+			for (int32_t i = 0; i < (int32_t)m_xml_proto.m_xml_struct_vec.size(); i++)
+			{
+				xml_struct & xmlstruct = m_xml_proto.m_xml_struct_vec[i];
+				nameset.insert(xmlstruct.m_name);
+			}
+
+			for (int32_t i = 0; i < (int32_t)m_xml_proto.m_xml_struct_vec.size(); i++)
+			{
+				xml_struct & xmlstruct = m_xml_proto.m_xml_struct_vec[i];
+
+				for (int32_t j = 0; j < (int32_t)xmlstruct.m_xml_member_vec.size(); j++)
+				{
+					xml_member & xmlmember = xmlstruct.m_xml_member_vec[j];
+					if (!is_base_type(xmlmember.m_type))
+					{
+						if (nameset.find(xmlmember.m_type) == nameset.end())
+						{
+							fsnprintf(m_lasterr, sizeof(m_lasterr),
+								"Struct %s Member %s Type %s not define Error", xmlstruct.m_name.c_str(),
+								xmlmember.m_name.c_str(), xmlmember.m_type.c_str());
+							return false;
+						}
+					}
+				}
+			}
+		}
+
+		// 检查枚举是否有定义
+		{
+			std::set<stringc> enumnameset;
+			for (int32_t i = 0; i < (int32_t)m_xml_proto.m_xml_enum_vec.size(); i++)
+			{
+				xml_enum & xmlenum = m_xml_proto.m_xml_enum_vec[i];
+				for (int32_t j = 0; j < (int32_t)xmlenum.m_xml_member_vec.size(); j++)
+				{
+					xml_member & xmlmember = xmlenum.m_xml_member_vec[j];
+					enumnameset.insert(xmlmember.m_name);
+				}
+			}
+
+			for (int32_t i = 0; i < (int32_t)m_xml_proto.m_xml_struct_vec.size(); i++)
+			{
+				xml_struct & xmlstruct = m_xml_proto.m_xml_struct_vec[i];
+
+				for (int32_t j = 0; j < (int32_t)xmlstruct.m_xml_member_vec.size(); j++)
+				{
+					xml_member & xmlmember = xmlstruct.m_xml_member_vec[j];
+					if (!xmlmember.m_length.empty())
+					{
+						if (enumnameset.find(xmlmember.m_length) == enumnameset.end())
+						{
+							fsnprintf(m_lasterr, sizeof(m_lasterr),
+								"Struct %s Member %s Length %s not define Error", xmlstruct.m_name.c_str(),
+								xmlmember.m_name.c_str(), xmlmember.m_length.c_str());
+							return false;
+						}
+					}
+
+					if (xmlstruct.m_type == "union")
+					{
+						if (enumnameset.find(xmlmember.m_ref) == enumnameset.end())
+						{
+							fsnprintf(m_lasterr, sizeof(m_lasterr),
+								"Struct %s is Union, Member %s Ref %s not define Error", xmlstruct.m_name.c_str(),
+								xmlmember.m_name.c_str(), xmlmember.m_ref.c_str());
+							return false;
+						}
+					}
+				}
+			}
+		}
+
+		// 检查结构体内refer
+		{
+			for (int32_t i = 0; i < (int32_t)m_xml_proto.m_xml_struct_vec.size(); i++)
+			{
+				xml_struct & xmlstruct = m_xml_proto.m_xml_struct_vec[i];
+				for (int32_t j = 0; j < (int32_t)xmlstruct.m_xml_member_vec.size(); j++)
+				{
+					xml_member & xmlmember = xmlstruct.m_xml_member_vec[j];
+					if (xmlstruct.m_type != "union" && !xmlmember.m_ref.empty())
+					{
+						bool find = false;
+						for (int32_t z = 0; z < j; z++)
+						{
+							xml_member & prexmlmember = xmlstruct.m_xml_member_vec[z];
+							if (prexmlmember.m_name == xmlmember.m_ref && 
+								is_base_type(prexmlmember.m_type) &&
+								prexmlmember.m_length.empty() &&
+								prexmlmember.m_ref.empty())
+							{
+								find = true;
+							}
+						}
+
+						if (!find)
+						{
+							fsnprintf(m_lasterr, sizeof(m_lasterr),
+								"Struct %s Member %s Ref %s not find Error", xmlstruct.m_name.c_str(),
+								xmlmember.m_name.c_str(), xmlmember.m_ref.c_str());
+							return false;
+						}
+					}
+				}
+			}
+		}
+
 		return true;
 	}
 private:
