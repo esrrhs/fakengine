@@ -14,11 +14,11 @@ template <size_t N>
 class fkeybuffer
 {
 public:
-	fkeybuffer()
+	force_inline fkeybuffer()
 	{
 		clear();
 	}
-	~fkeybuffer()
+	force_inline ~fkeybuffer()
 	{
 		clear();
 	}
