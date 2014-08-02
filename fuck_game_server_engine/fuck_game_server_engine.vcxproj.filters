@@ -716,6 +716,9 @@
     <ClInclude Include="fproto.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="fvariable.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">

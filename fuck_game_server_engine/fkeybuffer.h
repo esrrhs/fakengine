@@ -140,19 +140,19 @@ public:
 	}
 
 	template <typename T>
-	force_inline bool get(const stringc & name, T & data)
+	force_inline bool get(const stringc & name, T & data) const
 	{
 		return get(name, &data, sizeof(data));
 	}
 	template <size_t M>
-	force_inline bool get(const stringc & name, fkeybuffer<M> & data)
+	force_inline bool get(const stringc & name, fkeybuffer<M> & data) const
 	{
 		size_t retsize = 0;
 		SAFE_TEST_RET_VAL(get(name, data.buff(), data.maxsize(), &retsize), false, false);
 		data.setsize(retsize);
 		return true;
 	}
-	force_inline bool get(const stringc & name, stringc & data)
+	force_inline bool get(const stringc & name, stringc & data) const
 	{
 		uint8_t strbuff[c_DefaultStringBuffer];
 		memset(strbuff, 0, sizeof(strbuff));
@@ -160,13 +160,13 @@ public:
 		data = strbuff;
 		return true;
 	}
-	force_inline bool get(const stringc & name, void * data, size_t size, size_t * retsize = NULL)
+	force_inline bool get(const stringc & name, void * data, size_t size, size_t * retsize = NULL) const
 	{
-		Head * phead = gethead();
+		const Head * phead = gethead();
 		m_dataiter = phead->nodeoffset;
 		while (m_dataiter < m_datasize)
 		{
-			Node * pnode = getcur();
+			const Node * pnode = getcur();
 			Node node;
 			stringc nodename;
 			uint32_t valuesize;
@@ -201,7 +201,7 @@ private:
 		return write_buffer((const uint8_t *)&data, sizeof(data));
 	}
 	template <typename T>
-	force_inline bool read(T & data)
+	force_inline bool read(T & data) const
 	{
 		return read_buffer((uint8_t *)&data, sizeof(data));
 	}
@@ -215,7 +215,7 @@ private:
 		m_dataiter += size;
 		return true;
 	}
-	force_inline bool read_buffer(uint8_t * data, size_t size)
+	force_inline bool read_buffer(uint8_t * data, size_t size) const
 	{
 		if (m_dataiter + size > m_datasize)
 		{
@@ -233,7 +233,7 @@ private:
 	{
 		return write(node);
 	}
-	force_inline bool read_node(Node & node)
+	force_inline bool read_node(Node & node) const
 	{
 		return read(node);
 	}
@@ -244,7 +244,7 @@ private:
 		SAFE_TEST_RET_VAL(write_buffer(str.c_str(), strsize), false, false);
 		return true;
 	}
-	force_inline bool read_string(stringc & str)
+	force_inline bool read_string(stringc & str) const
 	{
 		uint16_t strsize = 0;
 		SAFE_TEST_RET_VAL(read(strsize), false, false);
@@ -259,12 +259,22 @@ private:
 	{
 		return (Head *)m_databuffer;
 	}
+	force_inline const Head * gethead() const
+	{
+		return (const Head *)m_databuffer;
+	}
 	force_inline Node * getcur()
 	{
 		return (Node *)(m_databuffer + m_dataiter); 
 	}
+	force_inline const Node * getcur() const
+	{
+		return (const Node *)(m_databuffer + m_dataiter);
+	}
 private:
 	uint8_t m_databuffer[N];
-	size_t m_dataiter;
+	mutable size_t m_dataiter;
 	size_t m_datasize;
 };
+
+typedef fkeybuffer<c_marshal_buffer_size> fkeybuffers;

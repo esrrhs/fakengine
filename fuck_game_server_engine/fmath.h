@@ -768,7 +768,7 @@ static force_inline float GridSnap( float Location, float Grid )
 	if( Grid==0.f )	return Location;
 	else			
 	{
-		return Floor((Location + 0.5*Grid)/Grid)*Grid;
+		return (float)Floor((float)(Location + 0.5*Grid) / Grid)*Grid;
 	}
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-// Â∏ÆÂä©
+// ∞Ô÷˙
 #define SAFE_TEST_RET_VAL(EXPRESSION, TESTVALUE, RETURNVALUE) if((EXPRESSION) == (TESTVALUE)) return RETURNVALUE;
 #define SAFE_TEST_RET(EXPRESSION, TESTVALUE) if((EXPRESSION) == (TESTVALUE)) return;
 #define SAFE_TEST_CONTINUE(EXPRESSION, TESTVALUE) if((EXPRESSION) == (TESTVALUE)) continue;
@@ -18,12 +18,12 @@
 #define SAFE_FREE(p) if (p) { FFREE(p); p = 0; }
 #define SAFE_DELETE_ARRAY(T, p, num) if (p) { fdelete_array<T>(p, num); p = 0; }
 
-// Êñ≠Ë®Ä
+// ∂œ—‘
 #ifdef USE_DEFAULT_ASSERT
 	#define FASSERT(x) assert(x)
 #endif
 
-// ÂÜÖÂ≠ò
+// ƒ⁄¥Ê
 #ifdef USE_FUCK_ALLOC
 	#define FALLOC(size) falloc(size)
 	#define FFREE(p) ffree(p)
@@ -32,7 +32,7 @@
 	#define FFREE(p) sys_free(p)
 #endif
 
-// ÂÜÖËÅî
+// ƒ⁄¡™
 #ifdef USE_FORCE_INLINE
 	#ifdef WIN32
 		#define force_inline __forceinline
@@ -43,7 +43,7 @@
 	#define force_inline
 #endif
 
-// Ê†ºÂºèÂåñ
+// ∏Ò ΩªØ
 #if defined(WIN32)
 	#define tvsnprintf  _vsnprintf
 	#define tstricmp    _stricmp
@@ -78,12 +78,12 @@
 	#define F64u "llu"
 #endif
 
-// Êï∞ÁªÑÈïøÂ∫¶
+//  ˝◊È≥§∂»
 #define ARRAY_SIZE(a)	\
 	((sizeof(a) / sizeof((*a))) /	\
 	((size_t)!(sizeof(a) % sizeof((*a)))))
 
-// Á∫øÁ®ãÂ±ÄÈÉ®ÂèòÈáè
+// œﬂ≥Ãæ÷≤ø±‰¡ø
 #ifdef WIN32
 	#define THREAD_LOCAL_VALUE __declspec(thread)
 #else
@@ -107,11 +107,11 @@
 	#define LOG_SYS(format, ...) flog_system::ptr()->write(FLOGT_SYSTEM, __FILE__, __LINE__, __FUNCTION__, format, ##__VA_ARGS__)
 #endif
 
-// ÂéªÊéâË≠¶Âëä
+// »•µÙæØ∏Ê
 template <typename T>
 void FUSE(T t) {}
 
-// Â§ßÂ∞èÁ´Ø
+// ¥Û–°∂À
 #define F_LITTLE_ENDIAN   1234 /* byte 0 is least significant (i386) */
 #define F_BIG_ENDIAN      4321 /* byte 0 is most significant (mc68k) */
 
@@ -122,7 +122,7 @@ void FUSE(T t) {}
 #  define FPLATFORM_BYTE_ORDER F_BIG_ENDIAN
 #endif
 #else
-// ‰ºöÊä•Ë≠¶ÂëäÔºåÂÖàÁõ¥Êé•ÂÜôÊ≠ª
+// ª·±®æØ∏Ê£¨œ»÷±Ω”–¥À¿
 #  define FPLATFORM_BYTE_ORDER F_LITTLE_ENDIAN
 #endif
 
@@ -130,7 +130,7 @@ void FUSE(T t) {}
 #  error Please set undetermined byte order.
 #endif
 
-// ÁºñËØëÂô®TODO
+// ±‡“Î∆˜TODO
 #ifndef WIN32 
 #define DO_PRAGMA(x) _Pragma (#x)
 #define TODO(x) DO_PRAGMA(message ("TODO - " #x))
@@ -145,3 +145,7 @@ void FUSE(T t) {}
 #define JMP_CODE_LEN 12
 #endif
 
+// warn
+#ifdef WIN32
+#define _CRT_SECURE_NO_WARNINGS
+#endif

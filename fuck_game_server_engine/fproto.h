@@ -16,6 +16,8 @@ public:
 	force_inline void clear()
 	{
 		memset(m_lasterr, 0, sizeof(m_lasterr));
+		m_xml_proto = xml_proto();
+		m_enum_map = enum_map();
 	}
 
 	force_inline bool parse(stringc file)
@@ -66,6 +68,8 @@ private:
 		xml_enum_vec m_xml_enum_vec;
 		xml_struct_vec m_xml_struct_vec;
 	};
+private:
+	typedef std::map<stringc, uint32_t> enum_map;
 
 private:
 	force_inline bool parse_xml(stringc file)
@@ -101,22 +105,47 @@ private:
 	}
 	force_inline bool parse_proto()
 	{
+		SAFE_TEST_RET_VAL(parse_proto_enum(), false, false);
+		SAFE_TEST_RET_VAL(parse_proto_struct(), false, false);
 
+		return true;
+	}
+
+private:
+	force_inline bool parse_proto_enum()
+	{
+		for (int32_t i = 0; i < (int32_t)m_xml_proto.m_xml_enum_vec.size(); i++)
+		{
+			xml_enum & xmlenum = m_xml_proto.m_xml_enum_vec[i];
+			for (int32_t j = 0; j < (int32_t)xmlenum.m_xml_member_vec.size(); j++)
+			{
+				xml_member & xmlmember = xmlenum.m_xml_member_vec[j];
+				m_enum_map[xmlmember.m_name] = fatoi(xmlmember.m_type);
+			}
+		}
+		return true;
+	}
+	force_inline bool parse_proto_struct()
+	{
 		return true;
 	}
 private:
 	force_inline bool is_base_type(const stringc & type)
 	{
-		if (type == "int8_t" ||
-			type == "uint8_t" ||
-			type == "int16_t" ||
-			type == "uint16_t" ||
-			type == "int32_t" ||
-			type == "uint32_t" ||
-			type == "int64_t" ||
-			type == "uint64_t" ||
-			type == "float" ||
-			type == "char")
+#define BASE_TYPE_DEF(x) type == #x 
+
+		if (BASE_TYPE_DEF(int8_t) ||
+			BASE_TYPE_DEF(uint8_t) ||
+			BASE_TYPE_DEF(int16_t) ||
+			BASE_TYPE_DEF(uint16_t) ||
+			BASE_TYPE_DEF(int32_t) ||
+			BASE_TYPE_DEF(uint32_t) ||
+			BASE_TYPE_DEF(int64_t) ||
+			BASE_TYPE_DEF(uint64_t) ||
+			BASE_TYPE_DEF(float) ||
+			BASE_TYPE_DEF(char))
+
+#undef BASE_TYPE_DEF
 		{
 			return true;
 		}
@@ -255,7 +284,7 @@ private:
 					structnameset.insert(xmlmember.m_name);
 				}
 			}
-	}
+		}
 
 		// 检查type是否有定义
 		{
@@ -427,5 +456,6 @@ private:
 private:
 	int8_t m_lasterr[1024];
 	xml_proto m_xml_proto;
+	enum_map m_enum_map;
 };
 
