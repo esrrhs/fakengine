@@ -38,6 +38,9 @@ enum ConstDefine
 	 
 	// 好友  
 	FRIEND_LEN = 50,
+	 
+	// test  
+	TEST_LEN = 100,
 	  
 };
   
@@ -1548,7 +1551,7 @@ struct TestW2
 	uint8_t m_Num;  
 	  
 	// test  
-	uint64_t m_test[100];  
+	uint64_t m_test[TEST_LEN];  
 	  
 	
 	template <typename T>
@@ -1562,7 +1565,7 @@ struct TestW2
 		 
 		 
 		// test	
-		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(100, m_Num);
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(TEST_LEN, m_Num);
 		SAFE_TEST_RET_VAL(buffer.add("test", m_test, copytestSize), false, false);
 		 
 		
@@ -1581,7 +1584,7 @@ struct TestW2
 		 
 		 
 		// test	
-		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(100, m_Num);
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(TEST_LEN, m_Num);
 		buffer.get("test", m_test, copytestSize);
 		 
 		
@@ -1603,7 +1606,7 @@ struct TestW2
 		 
 		 
 		// test	
-		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(100, m_Num);
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(TEST_LEN, m_Num);
 		if (ret + copytestSize > size)
 		{
 			return -ret;
@@ -1634,7 +1637,7 @@ struct TestW2
 		 
 		 
 		// test	
-		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(100, m_Num);
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(TEST_LEN, m_Num);
 		if (ret + copytestSize > size)
 		{
 			return -ret;
@@ -1645,7 +1648,7 @@ struct TestW2
 		}
 		ret += copytestSize;
 		srcbuffer += copytestSize;
-		m_Num = PROTO_MIN(m_Num, 100);
+		m_Num = PROTO_MIN(m_Num, TEST_LEN);
 		 
 		 
 		return ret;
@@ -1667,7 +1670,7 @@ struct TestR2
 	uint8_t m_Num;  
 	  
 	// test  
-	uint64_t m_test[200];  
+	uint64_t m_test[TEST_LEN];  
 	  
 	
 	template <typename T>
@@ -1681,7 +1684,7 @@ struct TestR2
 		 
 		 
 		// test	
-		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(200, m_Num);
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(TEST_LEN, m_Num);
 		SAFE_TEST_RET_VAL(buffer.add("test", m_test, copytestSize), false, false);
 		 
 		
@@ -1700,7 +1703,7 @@ struct TestR2
 		 
 		 
 		// test	
-		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(200, m_Num);
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(TEST_LEN, m_Num);
 		buffer.get("test", m_test, copytestSize);
 		 
 		
@@ -1722,7 +1725,7 @@ struct TestR2
 		 
 		 
 		// test	
-		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(200, m_Num);
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(TEST_LEN, m_Num);
 		if (ret + copytestSize > size)
 		{
 			return -ret;
@@ -1753,7 +1756,7 @@ struct TestR2
 		 
 		 
 		// test	
-		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(200, m_Num);
+		int32_t copytestSize = sizeof(uint64_t) * PROTO_MIN(TEST_LEN, m_Num);
 		if (ret + copytestSize > size)
 		{
 			return -ret;
@@ -1764,7 +1767,7 @@ struct TestR2
 		}
 		ret += copytestSize;
 		srcbuffer += copytestSize;
-		m_Num = PROTO_MIN(m_Num, 200);
+		m_Num = PROTO_MIN(m_Num, TEST_LEN);
 		 
 		 
 		return ret;
@@ -1958,7 +1961,7 @@ struct TestW4
 	uint8_t m_Num;  
 	  
 	// test  
-	TestW1 m_test[100];  
+	TestW1 m_test[TEST_LEN];  
 	  
 	
 	template <typename T>
@@ -1974,7 +1977,7 @@ struct TestW4
 		// test	
 		T tmptestBuff;
 		stringc tmptestName;
-		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		for (int32_t i = 0; i < TEST_LEN && i < m_Num; i++)
 		{
 			tmptestBuff.reset();
 			SAFE_TEST_RET_VAL(m_test[i].Marshal(tmptestBuff), false, false);
@@ -2000,7 +2003,7 @@ struct TestW4
 		// test	
 		T tmptestBuff;
 		stringc tmptestName;
-		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		for (int32_t i = 0; i < TEST_LEN && i < m_Num; i++)
 		{
 			tmptestBuff.reset();
 			tmptestName = "test";
@@ -2027,7 +2030,7 @@ struct TestW4
 		 
 		 
 		// test	
-		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		for (int32_t i = 0; i < TEST_LEN && i < m_Num; i++)
 		{
 			int32_t rettest = m_test[i].Marshal(destbuffer, size - ret);
 			if (rettest <= 0)
@@ -2057,7 +2060,7 @@ struct TestW4
 		 
 		 
 		// test	
-		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		for (int32_t i = 0; i < TEST_LEN && i < m_Num; i++)
 		{
 			int32_t rettest = m_test[i].Unmarshal(srcbuffer, size - ret);
 			if (rettest <= 0)
@@ -2067,7 +2070,7 @@ struct TestW4
 			ret += rettest;
 			srcbuffer += rettest;
 		}
-		m_Num = PROTO_MIN(m_Num, 100);
+		m_Num = PROTO_MIN(m_Num, TEST_LEN);
 		 
 		 
 		return ret;
@@ -2089,7 +2092,7 @@ struct TestR4
 	uint8_t m_Num;  
 	  
 	// test  
-	TestR1 m_test[100];  
+	TestR1 m_test[TEST_LEN];  
 	  
 	
 	template <typename T>
@@ -2105,7 +2108,7 @@ struct TestR4
 		// test	
 		T tmptestBuff;
 		stringc tmptestName;
-		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		for (int32_t i = 0; i < TEST_LEN && i < m_Num; i++)
 		{
 			tmptestBuff.reset();
 			SAFE_TEST_RET_VAL(m_test[i].Marshal(tmptestBuff), false, false);
@@ -2131,7 +2134,7 @@ struct TestR4
 		// test	
 		T tmptestBuff;
 		stringc tmptestName;
-		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		for (int32_t i = 0; i < TEST_LEN && i < m_Num; i++)
 		{
 			tmptestBuff.reset();
 			tmptestName = "test";
@@ -2158,7 +2161,7 @@ struct TestR4
 		 
 		 
 		// test	
-		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		for (int32_t i = 0; i < TEST_LEN && i < m_Num; i++)
 		{
 			int32_t rettest = m_test[i].Marshal(destbuffer, size - ret);
 			if (rettest <= 0)
@@ -2188,7 +2191,7 @@ struct TestR4
 		 
 		 
 		// test	
-		for (int32_t i = 0; i < 100 && i < m_Num; i++)
+		for (int32_t i = 0; i < TEST_LEN && i < m_Num; i++)
 		{
 			int32_t rettest = m_test[i].Unmarshal(srcbuffer, size - ret);
 			if (rettest <= 0)
@@ -2198,7 +2201,7 @@ struct TestR4
 			ret += rettest;
 			srcbuffer += rettest;
 		}
-		m_Num = PROTO_MIN(m_Num, 100);
+		m_Num = PROTO_MIN(m_Num, TEST_LEN);
 		 
 		 
 		return ret;

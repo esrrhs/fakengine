@@ -102,3 +102,25 @@ void fdelete_array(T * p, size_t num)
 	}
 	FFREE(p);
 }
+
+template <typename T>
+struct fheappointer
+{
+	fheappointer()
+	{
+		p = fnew<T>();
+	}
+	~fheappointer()
+	{
+		fdelete<T>(p);
+	}
+	T & operator*()
+	{
+		return *p;
+	}
+	T * operator->()
+	{
+		return p;
+	}
+	T * p;
+};

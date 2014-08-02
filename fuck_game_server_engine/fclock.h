@@ -31,7 +31,7 @@ public:
 #ifdef WIN32        
 		LARGE_INTEGER Cycles;
 		QueryPerformanceCounter(&Cycles);
-		return Cycles.QuadPart;
+		return (uint32_t)Cycles.QuadPart;
 #else
 		struct timespec ts;
 		clock_gettime(CLOCK_MONOTONIC, &ts);

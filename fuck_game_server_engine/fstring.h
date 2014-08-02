@@ -11,6 +11,7 @@ static force_inline int32_t fvsnprintf(T * str, size_t size, const char * format
 {
 	SAFE_TEST_RET_VAL(str, 0, 0);
 	SAFE_TEST_RET_VAL(size, 0, 0);
+	SAFE_TEST_RET_VAL((int32_t)size > 0, false, 0);
 	int32_t ret = tvsnprintf((char *)str, size - 1, format, ap);
 	str[size - 1] = 0;
 	return ret;
@@ -21,6 +22,7 @@ static int32_t fsnprintf(T * str, size_t size, const char *format, ...)
 {
 	SAFE_TEST_RET_VAL(str, 0, 0);
 	SAFE_TEST_RET_VAL(size, 0, 0);
+	SAFE_TEST_RET_VAL((int32_t)size > 0, false, 0);
 	va_list ap;
 	va_start(ap, format);
 	int32_t ret = fvsnprintf((char*)str, size, format, ap);
@@ -1438,3 +1440,12 @@ typedef fstring<uint8_t, c_DefaultStringBuffer> stringc;
 //! Typedef for wide character strings
 typedef fstring<uint16_t, c_DefaultStringBuffer> stringw;
 
+static force_inline stringc fgentab(int32_t tabnum)
+{
+	stringc ret;
+	for (int32_t i = 0; i < tabnum; i++)
+	{
+		ret += "\t";
+	}
+	return ret;
+}

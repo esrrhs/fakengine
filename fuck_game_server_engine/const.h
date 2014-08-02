@@ -38,3 +38,4 @@ const uint32_t c_falloc_pagesize = 4096;
 
 const uint32_t c_fkeybuffer_magic = 0xABABAABB;
 
+const uint32_t c_marshal_buffer_size = 1024 * 1024;
