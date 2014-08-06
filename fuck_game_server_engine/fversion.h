@@ -172,6 +172,7 @@ static const stringc version_logs[] = {
 	"2014.7.28：加fproto校验struct,下一步加生成实际的对象体",
 	"2014.7.31：加原子操作",
 	"2014.8.2：加variable，抽象程序运算，为fproto做准备，同时以后可为脚本语言铺路",
+	"2014.8.6：另外专门写了个函数式脚本fuckscript，fuckengine里保留fvariable用作其他用途，fuckscript先放开，下一步实现fproto的struct",
 };
 
 static force_inline int32_t fversion()
