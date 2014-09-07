@@ -259,6 +259,7 @@
     <ClInclude Include="fmath.h" />
     <ClInclude Include="fmd5.h" />
     <ClInclude Include="fpool.h" />
+    <ClInclude Include="fptrace.h" />
     <ClInclude Include="fproto.h" />
     <ClInclude Include="fproxyclient.h" />
     <ClInclude Include="fsha1.h" />

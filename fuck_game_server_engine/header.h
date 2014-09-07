@@ -46,6 +46,11 @@
 #include <sys/epoll.h>
 #include <sys/mman.h>
 #include <malloc.h>
+#include <sys/ptrace.h>
+#include <sys/wait.h>
+#include <sys/syscall.h> 
+#include <sys/reg.h>
+#include <sys/user.h>
 #endif
 
 
