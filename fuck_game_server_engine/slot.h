@@ -50,6 +50,18 @@ public:
 	{
 		return (m_object->*m_function)(param1, param2);
 	}
+
+	template <typename P1, typename P2, typename P3>
+	bool operator()(P1 param1, P2 param2, P3 param3)
+	{
+		return (m_object->*m_function)(param1, param2, param3);
+	}
+
+	template <typename P1, typename P2, typename P3>
+	bool operator()(P1 param1, P2 param2, P3 param3) const
+	{
+		return (m_object->*m_function)(param1, param2, param3);
+	}
 private:
 	F m_function;
 	T * m_object;
@@ -96,6 +108,18 @@ public:
 	bool operator()(P1 param1, P2 param2) const
 	{
 		return m_function(param1, param2);
+	}
+
+	template <typename P1, typename P2, typename P3>
+	bool operator()(P1 param1, P2 param2, P3 param3)
+	{
+		return m_function(param1, param2, param3);
+	}
+
+	template <typename P1, typename P2, typename P3>
+	bool operator()(P1 param1, P2 param2, P3 param3) const
+	{
+		return m_function(param1, param2, param3);
 	}
 private:
 	F m_function;

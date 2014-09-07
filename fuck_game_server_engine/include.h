@@ -94,4 +94,6 @@ extern "C"
 #include "fvariable.h"
 #include "fproto.h"
 
+#include "fptrace.h"
+
 #include "mainapp.h"

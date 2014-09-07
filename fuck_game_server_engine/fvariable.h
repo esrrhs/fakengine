@@ -372,7 +372,7 @@ struct fvariable : public finterface
 		}
 	}
 
-	virtual fvariable get_value() const 
+	virtual fvariable get_value() 
 	{
 		return *this;
 	}

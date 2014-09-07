@@ -173,6 +173,7 @@ static const stringc version_logs[] = {
 	"2014.7.31：加原子操作",
 	"2014.8.2：加variable，抽象程序运算，为fproto做准备，同时以后可为脚本语言铺路",
 	"2014.8.6：另外专门写了个函数式脚本fuckscript，fuckengine里保留fvariable用作其他用途，fuckscript先放开，下一步实现fproto的struct",
+	"2014.9.7：在搞fuckscript，fproto后期打算废弃直接用xml转成的脚本替代，加ptrace方便hook别的进程的系统函数",
 };
 
 static force_inline int32_t fversion()
