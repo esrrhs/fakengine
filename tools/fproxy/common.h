@@ -10,8 +10,13 @@ typedef cmdparser<10> mycmdparser;
 #define MAX_LINK_SIZE 10
 #define MAX_BUFF_SIZE MAX_MSG_SIZE
 #else
+#ifdef FPLATFORM64
 #define MAX_LINK_SIZE 1000
 #define MAX_BUFF_SIZE 16*1024*1024
+#else
+#define MAX_LINK_SIZE 100
+#define MAX_BUFF_SIZE 8*1024*1024
+#endif
 #endif
 
 extern char g_msg_buffer[MAX_MSG_SIZE];

@@ -190,7 +190,7 @@
     <ClCompile Include="pcre\pcre_valid_utf8.c" />
     <ClCompile Include="pcre\pcre_version.c" />
     <ClCompile Include="pcre\pcre_xclass.c" />
-    <ClCompile Include="profile.cpp" />
+    <ClCompile Include="fprofile.cpp" />
     <ClCompile Include="sqlite\shell.c" />
     <ClCompile Include="sqlite\sqlite3.c" />
     <ClCompile Include="tinyxml\tinystr.cpp" />
@@ -406,7 +406,7 @@
     <ClInclude Include="pcre\pcre_scanner.h" />
     <ClInclude Include="pcre\pcre_stringpiece.h" />
     <ClInclude Include="pcre\ucp.h" />
-    <ClInclude Include="profile.h" />
+    <ClInclude Include="fprofile.h" />
     <ClInclude Include="proxymsg.h" />
     <ClInclude Include="readonly_allocator.h" />
     <ClInclude Include="selector.h" />
@@ -515,7 +515,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;mysqlclient_d.lib</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;mysqlclient_d.lib;fakescript_d.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -540,7 +540,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;mysqlclient.lib</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;mysqlclient.lib;fakescript.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>

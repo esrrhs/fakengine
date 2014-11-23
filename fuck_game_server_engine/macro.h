@@ -149,3 +149,14 @@ void FUSE(T t) {}
 #ifdef WIN32
 #define _CRT_SECURE_NO_WARNINGS
 #endif
+
+// platform
+#if defined(WIN32)
+#ifdef _M_X64 
+#define FPLATFORM64
+#endif
+#else
+#ifdef __x86_64
+#define FPLATFORM64
+#endif
+#endif

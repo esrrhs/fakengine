@@ -45,7 +45,7 @@
 #include "simpleselector.h"
 #include "epollor.h"
 #include "neteventprocessor.h"
-#include "profile.h"
+#include "fprofile.h"
 #include "sharemm.h"
 #include "cmdparser.h"
 #include "cmdcontrol.h"
@@ -95,5 +95,7 @@ extern "C"
 #include "fproto.h"
 
 #include "fptrace.h"
+
+#include "./fake/fakescript.h"
 
 #include "mainapp.h"
