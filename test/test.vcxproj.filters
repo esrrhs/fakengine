@@ -44,6 +44,9 @@
     <ClCompile Include="pcre\pcreapp.cpp" />
     <ClCompile Include="fproxyclient\fproxyclientapp.cpp" />
     <ClCompile Include="fproto\fprotoapp.cpp" />
+    <ClCompile Include="fake\fakeapp.cpp">
+      <Filter>fake</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h" />
@@ -90,6 +93,9 @@
     <ClInclude Include="pcre\pcreapp.h" />
     <ClInclude Include="fproxyclient\fproxyclientapp.h" />
     <ClInclude Include="fproto\fprotoapp.h" />
+    <ClInclude Include="fake\fakeapp.h">
+      <Filter>fake</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="hashmap">
@@ -127,6 +133,9 @@
     </Filter>
     <Filter Include="fmd5">
       <UniqueIdentifier>{bb12b6dd-2abd-41e2-905a-4c9640ddaf90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fake">
+      <UniqueIdentifier>{9bd7e1c1-58ee-45fb-87c1-c14f8a40380e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

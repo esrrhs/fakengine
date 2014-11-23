@@ -18,6 +18,7 @@
 #include "./pcre/pcreapp.h"
 #include "./fproxyclient/fproxyclientapp.h"
 #include "./fproto/fprotoapp.h"
+#include "./fake/fakeapp.h"
 
 char g_msg_buffer[MAX_MSG_SIZE];
 Fproto::NetMsg g_netmsg;
@@ -47,6 +48,7 @@ int main(int argc, char *argv[])
 	REG(pcreapp);
 	REG(fproxyclientapp);
 	REG(fprotoapp);
+	REG(fakeapp);
 
 	if (argc <= 1)
 	{

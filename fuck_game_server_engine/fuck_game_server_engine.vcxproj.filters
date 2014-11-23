@@ -533,9 +533,6 @@
     <ClInclude Include="line_buffer.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="profile.h">
-      <Filter>profile</Filter>
-    </ClInclude>
     <ClInclude Include="sharemm.h">
       <Filter>common</Filter>
     </ClInclude>
@@ -721,6 +718,9 @@
     </ClInclude>
     <ClInclude Include="fptrace.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="fprofile.h">
+      <Filter>profile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1104,9 +1104,6 @@
     <ClCompile Include="expat\xmltok_ns.c">
       <Filter>third\expat</Filter>
     </ClCompile>
-    <ClCompile Include="profile.cpp">
-      <Filter>profile</Filter>
-    </ClCompile>
     <ClCompile Include="tinyxml\tinystr.cpp">
       <Filter>third\tinyxml</Filter>
     </ClCompile>
@@ -1340,6 +1337,9 @@
     </ClCompile>
     <ClCompile Include="pcre\pcreposix.c">
       <Filter>third\pcre</Filter>
+    </ClCompile>
+    <ClCompile Include="fprofile.cpp">
+      <Filter>profile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
