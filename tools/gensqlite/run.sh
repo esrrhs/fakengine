@@ -1,0 +1,1 @@
+./gensqlite sample.db Territory
