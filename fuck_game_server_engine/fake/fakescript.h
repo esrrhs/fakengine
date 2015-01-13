@@ -89,11 +89,11 @@ enum efkerror
     efk_ok = 0,
     efk_strsize = 100,
     
-    efk_open_file_fail,
+    efk_open_file_fail = 200,
     efk_open_file_empty,
     efk_parse_file_fail,
     
-    efk_compile_func_not_define,
+    efk_compile_func_not_define = 300,
     efk_compile_stack_identifier_error,
     efk_compile_stmt_type_error,
 	efk_compile_variable_not_found,
@@ -102,13 +102,19 @@ enum efkerror
 	efk_compile_variable_has_define,
 	efk_compile_add_stack_identifier,
 
-	efk_reg_memfunc_double_name,
+	efk_reg_memfunc_double_name = 400,
 	
-	efk_run_no_func_error,
+	efk_run_no_func_error = 500,
+	efk_run_param_error,
+	efk_run_data_error,
+	efk_run_cal_error,
+	efk_run_inter_error,
 };
 
 // 脚本环境
 struct fake;
+
+typedef void (*fkerrorcb)(fake * fk, int eno, const char * str);
 
 typedef void * (*fkmalloc)(size_t size);
 typedef void (*fkfree)(void *ptr);
@@ -673,6 +679,8 @@ struct fkmeminvoker
 	static void invoke(fake * fk, const fkfunctor * ff) 
 	{ 
 	    T * p = fkpspop<T*>(fk);    // 不同编译器顺序不一样，提出来安全
+	    if (!p)
+	        return;
 	    RVal ret = ((p)->*(*(RVal(T::**)(T1,T2,T3,T4,T5))(ff->param2)))(fkpspop<T1>(fk),
 	        fkpspop<T2>(fk),
 	        fkpspop<T3>(fk),
@@ -688,6 +696,8 @@ struct fkmeminvoker<RVal, T, T1, T2, T3, T4>
 	static void invoke(fake * fk, const fkfunctor * ff)
 	{
 	    T * p = fkpspop<T*>(fk);
+	    if (!p)
+	        return;
 	    RVal ret = ((p)->*(*(RVal(T::**)(T1,T2,T3,T4))(ff->param2)))(fkpspop<T1>(fk),
 	        fkpspop<T2>(fk),
 	        fkpspop<T3>(fk),
@@ -702,6 +712,8 @@ struct fkmeminvoker<RVal, T, T1, T2, T3>
 	static void invoke(fake * fk, const fkfunctor * ff)
 	{
 	    T * p = fkpspop<T*>(fk);
+	    if (!p)
+	        return;
 	    RVal ret = ((p)->*(*(RVal(T::**)(T1,T2,T3))(ff->param2)))(fkpspop<T1>(fk),
 	        fkpspop<T2>(fk),
 	        fkpspop<T3>(fk));
@@ -715,6 +727,8 @@ struct fkmeminvoker<RVal, T, T1 ,T2>
 	static void invoke(fake * fk, const fkfunctor * ff)
 	{
 	    T * p = fkpspop<T*>(fk);
+	    if (!p)
+	        return;
 	    RVal ret = ((p)->*(*(RVal(T::**)(T1,T2))(ff->param2)))(fkpspop<T1>(fk),
 	        fkpspop<T2>(fk));
 	    fkpspush<RVal>(fk, ret);
@@ -727,6 +741,8 @@ struct fkmeminvoker<RVal, T, T1>
 	static void invoke(fake * fk, const fkfunctor * ff)
 	{
 	    T * p = fkpspop<T*>(fk);
+	    if (!p)
+	        return;
 	    RVal(T::*func)(T1) = *(RVal(T::**)(T1))(ff->param2);
 	    RVal ret = ((p)->*(func))(fkpspop<T1>(fk));
 	    fkpspush<RVal>(fk, ret);
@@ -739,6 +755,8 @@ struct fkmeminvoker<RVal, T>
 	static void invoke(fake * fk, const fkfunctor * ff)
 	{
 	    T * p = fkpspop<T*>(fk);
+	    if (!p)
+	        return;
 	    RVal ret = ((p)->*(*(RVal(T::**)(void))(ff->param2)))();
 	    fkpspush<RVal>(fk, ret);
 	}
@@ -751,6 +769,8 @@ struct fkmeminvoker<void, T, T1, T2, T3, T4, T5>
 	static void invoke(fake * fk, const fkfunctor * ff)
 	{
 	    T * p = fkpspop<T*>(fk);
+	    if (!p)
+	        return;
 	    ((p)->*(*(void(T::**)(T1,T2,T3,T4,T5))(ff->param2)))(fkpspop<T1>(fk),
 	        fkpspop<T2>(fk),
 	        fkpspop<T3>(fk),
@@ -766,6 +786,8 @@ struct fkmeminvoker<void, T, T1, T2, T3, T4>
 	static void invoke(fake * fk, const fkfunctor * ff)
 	{
 	    T * p = fkpspop<T*>(fk);
+	    if (!p)
+	        return;
 	    ((p)->*(*(void(T::**)(T1,T2,T3,T4))(ff->param2)))(fkpspop<T1>(fk),
 	        fkpspop<T2>(fk),
 	        fkpspop<T3>(fk),
@@ -780,6 +802,8 @@ struct fkmeminvoker<void, T, T1, T2, T3>
 	static void invoke(fake * fk, const fkfunctor * ff)
 	{
 	    T * p = fkpspop<T*>(fk);
+	    if (!p)
+	        return;
 	    ((p)->*(*(void(T::**)(T1,T2,T3))(ff->param2)))(fkpspop<T1>(fk),
 	        fkpspop<T2>(fk),
 	        fkpspop<T3>(fk));
@@ -793,6 +817,8 @@ struct fkmeminvoker<void, T, T1, T2>
 	static void invoke(fake * fk, const fkfunctor * ff)
 	{
 	    T * p = fkpspop<T*>(fk);
+	    if (!p)
+	        return;
 	    ((p)->*(*(void(T::**)(T1,T2))(ff->param2)))(fkpspop<T1>(fk),
 	        fkpspop<T2>(fk));
 	    fkpspush<int>(fk, 0);
@@ -805,6 +831,8 @@ struct fkmeminvoker<void, T, T1>
 	static void invoke(fake * fk, const fkfunctor * ff)
 	{
 	    T * p = fkpspop<T*>(fk);
+	    if (!p)
+	        return;
 	    ((p)->*(*(void(T::**)(T1))(ff->param2)))(fkpspop<T1>(fk));
 	    fkpspush<int>(fk, 0);
 	}
@@ -816,6 +844,8 @@ struct fkmeminvoker<void, T>
 	static void invoke(fake * fk, const fkfunctor * ff)
 	{
 	    T * p = fkpspop<T*>(fk);
+	    if (!p)
+	        return;
 	    ((p)->*(*(void(T::**)(void))(ff->param2)))();
 	    fkpspush<int>(fk, 0);
 	}
@@ -865,4 +895,13 @@ FAKE_API void fkopenbaselib(fake * fk);
 FAKE_API void fkopenprofile(fake * fk);
 FAKE_API void fkcloseprofile(fake * fk);
 FAKE_API const char * fkdumpprofile(fake * fk);
+
+// 设置错误回调
+FAKE_API void fkseterrorfunc(fake * fk, fkerrorcb cb);
+
+// 获取当前运行状态
+FAKE_API const char * fkgetcurfunc(fake * fk);
+FAKE_API const char * fkgetcurfile(fake * fk);
+FAKE_API int fkgetcurline(fake * fk);
+FAKE_API const char * fkgetcurcallstack(fake * fk);
 
