@@ -205,14 +205,14 @@ public:
     // Set {{iconv .Comment}}
     void Set{{.Name}}(uint32_t _{{.Name}})
     {
-        m_{{.Name}} = _{{.Name}};
+        m_{{.Name}} = {{if eq .Cmp "max"}}_{{.Name}} > m_{{.Name}} ? _{{.Name}} : m_{{.Name}}{{else if eq .Cmp "min"}}_{{.Name}} < m_{{.Name}} ? _{{.Name}} : m_{{.Name}}{{else}}_{{.Name}}{{end}};
     }
     
-    // Add {{iconv .Comment}}
+    {{if not .Cmp}}// Add {{iconv .Comment}}
     void Add{{.Name}}(uint32_t _{{.Name}} = 1)
     {
         m_{{.Name}} += _{{.Name}};
-    }
+    }{{end}}
     {{end}}
     
     {{range .Arrays}}     

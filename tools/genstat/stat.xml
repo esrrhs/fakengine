@@ -9,6 +9,9 @@
         <member name="VIRT" comment="虚拟内存占用"/>
         <member name="FPS" comment="帧率"/>
         
+        <member name="MinBroadcast" comment="最小广播" cmp="min" />
+        <member name="MaxBroadcast" comment="最大广播" cmp="max" />
+		
 		<array name="PvPRoomStateNum" comment="pvp房间 各状态数目" length="7"/>
 		<array name="PvPRoomStateTime" comment="pvp房间 各状态持续时间" length="7"/>
 		

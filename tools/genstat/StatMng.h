@@ -181,6 +181,12 @@ public:
 			// 帧率
 			"FPS\t%u\t帧率\n"
 			
+			// 最小广播
+			"MinBroadcast\t%u\t最小广播\n"
+			
+			// 最大广播
+			"MaxBroadcast\t%u\t最大广播\n"
+			
 			
 			
 			// pvp房间 各状态数目 0
@@ -370,6 +376,12 @@ public:
 			
 			// 帧率
 			, m_FPS
+			
+			// 最小广播
+			, m_MinBroadcast
+			
+			// 最大广播
+			, m_MaxBroadcast
 			
 			
 			
@@ -659,6 +671,34 @@ public:
         m_FPS += _FPS;
     }
     
+    // Get 最小广播
+    uint32_t & GetMinBroadcast()
+    {
+        return m_MinBroadcast;
+    }
+    
+    // Set 最小广播
+    void SetMinBroadcast(uint32_t _MinBroadcast)
+    {
+        m_MinBroadcast = _MinBroadcast < m_MinBroadcast ? _MinBroadcast : m_MinBroadcast;
+    }
+    
+    
+    
+    // Get 最大广播
+    uint32_t & GetMaxBroadcast()
+    {
+        return m_MaxBroadcast;
+    }
+    
+    // Set 最大广播
+    void SetMaxBroadcast(uint32_t _MaxBroadcast)
+    {
+        m_MaxBroadcast = _MaxBroadcast > m_MaxBroadcast ? _MaxBroadcast : m_MaxBroadcast;
+    }
+    
+    
+    
     
          
 	// Set pvp房间 各状态数目
@@ -889,6 +929,12 @@ private:
 		// 帧率
 		m_FPS = 0;
 		
+		// 最小广播
+		m_MinBroadcast = 0;
+		
+		// 最大广播
+		m_MaxBroadcast = 0;
+		
 		
 		// pvp房间 各状态数目
 		memset(m_PvPRoomStateNum, 0, sizeof(m_PvPRoomStateNum));
@@ -941,6 +987,12 @@ private:
     
     // 帧率
     uint32_t m_FPS;
+    
+    // 最小广播
+    uint32_t m_MinBroadcast;
+    
+    // 最大广播
+    uint32_t m_MaxBroadcast;
     
     
     // pvp房间 各状态数目
