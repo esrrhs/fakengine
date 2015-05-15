@@ -12,6 +12,7 @@ import (
 type Member struct {
 	Name    string `xml:"name,attr"`
 	Comment string `xml:"comment,attr"`
+	Cmp     string `xml:"cmp,attr"`
 }
 
 type Array struct {
