@@ -21,5 +21,5 @@ public:
 	virtual bool heartbeat();
 	virtual bool exit();
 private:
-	fproxyclient<mymsg, mysocket, proxy_processor, PROXY_NUM> m_proxyclient;
+	fproxyclient<mymsg, mysocket, clientselector, proxy_processor, PROXY_NUM> m_proxyclient;
 };

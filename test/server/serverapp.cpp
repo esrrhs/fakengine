@@ -9,7 +9,7 @@ bool serverapp::ini( int argc, char *argv[] )
     cp.get("ip", ip);
     int32_t port;
     cp.get("port", port);
-    FPRINTF("%s:%d", ip.c_str(), port);
+	LOG_DEBUG("%s:%d", ip.c_str(), port);
 
 	tcp_socket_server_param param;
 	bool ret = m_mynetserver.ini(param);

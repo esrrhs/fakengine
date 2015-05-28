@@ -1,6 +1,6 @@
 #pragma once
 
-template <typename _queue, typename _selector>
+template <typename _queue, typename _user_data = int32_t>
 class tcpsocket
 {
 public:
@@ -10,36 +10,6 @@ public:
 	}
 	force_inline ~tcpsocket()
 	{
-	}
-	force_inline tcpsocket(const tcpsocket<_queue, _selector> & r) : m_socket(r.m_socket),
-		m_port(r.m_port),
-		m_peer_port(r.m_peer_port),
-		m_is_non_blocking(r.m_is_non_blocking),
-		m_socket_send_buffer_size(r.m_socket_send_buffer_size),
-		m_socket_recv_buffer_size(r.m_socket_recv_buffer_size),
-		m_connected(r.m_connected),
-		m_send_queue(r.m_send_queue),
-		m_recv_queue(r.m_recv_queue),
-		m_selector(r.m_selector)
-	{
-		memcpy(m_ip, r.m_ip, c_ip_size);
-		memcpy(m_peer_ip, r.m_peer_ip, c_ip_size);
-	}
-	force_inline tcpsocket<_queue, _selector> & operator = (const tcpsocket<_queue, _selector> & r)
-	{
-		m_socket = r.m_socket;
-		memcpy(m_ip, r.m_ip, c_ip_size);
-		m_port = r.m_port;
-		memcpy(m_peer_ip, r.m_peer_ip, c_ip_size);
-		m_peer_port = r.m_peer_port;
-		m_is_non_blocking = r.m_is_non_blocking;
-		m_socket_send_buffer_size = r.m_socket_send_buffer_size;
-		m_socket_recv_buffer_size = r.m_socket_recv_buffer_size;
-		m_connected = r.m_connected;
-		m_send_queue = r.m_send_queue;
-		m_recv_queue = r.m_recv_queue;
-		m_selector = r.m_selector;
-		return *this;
 	}
 public:
 	template<typename _msg>
@@ -64,15 +34,7 @@ public:
 		m_socket_send_buffer_size = tparam.socket_send_buffer_size;
 		m_socket_recv_buffer_size = tparam.socket_recv_buffer_size;
 
-		FPRINTF("tcpsocket::ini client [%s:%d]\n", m_peer_ip, m_peer_port);
-
-		// reconnect
-		if (!reconnect())
-		{
-			return false;
-		}
-
-		FPRINTF("tcpsocket::ini client [%s:%d] ok...\n", m_peer_ip, m_peer_port);
+		LOG_SYS(FENGINE_HEADER "tcpsocket::ini client [%s:%d] ok...", m_peer_ip, m_peer_port);
 
 		return true;
 	}
@@ -88,13 +50,13 @@ public:
 		m_socket_send_buffer_size = tparam.socket_send_buffer_size;
 		m_socket_recv_buffer_size = tparam.socket_recv_buffer_size;
 
-		FPRINTF("tcpsocket::ini server [%s:%d]\n", m_ip, m_port);
+		LOG_SYS(FENGINE_HEADER "tcpsocket::ini server [%s:%d]", m_ip, m_port);
 		
 		// create
 		m_socket = tcpsocket::socket(AF_INET, SOCK_STREAM, 0);
 		if (m_socket == -1)
 		{
-			FPRINTF("tcpsocket::socket error\n");
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::socket error");
 			return false;
 		}
 
@@ -114,7 +76,8 @@ public:
 		int32_t ret = tcpsocket::bind(m_socket, (const sockaddr *)&_sockaddr, sizeof(_sockaddr));
 		if (ret != 0)
 		{
-			FPRINTF("tcpsocket::bind error\n");
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::bind error");
+			close();
 			return false;
 		}
 
@@ -122,22 +85,21 @@ public:
 		ret = tcpsocket::listen(m_socket, tparam.backlog);
 		if (ret != 0)
 		{
-			FPRINTF("tcpsocket::listen error\n");
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::listen error");
+			close();
 			return false;
 		}
 
 		// 非阻塞
 		if (!set_nonblocking(m_is_non_blocking))
 		{
-			FPRINTF("tcpsocket::set_nonblocking error\n");
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_nonblocking error");
+			close();
 			return false;
 		}
 
-		FPRINTF("tcpsocket::ini server [%s:%d] ok...\n", m_ip, m_port);
+		LOG_SYS(FENGINE_HEADER "tcpsocket::ini server [%s:%d] ok...", m_ip, m_port);
 		
-		// 置上标志
-		m_connected = true;
-
 		return true;
 	}
 	force_inline bool flush()
@@ -155,7 +117,6 @@ public:
 		{
 			if (GET_NET_ERROR != NET_BLOCK_ERROR && GET_NET_ERROR != NET_BLOCK_ERROR_EX)
 			{
-				m_connected = false;
 				return false;
 			}
 		}
@@ -181,7 +142,6 @@ public:
 		{
 			if (GET_NET_ERROR != NET_BLOCK_ERROR && GET_NET_ERROR != NET_BLOCK_ERROR_EX)
 			{
-				m_connected = false;
 				return false;
 			}
 		}
@@ -192,40 +152,23 @@ public:
 
 		return true;
 	}
-	force_inline bool select()
+	force_inline bool connected() const
 	{
-		m_selector.clear();
-		m_selector.add(m_socket);
-		return m_selector.select();
-	}
-	force_inline bool can_read()
-	{
-		return m_selector.is_read(m_socket);
-	}
-	force_inline bool can_write()
-	{
-		return m_selector.is_write(m_socket);
-	}
-	force_inline bool can_except()
-	{
-		return m_selector.is_except(m_socket);
-	}
-	force_inline bool connected()
-	{
-		return m_connected;
+		return m_socket != -1;
 	}
 	force_inline bool reconnect()
 	{
 		// close
 		close();
+		clear();
 
-		FPRINTF("tcpsocket::reconnect [%s:%d]\n", m_peer_ip, m_peer_port);
+		LOG_SYS(FENGINE_HEADER "tcpsocket::reconnect [%s:%d]", m_peer_ip, m_peer_port);
 
 		// create
 		m_socket = tcpsocket::socket(AF_INET, SOCK_STREAM, 0);
 		if (m_socket == -1)
 		{
-			FPRINTF("tcpsocket::socket error\n");
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::socket error");
 			return false;
 		}
 
@@ -238,35 +181,40 @@ public:
 		int32_t ret = tcpsocket::connect(m_socket, (const sockaddr *)&_sockaddr, sizeof(_sockaddr));
 		if (ret != 0)
 		{
-			FPRINTF("tcpsocket::connect error\n");
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::connect error");
+			close();
 			return false;
 		}
 
 		// 缓冲区
 		if (!set_recv_buffer_size(m_socket_recv_buffer_size))
 		{
-			FPRINTF("tcpsocket::set_recv_buffer_size error\n");
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_recv_buffer_size error");
+			close();
 			return false;
 		}
 
 		// 缓冲区
 		if (!set_send_buffer_size(m_socket_send_buffer_size))
 		{
-			FPRINTF("tcpsocket::set_send_buffer_size error\n");
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_send_buffer_size error");
+			close();
 			return false;
 		}
 
 		// 非阻塞
 		if (!set_nonblocking(m_is_non_blocking))
 		{
-			FPRINTF("tcpsocket::set_nonblocking error\n");
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_nonblocking error");
+			close();
 			return false;
 		}
 
 		// linger
 		if (!set_linger(0))
 		{
-			FPRINTF("tcpsocket::set_linger error\n");
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_linger error");
+			close();
 			return false;
 		}
 
@@ -280,11 +228,8 @@ public:
 			m_port = htons(_local_sockaddr.sin_port);
 		}
 
-		FPRINTF("tcpsocket::reconnect [%s:%d], local[%s:%d] ok...\n", m_peer_ip, m_peer_port,
+		LOG_SYS(FENGINE_HEADER "tcpsocket::reconnect [%s:%d], local[%s:%d] ok...", m_peer_ip, m_peer_port,
 			m_ip, m_port);
-
-		// 置上标志
-		m_connected = true;
 
 		return true;
 	}
@@ -295,61 +240,65 @@ public:
 		socklen_t size = sizeof(_sockaddr);
 		socket_t s;
 		s = tcpsocket::accept(m_socket, (sockaddr*)&_sockaddr, &size);
-		if (s != -1)
+		if (s == -1)
 		{
-			socket.m_socket = s;
-			fstrcopy(socket.m_peer_ip, (const int8_t *)inet_ntoa(_sockaddr.sin_addr), sizeof(socket.m_peer_ip));
-			socket.m_peer_port = htons(_sockaddr.sin_port);
-
-			// 缓冲区
-			if (!socket.set_recv_buffer_size(m_socket_recv_buffer_size))
-			{
-				FPRINTF("tcpsocket::set_recv_buffer_size error\n");
-				return false;
-			}
-
-			// 缓冲区
-			if (!socket.set_send_buffer_size(m_socket_send_buffer_size))
-			{
-				FPRINTF("tcpsocket::set_send_buffer_size error\n");
-				return false;
-			}
-
-			// 非阻塞
-			if (!socket.set_nonblocking(m_is_non_blocking))
-			{
-				FPRINTF("tcpsocket::set_nonblocking error\n");
-				return false;
-			}
-
-			// linger
-			if (!socket.set_linger(0))
-			{
-				FPRINTF("tcpsocket::set_linger error\n");
-				return false;
-			}
-
-			// 获取自己的信息
-			sockaddr_in _local_sockaddr;
-			memset(&_local_sockaddr, 0, sizeof(_local_sockaddr));
-			socklen_t size = sizeof(_local_sockaddr);
-			if (tcpsocket::getsockname(socket.m_socket, (sockaddr *)&_local_sockaddr, &size) == 0)
-			{
-				fstrcopy(socket.m_ip, (const int8_t *)inet_ntoa(_local_sockaddr.sin_addr), sizeof(socket.m_ip));
-				socket.m_port = htons(_local_sockaddr.sin_port);
-			}
-
-			// 置上标志
-			socket.m_connected = true;
-
-			FPRINTF("tcpsocket::accept[%s:%d], local[%s:%d]\n", socket.m_peer_ip, 
-				socket.m_peer_port,
-				socket.m_ip,
-				socket.m_port);
-			return true;
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::accept error");
+			return false;
 		}
 
-		return false;
+		socket.clear();
+		socket.m_socket = s;
+		fstrcopy(socket.m_peer_ip, (const int8_t *)inet_ntoa(_sockaddr.sin_addr), sizeof(socket.m_peer_ip));
+		socket.m_peer_port = htons(_sockaddr.sin_port);
+
+		// 缓冲区
+		if (!socket.set_recv_buffer_size(m_socket_recv_buffer_size))
+		{
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_recv_buffer_size error");
+			socket.close();
+			return false;
+		}
+
+		// 缓冲区
+		if (!socket.set_send_buffer_size(m_socket_send_buffer_size))
+		{
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_send_buffer_size error");
+			socket.close();
+			return false;
+		}
+
+		// 非阻塞
+		if (!socket.set_nonblocking(m_is_non_blocking))
+		{
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_nonblocking error");
+			socket.close();
+			return false;
+		}
+
+		// linger
+		if (!socket.set_linger(0))
+		{
+			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_linger error");
+			socket.close();
+			return false;
+		}
+
+		// 获取自己的信息
+		sockaddr_in _local_sockaddr;
+		memset(&_local_sockaddr, 0, sizeof(_local_sockaddr));
+		size = sizeof(_local_sockaddr);
+		if (tcpsocket::getsockname(socket.m_socket, (sockaddr *)&_local_sockaddr, &size) == 0)
+		{
+			fstrcopy(socket.m_ip, (const int8_t *)inet_ntoa(_local_sockaddr.sin_addr), sizeof(socket.m_ip));
+			socket.m_port = htons(_local_sockaddr.sin_port);
+		}
+
+		LOG_SYS(FENGINE_HEADER "tcpsocket::accept[%s:%d], local[%s:%d]", socket.m_peer_ip,
+			socket.m_peer_port,
+			socket.m_ip,
+			socket.m_port);
+
+		return true;
 	}
 	force_inline bool set_recv_buffer_size(uint32_t size)
 	{
@@ -365,7 +314,12 @@ public:
 	}
 	force_inline bool close()
 	{
-		return tcpsocket::close_socket(m_socket) == 0;
+		if (m_socket != -1)
+		{
+			tcpsocket::close_socket(m_socket);
+			m_socket = -1;
+		}
+		return true;
 	}
 	force_inline bool set_linger(uint32_t lingertime)
 	{
@@ -453,15 +407,8 @@ private:
 	force_inline void clear()
 	{
 		m_socket = -1;
-		m_port = 0;
-		m_peer_port = 0;
-		m_connected = false;
-
 		m_send_queue.clear();
 		m_recv_queue.clear();
-		
-		memset(m_ip, 0, sizeof(m_ip));
-		memset(m_peer_ip, 0, sizeof(m_peer_ip));
 	}
 public:
 	socket_t get_socket_t() const
@@ -483,6 +430,14 @@ public:
 	uint16_t get_peer_port() const
 	{
 		return m_peer_port;
+	}
+	const _user_data & get_user_data() const
+	{
+		return m_user_data;
+	}
+	void set_user_data(const _user_data & data)
+	{
+		m_user_data = data;
 	}
 private:
 	// socket
@@ -509,16 +464,13 @@ private:
 	// socket接受缓冲区大小
 	uint32_t m_socket_recv_buffer_size;
 
-	// socket状态
-	bool m_connected;
-
 	// 发送缓冲区
 	_queue m_send_queue;
 
 	// 接受缓冲区
 	_queue m_recv_queue;
 
-	// select器
-	_selector m_selector;
+	// 用户定义数据
+	_user_data m_user_data;
 };
 

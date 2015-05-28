@@ -9,6 +9,9 @@
 // 常用库
 #include "header.h"
 
+// 枚举
+#include "fenum.h"
+
 // 常量
 #include "const.h"
 
@@ -26,9 +29,6 @@
 
 // 常用结构体
 #include "struct.h"
-
-// 枚举
-#include "fenum.h"
 
 // 所有头文件
 #include "include.h"

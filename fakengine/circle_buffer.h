@@ -32,32 +32,15 @@ index:  0 1 2 3 4 5 6 7 8 9 10
 
 */
 template <typename T, size_t N>
-class cirle_buffer
+class circle_buffer
 {
 public:
-	cirle_buffer() : m_datasize(0), m_begin(0), m_end(0),
+	circle_buffer() : m_datasize(0), m_begin(0), m_end(0),
 		m_store_datasize(0), m_store_begin(0), m_store_end(0)
 	{
 	}
-	cirle_buffer(const cirle_buffer<T, N> & r) : m_datasize(r.m_datasize), 
-		m_begin(r.m_begin), m_end(r.m_end), m_store_datasize(r.m_store_datasize), 
-		m_store_begin(r.m_store_begin), m_store_end(r.m_store_end)
+	~circle_buffer()
 	{
-		memcpy(m_buffer, r.m_buffer, sizeof(T) * N);
-	}
-	~cirle_buffer()
-	{
-	}
-	cirle_buffer<T, N> & operator = (const cirle_buffer<T, N> & r)
-	{
-		memcpy(m_buffer, r.m_buffer, sizeof(T) * N);
-		m_datasize = r.m_datasize;
-		m_begin = r.m_begin;
-		m_end = r.m_end;
-		m_store_datasize = r.m_store_datasize;
-		m_store_begin = r.m_store_begin;
-		m_store_end = r.m_store_end;
-		return *this;
 	}
 public:
 	force_inline bool can_write(size_t size)
@@ -151,6 +134,9 @@ public:
 		m_datasize = 0;
 		m_begin = 0;
 		m_end = 0;
+#ifdef _DEBUG
+		memset(m_buffer, 0xFF, sizeof(m_buffer));
+#endif
 		return true;
 	}
 	force_inline size_t size() const
@@ -163,11 +149,11 @@ public:
 	}
 	force_inline bool empty() const
 	{
-		return size() == 0;
+		return m_datasize == 0;
 	}
 	force_inline bool full() const
 	{
-		return size() == capacity();
+		return m_datasize == N;
 	}
 	force_inline T * get_read_line_buffer()
 	{
@@ -184,6 +170,52 @@ public:
 	force_inline size_t get_write_line_size()
 	{
 		return Min<size_t>(N - m_datasize, N - m_end);
+	}
+	// 仅适合begin=0
+	template <typename OT>
+	force_inline bool serialize(OT & t) const
+	{
+		FASSERT(m_begin == 0);
+		// 写入size
+		size_t data_size = size() * sizeof(T);
+		FASSERT(c_buffer_size_size <= sizeof(size_t));
+		FASSERT(data_size <= (1 << (c_buffer_size_size * 8)));
+		if (!t.write((int8_t*)&data_size, c_buffer_size_size))
+		{
+			return false;
+		}
+
+		// 写入data
+		if (!t.write((const int8_t*)m_buffer, data_size))
+		{
+			return false;
+		}
+
+		return true;
+	}
+	template <typename OT>
+	force_inline bool deserialize(OT & t)
+	{
+		// 读出size
+		size_t data_size = 0;
+		FASSERT(c_buffer_size_size <= sizeof(size_t));
+		if (!t.read((int8_t*)&data_size, c_buffer_size_size))
+		{
+			return false;
+		}
+
+		// 读出data
+		FASSERT(data_size <= N * sizeof(T));
+		data_size = Min<size_t>(data_size, N * sizeof(T));
+		if (!t.read((int8_t*)m_buffer, data_size))
+		{
+			return false;
+		}
+		m_begin = 0;
+		m_end = data_size;
+		m_datasize = data_size;
+
+		return true;
 	}
 private:
 	force_inline void real_write(const T * p, size_t size)

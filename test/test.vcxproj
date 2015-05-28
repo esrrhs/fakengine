@@ -84,6 +84,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>../bin/fakengine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMT.lib</IgnoreSpecificDefaultLibraries>
+      <StackReserveSize>10000000</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

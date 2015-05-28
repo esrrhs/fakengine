@@ -9,8 +9,8 @@
 extern char g_msg_buffer[MAX_MSG_SIZE];
 extern Fproto::NetMsg g_netmsg;
 
-typedef tcpsocket<cirle_buffer<int8_t, MAX_BUFF_SIZE>, simpleselector> mysocket;
-typedef line_buffer<int8_t, MAX_MSG_SIZE> mylinebuffer;
+typedef tcpsocket<circle_buffer<int8_t, MAX_BUFF_SIZE> > mysocket;
+typedef circle_buffer<int8_t, MAX_MSG_SIZE> mylinebuffer;
 typedef netmsg<mylinebuffer> mymsg;
 typedef neteventprocessor<mysocket, mymsg> myneteventprocessor;
 
@@ -21,7 +21,7 @@ public:
 	{
 		msg.read_buffer((int8_t*)g_msg_buffer, sizeof(g_msg_buffer));
 		int32_t recvmsgsize = g_netmsg.Unmarshal(g_msg_buffer, sizeof(g_msg_buffer));
-		FPRINTF("recv id %d size %d\n", g_netmsg.m_NetMsgPara.m_Type, recvmsgsize);
+		LOG_DEBUG("recv id %d size %d\n", g_netmsg.m_NetMsgPara.m_Type, recvmsgsize);
 
 		// send
 		g_netmsg.m_NetMsgPara.m_Type = Fproto::SC_RES_LOGIN;
@@ -46,7 +46,7 @@ public:
 	{
 		msg.read_buffer((int8_t*)g_msg_buffer, sizeof(g_msg_buffer));
 		int32_t recvmsgsize = g_netmsg.Unmarshal(g_msg_buffer, sizeof(g_msg_buffer));
-		FPRINTF("recv id %d size %d\n", g_netmsg.m_NetMsgPara.m_Type, recvmsgsize);
+		LOG_DEBUG("recv id %d size %d\n", g_netmsg.m_NetMsgPara.m_Type, recvmsgsize);
 
 		// send
 		g_netmsg.m_NetMsgPara.m_Type = Fproto::CS_REQ_LOGIN;
@@ -73,15 +73,11 @@ public:
 	}
 };
 
-typedef socket_link<mymsg, mysocket, client_processor> mysocketlink;
+typedef epollor<1> clientselector;
+typedef socket_link<mymsg, mysocket, clientselector, client_processor> mysocketlink;
 typedef netlink<mysocketlink> mynetlink;
 
-#ifdef WIN32
-typedef selector<1000> serverselector;
-#else
-typedef epollor<10240> serverselector;
-#endif
-
+typedef epollor<MAX_LINK_SIZE> serverselector;
 typedef socket_container<mymsg, mysocket, serverselector, server_processor, MAX_LINK_SIZE> mysocketcontainer;
 typedef netserver<mysocketcontainer> mynetserver;
 

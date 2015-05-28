@@ -20,7 +20,11 @@ public:
 	}
 	force_inline const int8_t * nowstr()
 	{
-		return m_nowstr;
+		return (const int8_t *)m_nowstr.c_str();
+	}
+	force_inline const int8_t * nowdatestr()
+	{
+		return (const int8_t *)m_nowdatestr.c_str();
 	}
 	force_inline void heartbeat()
 	{
@@ -48,19 +52,23 @@ private:
 		}
 		m_last = m_now;
 		m_nowtm = *gmtime(&m_now);
-		fsnprintf(m_nowstr, ARRAY_SIZE(m_nowstr), 
-			"%d-%d-%d,%d:%d:%d", 
+		m_nowstr.snprintf("%d-%d-%d,%d:%d:%d", 
 			m_nowtm.tm_year + 1900, 
 			m_nowtm.tm_mon + 1, 
 			m_nowtm.tm_mday, 
 			m_nowtm.tm_hour, 
 			m_nowtm.tm_min, 
 			m_nowtm.tm_sec);
+		m_nowdatestr.snprintf("%d-%d-%d",
+			m_nowtm.tm_year + 1900,
+			m_nowtm.tm_mon + 1,
+			m_nowtm.tm_mday);
 	}
 private:
 	time_t m_now;
 	time_t m_last;
 	tm m_nowtm;
-	int8_t m_nowstr[c_ClockStringBuffer];
+	stringc m_nowstr;
+	stringc m_nowdatestr;
 };
 

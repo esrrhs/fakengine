@@ -344,7 +344,11 @@ extern "C" force_inline void checkfalloc()
 extern "C" force_inline void * falloc(size_t size)
 {
     checkfalloc();
-	return ((falloc_instance*)g_falloc_instance)->falloc(size);
+	void * ret = ((falloc_instance*)g_falloc_instance)->falloc(size);
+#ifdef _DEBUG
+	memset(ret, 0xFF, size);
+#endif
+	return ret;
 }
 
 extern "C" force_inline void ffree(void * p)
@@ -362,21 +366,29 @@ extern "C" force_inline size_t fmemsize(void * p)
 extern "C" force_inline void * frealloc(void * p, size_t size)
 {
     checkfalloc();
-	return ((falloc_instance*)g_falloc_instance)->frealloc(p, size);
+	void * ret = ((falloc_instance*)g_falloc_instance)->frealloc(p, size);
+#ifdef _DEBUG
+	memset(ret, 0xFF, size);
+#endif
+	return ret;
 }
 
 extern "C" force_inline void * fmemalign(size_t align, size_t size)
 {
     checkfalloc();
-	return ((falloc_instance*)g_falloc_instance)->fmemalign(align, size);
+	void * ret = ((falloc_instance*)g_falloc_instance)->fmemalign(align, size);
+#ifdef _DEBUG
+	memset(ret, 0xFF, size);
+#endif
+	return ret;
 }
 
 extern "C" force_inline void * fcalloc(size_t n, size_t size)
 {
-	void * p = falloc(n * size);
-	SAFE_TEST_RET_VAL(p, NULL, NULL);
-	memset(p, 0, n * size);
-	return p;
+	void * ret = falloc(n * size);
+	SAFE_TEST_RET_VAL(ret, NULL, NULL);
+	memset(ret, 0, n * size);
+	return ret;
 }
 
 #ifdef USE_FENGINE_HOOK

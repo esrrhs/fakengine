@@ -1427,6 +1427,14 @@ public:
 		return ret.size()-oldSize;
 	}
 
+	force_inline int32_t snprintf(const char *format, ...)
+	{
+		va_list ap;
+		va_start(ap, format);
+		int32_t ret = fvsnprintf((char*)array, N, format, ap);
+		va_end(ap);
+		return ret;
+	}
 private:
 
 	T array[N];		// array="abc"

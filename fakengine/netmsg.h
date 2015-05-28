@@ -65,6 +65,9 @@ public:
 		}
 		if (c != c_msg_header)
 		{
+			// °üÍ·´íÁË
+			LOG_ERROR(FENGINE_HEADER "netmsg deserialize header error");
+			t.clear();
 			return false;
 		}
 

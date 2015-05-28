@@ -7,13 +7,11 @@
 #include "fconv.h"
 #include "fdes.h"
 #include "faes.h"
-#include "fengine.h"
 #include "fdouble.h"
 #include "fdebug.h"
 #include "alloc.h"
 #include "singleton.h"
 #include "circle_buffer.h"
-#include "line_buffer.h"
 #include "slot.h"
 #include "ftime.h"
 #include "inifile.h"
@@ -22,6 +20,8 @@
 #include "fparallel.h"
 
 #include "allocator.h"
+#include "fclock.h"
+#include "flog.h"
 #include "readonly_allocator.h"
 #include "normal_allocator.h"
 
@@ -31,8 +31,6 @@
 #include "thread.h"
 #include "thread_util.h"
 
-#include "fclock.h"
-#include "flog.h"
 #include "fkeybuffer.h"
 
 #include "netlink.h"
@@ -41,8 +39,6 @@
 #include "socket_link.h"
 #include "tcpsocket.h"
 #include "socket_container.h"
-#include "selector.h"
-#include "simpleselector.h"
 #include "epollor.h"
 #include "neteventprocessor.h"
 #include "fprofile.h"
@@ -91,11 +87,10 @@ extern "C"
 
 #include "proxymsg.h"
 #include "fproxyclient.h"
-#include "fvariable.h"
-#include "fproto.h"
 
 #include "fptrace.h"
 
 #include "./fakescript/fakescript.h"
 
+#include "fengine.h"
 #include "mainapp.h"

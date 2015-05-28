@@ -79,9 +79,6 @@
     <ClInclude Include="fengine.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="selector.h">
-      <Filter>net</Filter>
-    </ClInclude>
     <ClInclude Include="ftime.h">
       <Filter>common</Filter>
     </ClInclude>
@@ -529,9 +526,6 @@
     <ClInclude Include="fenum.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="line_buffer.h">
-      <Filter>common</Filter>
-    </ClInclude>
     <ClInclude Include="sharemm.h">
       <Filter>common</Filter>
     </ClInclude>
@@ -584,9 +578,6 @@
       <Filter>base</Filter>
     </ClInclude>
     <ClInclude Include="epollor.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="simpleselector.h">
       <Filter>net</Filter>
     </ClInclude>
     <ClInclude Include="tinyxml\tinystr.h">
@@ -700,19 +691,7 @@
     <ClInclude Include="fversion.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="fproxyclient.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="proxymsg.h">
-      <Filter>common</Filter>
-    </ClInclude>
     <ClInclude Include="faes.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="fproto.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="fvariable.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="fptrace.h">
@@ -724,6 +703,12 @@
     <ClInclude Include="fakengine.h" />
     <ClInclude Include="fakescript\fakescript.h">
       <Filter>third\fakescript</Filter>
+    </ClInclude>
+    <ClInclude Include="fproxyclient.h">
+      <Filter>proxy</Filter>
+    </ClInclude>
+    <ClInclude Include="proxymsg.h">
+      <Filter>proxy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -786,6 +771,9 @@
     </Filter>
     <Filter Include="third\fakescript">
       <UniqueIdentifier>{8f3c496f-cfea-4734-a61b-fc79af7958f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proxy">
+      <UniqueIdentifier>{86725423-163b-477b-92f1-cc7fb387aa32}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1088,9 +1076,6 @@
     </ClCompile>
     <ClCompile Include="lzo\lzo2a_d2.c">
       <Filter>third\lzo</Filter>
-    </ClCompile>
-    <ClCompile Include="fengine.cpp">
-      <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="global.cpp">
       <Filter>common</Filter>
