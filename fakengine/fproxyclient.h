@@ -1,6 +1,6 @@
 #pragma once
 
-template <typename _msg, typename _socket, typename _proxy_processor, size_t N>
+template <typename _msg, typename _socket, typename _real_select, typename _proxy_processor, size_t N>
 class fproxyclient
 {
 public:
@@ -154,7 +154,7 @@ private:
 		return false;
 	}
 private:
-	typedef socket_link<_msg, _socket, client_processor> Link;
+	typedef socket_link<_msg, _socket, _real_select, client_processor> Link;
     Link m_link[N];
 	int32_t m_lastlink;
 	int32_t m_num;

@@ -8,12 +8,6 @@ bool fprotoapp::ini( int argc, char *argv[] )
 
 bool fprotoapp::heartbeat()
 {
-	fproto fp;
-	bool ret = fp.parse("../tools/genmsg/struct.xml");
-	if (!ret)
-	{
-		FPRINTF("%s\n", fp.err().c_str());
-	}
 	return true;
 }
 

@@ -16,98 +16,111 @@ public:
 	template<typename _param>
 	force_inline bool ini(const _param & param)
 	{
-		return m_socket.ini(param);
+		if (m_socket.ini(param))
+		{
+			m_real_select.add(m_socket.get_socket_t(), &m_socket);
+			return true;
+		}
+		return false;
 	}
 	force_inline void tick()
 	{
-		// 处理新连接
-		accept();
-
 		// select现有连接
 		select();
 
-		// read现有连接
-		tick_read();
+		// tick现有连接
+		tick_event();
 
-		// write现有连接
-		tick_write();
+		// 处理消息
+		process_msg();
 
-		// 查错误
-		tick_error();
+		// 删除
+		process_del();
 	}
 private:
-	force_inline bool accept()
-	{
-		m_socket.select();
-		if (m_socket.can_read())
-		{
-			_socket s;
-			uint32_t num = 0;
-			while(m_socket.accept(s) && num < c_socket_container_max_accept_per_frame)
-			{
-				// add to container
-				m_socket_store.push_back(s);
-				m_event_processor.on_accept(m_socket_store.back());
-			    m_real_select.add(s.get_socket_t());
-				num++;
-			}
-		}
-		return true;
-	}
 	force_inline bool select()
 	{
 		return m_real_select.select();
 	}
-	force_inline bool tick_read()
+	force_inline bool tick_event()
 	{
+		for (int32_t i = 0; i < m_real_select.event_size(); i++)
+		{
+			int32_t flag = 0;
+			void * p = 0;
+			m_real_select.get_event(i, flag, p);
+			_socket & s = *(_socket*)p;
+			if (s.connected())
+			{
+				if (flag & FSOCKET_READ)
+				{
+					if (s.get_socket_t() == m_socket.get_socket_t())
+					{
+						accept();
+						continue;
+					}
+
+					if (!s.fill())
+					{
+						close(s);
+						continue;
+					}
+				}
+				if (flag & FSOCKET_WRITE)
+				{
+					if (!s.flush())
+					{
+						close(s);
+						continue;
+					}
+				}
+				if (flag & FSOCKET_ERROR)
+				{
+					close(s);
+					continue;
+				}
+			}
+		}
+		return true;
+	}
+	force_inline bool accept()
+	{
+		_socket & s = m_acceptsocket;
+		if (!m_socket_store.full() && m_socket.accept(s))
+		{
+			// add to container
+			m_socket_store.push_back(s);
+			m_event_processor.on_accept(m_socket_store.back());
+			m_real_select.add(s.get_socket_t(), &m_socket_store.back());
+			LOG_SYS(FENGINE_HEADER "socket link accepted %s:%d", (const char *)s.get_peer_ip(), s.get_peer_port());
+		}
+		return true;
+	}
+	force_inline bool process_msg()
+	{
+		_msg msg;
 		for (_socket_store_iter it = m_socket_store.begin(); it != m_socket_store.end(); it++)
 		{
 			_socket & s = *it;
-			if (m_real_select.is_read(s.get_socket_t()))
+			int32_t i = 0;
+			while (s.connected() && i < c_socket_container_max_process_per_frame && s.recv(msg))
 			{
-				s.fill();
+				if (!m_event_processor.on_recv_msg(s, msg))
+				{
+					break;
+				}
+				i++;
 			}
-			process_msg(s);
 		}
-
 		return true;
 	}
-	force_inline bool tick_write()
+	force_inline bool process_del()
 	{
 		for (_socket_store_iter it = m_socket_store.begin(); it != m_socket_store.end(); it++)
-		{
-			_socket & s = *it;
-			if (m_real_select.is_write(s.get_socket_t()))
-			{
-				s.flush();
-			}
-		}
-
-		return true;
-	}
-	force_inline bool tick_error()
-	{
-		for (_socket_store_iter it = m_socket_store.begin(); it != m_socket_store.end(); )
 		{
 			_socket & s = *it;
 			if (!s.connected())
 			{
-				FPRINTF("socket_container::tick_error [%s:%d] close\n", 
-					s.get_peer_ip(), 
-					s.get_peer_port());
-
-				m_event_processor.on_close(s);
-				m_real_select.del(s.get_socket_t());
-				m_socket_store.erase(it++);
-			}
-			else if (m_real_select.is_except(s.get_socket_t()))
-			{
-				FPRINTF("socket_container::tick_error [%s:%d] except\n", 
-					s.get_peer_ip(), 
-					s.get_peer_port());
-
-				m_event_processor.on_close(s);
-				m_real_select.del(s.get_socket_t());
 				m_socket_store.erase(it++);
 			}
 			else
@@ -115,23 +128,27 @@ private:
 				it++;
 			}
 		}
-
 		return true;
 	}
 public:
-	force_inline bool send_msg(_socket & s, const _msg & msg)
+	force_inline bool close(_socket & s)
 	{
-		return s.send(msg);
-	}
-private:
-	force_inline bool process_msg(_socket & s)
-	{
-		_msg msg;
-		while (s.recv(msg))
+		if (s.connected())
 		{
-			m_event_processor.on_recv_msg(s, msg);
+			m_real_select.del(s.get_socket_t());
+			m_event_processor.on_close(s);
+			s.close();
+			LOG_SYS(FENGINE_HEADER "socket link closed %s:%d", (const char *)s.get_peer_ip(), s.get_peer_port());
 		}
 		return true;
+	}
+	force_inline bool send_msg(_socket & s, const _msg & msg)
+	{
+		if (s.connected())
+		{
+			return s.send(msg);
+		}
+		return false;
 	}
 private:
 	typedef flist<_socket, N> _socket_store;
@@ -140,6 +157,7 @@ private:
 	_real_select m_real_select;
 	_socket_store m_socket_store;
 	_event_processor m_event_processor;
+	_socket m_acceptsocket;
 };
 
 

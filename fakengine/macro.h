@@ -58,15 +58,27 @@
 	#define FPRINTF printf
 #endif
 
+#ifdef WIN32
+#define PRINTF_CLOLOR_TYPE WORD
+#else
+#define PRINTF_CLOLOR_TYPE stringc
+#endif
+
 // socket
 #ifdef WIN32
 	#define GET_NET_ERROR WSAGetLastError()
 	#define NET_BLOCK_ERROR WSAEWOULDBLOCK
 	#define NET_BLOCK_ERROR_EX WSAEWOULDBLOCK
+	#define FSOCKET_READ 0x1
+	#define FSOCKET_WRITE 0x2
+	#define FSOCKET_ERROR 0x4
 #else
 	#define GET_NET_ERROR errno
 	#define NET_BLOCK_ERROR EWOULDBLOCK
 	#define NET_BLOCK_ERROR_EX EAGAIN
+	#define FSOCKET_READ EPOLLIN
+	#define FSOCKET_WRITE EPOLLOUT
+	#define FSOCKET_ERROR EPOLLERR
 #endif
 
 // printf
@@ -106,6 +118,8 @@
 	#define LOG_ERROR(format, ...) flog_system::ptr()->write(FLOGT_ERROR, __FILE__, __LINE__, __FUNCTION__, format, ##__VA_ARGS__)
 	#define LOG_SYS(format, ...) flog_system::ptr()->write(FLOGT_SYSTEM, __FILE__, __LINE__, __FUNCTION__, format, ##__VA_ARGS__)
 #endif
+
+#define FENGINE_HEADER "[fengine]"
 
 // È¥µô¾¯¸æ
 template <typename T>

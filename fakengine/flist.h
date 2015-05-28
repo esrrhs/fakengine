@@ -288,7 +288,6 @@ private:
 		return true;
 	}
 private:
-
 	force_inline T& getbyidx(uint32_t index)
 	{
 		return m_pool[index].data;

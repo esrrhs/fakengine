@@ -45,6 +45,15 @@ public:
 		return (_Tmp);
 	}
 
+	force_inline fiterator & operator+=(int len)
+	{
+		for (int i = 0; i < len; i++)
+		{
+			m_index = m_Container->getnextidx(m_index);
+		}
+		return (*this);
+	}
+
 	force_inline fiterator & operator--()
 	{	
 		// predecrement
@@ -58,6 +67,15 @@ public:
 		fiterator _Tmp = *this;
 		--*this;
 		return (_Tmp);
+	}
+
+	force_inline fiterator & operator-=(int len)
+	{
+		for (int i = 0; i < len; i++)
+		{
+			m_index = m_Container->getpreidx(m_index);
+		}
+		return (*this);
 	}
 
 	force_inline bool operator==(const fiterator & _Right) const

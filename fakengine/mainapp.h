@@ -6,22 +6,22 @@ public:
 	mainapp(const char * name, int32_t cmdkey = c_DefaultCmdKey, uint8_t fps = c_DefaultFps) :
 		m_engine(name), m_exit(false), m_fps(fps), m_cmdkey((shm_key)cmdkey)
 	{
-		LOG_SYS("new mainapp %s, %d, %u", name, cmdkey, fps);
+		LOG_SYS(FENGINE_HEADER "new mainapp %s, %d, %u", name, cmdkey, fps);
 	}
 	virtual ~mainapp()
 	{
 	}
 	force_inline void run(int argc, char *argv[])
 	{
-		LOG_SYS("run mainapp");
+		LOG_SYS(FENGINE_HEADER "run mainapp");
 		if (!_ini())
 		{
-			LOG_ERROR("_ini fail");
+			LOG_ERROR(FENGINE_HEADER "_ini fail");
 			return;
 		}
 		if (!ini(argc, argv))
 		{
-			LOG_ERROR("ini fail");
+			LOG_ERROR(FENGINE_HEADER "ini fail");
 			return;
 		}
 		uint32_t last = get_ms_tick();
@@ -41,7 +41,7 @@ public:
 		}
 		exit();
 		_exit();
-		LOG_SYS("exit mainapp");
+		LOG_SYS(FENGINE_HEADER "exit mainapp");
 	}
 	const stringc & getname()
 	{
@@ -49,7 +49,7 @@ public:
 	}
 	const stringc & gettype()
 	{
-		return getname();
+		return m_engine.getname();
 	}
 protected:
 	virtual bool ini(int argc, char *argv[]) = 0;
@@ -62,18 +62,18 @@ private:
 		m_cmdhandle = create_share_mem(m_cmdkey, sizeof(cmdcontrol));
 		if (m_cmdhandle <= 0)
 		{
-			LOG_ERROR("create_share_mem ret %d", m_cmdhandle);
+			LOG_ERROR(FENGINE_HEADER "create_share_mem ret %d", m_cmdhandle);
 			return false;
 		}
 
 		m_cmdcontrol = (cmdcontrol *)map_share_mem(m_cmdhandle);
 		if (m_cmdcontrol == 0)
 		{
-			LOG_ERROR("map_share_mem fail %d", m_cmdhandle);
+			LOG_ERROR(FENGINE_HEADER "map_share_mem fail %d", m_cmdhandle);
 			return false;
 		}
 
-		LOG_SYS("ini cmd control %d %p", m_cmdhandle, m_cmdcontrol);
+		LOG_SYS(FENGINE_HEADER "ini cmd control %d %p", m_cmdhandle, m_cmdcontrol);
 		memset(m_cmdcontrol, 0, sizeof(cmdcontrol));
 
 		return true;
@@ -92,10 +92,10 @@ private:
 	{
 		if (m_cmdcontrol->is_set())
 		{
-			LOG_SYS("get cmd control %s", m_cmdcontrol->get_cmd());
+			LOG_SYS(FENGINE_HEADER "get cmd control %s", m_cmdcontrol->get_cmd());
 			if (m_cmdcontrol->is_cmd(c_CmdExit))
 			{
-				LOG_SYS("get cmd control,start exit");
+				LOG_SYS(FENGINE_HEADER "get cmd control,start exit");
 				m_exit = true;
 			}
 			m_cmdcontrol->clear();

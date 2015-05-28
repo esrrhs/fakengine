@@ -10,15 +10,16 @@ public:
 		totalsize = _totalsize;
 		nowpos = 0;
 	}
-	int8_t * allocate(size_t allocsize)
+	force_inline int8_t * allocate(size_t allocsize)
 	{
 		nowpos += allocsize;
 		FASSERT(nowpos <= totalsize); 
 		return pbuffer + nowpos - allocsize;
 	}
-	void deallocate(int8_t * p)
+	force_inline void deallocate(int8_t * p)
 	{
 		FASSERT(0);
+		LOG_ERROR(FENGINE_HEADER "readonly buffer deallocate");
 	}
 	int8_t * pbuffer;
 	size_t totalsize;
@@ -35,13 +36,14 @@ public:
 	{
 		typedef readonly_allocator<_Other> other;
 	};
-	T * allocate(size_t count)
+	force_inline T * allocate(size_t count)
 	{
 		return (T *)(readonly_buffer::ptr()->allocate(count * sizeof(T)));
 	}
-	void deallocate(T * p)
+	force_inline void deallocate(T * p)
 	{
 		FASSERT(0);
+		LOG_ERROR(FENGINE_HEADER "readonly allocator deallocate");
 	}
 };
 

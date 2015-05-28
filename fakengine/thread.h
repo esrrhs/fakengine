@@ -61,7 +61,7 @@ public:
 
 		t->run();
 
-		t->set_status(thread::ts_exiting);
+		t->set_status(thread::ts_exit);
 
 		t->exit(0);
 

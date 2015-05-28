@@ -10,11 +10,11 @@ public:
 	{
 		typedef normal_allocator<_Other> other;
 	};
-	T * allocate(size_t count)
+	force_inline T * allocate(size_t count)
 	{
 		return (T *)(FALLOC(count * sizeof(T)));
 	}
-	void deallocate(T * p)
+	force_inline void deallocate(T * p)
 	{
 		FFREE(p);
 	}

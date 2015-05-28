@@ -16,7 +16,6 @@
     <ClCompile Include="expat\xmltok.c" />
     <ClCompile Include="expat\xmltok_impl.c" />
     <ClCompile Include="expat\xmltok_ns.c" />
-    <ClCompile Include="fengine.cpp" />
     <ClCompile Include="global.cpp" />
     <ClCompile Include="lua\lapi.c" />
     <ClCompile Include="lua\lauxlib.c" />
@@ -262,7 +261,6 @@
     <ClInclude Include="fmd5.h" />
     <ClInclude Include="fpool.h" />
     <ClInclude Include="fptrace.h" />
-    <ClInclude Include="fproto.h" />
     <ClInclude Include="fproxyclient.h" />
     <ClInclude Include="fsha1.h" />
     <ClInclude Include="fsort.h" />
@@ -274,13 +272,11 @@
     <ClInclude Include="flog.h" />
     <ClInclude Include="fstring.h" />
     <ClInclude Include="ftime.h" />
-    <ClInclude Include="fvariable.h" />
     <ClInclude Include="fversion.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="include.h" />
     <ClInclude Include="inifile.h" />
-    <ClInclude Include="line_buffer.h" />
     <ClInclude Include="lua\lapi.h" />
     <ClInclude Include="lua\lauxlib.h" />
     <ClInclude Include="lua\lcode.h" />
@@ -410,9 +406,7 @@
     <ClInclude Include="fprofile.h" />
     <ClInclude Include="proxymsg.h" />
     <ClInclude Include="readonly_allocator.h" />
-    <ClInclude Include="selector.h" />
     <ClInclude Include="sharemm.h" />
-    <ClInclude Include="simpleselector.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="slot.h" />
     <ClInclude Include="socket_container.h" />

@@ -35,3 +35,27 @@ static force_inline void fshow_call_stack(stringc & ret)
 #endif
 }
 
+static force_inline void fshow_color_text(const char * text, PRINTF_CLOLOR_TYPE color)
+{
+#ifndef WIN32
+	FPRINTF("%s%s\e[0m", color, text);
+#else
+	HANDLE hStd = ::GetStdHandle(STD_OUTPUT_HANDLE);
+	if (hStd == INVALID_HANDLE_VALUE)
+	{
+		return;
+	}
+	CONSOLE_SCREEN_BUFFER_INFO oldInfo;
+	if (!GetConsoleScreenBufferInfo(hStd, &oldInfo))
+	{
+		return;
+	}
+	else
+	{
+		SetConsoleTextAttribute(hStd, color);
+		FPRINTF("%s", text);
+		SetConsoleTextAttribute(hStd, oldInfo.wAttributes);
+	}
+#endif
+	return;
+}

@@ -19,8 +19,8 @@ bool pcreapp::heartbeat()
     int  rc, i;  
     char  src [] = "111 <title>Hello World</title> 222";   // 要被用来匹配的字符串  
     char  pattern [] = "<title>(.*)</(tit)le>";              // 将要被编译的字符串形式的正则表达式  
-    FPRINTF("String : %s \n", src);  
-    FPRINTF("Pattern: %s \n", pattern);  
+    LOG_DEBUG("String : %s \n", src);  
+    LOG_DEBUG("Pattern: %s \n", pattern);  
     
     re = pcre_compile(pattern,       // pattern, 输入参数，将要被编译的字符串形式的正则表达式  
                       0,            // options, 输入参数，用来指定编译时的一些选项  
@@ -32,7 +32,7 @@ bool pcreapp::heartbeat()
     if (re == NULL) 
     {                 
         //如果编译失败，返回错误信息  
-        FPRINTF("PCRE compilation failed at offset %d: %s \n", erroffset, error);  
+        LOG_DEBUG("PCRE compilation failed at offset %d: %s \n", erroffset, error);  
         return false;  
     }  
     
@@ -50,21 +50,21 @@ bool pcreapp::heartbeat()
     {                     
         //如果没有匹配，返回错误信息  
         if (rc == PCRE_ERROR_NOMATCH) 
-            FPRINTF("Sorry, no match ... \n");  
+            LOG_DEBUG("Sorry, no match ... \n");  
         else 
-            FPRINTF("Matching error %d \n", rc);  
+            LOG_DEBUG("Matching error %d \n", rc);  
         pcre_free(re);  
         return false;  
     }  
     
-    FPRINTF("\n OK, has matched ... \n\n");   //没有出错，已经匹配  
+    LOG_DEBUG("\n OK, has matched ... \n\n");   //没有出错，已经匹配  
     
     for (i = 0; i < rc; i++) 
     {             
         //分别取出捕获分组 $0整个正则公式 $1第一个()  
         char *substring_start = src + ovector[2*i];  
         int substring_length = ovector[2*i+1] - ovector[2*i];  
-        FPRINTF("$%2d: %.*s \n", i, substring_length, substring_start);  
+        LOG_DEBUG("$%2d: %.*s \n", i, substring_length, substring_start);  
     }  
     
     pcre_free(re);                     // 编译正则表达式re 释放内存  

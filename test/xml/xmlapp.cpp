@@ -26,12 +26,12 @@ bool xmlapp::heartbeat()
 
 	for (TiXmlNode * pEnum = pResult->FirstChild("Enum"); NULL != pEnum; pEnum = pEnum->NextSibling("Enum"))
     {
-        FPRINTF("Enum %s", ((TiXmlElement *)pEnum)->Attribute("name"));
+		LOG_DEBUG("Enum %s", ((TiXmlElement *)pEnum)->Attribute("name"));
     }
 
 	CResultLoader loader;
     bool ret = loader.LoadCfg("../tools/genxml/sample.xml");
-    FPRINTF("type %s", (const char *)loader.GetResult().m_vecSTStruct[0].m_vecSTMember[0].m_strtype.c_str());
+	LOG_DEBUG("type %s", (const char *)loader.GetResult().m_vecSTStruct[0].m_vecSTMember[0].m_strtype.c_str());
     FUSE(ret);
 
 	CSampleCfgLoader cfgloader;

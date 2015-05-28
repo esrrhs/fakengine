@@ -6,7 +6,7 @@ typedef cmdparser<10> mycmdparser;
 
 #define MAX_MSG_SIZE Fproto::PROXY_MSG_LEN + 1024
 
-#ifdef DEBUG
+#ifdef _DEBUG
 #define MAX_LINK_SIZE 10
 #define MAX_BUFF_SIZE MAX_MSG_SIZE
 #else
@@ -22,8 +22,8 @@ typedef cmdparser<10> mycmdparser;
 extern char g_msg_buffer[MAX_MSG_SIZE];
 extern Fproto::ProxyMsg g_netmsg;
 
-typedef tcpsocket<cirle_buffer<int8_t, MAX_BUFF_SIZE>, simpleselector> mysocket;
-typedef line_buffer<int8_t, MAX_MSG_SIZE> mylinebuffer;
+typedef tcpsocket<circle_buffer<int8_t, MAX_BUFF_SIZE> > mysocket;
+typedef circle_buffer<int8_t, MAX_MSG_SIZE> mylinebuffer;
 typedef netmsg<mylinebuffer> mymsg;
 typedef neteventprocessor<mysocket, mymsg> myneteventprocessor;
 
@@ -39,11 +39,6 @@ private:
 	bool HandleTransBroadcast(mysocket & s, const Fproto::ProxyMsg & proxymsg);
 };
 
-#ifdef WIN32
-typedef selector<MAX_LINK_SIZE> serverselector;
-#else
 typedef epollor<MAX_LINK_SIZE> serverselector;
-#endif
-
 typedef socket_container<mymsg, mysocket, serverselector, proxy_processor, MAX_LINK_SIZE> mysocketcontainer;
 typedef netserver<mysocketcontainer> mynetserver;

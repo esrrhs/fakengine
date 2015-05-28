@@ -22,7 +22,7 @@ public:
 	force_inline void clear()
 	{
 		m_used = 0;
-#ifdef DEBUG
+#ifdef _DEBUG
 		memset(m_data, 0xFF, sizeof(m_data));
 #endif
 	}

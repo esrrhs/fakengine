@@ -67,9 +67,6 @@ public:
 		{
 			memset(this, 0, sizeof(*this));
 		}
-		uint32_t magic;
-		uint32_t version;
-		uint32_t time;
 		uint32_t size;
 		uint32_t nodeoffset;
 		/* name string */
@@ -92,9 +89,6 @@ public:
 		clear();
 
 		Head head;
-		head.magic = c_fkeybuffer_magic;
-		head.version = 100; // 1.00
-		head.time = (uint32_t)fclock::ptr()->now();
 		SAFE_TEST_RET_VAL(write_head(head), false, false);
 		SAFE_TEST_RET_VAL(write_string(name), false, false);
 		Head * phead = gethead();
