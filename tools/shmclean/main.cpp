@@ -1,9 +1,7 @@
-#include "fuck_game_server_engine.h"
+#include "fakengine.h"
 
 int main()
 {
-    int * p = (int*)malloc(10);
-    *p =123;
 	fengine engine("shmclean");
 
 	FPRINTF("shmclean start\n");

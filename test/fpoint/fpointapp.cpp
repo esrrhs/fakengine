@@ -1,4 +1,4 @@
-#include "fuck_game_server_engine.h"
+#include "fakengine.h"
 #include "fpointapp.h"
 
 bool fpointapp::ini( int argc, char *argv[] )

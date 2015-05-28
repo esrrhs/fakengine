@@ -1,4 +1,4 @@
-#include "fuck_game_server_engine.h"
+#include "fakengine.h"
 #include "fmd5app.h"
 
 bool fmd5app::ini( int argc, char *argv[] )
@@ -28,7 +28,8 @@ bool fmd5app::heartbeat()
     stringc des1 = fdes("12345678", "12345678");
     stringc src1 = fundes("12345678", des1);
     FUSE(src1);
-   
+
+   
     uint8_t aes_src[]="1234567812345678";
     uint8_t aes_des[16];
     uint8_t aes_ddes[16];

@@ -1,4 +1,4 @@
-#include "fuck_game_server_engine.h"
+#include "fakengine.h"
 #include "xmlapp.h"
 
 bool xmlapp::ini( int argc, char *argv[] )
