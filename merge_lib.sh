@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-LIBS="libfengine libmysqlclient-64"
+LIBS="libfengine libmysqlclient-64 libfkscript"
 
 rm merge_tmp -rf
 mkdir merge_tmp > /dev/null 2>&1

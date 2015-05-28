@@ -1,7 +1,6 @@
 /************************************************************************/
 /*
-fakescript是一款轻量级的嵌入式脚本语言
-与Lua相比，它的运行速度更快，更容易使用，同时源代码可读性更强
+fakescript是一款轻量级的嵌入式脚本语言，使用c++语言编写，语法吸取自lua、golang、erlang，基于flex、bison生成语法树，编译成字节码解释执行。与lua相比，运行速度不相上下，更易使用，源代码可读性更强
 
 脚本特性：
 @.代码风格类似lua
@@ -14,54 +13,86 @@ fakescript是一款轻量级的嵌入式脚本语言
 @.自带profile，可获取脚本各个函数运行时间
 @.支持热更新
 @.支持Int64
+@.支持const定义
+@.支持包
+@.支持struct
 
 示例：
+-- 当前包名
+package mypackage.test
+-- 引入的文件
+include "common.fk"
+-- 结构体定义
+struct teststruct
+	sample_a
+	sample_b
+	sample_c
+end
+-- 常量值
+const hellostring = "hello"
+const helloint = 1234
 -- func1 comment
 func myfunc1(arg1, arg2)
-
+	
 	-- C函数和类成员函数的调用
-	var arg3 = cfunc1(arg1) + arg2:memfunc1(arg1)
-
+	arg3 := cfunc1(helloint) + arg2:memfunc1(arg1)
+	
 	-- 分支
-	if arg1 < arg2 then
-	-- 创建一个协程
+	if arg1 < arg2 then	
+		-- 创建一个协程
 		fake myfunc2(arg1, arg2)
+	elseif arg1 == arg2 then	
+		print("elseif")
+	else
+		print("else")
 	end
-
+	
 	-- for循环
 	for var i = 0, i < arg2, i++ then
 		print("i = ", i)
 	end
-
+	
 	-- 数组
 	var a = array()
 	a[1] = 3
-
+	
 	-- 集合
 	var b = map()
 	b[a] = 1
 	b[1] = a
-
+	
 	-- Int64
 	var uid = 1241515236123614u
 	log("uid = ", uid)
-
 	-- 子函数调用
 	var ret1, var ret2 = myfunc2()
-
+	-- 其他包的函数调用
+	ret1 = otherpackage.test.myfunc1(arg1, arg2)
+	
+	-- 结构体
+	var tt = teststruct()
+	tt->sample_a = 1
+	tt->sample_b = teststruct()
+	tt->sample_b->sample_a = 10
+	-- 分支
+	switch arg1
+		case 1 then
+			print("1")
+		case "a" then
+			print("a")
+		default
+			print("default")
+	end
 	-- 多返回值
 	return arg1, arg3
-
+	
 end
-
 使用方法：
 fake * fk = newfake();
 fkopenbaselib(fk);
 fkopenprofile(fk);
-
 fkreg(fk, "cfunc1", cfunc1);
 fkreg(fk, "memfunc1", &class1::memfunc1);
-
 fkparse(fk, argv[1]);
 ret = fkrun<int>(fk, "myfunc1", 1, 2);
 delfake(fk);
@@ -79,7 +110,7 @@ esrrhs@163.com
 #include <new>
 #include <stdlib.h>
 
-#define FAKE_VERSION "1.0"
+#define FAKE_VERSION "1.1"
 #define FAKE_VERSION_NUM 100
 #define FAKE_AUTHOR "esrrhs@163.com"
 
@@ -101,6 +132,8 @@ enum efkerror
 	efk_compile_math_type_error,
 	efk_compile_variable_has_define,
 	efk_compile_add_stack_identifier,
+	efk_compile_cmp_error,
+	efk_compile_loop_error,
 
 	efk_reg_memfunc_double_name = 400,
 	
@@ -109,6 +142,8 @@ enum efkerror
 	efk_run_data_error,
 	efk_run_cal_error,
 	efk_run_inter_error,
+
+	efk_jit_error = 600,
 };
 
 // 脚本环境
@@ -128,13 +163,17 @@ struct fakeconfig
     fakeconfig() : fkm(&malloc), fkf(&free), 
         per_frame_cmd_num(10), 
         array_grow_speed(100), 
-        string_heap_num(100)
+        string_heap_num(100), 
+        include_deps(100), 
+        stack_deps(100)
         {}
     fkmalloc fkm;
     fkfree fkf;	// 内存管理
     int per_frame_cmd_num;			// 每帧执行命令数目
 	int array_grow_speed;		    // 增长速度，百分比，10%代表增长10%
 	int string_heap_num;    		// 字符串集合的最大数目
+	int include_deps;    		    // 解析include最大深度
+	int stack_deps;    		        // stack最大深度
 };
 
 // 申请回收
@@ -146,8 +185,9 @@ FAKE_API efkerror fkerror(fake * fk);
 FAKE_API const char * fkerrorstr(fake * fk);
 
 // 解析文件
-// 不支持在脚本运行中直接替换脚本，新的脚本会在下次fkrun的时候替换
+// 非运行中的脚本会直接替换，否则会在下次fkrun的时候替换
 FAKE_API bool fkparse(fake * fk, const char * filename);
+FAKE_API bool fkparsestr(fake * fk, const char * str);
 
 // 是否有函数
 FAKE_API bool fkisfunc(fake * fk, const char * func);
@@ -179,6 +219,11 @@ template<>	inline void fkpspush(fake * fk, char ret)
 }
 
 template<>	inline void fkpspush(fake * fk, unsigned char ret)
+{
+	fkpspushuchar(fk, ret);
+}
+
+template<>	inline void fkpspush(fake * fk, signed char ret)
 {
 	fkpspushuchar(fk, ret);
 }
@@ -276,6 +321,11 @@ template<>	inline char fkpspop(fake * fk)
 }
 
 template<>	inline unsigned char fkpspop(fake * fk)
+{
+	return fkpspopuchar(fk);
+}
+
+template<>	inline signed char fkpspop(fake * fk)
 {
 	return fkpspopuchar(fk);
 }
@@ -889,12 +939,22 @@ void fkreg(fake * fk, const char * name, RVal (T::*func)(T1, T2, T3, T4, T5))
 }
 
 // 开启常用内置函数
+FAKE_API void fkopenalllib(fake * fk);
 FAKE_API void fkopenbaselib(fake * fk);
+FAKE_API void fkopenfilelib(fake * fk);
+FAKE_API void fkopennetlib(fake * fk);
+FAKE_API void fkopenoslib(fake * fk);
+FAKE_API void fkopenstringlib(fake * fk);
+FAKE_API void fkopenmathlib(fake * fk);
 
 // profile 
 FAKE_API void fkopenprofile(fake * fk);
 FAKE_API void fkcloseprofile(fake * fk);
 FAKE_API const char * fkdumpprofile(fake * fk);
+
+// jit
+FAKE_API void fkopenjit(fake * fk);
+FAKE_API void fkclosejit(fake * fk);
 
 // 设置错误回调
 FAKE_API void fkseterrorfunc(fake * fk, fkerrorcb cb);
@@ -904,4 +964,12 @@ FAKE_API const char * fkgetcurfunc(fake * fk);
 FAKE_API const char * fkgetcurfile(fake * fk);
 FAKE_API int fkgetcurline(fake * fk);
 FAKE_API const char * fkgetcurcallstack(fake * fk);
+
+// 设置系统命令行
+FAKE_API void fksetargv(fake * fk, int argc, const char *argv[]);
+
+// dump函数
+FAKE_API const char * fkdumpallfunc(fake * fk);
+FAKE_API const char * fkdumpfunc(fake * fk, const char * func);
+FAKE_API const char * fkdumpfuncmap(fake * fk);
 

@@ -1,7 +1,8 @@
 #!/bin/sh
 
 # build lib
-cd fuck_game_server_engine
+cd fakengine
+chmod a+x *.sh
 ./build.sh
 if [ $? -ne 0 ];then
 	echo "----------------build libfengine.a fail----------------"
@@ -20,7 +21,8 @@ BUILDS="test tools"
 
 for tobuild in $BUILDS; do
     cd $tobuild
-	./build.sh
+    chmod a+x *.sh
+    ./build.sh
     if [ $? -ne 0 ];then
         echo "----------------build $tobuild fail----------------"
         exit 1
