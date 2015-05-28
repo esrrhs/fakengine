@@ -1,4 +1,4 @@
-#include "fuck_game_server_engine.h"
+#include "fakengine.h"
 #include "compressapp.h"
 
 bool compressapp::ini( int argc, char *argv[] )
