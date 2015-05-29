@@ -27,7 +27,7 @@ public:
 			m_free.push(i);
 			m_data[i].preindex = INVALID_IDX;
 			m_data[i].nextindex= INVALID_IDX;
-			m_data[i].isdirty= true;
+			m_data[i].isdirty = true;
 #ifdef _DEBUG
 			memset(&m_data[i].data, 0xFF, sizeof(m_data[i].data));
 #endif
