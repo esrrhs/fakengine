@@ -1427,7 +1427,7 @@ public:
 		return ret.size()-oldSize;
 	}
 
-	force_inline int32_t snprintf(const char *format, ...)
+	int32_t snprintf(const char *format, ...)
 	{
 		va_list ap;
 		va_start(ap, format);

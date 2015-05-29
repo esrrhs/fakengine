@@ -103,7 +103,7 @@ private:
 		{
 			_socket & s = *it;
 			int32_t i = 0;
-			while (s.connected() && i < c_socket_container_max_process_per_frame && s.recv(msg))
+			while (s.connected() && i < (int32_t)c_socket_container_max_process_per_frame && s.recv(msg))
 			{
 				if (!m_event_processor.on_recv_msg(s, msg))
 				{

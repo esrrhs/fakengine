@@ -61,7 +61,7 @@
 #ifdef WIN32
 #define PRINTF_CLOLOR_TYPE WORD
 #else
-#define PRINTF_CLOLOR_TYPE stringc
+#define PRINTF_CLOLOR_TYPE const char *
 #endif
 
 // socket

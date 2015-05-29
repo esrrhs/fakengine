@@ -20,7 +20,7 @@ const uint32_t c_buffer_size_size = 2;		// 表示缓冲区长度的长度
 const int32_t c_DefaultCmdKey = 20140510;	// 默认cmd共享key
 const int32_t c_CmdControlCmdSize =	32;
 const int32_t c_CmdControlParamSize = 10240;
-const int8_t c_CmdExit[] = "byebye";
+static const int8_t c_CmdExit[] = "byebye";
 
 // 日志
 const int32_t c_LogBuffer = 102400;
@@ -32,7 +32,7 @@ const PRINTF_CLOLOR_TYPE c_log_print_color[FLOGT_MAX] = {
 	FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY
 };
 #else
-const PRINTF_CLOLOR_TYPE c_log_print_color[FLOGT_MAX] = {
+static PRINTF_CLOLOR_TYPE c_log_print_color[FLOGT_MAX] = {
 	"\e[0m",
 	"\e[34m\e[1m",//hight blue
 	"\e[31m", //red
