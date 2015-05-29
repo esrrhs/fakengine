@@ -1,5 +1,9 @@
 ﻿# fakengine #
-fakengine是c++编写的游戏服务器引擎，采用内存预分配原则。
+fakengine是c++编写的游戏服务器引擎
+特点：
+.头文件依赖
+.采用内存预分配原则
+
 包含的模块：
 .基础数据结构，数组、列表、hashmap等
 .字符串string
@@ -23,3 +27,17 @@ fakengine是c++编写的游戏服务器引擎，采用内存预分配原则。
 .网络通信
 .profile
 
+包含的第三方库：
+.xml解析库，expat、tinyxml
+.脚本库，lua、fakescript
+.压缩库，lzo、zlib
+.正则库，pcre
+.数据库，mysql、sqlite
+
+以及相关的自动化工具：
+.ini读取代码生成工具
+.xml读取代码生成工具
+.sqlite读取代码生成工具
+.监控代码生成工具
+.网络消息代码生成工具
+.wireshark插件工具
