@@ -107,7 +107,7 @@ private:
 	{
 		_msg msg;
 		int32_t i = 0;
-		while (i < c_socket_link_max_process_per_frame && m_socket.recv(msg))
+		while (i < (int32_t)c_socket_link_max_process_per_frame && m_socket.recv(msg))
 		{
 			m_event_processor.on_recv_msg(m_socket, msg);
 			i++;

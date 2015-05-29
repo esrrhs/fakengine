@@ -63,20 +63,12 @@ public:
 	#pragma pack(1)
 	struct Head
 	{
-		Head()
-		{
-			memset(this, 0, sizeof(*this));
-		}
 		uint32_t size;
 		uint32_t nodeoffset;
 		/* name string */
 	};
 	struct Node
 	{
-		Node()
-		{
-			memset(this, 0, sizeof(*this));
-		}
 		uint32_t size;
 		uint32_t nextoffset;
 		/* key string */
@@ -251,11 +243,11 @@ private:
 	}
 	force_inline Head * gethead()
 	{
-		return (Head *)m_databuffer;
+		return &m_head;
 	}
 	force_inline const Head * gethead() const
 	{
-		return (const Head *)m_databuffer;
+		return &m_head;
 	}
 	force_inline Node * getcur()
 	{
@@ -266,7 +258,11 @@ private:
 		return (const Node *)(m_databuffer + m_dataiter);
 	}
 private:
-	uint8_t m_databuffer[N];
+	union
+	{
+		uint8_t m_databuffer[N];
+		Head m_head;
+	};
 	mutable size_t m_dataiter;
 	size_t m_datasize;
 };

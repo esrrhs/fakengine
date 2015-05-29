@@ -183,9 +183,8 @@ public:
 		// check
 		for (size_t i = 1; i < c_falloc_max_size; i++)
 		{
-		    int32_t index = size_to_index(i);
-		    FASSERT(index < (int32_t)c_falloc_hasharray);
-		    FASSERT(m_falloc_list[index].get_ele() >= i);
+		    FASSERT(size_to_index(i) < (int32_t)c_falloc_hasharray);
+		    FASSERT(m_falloc_list[size_to_index(i)].get_ele() >= i);
 	    }
 	}
 	force_inline ~falloc_instance()

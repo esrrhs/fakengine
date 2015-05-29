@@ -176,6 +176,7 @@ static const stringc version_logs[] = {
 	"2014.9.7：在搞fuckscript，fproto后期打算废弃直接用xml转成的脚本替代，加ptrace方便hook别的进程的系统函数",
 	"2014.11.23：fakescript加好了，合入engine，下一步重新审视下整体结构，为正式运用准备",
 	"2015.5.28：改名fakengine，下一步重新阅读所有模块，为正式运用准备",
+	"2015.5.29：整理修改了所有模块，加release，下一步做下实际的组件",
 };
 
 static force_inline int32_t fversion()
