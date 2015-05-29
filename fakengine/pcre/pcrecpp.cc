@@ -649,11 +649,10 @@ int RE::NumberOfCapturingGroups() const {
   if (re_partial_ == NULL) return -1;
 
   int result;
-  int pcre_retval = pcre_fullinfo(re_partial_,  // The regular expression object
+  pcre_fullinfo(re_partial_,  // The regular expression object
                                   NULL,         // We did not study the pattern
                                   PCRE_INFO_CAPTURECOUNT,
                                   &result);
-  assert(pcre_retval == 0);
   return result;
 }
 

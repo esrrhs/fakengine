@@ -151,15 +151,21 @@ static force_inline float InvSqrtEst( float F )
 
 static force_inline bool IsNaN( float A ) 
 {
-	return ((*(uint32_t*)&A) & 0x7FFFFFFF) > 0x7F800000;
+	marshall_float tmp;
+	tmp.f = A;
+	return (tmp.i & 0x7FFFFFFF) > 0x7F800000;
 }
 static force_inline bool IsFinite( float A )
 {
-	return ((*(uint32_t*)&A) & 0x7F800000) != 0x7F800000;
+	marshall_float tmp;
+	tmp.f = A;
+	return (tmp.i & 0x7F800000) != 0x7F800000;
 }
 static force_inline bool IsNegativeFloat(const float& F1)
 {
-	return ( (*(uint32_t*)&F1) >= (uint32_t)0x80000000 ); // Detects sign bit.
+	marshall_float tmp;
+	tmp.f = F1;
+	return ( tmp.i >= (uint32_t)0x80000000 ); // Detects sign bit.
 }
 
 /** Returns a random integer between 0 and RAND_MAX, inclusive */

@@ -25,3 +25,16 @@ typedef int shm_key;
 typedef int shm_handle;
 typedef key_t shm_key;
 #endif
+
+union marshall_float 
+{
+	uint32_t i;
+	float f;
+};
+
+union marshall_poiner
+{
+	uint32_t i;
+	void * p;
+};
+

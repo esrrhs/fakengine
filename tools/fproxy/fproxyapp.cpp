@@ -8,7 +8,7 @@ bool fproxyapp::ini(int argc, char *argv[])
 	cp.parse(argc, argv);
 	stringc ip;
 	cp.get("ip", ip);
-	int32_t port;
+	int32_t port = 0;
 	cp.get("port", port);
 	LOG_DEBUG("%s:%d", ip.c_str(), port);
 

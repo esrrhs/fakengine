@@ -30,4 +30,3 @@ struct tcp_socket_link_param
 	uint32_t socket_recv_buffer_size;
 };
 
-

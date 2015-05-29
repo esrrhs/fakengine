@@ -3,7 +3,7 @@
 find ./ -name CMakeCache.txt -delete
 find ./ -name CMakeFiles | xargs rm -rf
 
-cmake .
-make -j8
+cmake . $BUILD_FLAG
+make -j
 
 ls -lh ../lib/libfengine.a

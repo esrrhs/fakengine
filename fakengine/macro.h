@@ -18,9 +18,13 @@
 #define SAFE_FREE(p) if (p) { FFREE(p); p = 0; }
 #define SAFE_DELETE_ARRAY(T, p, num) if (p) { fdelete_array<T>(p, num); p = 0; }
 
+// 去掉警告
+template <typename T>
+void FUSE(T t) {}
+
 // 断言
 #ifdef USE_DEFAULT_ASSERT
-	#define FASSERT(x) assert(x)
+#define FASSERT(x) assert(x)
 #endif
 
 // 内存
@@ -120,10 +124,6 @@
 #endif
 
 #define FENGINE_HEADER "[fengine]"
-
-// 去掉警告
-template <typename T>
-void FUSE(T t) {}
 
 // 大小端
 #define F_LITTLE_ENDIAN   1234 /* byte 0 is least significant (i386) */

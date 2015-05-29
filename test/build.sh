@@ -3,6 +3,6 @@
 find ./ -name CMakeCache.txt -delete
 find ./ -name CMakeFiles | xargs rm -r
 
-cmake .
+cmake . $BUILD_FLAG
 make clean
-make -j8
+make -j
