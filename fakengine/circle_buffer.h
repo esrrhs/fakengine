@@ -92,6 +92,11 @@ public:
 		{
 			m_begin -= N;
 		}
+		if (!m_datasize)
+		{
+			m_begin = 0;
+			m_end = 0;
+		}
 	}
 	force_inline bool read(T * out, size_t size)
 	{
