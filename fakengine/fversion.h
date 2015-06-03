@@ -174,6 +174,7 @@ static const stringc version_logs[] = {
 	"2014.11.23：fakescript加好了，合入engine，下一步重新审视下整体结构，为正式运用准备",
 	"2015.5.28：改名fakengine，下一步重新阅读所有模块，为正式运用准备",
 	"2015.5.29：整理修改了所有模块，加release，下一步做下实际的组件",
+	"2015.6.3：修改circlebuffer，防止出现过多缺页",
 };
 
 static force_inline int32_t fversion()
