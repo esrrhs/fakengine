@@ -114,9 +114,9 @@ public:
 
 	force_inline void fetch(size_t size)
 	{
-		size_t alignsize = c_falloc_pagesize / m_ele_size;
-		size = alignsize > size ? alignsize : size;
-		void * p = sys_alloc(m_ele_size * size);
+		size_t pagealign = ((m_ele_size * size) + c_falloc_pagesize) & (~(c_falloc_pagesize - 1));
+		size = pagealign / m_ele_size;
+		void * p = sys_alloc(pagealign);
 		FASSERT(p);
 		SAFE_TEST_RET(p, NULL);
 		for (size_t i = 0; i < size; i++)
