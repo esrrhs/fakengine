@@ -95,9 +95,9 @@ void FUSE(T t) {}
 #endif
 
 // 数组长度
-#define ARRAY_SIZE(a)	\
-	((sizeof(a) / sizeof((*a))) /	\
-	((size_t)!(sizeof(a) % sizeof((*a)))))
+template <typename _CountofType, size_t _SizeOfArray>
+char(*__fcountof_helper(_CountofType(&_Array)[_SizeOfArray]))[_SizeOfArray];
+#define ARRAY_SIZE(_Array) (sizeof(*__fcountof_helper(_Array)) + 0)
 
 // 线程局部变量
 #ifdef WIN32

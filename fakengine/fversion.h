@@ -177,6 +177,7 @@ static const stringc version_logs[] = {
 	"2015.6.3：修改circlebuffer，防止出现过多缺页",
 	"2015.6.18：修改calloc，改成对齐",
 	"2015.6.29：加快win下编译速度",
+	"2015.6.30：修改ARRAY_SIZE宏",
 };
 
 static force_inline int32_t fversion()
