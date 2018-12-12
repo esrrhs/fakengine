@@ -1332,6 +1332,9 @@
     <ClCompile Include="fprofile.cpp">
       <Filter>profile</Filter>
     </ClCompile>
+    <ClCompile Include="file_util.cpp">
+      <Filter>file</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lzo\lzo_dll.ch">

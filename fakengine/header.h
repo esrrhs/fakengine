@@ -22,7 +22,7 @@
 
 #ifdef WIN32
 #include <windows.h>
-#include <hash_map>
+#include <unordered_map>
 #include <shlwapi.h>
 #else
 #include <execinfo.h>

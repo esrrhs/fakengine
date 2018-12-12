@@ -17,4 +17,3 @@ static force_inline bool fdelete_file(const stringc & file)
 	return unlink((const char *)file.c_str()) == 0;
 #endif
 }
-

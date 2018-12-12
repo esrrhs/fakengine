@@ -24,7 +24,7 @@ static force_inline int32_t ffetch_and_add_32(volatile int32_t * ptr, int32_t ad
 static force_inline int64_t ffetch_and_add_64(volatile int64_t * ptr, int64_t addend)
 {
 #if defined(WIN32)
-	return _InterlockedExchangeAdd64(ptr, addend);
+	return _InterlockedExchangeAdd(reinterpret_cast<volatile long*>(ptr), addend);
 #else
 	return __sync_fetch_and_add(ptr, addend);
 #endif

@@ -92,14 +92,14 @@ public:
 };
 template<class _Ty,
 class _Other, typename real_alloc> inline
-	bool operator==(const fallocator<_Ty, real_alloc>&, const fallocator<_Other, real_alloc>&) _THROW0()
+	bool operator==(const fallocator<_Ty, real_alloc>&, const fallocator<_Other, real_alloc>&)
 {	// test for allocator equality (always true)
 	return (true);
 }
 
 template<class _Ty,
 class _Other, typename real_alloc> inline
-	bool operator!=(const fallocator<_Ty, real_alloc>&, const fallocator<_Other, real_alloc>&) _THROW0()
+	bool operator!=(const fallocator<_Ty, real_alloc>&, const fallocator<_Other, real_alloc>&)
 {	// test for allocator inequality (always false)
 	return (false);
 }
