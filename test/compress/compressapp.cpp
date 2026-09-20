@@ -10,16 +10,16 @@ bool compressapp::heartbeat()
 {
 	int8_t src[1024];
 	memset(src, 'A', sizeof(src));
-	int32_t srclen = sizeof(src);
+	uLong srclen = sizeof(src);
 	int8_t des[2048];
-	int32_t deslen = sizeof(des);
+	uLongf deslen = sizeof(des);
 #ifdef HAVE_ZLIB
 	time_t b, e;
 	b = get_s_tick();
 	for (int i = 0; i < 1000; i++)
 	{
 		deslen = sizeof(des);
-		if (compress((Bytef*)des, (uLongf*)&deslen, (const Bytef*)src, srclen) != Z_OK)
+		if (compress((Bytef*)des, &deslen, (const Bytef*)src, srclen) != Z_OK)
 		{
 			std::cout << "zlib compress error" << std::endl;
 			return false;
