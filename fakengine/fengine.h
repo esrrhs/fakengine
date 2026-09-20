@@ -48,14 +48,6 @@ private:
 		}
 #endif
 
-		// lzo
-		int ret = lzo_init();
-		if (LZO_E_OK != ret)
-		{
-			LOG_ERROR(FENGINE_HEADER "lzo_init error\n");
-			return false;
-		}
-
 		// ini
 		g_start_time = get_s_tick();
 

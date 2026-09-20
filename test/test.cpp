@@ -6,19 +6,14 @@
 #include "./ftrie/ftrieapp.h"
 #include "./client/clientapp.h"
 #include "./server/serverapp.h"
-#include "./mysql/mysqlapp.h"
 #include "./fstring/fstringapp.h"
 #include "./fpool/fpoolapp.h"
-#include "./xml/xmlapp.h"
-#include "./sqlite/sqliteapp.h"
 #include "./falloc/fallocapp.h"
 #include "./fkeybuffer/fkeybufferapp.h"
 #include "./fmd5/fmd5app.h"
 #include "./fpoint/fpointapp.h"
-#include "./pcre/pcreapp.h"
 #include "./fproxyclient/fproxyclientapp.h"
 #include "./fproto/fprotoapp.h"
-#include "./fake/fakeapp.h"
 
 char g_msg_buffer[MAX_MSG_SIZE];
 Fproto::NetMsg g_netmsg;
@@ -31,7 +26,6 @@ Fproto::NetMsg g_netmsg;
 int main(int argc, char *argv[])
 {
 	REG(hashmapapp);
-	REG(mysqlapp);
 	REG(compressapp);
 	REG(inifileapp);
 	REG(ftrieapp);
@@ -39,16 +33,12 @@ int main(int argc, char *argv[])
 	REG(serverapp);
 	REG(fstringapp);
 	REG(fpoolapp);
-	REG(xmlapp);
-	REG(sqliteapp);
 	REG(fallocapp);
 	REG(fkeybufferapp);
 	REG(fmd5app);
 	REG(fpointapp);
-	REG(pcreapp);
 	REG(fproxyclientapp);
 	REG(fprotoapp);
-	REG(fakeapp);
 
 	if (argc <= 1)
 	{

@@ -21,23 +21,11 @@ set(TEST_CASES
     ftrieapp
     fstringapp
     fpoolapp
-    xmlapp
-    sqliteapp
     fallocapp
     fkeybufferapp
     fmd5app
     fpointapp
-    pcreapp
 )
-
-if(TARGET bundled_fkscript)
-    target_compile_definitions(faketest PRIVATE HAVE_FAKESCRIPT)
-    list(APPEND TEST_CASES fakeapp)
-endif()
-
-if(TARGET bundled_mysqlclient)
-    target_compile_definitions(faketest PRIVATE HAVE_MYSQL)
-endif()
 
 foreach(tc ${TEST_CASES})
     add_test(NAME "legacy_${tc}" COMMAND faketest ${tc} --once)

@@ -29,16 +29,11 @@ fakengine
 * profile
 
 # 包含的第三方库 #
-* xml解析库，expat、tinyxml
-* 脚本库，lua、fakescript
-* 压缩库，lzo、zlib
-* 正则库，pcre
-* 数据库，mysql、sqlite
+* 压缩库，zlib
+* 单元测试框架，GoogleTest
 
 # 自动化工具 #
 * ini读取代码生成工具
-* xml读取代码生成工具
-* sqlite读取代码生成工具
 * 监控代码生成工具
 * 网络消息代码生成工具
 * wireshark插件工具
@@ -48,7 +43,7 @@ fakengine
 * 持续集成：内置 GitHub Actions CI 流水线（`.github/workflows/ci.yml`），自动进行 Debug / Release 多配置编译与测试验证。
 * 单元测试架构：
   - **现代 GoogleTest 单元测试套件**：覆盖基础容器（`farray`, `flist`, `fhashmap`, `fhashset`, `fpool`）、字符串（`fstring`）、加密算法（`fmd5`, `fsha1`, `fcrc32`）、3D 几何数学（`vector3d`, `plane3d`, `triangle3d`, `quadrangle3d`）及解析器（`ftrie`, `inifile`）。
-  - **传统应用回归测试**：通过 CTest 进行 14 项完整的功能心跳回归测试。
+  - **传统应用回归测试**：通过 CTest 进行 10 项完整的功能心跳回归测试。
 * 一键构建与测试：
   ```bash
   ./build.sh           # Debug 模式构建、合并库并运行全部单元测试

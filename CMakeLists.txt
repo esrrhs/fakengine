@@ -36,35 +36,13 @@ endif()
 
 add_compile_definitions(_USE_MATH_DEFINES)
 
-# Bundled libraries in lib/ (Linux only: precompiled archives are 64-bit ELF)
 if(WIN32)
-    add_compile_definitions(WIN32 _WIN32 NOMINMAX PCRE_STATIC)
+    add_compile_definitions(WIN32 _WIN32 NOMINMAX)
 endif()
 
-if(UNIX AND NOT APPLE)
-    # Bundled precompiled archives (libfkscript.a, libmysqlclient-64.a) were built without -fPIC/-fPIE
-    add_link_options("-no-pie")
-
-    if(EXISTS "${PROJECT_SOURCE_DIR}/lib/libfkscript.a")
-        add_library(bundled_fkscript STATIC IMPORTED GLOBAL)
-        set_target_properties(bundled_fkscript PROPERTIES
-            IMPORTED_LOCATION "${PROJECT_SOURCE_DIR}/lib/libfkscript.a"
-        )
-    endif()
-
-    if(EXISTS "${PROJECT_SOURCE_DIR}/lib/libmysqlclient-64.a")
-        add_library(bundled_mysqlclient STATIC IMPORTED GLOBAL)
-        set_target_properties(bundled_mysqlclient PROPERTIES
-            IMPORTED_LOCATION "${PROJECT_SOURCE_DIR}/lib/libmysqlclient-64.a"
-        )
-    endif()
-endif()
-
-# ZLIB support (system or bundled with mysqlclient)
+# ZLIB support
 find_package(ZLIB QUIET)
 if(TARGET ZLIB::ZLIB)
-    add_compile_definitions(HAVE_ZLIB)
-elseif(TARGET bundled_mysqlclient)
     add_compile_definitions(HAVE_ZLIB)
 endif()
 

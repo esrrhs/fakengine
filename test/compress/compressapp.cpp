@@ -27,20 +27,6 @@ bool compressapp::heartbeat()
 	std::cout<<"zlib compress "<<e - b<<std::endl;
 #endif
 
-	int8_t buff[64 * 1024];
-	b = get_s_tick();
-	for (int i = 0; i < 1000000; i++)
-	{
-		deslen = 1024;
-		if (lzo1x_1_compress((const unsigned char *)src, (lzo_uint)srclen, 
-			(unsigned char *)des, (lzo_uint*)&deslen, (void*)buff) != LZO_E_OK)
-		{
-			std::cout<<"lzo compress error"<<std::endl;
-		}
-	}
-	e = get_s_tick();
-	std::cout<<"lzo compress "<<e - b<<std::endl;
-
 	return true;
 }
 
