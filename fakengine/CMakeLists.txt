@@ -38,6 +38,10 @@ if(TARGET bundled_fkscript AND TARGET bundled_mysqlclient)
     )
 endif()
 
+if(TARGET ZLIB::ZLIB)
+    target_link_libraries(fengine PUBLIC ZLIB::ZLIB)
+endif()
+
 if(WIN32)
     target_link_libraries(fengine PUBLIC ws2_32 shlwapi)
 else()

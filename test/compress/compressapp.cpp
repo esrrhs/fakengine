@@ -12,6 +12,7 @@ bool compressapp::heartbeat()
 	int32_t srclen = 1024;
 	int8_t des[1024];
 	int32_t deslen = 1024;
+#ifdef HAVE_ZLIB
 	time_t b,e;
 	b = get_s_tick();
 	for (int i = 0; i < 1000000; i++)
@@ -24,6 +25,7 @@ bool compressapp::heartbeat()
 	}
 	e = get_s_tick();
 	std::cout<<"zlib compress "<<e - b<<std::endl;
+#endif
 
 	int8_t buff[64 * 1024];
 	b = get_s_tick();

@@ -60,6 +60,14 @@ if(UNIX AND NOT APPLE)
     endif()
 endif()
 
+# ZLIB support (system or bundled with mysqlclient)
+find_package(ZLIB QUIET)
+if(TARGET ZLIB::ZLIB)
+    add_compile_definitions(HAVE_ZLIB)
+elseif(TARGET bundled_mysqlclient)
+    add_compile_definitions(HAVE_ZLIB)
+endif()
+
 # Subdirectories
 add_subdirectory(fakengine)
 add_subdirectory(tools)
