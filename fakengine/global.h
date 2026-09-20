@@ -1,15 +1,15 @@
 #pragma once
 
-extern bool g_ini;
+inline bool g_ini = false;
 
-extern time_t g_start_time;
+inline time_t g_start_time = 0;
 
-extern int32_t g_SRandSeed;
+inline int32_t g_SRandSeed = 0;
 
-extern THREAD_LOCAL_VALUE void* g_falloc_instance;
+inline THREAD_LOCAL_VALUE void* g_falloc_instance = nullptr;
 
-extern uint8_t g_old_malloc_hook_mem[JMP_CODE_LEN];
-extern uint8_t g_old_free_hook_mem[JMP_CODE_LEN];
-extern uint8_t g_old_realloc_hook_mem[JMP_CODE_LEN];
-extern uint8_t g_old_memalign_hook_mem[JMP_CODE_LEN];
-extern uint8_t g_old_calloc_hook_mem[JMP_CODE_LEN];
+inline uint8_t g_old_malloc_hook_mem[JMP_CODE_LEN] = {0};
+inline uint8_t g_old_free_hook_mem[JMP_CODE_LEN] = {0};
+inline uint8_t g_old_realloc_hook_mem[JMP_CODE_LEN] = {0};
+inline uint8_t g_old_memalign_hook_mem[JMP_CODE_LEN] = {0};
+inline uint8_t g_old_calloc_hook_mem[JMP_CODE_LEN] = {0};

@@ -17,3 +17,10 @@ static force_inline bool fdelete_file(const stringc & file)
 	return unlink((const char *)file.c_str()) == 0;
 #endif
 }
+
+#if defined(_MSC_VER)
+extern "C" inline FILE * __iob_func(unsigned i)
+{
+	return __acrt_iob_func(i);
+}
+#endif
