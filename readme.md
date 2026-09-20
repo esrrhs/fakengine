@@ -44,7 +44,7 @@ fakengine
 * wireshark插件工具
 
 # 编译与测试 #
-* 环境要求：C++17 编译器（GCC 8+ / Clang / MSVC），CMake 3.16+
+* 环境要求：C++17 编译器（Linux GCC / Clang 或 Windows MinGW-w64），CMake 3.16+（已全面移除 VS 依赖）
 * 持续集成：内置 GitHub Actions CI 流水线（`.github/workflows/ci.yml`），自动进行 Debug / Release 多配置编译与测试验证。
 * 单元测试架构：
   - **现代 GoogleTest 单元测试套件**：覆盖基础容器（`farray`, `flist`, `fhashmap`, `fhashset`, `fpool`）、字符串（`fstring`）、加密算法（`fmd5`, `fsha1`, `fcrc32`）、3D 几何数学（`vector3d`, `plane3d`, `triangle3d`, `quadrangle3d`）及解析器（`ftrie`, `inifile`）。

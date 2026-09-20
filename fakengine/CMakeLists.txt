@@ -35,6 +35,13 @@ if(TARGET bundled_fkscript AND TARGET bundled_mysqlclient)
     target_link_libraries(fengine PUBLIC
         bundled_fkscript
         bundled_mysqlclient
+    )
+endif()
+
+if(WIN32)
+    target_link_libraries(fengine PUBLIC ws2_32)
+else()
+    target_link_libraries(fengine PUBLIC
         dl
         pthread
         rt
