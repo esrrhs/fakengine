@@ -8,8 +8,10 @@ bool fakeapp::ini(int argc, char *argv[])
 
 bool fakeapp::heartbeat()
 {
+#ifdef HAVE_FAKESCRIPT
 	fake * fk = newfake();
 	delfake(fk);
+#endif
 	return true;
 }
 

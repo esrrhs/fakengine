@@ -43,11 +43,12 @@ public:
 			return;
 		}
 
-#ifdef WIN32
-		const char * filename = strrchr(file, '\\');
-#else
 		const char * filename = strrchr(file, '/');
-#endif
+		const char * filename2 = strrchr(file, '\\');
+		if (filename2 && (!filename || filename2 > filename))
+		{
+			filename = filename2;
+		}
 		if (filename)
 		{
 			filename++;

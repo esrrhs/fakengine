@@ -1,6 +1,6 @@
 #pragma once
 
-// ∞Ô÷˙
+// Â∏ÆÂä©
 #define SAFE_TEST_RET_VAL(EXPRESSION, TESTVALUE, RETURNVALUE) if((EXPRESSION) == (TESTVALUE)) return RETURNVALUE;
 #define SAFE_TEST_RET(EXPRESSION, TESTVALUE) if((EXPRESSION) == (TESTVALUE)) return;
 #define SAFE_TEST_CONTINUE(EXPRESSION, TESTVALUE) if((EXPRESSION) == (TESTVALUE)) continue;
@@ -18,16 +18,16 @@
 #define SAFE_FREE(p) if (p) { FFREE(p); p = 0; }
 #define SAFE_DELETE_ARRAY(T, p, num) if (p) { fdelete_array<T>(p, num); p = 0; }
 
-// »•µÙæØ∏Ê
+// ÂéªÊéâË≠¶Âëä
 template <typename T>
 void FUSE(T t) {}
 
-// ∂œ—‘
+// Êñ≠Ë®Ä
 #ifdef USE_DEFAULT_ASSERT
 #define FASSERT(x) assert(x)
 #endif
 
-// ƒ⁄¥Ê
+// ÂÜÖÂ≠ò
 #ifdef USE_FENGINE_ALLOC
 	#define FALLOC(size) falloc(size)
 	#define FFREE(p) ffree(p)
@@ -36,7 +36,7 @@ void FUSE(T t) {}
 	#define FFREE(p) sys_free(p)
 #endif
 
-// ƒ⁄¡™
+// ÂÜÖËÅî
 #ifdef USE_FORCE_INLINE
 	#ifdef WIN32
 		#define force_inline __forceinline
@@ -47,7 +47,7 @@ void FUSE(T t) {}
 	#define force_inline
 #endif
 
-// ∏Ò ΩªØ
+// Ê†ºÂºèÂåñ
 #if defined(WIN32)
 	#define tvsnprintf  _vsnprintf
 	#define tstricmp    _stricmp
@@ -94,12 +94,12 @@ void FUSE(T t) {}
 	#define F64u "llu"
 #endif
 
-//  ˝◊È≥§∂»
+// Êï∞ÁªÑÈïøÂ∫¶
 template <typename _CountofType, int _SizeOfArray>
 char(*__fcountof_helper(_CountofType(&_Array)[_SizeOfArray]))[_SizeOfArray];
 #define ARRAY_SIZE(_Array) (sizeof(*__fcountof_helper(_Array)) + 0)
 
-// œﬂ≥Ãæ÷≤ø±‰¡ø
+// Á∫øÁ®ãÂ±ÄÈÉ®ÂèòÈáè
 #ifdef WIN32
 	#define THREAD_LOCAL_VALUE __declspec(thread)
 #else
@@ -111,7 +111,7 @@ char(*__fcountof_helper(_CountofType(&_Array)[_SizeOfArray]))[_SizeOfArray];
 #endif
 
 // log
-#ifdef WIN32
+#if defined(_MSC_VER)
 	#define FLOG(ftype, format, ...) flog_system::ptr()->write(ftype, __FILE__, __LINE__, __FUNCTION__, format, __VA_ARGS__)
 	#define LOG_DEBUG(format, ...) FLOG(FLOGT_DEBUG, format, __VA_ARGS__)
 	#define LOG_ERROR(format, ...) FLOG(FLOGT_ERROR, format, __VA_ARGS__)
@@ -125,7 +125,7 @@ char(*__fcountof_helper(_CountofType(&_Array)[_SizeOfArray]))[_SizeOfArray];
 
 #define FENGINE_HEADER "[fengine]"
 
-// ¥Û–°∂À
+// Â§ßÁ´ØÂ∞èÁ´Ø
 #define F_LITTLE_ENDIAN   1234 /* byte 0 is least significant (i386) */
 #define F_BIG_ENDIAN      4321 /* byte 0 is most significant (mc68k) */
 
@@ -136,7 +136,6 @@ char(*__fcountof_helper(_CountofType(&_Array)[_SizeOfArray]))[_SizeOfArray];
 #  define FPLATFORM_BYTE_ORDER F_BIG_ENDIAN
 #endif
 #else
-// ª·±®æØ∏Ê£¨œ»÷±Ω”–¥À¿
 #  define FPLATFORM_BYTE_ORDER F_LITTLE_ENDIAN
 #endif
 
@@ -144,7 +143,7 @@ char(*__fcountof_helper(_CountofType(&_Array)[_SizeOfArray]))[_SizeOfArray];
 #  error Please set undetermined byte order.
 #endif
 
-// ±‡“Î∆˜TODO
+// TODO
 #ifndef WIN32 
 #define DO_PRAGMA(x) _Pragma (#x)
 #define TODO(x) DO_PRAGMA(message ("TODO - " #x))
@@ -153,10 +152,10 @@ char(*__fcountof_helper(_CountofType(&_Array)[_SizeOfArray]))[_SizeOfArray];
 #endif
 
 // hook
-#ifdef WIN32
-#define JMP_CODE_LEN 5
-#else
+#if defined(_WIN64) || defined(__x86_64__) || !defined(WIN32)
 #define JMP_CODE_LEN 12
+#else
+#define JMP_CODE_LEN 5
 #endif
 
 // warn
@@ -165,12 +164,6 @@ char(*__fcountof_helper(_CountofType(&_Array)[_SizeOfArray]))[_SizeOfArray];
 #endif
 
 // platform
-#if defined(WIN32)
-#ifdef _M_X64 
+#if defined(_M_X64) || defined(__x86_64__) || defined(__x86_64) || defined(_WIN64)
 #define FPLATFORM64
-#endif
-#else
-#ifdef __x86_64
-#define FPLATFORM64
-#endif
 #endif

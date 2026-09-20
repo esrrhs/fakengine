@@ -23,7 +23,7 @@ static force_inline uint32_t get_ms_tick()
 
 static force_inline uint64_t get_ns_tick()
 {
-#ifdef WIN32
+#if defined(_MSC_VER)
 	uint32_t dwLow, dwHigh;
 	__asm
 	{

@@ -1,6 +1,44 @@
 #pragma once
 
 #ifdef WIN32
+#if defined(_WIN64) || defined(__x86_64__)
+static force_inline bool fhook_func(uint8_t * target_function, uint8_t * newfuc, uint8_t (&old_mem)[JMP_CODE_LEN])
+{
+	DWORD old_target_function_protect = 0;  
+	BOOL succeeded = ::VirtualProtect(reinterpret_cast<void*>(target_function),  
+		32,  
+		PAGE_EXECUTE_READWRITE,  
+		&old_target_function_protect);  
+
+	if (!succeeded) {  
+	    FASSERT(0);
+		return false;  
+	}  
+
+	// save
+	memcpy(old_mem, target_function, JMP_CODE_LEN);
+
+	// hook 64-bit: movabs rax, newfuc; jmp rax
+	uint8_t machine_code[JMP_CODE_LEN] = {
+		0x48, 0xb8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0xff, 0xe0
+	};
+	memcpy(machine_code + 2, &newfuc, sizeof(newfuc));
+	memcpy(target_function, machine_code, sizeof(machine_code));
+
+	succeeded = ::VirtualProtect(reinterpret_cast<void*>(target_function),  
+		32,  
+		old_target_function_protect,  
+		&old_target_function_protect);  
+
+	if (!succeeded) {  
+	    FASSERT(0);
+		return false;  
+	}  
+
+	return true;
+}
+#else
 static force_inline bool fhook_func(uint8_t * target_function, uint8_t * newfuc, uint8_t (&old_mem)[JMP_CODE_LEN])
 {
 	DWORD old_target_function_protect = 0;  
@@ -34,6 +72,7 @@ static force_inline bool fhook_func(uint8_t * target_function, uint8_t * newfuc,
 
 	return true;
 }
+#endif
 
 static force_inline bool frestore_func(uint8_t * target_function, uint8_t (&old_mem)[JMP_CODE_LEN])
 {
@@ -67,7 +106,7 @@ static force_inline bool frestore_func(uint8_t * target_function, uint8_t (&old_
 static force_inline bool fhook_func(uint8_t * target_function, uint8_t * newfuc, uint8_t (&old_mem)[JMP_CODE_LEN])
 {
 	uint8_t machine_code[JMP_CODE_LEN] = {
-			//movq $0x0, %rax ºóÃæ8¸ö×Ö½ÚµÄ0Îª64Î»Á¢¼´Êı
+			//movq $0x0, %rax åé¢8ä¸ªå­—èŠ‚çš„0ä¸º64ä½ç«‹å³æ•°
 			0x48, 0xb8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
 			//jmpq *%rax
 			0xff, 0xe0
@@ -87,7 +126,7 @@ static force_inline bool fhook_func(uint8_t * target_function, uint8_t * newfuc,
 	// save
 	memcpy(old_mem, mem, JMP_CODE_LEN);
 	
-	//¸ÄĞ´Á¢¼´ÊıÎªmockµÄµØÖ·,Ğ´Èëº¯ÊıÈë¿Ú´¦
+	//æ”¹å†™ç«‹å³æ•°ä¸ºmockçš„åœ°å€,å†™å…¥å‡½æ•°å…¥å£å¤„
 	memcpy(machine_code + 2, &newfuc, sizeof(newfuc));
 	memcpy(mem, machine_code, sizeof(machine_code));
 

@@ -8,6 +8,7 @@ bool mysqlapp::ini( int argc, char *argv[] )
 
 bool mysqlapp::heartbeat()
 {
+#ifdef HAVE_MYSQL
 	MYSQL * mysql = mysql_init(0);
 	if (!mysql_real_connect(mysql, "127.0.0.1", "root", "123123", "world", 3306, 0, 0))
 	{
@@ -26,6 +27,7 @@ bool mysqlapp::heartbeat()
 		mysql_free_result(results);
 	}
 	mysql_close(mysql);
+#endif
 	return true;
 }
 

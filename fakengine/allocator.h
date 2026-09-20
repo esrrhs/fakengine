@@ -1,6 +1,6 @@
 #pragma once
 
-#if defined(WIN32)
+#if defined(_MSC_VER)
 template<class _Ty>
 struct fallocator_base
 {	// base class for generic allocators

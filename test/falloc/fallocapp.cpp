@@ -36,11 +36,11 @@ bool fallocapp::heartbeat()
     ffree(p);
     
     p = fmemalign(1024, 10240);
-    FASSERT(p % 1024 == 0);
+    FASSERT((uintptr_t)p % 1024 == 0);
 	ffree(p);
     
     p = fmemalign(2, 98);
-    FASSERT(p % 2 == 0);
+    FASSERT((uintptr_t)p % 2 == 0);
 	ffree(p);
     
 	p = falloc(20);

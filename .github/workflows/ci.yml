@@ -7,8 +7,8 @@ on:
     branches: [ master ]
 
 jobs:
-  build-and-test:
-    name: Build & Test (${{ matrix.build_type }}, GCC)
+  build-and-test-linux:
+    name: Linux (${{ matrix.build_type }}, GCC)
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -43,3 +43,42 @@ jobs:
           else
             ./build.sh
           fi
+
+  build-and-test-windows:
+    name: Windows MinGW (${{ matrix.build_type }})
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [Debug, Release]
+
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup MSYS2 and MinGW-w64
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            mingw-w64-x86_64-gtest
+
+      - name: Configure CMake
+        run: |
+          cmake -B build -G "Ninja" -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+
+      - name: Build all targets
+        run: |
+          cmake --build build
+
+      - name: Run CTest test suite
+        run: |
+          ctest --test-dir build --output-on-failure

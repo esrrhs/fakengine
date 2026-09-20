@@ -2,7 +2,7 @@
 
 static force_inline void fdebug_break()
 {
-#ifdef WIN32
+#if defined(_MSC_VER)
 	__debugbreak();
 #else
 	asm("int $3");
@@ -12,7 +12,7 @@ static force_inline void fdebug_break()
 static force_inline void fshow_call_stack(stringc & ret)
 {
 #ifdef WIN32
-	// win下太复杂，不提供
+	// win涓嬪お澶嶆潅锛屼笉鎻愪緵
 	ret.clear();
 #else
 	void * trace[256];

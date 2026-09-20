@@ -9,7 +9,7 @@ int main()
 	while (1)
 	{
 		shm_handle cmdhandle = open_share_mem(c_DefaultCmdKey, sizeof(cmdcontrol));
-		if (cmdhandle <= 0)
+		if (!IS_VALID_SHM_HANDLE(cmdhandle))
 		{
 			FPRINTF("open_share_mem fail, wait\n");
 			fsleep(1000);

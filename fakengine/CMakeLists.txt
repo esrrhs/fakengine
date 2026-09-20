@@ -39,7 +39,7 @@ if(TARGET bundled_fkscript AND TARGET bundled_mysqlclient)
 endif()
 
 if(WIN32)
-    target_link_libraries(fengine PUBLIC ws2_32)
+    target_link_libraries(fengine PUBLIC ws2_32 shlwapi)
 else()
     target_link_libraries(fengine PUBLIC
         dl

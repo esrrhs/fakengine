@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef WIN32
+#if defined(_MSC_VER) && (_MSC_VER < 1800)
 
 // Test for a NaN (not a number) value - usually defined in math.h
 static force_inline int32_t isnan(double x)

@@ -1,12 +1,12 @@
 #pragma once
 
-// ´´½¨ShareMem ÄÚ´æÇø
+// åˆ›å»ºShareMem å†…å­˜åŒº
 static force_inline shm_handle create_share_mem(shm_key key,size_t size)
 {
 #if defined(WIN32)
 	char keybuf[64] = {0};
 	fsnprintf(keybuf, sizeof(keybuf), "%d", key);
-	return CreateFileMapping( (HANDLE)0xFFFFFFFFFFFFFFFF, NULL, PAGE_READWRITE, 0, size, keybuf);
+	return CreateFileMapping( INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, size, keybuf);
 	
 #else
 	return shmget(key, size, IPC_CREAT|IPC_EXCL|0666);
@@ -16,7 +16,7 @@ static force_inline shm_handle create_share_mem(shm_key key,size_t size)
 	return INVALID_SHM_HANDLE;
 }
 
-// ´ò¿ªShareMem ÄÚ´æÇø
+// æ‰“å¼€ShareMem å†…å­˜åŒº
 static force_inline shm_handle open_share_mem(shm_key key,size_t size)
 {
 #if defined(WIN32)
@@ -32,7 +32,7 @@ static force_inline shm_handle open_share_mem(shm_key key,size_t size)
 	return INVALID_SHM_HANDLE;
 }
 	
-// Ó³ÉäShareMem ÄÚ´æÇø
+// æ˜ å°„ShareMem å†…å­˜åŒº
 static force_inline int8_t* map_share_mem(shm_handle handle)
 {
 #if defined(WIN32)
@@ -46,7 +46,7 @@ static force_inline int8_t* map_share_mem(shm_handle handle)
 	return 0;
 }
 	
-// ¹Ø±ÕÓ³Éä ShareMem ÄÚ´æÇø
+// å…³é—­æ˜ å°„ ShareMem å†…å­˜åŒº
 static force_inline void unmap_share_mem(int8_t* memoryptr)
 {
 #if defined(WIN32)
@@ -58,7 +58,7 @@ static force_inline void unmap_share_mem(int8_t* memoryptr)
 #endif
 }
 	
-// 	¹Ø±ÕShareMem
+// 	å…³é—­ShareMem
 static force_inline void close_share_mem(shm_handle handle)
 {
 #if defined(WIN32)

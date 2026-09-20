@@ -8,7 +8,9 @@ typedef pthread_t t_id;
 
 typedef	int32_t socket_t;
 #if defined(WIN32)
+#if !defined(__MINGW32__) && !defined(_WS2TCPIP_H)
 typedef int32_t socklen_t;
+#endif
 #else
 #endif
 
