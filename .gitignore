@@ -14,6 +14,14 @@ Makefile
 *.log
 *.prof
 
+# Go codegen tool binaries (build with: go build)
+tools/gencfg/gencfg
+tools/gencfg/gencfg.exe
+tools/genmsg/genmsg
+tools/genmsg/genmsg.exe
+tools/genstat/genstat
+tools/genstat/genstat.exe
+
 # OS / IDE
 .DS_Store
 *.swp

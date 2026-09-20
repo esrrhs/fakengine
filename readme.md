@@ -108,8 +108,14 @@ fakengine/                       # legacy directory name; APIs use f*
 | `tools/cmdcontroller` | Send commands into a running process |
 | `tools/shmclean` | Clean leftover shared-memory segments |
 | `tools/fproxy` | Simple network proxy |
-| `tools/gencfg` / `genmsg` / `genstat` | Config / message / stats code generators |
+| `tools/gencfg` / `genmsg` / `genstat` | Go codegen tools (`go build` in each directory) |
 | `tools/wireshark` | Wireshark plugin sources for a private protocol |
+
+```bash
+cd tools/genstat && go build -o genstat .
+cd ../gencfg  && go build -o gencfg .
+cd ../genmsg  && go build -o genmsg .
+```
 
 ---
 

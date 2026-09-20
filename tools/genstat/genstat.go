@@ -3,10 +3,11 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
-	"genstat/mahonia"
 	"os"
 	"strconv"
 	"text/template"
+
+	"golang.org/x/text/encoding/simplifiedchinese"
 )
 
 type Member struct {
@@ -38,12 +39,12 @@ type HashMap struct {
 }
 
 type Struct struct {
-	Name     string    `xml:"name,attr"`
-	Comment  string    `xml:"comment,attr"`
-	Members  []Member  `xml:"member"`
-	Arrays   []Array   `xml:"array"`
-	TopArrays   []TopArray   `xml:"toparray"`
-	HashMaps []HashMap `xml:"hashmap"`
+	Name      string     `xml:"name,attr"`
+	Comment   string     `xml:"comment,attr"`
+	Members   []Member   `xml:"member"`
+	Arrays    []Array    `xml:"array"`
+	TopArrays []TopArray `xml:"toparray"`
+	HashMaps  []HashMap  `xml:"hashmap"`
 }
 
 type Result struct {
@@ -54,38 +55,25 @@ type Result struct {
 var result = Result{}
 
 func main() {
-
 	if !parse() {
 		return
 	}
-
 	if !output("StatMng_h.tpl", "StatMng.h") {
 		return
 	}
-
 	fmt.Println("OK")
 }
 
 func parse() bool {
-	file, err := os.Open("stat.xml")
+	data, err := os.ReadFile("stat.xml")
 	if err != nil {
 		fmt.Println(err)
 		return false
 	}
-
-	var buffer [1024 * 1024]byte
-	n, rerr := file.Read(buffer[0:])
-	if rerr != nil {
-		fmt.Println(rerr)
-		return false
-	}
-
-	err = xml.Unmarshal(buffer[0:n], &result)
-	if err != nil {
+	if err := xml.Unmarshal(data, &result); err != nil {
 		fmt.Println(err)
 		return false
 	}
-
 	return true
 }
 
@@ -98,51 +86,42 @@ func genlist(n string) []string {
 	return ret
 }
 
+// iconv encodes template comments to GBK (legacy header encoding).
+// GBK is a superset of the old GB2312 path that mahonia used.
 func iconv(str string) string {
-	enc := mahonia.NewEncoder("gb2312")
-	return enc.ConvertString(str)
+	out, err := simplifiedchinese.GBK.NewEncoder().String(str)
+	if err != nil {
+		return str
+	}
+	return out
 }
 
-func output(src string, des string) bool {
+func output(src, des string) bool {
+	tpl, err := os.ReadFile(src)
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
+
+	t, err := template.New(src).Funcs(template.FuncMap{
+		"genlist": genlist,
+		"iconv":   iconv,
+	}).Parse(string(tpl))
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
 
 	file, err := os.Create(des)
 	if err != nil {
 		fmt.Println(err)
 		return false
 	}
+	defer file.Close()
 
-	t := template.New("text")
-	if err != nil {
+	if err := t.Execute(file, result.Structs); err != nil {
 		fmt.Println(err)
 		return false
 	}
-
-	t = t.Funcs(template.FuncMap{"genlist": genlist, "iconv": iconv})
-
-	srcfile, err := os.Open(src)
-	if err != nil {
-		fmt.Println(err)
-		return false
-	}
-
-	var buffer [1024 * 1024]byte
-	n, rerr := srcfile.Read(buffer[0:])
-	if rerr != nil {
-		fmt.Println(rerr)
-		return false
-	}
-
-	t, err = t.Parse(string(buffer[0:n]))
-	if err != nil {
-		fmt.Println(err)
-		return false
-	}
-
-	err = t.Execute(file, result.Structs)
-	if err != nil {
-		fmt.Println(err)
-		return false
-	}
-
 	return true
 }
