@@ -1,6 +1,6 @@
 #pragma once
 
-// alloc∫Í∂®“Â
+// allocÂÆèÂÆö‰πâ
 #define USE_FENGINE_ALLOC
 
 // assert
@@ -12,8 +12,8 @@
 // force inline
 #define USE_FORCE_INLINE
 
-// hook
-#define USE_FENGINE_HOOK
+// hook (disabled by default for stability with modern runtimes and OS heaps)
+//#define USE_FENGINE_HOOK
 
 // pcre
 #ifndef HAVE_CONFIG_H
