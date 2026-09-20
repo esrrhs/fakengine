@@ -1,38 +1,32 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+cmake_minimum_required(VERSION 3.16)
 
-PROJECT(TEST)
-AUX_SOURCE_DIRECTORY(./ TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./compress TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./ftrie TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./hashmap TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./inifile TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./client TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./server TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./mysql TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./fstring TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./fpool TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./xml TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./sqlite TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./falloc TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./fkeybuffer TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./fmd5 TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./fpoint TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./pcre TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./fproxyclient TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./fproto TEST_SRC_LIST)
-AUX_SOURCE_DIRECTORY(./fake TEST_SRC_LIST)
-INCLUDE_DIRECTORIES(../fakengine)
-MESSAGE(STATUS "This is test BINARY dir " ${TEST_BINARY_DIR})
-MESSAGE(STATUS "This is test SOURCE dir " ${TEST_SOURCE_DIR})
-MESSAGE(STATUS "This is test SOURCE file " ${TEST_SRC_LIST})
-LINK_DIRECTORIES(${TEST_SOURCE_DIR}/../bin/)
-IF(REMOD)
-SET(CMAKE_CXX_FLAGS "-g3 -O3 -Wall -gdwarf-2 -m64 -DNDEBUG")
-MESSAGE("build release lib")
-ELSE()
-SET(CMAKE_CXX_FLAGS "-g3 -O0 -Wall -gdwarf-2 -m64 -D_DEBUG")
-MESSAGE("build debug lib")
-ENDIF()
-SET(EXECUTABLE_OUTPUT_PATH ${TEST_BINARY_DIR}/../bin)
-ADD_EXECUTABLE(test ${TEST_SRC_LIST})
-TARGET_LINK_LIBRARIES(test fengine dl pthread rt)
+project(test_runner LANGUAGES CXX)
+
+file(GLOB_RECURSE TEST_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+
+add_executable(faketest ${TEST_SRCS})
+set_target_properties(faketest PROPERTIES OUTPUT_NAME "test")
+target_include_directories(faketest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(faketest PRIVATE fengine)
+
+# Register CTest automated tests
+set(TEST_CASES
+    hashmapapp
+    compressapp
+    inifileapp
+    ftrieapp
+    fstringapp
+    fpoolapp
+    xmlapp
+    sqliteapp
+    fallocapp
+    fkeybufferapp
+    fmd5app
+    fpointapp
+    pcreapp
+    fakeapp
+)
+
+foreach(tc ${TEST_CASES})
+    add_test(NAME "test_${tc}" COMMAND faketest ${tc} --once)
+endforeach()

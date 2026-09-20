@@ -13,7 +13,7 @@ static force_inline shm_handle create_share_mem(shm_key key,size_t size)
 
 #endif
 
-	return shm_handle(-1);
+	return INVALID_SHM_HANDLE;
 }
 
 // 打开ShareMem 内存区
@@ -29,7 +29,7 @@ static force_inline shm_handle open_share_mem(shm_key key,size_t size)
 
 #endif
 
-	return shm_handle(-1);
+	return INVALID_SHM_HANDLE;
 }
 	
 // 映射ShareMem 内存区

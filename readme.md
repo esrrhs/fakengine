@@ -42,3 +42,17 @@ fakengine
 * 监控代码生成工具
 * 网络消息代码生成工具
 * wireshark插件工具
+
+# 编译与测试 #
+* 环境要求：C++17 编译器（GCC 8+ / Clang / MSVC），CMake 3.16+
+* 一键构建与测试：
+  ```bash
+  ./build.sh           # Debug 模式构建、合并库并运行全部单元测试
+  ./build.sh release   # Release 模式构建、合并库并运行全部单元测试
+  ```
+* 现代 CMake 标准构建：
+  ```bash
+  cmake -B build -DCMAKE_BUILD_TYPE=Release
+  cmake --build build -j
+  ctest --test-dir build --output-on-failure
+  ```

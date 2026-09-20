@@ -369,7 +369,7 @@ static const int32_t des_shifts2[16]={0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0};
 
 #define DES_IP(l,r) \
 	{ \
-	register uint64_t tt; \
+	uint64_t tt; \
 	DES_PERM_OP(r,l,tt, 4,0x0f0f0f0fL); \
 	DES_PERM_OP(l,r,tt,16,0x0000ffffL); \
 	DES_PERM_OP(r,l,tt, 2,0x33333333L); \
@@ -379,7 +379,7 @@ static const int32_t des_shifts2[16]={0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0};
 
 #define DES_FP(l,r) \
 	{ \
-	register uint64_t tt; \
+	uint64_t tt; \
 	DES_PERM_OP(l,r,tt, 1,0x55555555L); \
 	DES_PERM_OP(r,l,tt, 8,0x00ff00ffL); \
 	DES_PERM_OP(l,r,tt, 2,0x33333333L); \
@@ -399,10 +399,10 @@ typedef struct des_ks_struct
 
 static force_inline int32_t des_set_key(uint8_t (&key)[DES_BUFF_LEN], des_key_schedule schedule)
 {
-	register uint64_t c,d,t,s;
-	register uint8_t *in;
-	register uint64_t *k;
-	register int32_t i;
+	uint64_t c,d,t,s;
+	uint8_t *in;
+	uint64_t *k;
+	int32_t i;
 
 	k=(uint64_t *)schedule;
 	in=(uint8_t *)key;
@@ -451,15 +451,15 @@ static force_inline int32_t des_set_key(uint8_t (&key)[DES_BUFF_LEN], des_key_sc
 
 static force_inline void des_encrypt(uint64_t *data, des_key_schedule ks, int32_t encrypt)
 {
-	register uint64_t l,r,u;
+	uint64_t l,r,u;
 	union fudge 
 	{
 		uint64_t  l;
 		unsigned short s[2];
 		uint8_t  c[4];
 	} U,T;
-	register int32_t i;
-	register uint64_t *s;
+	int32_t i;
+	uint64_t *s;
 
 	u=data[0];
 	r=data[1];
@@ -503,8 +503,8 @@ static force_inline void des_encrypt(uint64_t *data, des_key_schedule ks, int32_
 
 static force_inline void des_ecb_encrypt(uint8_t (&input)[DES_BUFF_LEN], uint8_t (&output)[DES_BUFF_LEN], des_key_schedule ks, int32_t encrypt)
 {
-	register uint64_t l;
-	register uint8_t *in,*out;
+	uint64_t l;
+	uint8_t *in,*out;
 	uint64_t ll[2];
 
 	in=(uint8_t *)input;

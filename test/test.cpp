@@ -61,11 +61,29 @@ int main(int argc, char *argv[])
 	mainapp * papp = myfactorymng::ptr()->alloc(name);
 	if (!papp)
 	{
-		std::cout<<"invalid "<<name.c_str()<<std::endl;\
-			return 0;
+		std::cout<<"invalid "<<name.c_str()<<std::endl;
+		return 1;
+	}
+	bool run_once = false;
+	int app_argc = 0;
+	char *app_argv[64];
+	for (int i = 2; i < argc && app_argc < 64; ++i)
+	{
+		if (strcmp(argv[i], "--once") == 0)
+		{
+			run_once = true;
+		}
+		else
+		{
+			app_argv[app_argc++] = argv[i];
+		}
+	}
+	if (run_once)
+	{
+		papp->set_once(true);
 	}
 
-	papp->run(argc - 2, argv + 2);
+	papp->run(app_argc, app_argv);
 
 	myfactorymng::ptr()->dealloc(papp);
 	

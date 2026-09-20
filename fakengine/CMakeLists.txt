@@ -1,26 +1,41 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+cmake_minimum_required(VERSION 3.16)
 
-PROJECT(FENGINE)
-AUX_SOURCE_DIRECTORY(./ SRC_LIST)
-AUX_SOURCE_DIRECTORY(./lua SRC_LIST)
-AUX_SOURCE_DIRECTORY(./zlib SRC_LIST)
-AUX_SOURCE_DIRECTORY(./lzo SRC_LIST)
-AUX_SOURCE_DIRECTORY(./expat SRC_LIST)
-AUX_SOURCE_DIRECTORY(./tinyxml SRC_LIST)
-AUX_SOURCE_DIRECTORY(./sqlite SRC_LIST)
-AUX_SOURCE_DIRECTORY(./pcre SRC_LIST)
-INCLUDE_DIRECTORIES(./)
-LINK_DIRECTORIES(${FENGINE_SOURCE_DIR}/../lib/)
-MESSAGE(STATUS "This is FENGINE BINARY dir " ${FENGINE_BINARY_DIR})
-MESSAGE(STATUS "This is FENGINE SOURCE dir " ${FENGINE_SOURCE_DIR})
-MESSAGE(STATUS "This is FENGINE SOURCE file " ${SRC_LIST})
-ADD_DEFINITIONS(-DHAVE_EXPAT_CONFIG_H -DHAVE_CONFIG_H)
-IF(REMOD)
-SET(CMAKE_CXX_FLAGS "-g3 -O3 -Wall -Werror -gdwarf-2 -m64 -DNDEBUG")
-MESSAGE("build release lib")
-ELSE()
-SET(CMAKE_CXX_FLAGS "-g3 -O0 -Wall -Werror -gdwarf-2 -m64 -D_DEBUG")
-MESSAGE("build debug lib")
-ENDIF()
-SET(LIBRARY_OUTPUT_PATH ${FENGINE_BINARY_DIR}/../lib)
-ADD_LIBRARY(fengine STATIC ${SRC_LIST})
+project(FENGINE LANGUAGES C CXX)
+
+file(GLOB FENGINE_CORE_SRCS
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.c"
+)
+
+file(GLOB_RECURSE FENGINE_THIRDPARTY_SRCS
+    "${CMAKE_CURRENT_SOURCE_DIR}/lua/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/zlib/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/lzo/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/expat/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/tinyxml/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/sqlite/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/pcre/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/pcre/*.cc"
+)
+
+add_library(fengine STATIC ${FENGINE_CORE_SRCS} ${FENGINE_THIRDPARTY_SRCS})
+
+target_include_directories(fengine PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:include>
+)
+
+target_compile_definitions(fengine PRIVATE
+    -DHAVE_EXPAT_CONFIG_H
+    -DHAVE_CONFIG_H
+)
+
+if(TARGET bundled_fkscript AND TARGET bundled_mysqlclient)
+    target_link_libraries(fengine PUBLIC
+        bundled_fkscript
+        bundled_mysqlclient
+        dl
+        pthread
+        rt
+    )
+endif()

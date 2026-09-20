@@ -104,7 +104,7 @@ template <typename T> class quadrangle3d
                 PointA.equal(other.PointA, Precision) &&
                 PointB.equal(other.PointB, Precision) &&
                 PointC.equal(other.PointC, Precision) &&
-                PointD.equal(other.PointC, Precision);
+                PointD.equal(other.PointD, Precision);
         }
         force_inline bool empty() const
         {
@@ -113,8 +113,8 @@ template <typename T> class quadrangle3d
         
         template <typename B> force_inline quadrangle3d<B> cast() const
         {
-            return triangle3d<B>(
-                PointA.cast<B>(), PointB.cast<B>(), PointC.cast<B>(), PointD.cast<B>()
+            return quadrangle3d<B>(
+                PointA.template cast<B>(), PointB.template cast<B>(), PointC.template cast<B>(), PointD.template cast<B>()
             );
         }
         

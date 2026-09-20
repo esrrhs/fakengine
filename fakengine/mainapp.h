@@ -4,12 +4,16 @@ class mainapp
 {
 public:
 	mainapp(const char * name, int32_t cmdkey = c_DefaultCmdKey, uint8_t fps = c_DefaultFps) :
-		m_engine(name), m_exit(false), m_fps(fps), m_cmdkey((shm_key)cmdkey)
+		m_engine(name), m_exit(false), m_fps(fps), m_once(false), m_cmdkey((shm_key)cmdkey)
 	{
 		LOG_SYS(FENGINE_HEADER "new mainapp %s, %d, %u", name, cmdkey, fps);
 	}
 	virtual ~mainapp()
 	{
+	}
+	force_inline void set_once(bool once)
+	{
+		m_once = once;
 	}
 	force_inline void run(int argc, char *argv[])
 	{
@@ -38,6 +42,10 @@ public:
 			last = now;
 			_heartbeat();
 			heartbeat();
+			if (m_once)
+			{
+				m_exit = true;
+			}
 		}
 		exit();
 		_exit();
@@ -60,10 +68,14 @@ private:
 	{
 		// ini cmd control
 		m_cmdhandle = create_share_mem(m_cmdkey, sizeof(cmdcontrol));
-		if (m_cmdhandle <= 0)
+		if (!IS_VALID_SHM_HANDLE(m_cmdhandle))
 		{
-			LOG_ERROR(FENGINE_HEADER "create_share_mem ret %d", m_cmdhandle);
-			return false;
+			m_cmdhandle = open_share_mem(m_cmdkey, sizeof(cmdcontrol));
+			if (!IS_VALID_SHM_HANDLE(m_cmdhandle))
+			{
+				LOG_ERROR(FENGINE_HEADER "create_share_mem ret %d", m_cmdhandle);
+				return false;
+			}
 		}
 
 		m_cmdcontrol = (cmdcontrol *)map_share_mem(m_cmdhandle);
@@ -112,6 +124,7 @@ private:
 	fengine m_engine;
 	bool m_exit;
 	uint8_t m_fps;
+	bool m_once;
 
 	// cmd control
 	shm_key m_cmdkey;

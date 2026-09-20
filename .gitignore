@@ -1,0 +1,22 @@
+# Build directories
+build/
+bin/*
+!bin/lib & tool & test
+lib/libfengine.a
+
+# In-source build leftovers
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Logs and profiler files
+*.log
+*.prof
+
+# OS / IDE
+.DS_Store
+*.swp
+*.user
+.vscode/
+.idea/

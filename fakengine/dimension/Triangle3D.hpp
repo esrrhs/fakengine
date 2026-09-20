@@ -197,9 +197,9 @@ template < typename T, class C = vector3d<T> > class triangle3d
         {
             triangle3d<T2, C2> Tri;
             
-            Tri.PointA = PointA.cast<T2>();
-            Tri.PointB = PointB.cast<T2>();
-            Tri.PointC = PointC.cast<T2>();
+            Tri.PointA = PointA.template cast<T2>();
+            Tri.PointB = PointB.template cast<T2>();
+            Tri.PointC = PointC.template cast<T2>();
             
             return Tri;
         }

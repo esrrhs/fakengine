@@ -1,6 +1,7 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+cmake_minimum_required(VERSION 3.16)
 
-PROJECT(TOOLS)
-ADD_SUBDIRECTORY(cmdcontroller)
-ADD_SUBDIRECTORY(shmclean)
-ADD_SUBDIRECTORY(fproxy)
+project(TOOLS LANGUAGES C CXX)
+
+add_subdirectory(cmdcontroller)
+add_subdirectory(shmclean)
+add_subdirectory(fproxy)

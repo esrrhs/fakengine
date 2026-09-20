@@ -521,12 +521,16 @@ public:
 	//! Equality operator
 	force_inline bool operator==(const fstring<T,N>& other) const
 	{
-	    if (used != other.used)
-	        return false;
-	
+		if (used != other.used)
+		{
+			return false;
+		}
+
 		for (uint32_t i=0; array[i] && other.array[i]; ++i)
+		{
 			if (array[i] != other.array[i])
 				return false;
+		}
 
 		return used == other.used;
 	}

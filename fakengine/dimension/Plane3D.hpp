@@ -115,7 +115,7 @@ template <typename T> class plane3d
             // Intersection := ( (Other.Normale * Distance - Normal * Other.Distance) x (Direction) ) / Denom
             Intersection = Other.Normal;
             Intersection *= Distance;
-            Intersection -= (Normal * Other.Distace);
+            Intersection -= (Normal * Other.Distance);
             Intersection = Intersection.cross(Direction) / Denom;
             
             return true;
@@ -277,9 +277,9 @@ template <typename T> class plane3d
             return *this;
         }
         
-        template <typename B> force_inline vector3d<B> cast() const
+        template <typename B> force_inline plane3d<B> cast() const
         {
-            return plane3d<B>(Normal.cast<B>(), static_cast<B>(Distance));
+            return plane3d<B>(Normal.template cast<B>(), static_cast<B>(Distance));
         }
         
         /* Members */

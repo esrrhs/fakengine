@@ -21,9 +21,13 @@ typedef pthread_key_t tls_key;
 #if defined(WIN32)
 typedef void* shm_handle;
 typedef int shm_key;
+#define INVALID_SHM_HANDLE ((shm_handle)0)
+#define IS_VALID_SHM_HANDLE(h) ((h) != NULL)
 #else
 typedef int shm_handle;
 typedef key_t shm_key;
+#define INVALID_SHM_HANDLE (-1)
+#define IS_VALID_SHM_HANDLE(h) ((h) >= 0)
 #endif
 
 union marshall_float 

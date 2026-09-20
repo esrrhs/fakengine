@@ -10,7 +10,7 @@ int main()
 	for (int i = 0; i < n; i++)
 	{
 		shm_handle cmdhandle = open_share_mem(c_DefaultCmdKey - (n / 2) + i, sizeof(cmdcontrol));
-		if (cmdhandle <= 0)
+		if (!IS_VALID_SHM_HANDLE(cmdhandle))
 		{
 			continue;
 		}

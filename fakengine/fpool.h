@@ -29,7 +29,7 @@ public:
 			m_data[i].nextindex= INVALID_IDX;
 			m_data[i].isdirty = true;
 #ifdef _DEBUG
-			memset(&m_data[i].data, 0xFF, sizeof(m_data[i].data));
+			memset((void*)&m_data[i].data, 0xFF, sizeof(m_data[i].data));
 #endif
 		}
 		m_used = INVALID_IDX;
@@ -135,7 +135,7 @@ public:
 		return m_data[index].data;
 	}
 
-	// Ê¹ÓÃµÄ´óĞ¡
+	// ä½¿ç”¨çš„å¤§å°
 	force_inline uint32_t size() const
 	{
 		return N - m_free.size();
@@ -209,7 +209,7 @@ private:
 		}
 		int32_t preindex;
 		int32_t nextindex;
-		bool isdirty;	// true±íÊ¾²»ÄÜÊ¹ÓÃ
+		bool isdirty;	// trueè¡¨ç¤ºä¸èƒ½ä½¿ç”¨
 		T data;
 	};
 private:
