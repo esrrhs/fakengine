@@ -61,7 +61,7 @@ public:
 		return true;
 	}
 
-	force_inline bool get_syscall_begin(uint64_t call, uint64_t p1, uint64_t p2, uint64_t p3)
+	force_inline bool get_syscall_begin(uint64_t & call, uint64_t & p1, uint64_t & p2, uint64_t & p3)
 	{
 		struct user_regs_struct regs;
 		// We are now entering a system call
@@ -83,7 +83,7 @@ public:
 		return true;
 	}
 
-	force_inline bool get_syscall_end(uint64_t ret)
+	force_inline bool get_syscall_end(uint64_t & ret)
 	{
 		struct user_regs_struct regs;
 		/* Syscall exit */

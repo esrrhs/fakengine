@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
-	"mahonia"
+	"genstat/mahonia"
 	"os"
 	"strconv"
 	"text/template"

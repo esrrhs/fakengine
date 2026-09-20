@@ -1177,8 +1177,8 @@ public:
 				// No match found, just copy characters.
 				array[i] = array[pos];
 			}
-			array[i-1] = 0;
-			used = i - 1;
+			array[i] = 0;
+			used = i;
 
 			return *this;
 		}

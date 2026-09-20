@@ -57,7 +57,7 @@ bool fallocapp::heartbeat()
     p = falloc(102349);
     ffree(p);
 
-	for (int i = 1; i < 99*1024;i += 32)
+	for (size_t i = 1; i < 99*1024; i += 32)
 	{
 		void * p = falloc(i);
 		//memset(p, 1, i);
@@ -66,9 +66,9 @@ bool fallocapp::heartbeat()
 		ffree(p);
 	}
 
-	for (int i = 1; i < 99*1024;i += 32)
+	for (size_t i = 1; i < 99*1024; i += 32)
 	{
-	    for (int j = 2; j <= 1024 && j < i; j += 32)
+	    for (size_t j = 2; j <= 1024 && j < i; j += 32)
 	    {
 		    void * p = fmemalign(j, i);
     		//memset(p, 1, i);

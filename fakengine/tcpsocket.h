@@ -90,7 +90,7 @@ public:
 			return false;
 		}
 
-		// ·Ç×èÈû
+		// éé˜»å¡
 		if (!set_nonblocking(m_is_non_blocking))
 		{
 			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_nonblocking error");
@@ -186,7 +186,7 @@ public:
 			return false;
 		}
 
-		// »º³åÇø
+		// ç¼“å†²åŒº
 		if (!set_recv_buffer_size(m_socket_recv_buffer_size))
 		{
 			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_recv_buffer_size error");
@@ -194,7 +194,7 @@ public:
 			return false;
 		}
 
-		// »º³åÇø
+		// ç¼“å†²åŒº
 		if (!set_send_buffer_size(m_socket_send_buffer_size))
 		{
 			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_send_buffer_size error");
@@ -202,7 +202,7 @@ public:
 			return false;
 		}
 
-		// ·Ç×èÈû
+		// éé˜»å¡
 		if (!set_nonblocking(m_is_non_blocking))
 		{
 			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_nonblocking error");
@@ -218,7 +218,7 @@ public:
 			return false;
 		}
 
-		// »ñÈ¡×Ô¼ºµÄĞÅÏ¢
+		// è·å–è‡ªå·±çš„ä¿¡æ¯
 		sockaddr_in _local_sockaddr;
 		memset(&_local_sockaddr, 0, sizeof(_local_sockaddr));
 		socklen_t size = sizeof(_local_sockaddr);
@@ -251,7 +251,7 @@ public:
 		fstrcopy(socket.m_peer_ip, (const int8_t *)inet_ntoa(_sockaddr.sin_addr), sizeof(socket.m_peer_ip));
 		socket.m_peer_port = htons(_sockaddr.sin_port);
 
-		// »º³åÇø
+		// ç¼“å†²åŒº
 		if (!socket.set_recv_buffer_size(m_socket_recv_buffer_size))
 		{
 			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_recv_buffer_size error");
@@ -259,7 +259,7 @@ public:
 			return false;
 		}
 
-		// »º³åÇø
+		// ç¼“å†²åŒº
 		if (!socket.set_send_buffer_size(m_socket_send_buffer_size))
 		{
 			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_send_buffer_size error");
@@ -267,7 +267,7 @@ public:
 			return false;
 		}
 
-		// ·Ç×èÈû
+		// éé˜»å¡
 		if (!socket.set_nonblocking(m_is_non_blocking))
 		{
 			LOG_ERROR(FENGINE_HEADER "tcpsocket::set_nonblocking error");
@@ -283,7 +283,7 @@ public:
 			return false;
 		}
 
-		// »ñÈ¡×Ô¼ºµÄĞÅÏ¢
+		// è·å–è‡ªå·±çš„ä¿¡æ¯
 		sockaddr_in _local_sockaddr;
 		memset(&_local_sockaddr, 0, sizeof(_local_sockaddr));
 		size = sizeof(_local_sockaddr);
@@ -380,7 +380,8 @@ public:
 	static force_inline bool set_socket_nonblocking(socket_t s, bool on) 
 	{
 #if defined(WIN32)
-		return ioctlsocket(s, FIONBIO, (u_long *)&on) == 0;
+		u_long mode = on ? 1 : 0;
+		return ioctlsocket(s, FIONBIO, &mode) == 0;
 #else
 		int32_t opts;
 		opts = fcntl (s, F_GETFL, 0);
@@ -446,31 +447,31 @@ private:
 	// ip
 	int8_t m_ip[c_ip_size];
 
-	// ¶Ë¿Ú
+	// ç«¯å£
 	uint16_t m_port;
 
-	// Ô¶¶Ëip
+	// è¿œç«¯ip
 	int8_t m_peer_ip[c_ip_size];
 
-	// Ô¶¶Ë¶Ë¿Ú
+	// è¿œç«¯ç«¯å£
 	uint16_t m_peer_port;
 
-	// ÊÇ·ñ·Ç×èÈû
+	// æ˜¯å¦éé˜»å¡
 	bool m_is_non_blocking;
 
-	// socket·¢ËÍ»º³åÇø´óĞ¡
+	// socketå‘é€ç¼“å†²åŒºå¤§å°
 	uint32_t m_socket_send_buffer_size;
 
-	// socket½ÓÊÜ»º³åÇø´óĞ¡
+	// socketæ¥å—ç¼“å†²åŒºå¤§å°
 	uint32_t m_socket_recv_buffer_size;
 
-	// ·¢ËÍ»º³åÇø
+	// å‘é€ç¼“å†²åŒº
 	_queue m_send_queue;
 
-	// ½ÓÊÜ»º³åÇø
+	// æ¥å—ç¼“å†²åŒº
 	_queue m_recv_queue;
 
-	// ÓÃ»§¶¨ÒåÊı¾İ
+	// ç”¨æˆ·å®šä¹‰æ•°æ®
 	_user_data m_user_data;
 };
 

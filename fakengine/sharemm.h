@@ -6,7 +6,9 @@ static force_inline shm_handle create_share_mem(shm_key key,size_t size)
 #if defined(WIN32)
 	char keybuf[64] = {0};
 	fsnprintf(keybuf, sizeof(keybuf), "%d", key);
-	return CreateFileMapping( INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, size, keybuf);
+	DWORD high = (DWORD)((uint64_t)size >> 32);
+	DWORD low = (DWORD)((uint64_t)size & 0xFFFFFFFF);
+	return CreateFileMapping( INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, high, low, keybuf);
 	
 #else
 	return shmget(key, size, IPC_CREAT|IPC_EXCL|0666);

@@ -40,7 +40,7 @@ union marshall_float
 
 union marshall_poiner
 {
-	uint32_t i;
+	uintptr_t i;
 	void * p;
 };
 
