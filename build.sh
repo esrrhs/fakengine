@@ -16,9 +16,6 @@ cmake -B build -DCMAKE_BUILD_TYPE="$BUILD_TYPE"
 echo "==> Building all targets..."
 cmake --build build -j"$(nproc 2>/dev/null || echo 4)"
 
-echo "==> Merging distributed libraries into bin/libfengine.a..."
-./merge_lib.sh
-
 echo "==> Cleaning shared memory leftovers..."
 (cd bin && ./shmclean)
 

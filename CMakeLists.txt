@@ -28,6 +28,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         -Wno-unused-but-set-variable
         -Wno-misleading-indentation
         -Wno-class-memaccess
+        -Wno-stringop-truncation
     )
     add_compile_options("$<$<COMPILE_LANGUAGE:C>:-fwrapv>")
     add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-fwrapv>")
@@ -35,6 +36,9 @@ endif()
 
 # Imported third-party libraries bundled in lib/
 if(UNIX AND NOT APPLE)
+    # Bundled precompiled archives (libfkscript.a, libmysqlclient-64.a) were built without -fPIC/-fPIE
+    add_link_options("-no-pie")
+
     add_library(bundled_fkscript STATIC IMPORTED GLOBAL)
     set_target_properties(bundled_fkscript PROPERTIES
         IMPORTED_LOCATION "${PROJECT_SOURCE_DIR}/lib/libfkscript.a"
