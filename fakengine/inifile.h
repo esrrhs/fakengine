@@ -62,7 +62,7 @@ public:
 		stringc tmp;
 		if (get(sec, key, tmp))
 		{
-			value = fatoi(tmp);
+			value = static_cast<int32_t>(atoi(reinterpret_cast<const char *>(tmp.c_str())));
 			return true;
 		}
 		return false;
@@ -73,7 +73,7 @@ public:
 		stringc tmp;
 		if (get(sec, key, tmp))
 		{
-			value = fatoi(tmp);
+			value = static_cast<int32_t>(atoi(reinterpret_cast<const char *>(tmp.c_str())));
 			return true;
 		}
 		value = defaultvalue;

@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
+# forgotten-lib headers (legacy directory / target name: fakengine / fengine)
 project(FENGINE LANGUAGES C CXX)
 
 add_library(fengine INTERFACE)
@@ -14,7 +15,7 @@ if(TARGET ZLIB::ZLIB)
 endif()
 
 if(WIN32)
-    target_link_libraries(fengine INTERFACE ws2_32 shlwapi)
+    target_link_libraries(fengine INTERFACE ws2_32)
 else()
     target_link_libraries(fengine INTERFACE
         dl

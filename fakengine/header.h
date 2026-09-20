@@ -8,6 +8,9 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <utility>
+#include <cmath>
+#include <new>
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -37,7 +40,6 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <unordered_map>
-#include <shlwapi.h>
 #else
 #include <execinfo.h>
 #include <signal.h>

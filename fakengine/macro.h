@@ -99,13 +99,6 @@ template <typename _CountofType, int _SizeOfArray>
 char(*__fcountof_helper(_CountofType(&_Array)[_SizeOfArray]))[_SizeOfArray];
 #define ARRAY_SIZE(_Array) (sizeof(*__fcountof_helper(_Array)) + 0)
 
-// 线程局部变量
-#ifdef WIN32
-	#define THREAD_LOCAL_VALUE __declspec(thread)
-#else
-	#define THREAD_LOCAL_VALUE __thread
-#endif
-
 #ifndef XML_STATIC
 	#define XML_STATIC
 #endif
@@ -123,7 +116,7 @@ char(*__fcountof_helper(_CountofType(&_Array)[_SizeOfArray]))[_SizeOfArray];
 	#define LOG_SYS(format, ...) flog_system::ptr()->write(FLOGT_SYSTEM, __FILE__, __LINE__, __FUNCTION__, format, ##__VA_ARGS__)
 #endif
 
-#define FENGINE_HEADER "[fengine]"
+#define FENGINE_HEADER "[forgotten-lib]"
 
 // 大端小端
 #define F_LITTLE_ENDIAN   1234 /* byte 0 is least significant (i386) */

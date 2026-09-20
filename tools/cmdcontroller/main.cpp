@@ -12,7 +12,11 @@ int main()
 		if (!IS_VALID_SHM_HANDLE(cmdhandle))
 		{
 			FPRINTF("open_share_mem fail, wait\n");
-			fsleep(1000);
+#if defined(WIN32)
+			Sleep(1000);
+#else
+			usleep(1000 * 1000);
+#endif
 			continue;
 		}
 
@@ -20,7 +24,11 @@ int main()
 		if (pcmdcontrol == 0)
 		{
 			FPRINTF("map_share_mem fail, wait\n");
-			fsleep(1000);
+#if defined(WIN32)
+			Sleep(1000);
+#else
+			usleep(1000 * 1000);
+#endif
 			continue;
 		}
 

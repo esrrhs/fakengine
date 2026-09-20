@@ -8,10 +8,9 @@ bool fmd5app::ini( int argc, char *argv[] )
 
 bool fmd5app::heartbeat()
 {
-	int a = 0xA0F980;
-	stringc aa(a, 16);
-	stringc bb = fitoa16(a);
+	stringc bb = "a0f980";
 	stringc tmp = fmd5(bb.c_str(), bb.size());
+	FUSE(tmp);
 
 	uint32_t cc32 = fcrc32(bb.c_str(), bb.size());
 	uint32_t cc32a = fcrc32a(bb.c_str(), bb.size());

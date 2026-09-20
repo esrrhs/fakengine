@@ -1,5 +1,7 @@
 #pragma once
 
+// Application main-loop host for forgotten-lib (heartbeat / cmdcontrol / fps).
+
 class mainapp
 {
 public:
@@ -36,7 +38,11 @@ public:
 			now = get_ms_tick();
 			if (now >= last && (now - last) < tps)
 			{
-				fsleep(1);
+#if defined(WIN32)
+				Sleep(1);
+#else
+				usleep(1000);
+#endif
 				continue;
 			}
 			last = now;

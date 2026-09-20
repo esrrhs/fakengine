@@ -1,5 +1,7 @@
 #pragma once
 
+// forgotten-lib build switches (legacy fakengine config)
+
 // alloc宏定义
 #define USE_FENGINE_ALLOC
 

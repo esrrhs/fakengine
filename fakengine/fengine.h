@@ -1,5 +1,7 @@
 #pragma once
 
+// Runtime bootstrap for forgotten-lib (legacy class name: fengine).
+// Constructs logging/profiler/socket startup; destroy tears them down.
 class fengine
 {
 public:
@@ -56,15 +58,14 @@ private:
 		RandInit(fclock::Cycles());
 		SRandInit(fclock::Cycles());
 
-		LOG_SYS(FENGINE_HEADER "fengine ini ok");
-
+		LOG_SYS(FENGINE_HEADER "forgotten-lib (fengine) ini ok");
 		return true;
 	}
 	force_inline bool exit()
 	{
 		stop_profiler();
 
-		LOG_SYS(FENGINE_HEADER "fengine exit ok");
+		LOG_SYS(FENGINE_HEADER "forgotten-lib (fengine) exit ok");
 
 		frestore_all_func();
 

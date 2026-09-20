@@ -1,5 +1,10 @@
 #pragma once
 
+// forgotten-lib — header-only C++ game server foundation (formerly fakengine).
+// A refreshed legacy toolkit: fixed-size pools, TCP/epoll, main-loop heartbeat.
+// Not a full game engine; not a recommendation for greenfield MMOs today.
+// The historical `f*` prefix reads as the forgotten API family.
+
 // 配置
 #include "config.h"
 
@@ -32,7 +37,3 @@
 
 // 所有头文件
 #include "include.h"
-
-
-
-

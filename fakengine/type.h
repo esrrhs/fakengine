@@ -1,23 +1,11 @@
 #pragma once
 
-#if defined(WIN32)
-typedef DWORD t_id;
-#else
-typedef pthread_t t_id;
-#endif
-
 typedef	int32_t socket_t;
 #if defined(WIN32)
 #if !defined(__MINGW32__) && !defined(_WS2TCPIP_H)
 typedef int32_t socklen_t;
 #endif
 #else
-#endif
-
-#if defined(WIN32)
-typedef DWORD tls_key;
-#else
-typedef pthread_key_t tls_key;
 #endif
 
 #if defined(WIN32)
@@ -43,4 +31,3 @@ union marshall_poiner
 	uintptr_t i;
 	void * p;
 };
-

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <chrono>
+#include <ctime>
+
 class fclock : public singleton< fclock >
 {
 public:
@@ -32,20 +35,14 @@ public:
 	}
 	static force_inline uint32_t Cycles()
 	{
-#ifdef WIN32        
-		LARGE_INTEGER Cycles;
-		QueryPerformanceCounter(&Cycles);
-		return (uint32_t)Cycles.QuadPart;
-#else
-		struct timespec ts;
-		clock_gettime(CLOCK_MONOTONIC, &ts);
-		return static_cast<uint32_t>(static_cast<uint64_t>(ts.tv_sec) * 1000000ULL + static_cast<uint64_t>(ts.tv_nsec) / 1000ULL);
-#endif
+		using namespace std::chrono;
+		return static_cast<uint32_t>(
+			steady_clock::now().time_since_epoch().count());
 	}
 private:
 	force_inline void tick()
 	{
-		time(&m_now);
+		m_now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 		if (m_last == m_now)
 		{
 		    return;
@@ -71,4 +68,3 @@ private:
 	stringc m_nowstr;
 	stringc m_nowdatestr;
 };
-

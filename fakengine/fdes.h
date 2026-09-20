@@ -578,7 +578,7 @@ static force_inline stringc fundes(const stringc & strkey, const stringc & s_tex
     for (int32_t i = 0; i < DES_BUFF_LEN; i++)
     {
         stringc tmp = s_text.substr(2 * i, 2);
-        stext[i] = fatoi16(tmp);
+        stext[i] = static_cast<uint8_t>(strtol(reinterpret_cast<const char *>(tmp.c_str()), nullptr, 16));
     }
 
 	union
