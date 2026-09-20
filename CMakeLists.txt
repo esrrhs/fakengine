@@ -34,6 +34,8 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-fwrapv>")
 endif()
 
+add_compile_definitions(_USE_MATH_DEFINES)
+
 # Bundled libraries in lib/ (Linux only: precompiled archives are 64-bit ELF)
 if(WIN32)
     add_compile_definitions(WIN32 _WIN32 NOMINMAX PCRE_STATIC)
