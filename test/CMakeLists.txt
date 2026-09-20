@@ -29,6 +29,7 @@ set(TEST_CASES
 
 foreach(tc ${TEST_CASES})
     add_test(NAME "legacy_${tc}" COMMAND faketest ${tc} --once)
+    set_tests_properties("legacy_${tc}" PROPERTIES TIMEOUT 60)
 endforeach()
 
 # 2. Modern GoogleTest unit tests
@@ -63,4 +64,5 @@ if(TARGET GTest::gtest)
     target_include_directories(unit_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
     target_link_libraries(unit_tests PRIVATE fengine GTest::gtest)
     add_test(NAME "modern_unit_tests" COMMAND unit_tests)
+    set_tests_properties("modern_unit_tests" PROPERTIES TIMEOUT 60)
 endif()
