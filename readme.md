@@ -45,6 +45,10 @@ fakengine
 
 # 编译与测试 #
 * 环境要求：C++17 编译器（GCC 8+ / Clang / MSVC），CMake 3.16+
+* 持续集成：内置 GitHub Actions CI 流水线（`.github/workflows/ci.yml`），自动进行 Debug / Release 多配置编译与测试验证。
+* 单元测试架构：
+  - **现代 GoogleTest 单元测试套件**：覆盖基础容器（`farray`, `flist`, `fhashmap`, `fhashset`, `fpool`）、字符串（`fstring`）、加密算法（`fmd5`, `fsha1`, `fcrc32`）、3D 几何数学（`vector3d`, `plane3d`, `triangle3d`, `quadrangle3d`）及解析器（`ftrie`, `inifile`）。
+  - **传统应用回归测试**：通过 CTest 进行 14 项完整的功能心跳回归测试。
 * 一键构建与测试：
   ```bash
   ./build.sh           # Debug 模式构建、合并库并运行全部单元测试
@@ -55,4 +59,5 @@ fakengine
   cmake -B build -DCMAKE_BUILD_TYPE=Release
   cmake --build build -j
   ctest --test-dir build --output-on-failure
+  ./bin/unit_tests   # 直接运行 GoogleTest 查看详细单测结果
   ```

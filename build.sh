@@ -25,4 +25,7 @@ echo "==> Cleaning shared memory leftovers..."
 echo "==> Running automated test suite (CTest)..."
 ctest --test-dir build --output-on-failure
 
+echo "==> Running modern GoogleTest suite..."
+./bin/unit_tests
+
 echo "----------------All build & tests OK----------------"

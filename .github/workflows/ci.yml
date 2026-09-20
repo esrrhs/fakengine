@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-and-test:
+    name: Build & Test (${{ matrix.build_type }}, GCC)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [Debug, Release]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential libgtest-dev
+
+      - name: Configure CMake
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+
+      - name: Build all targets
+        run: |
+          cmake --build build -j$(nproc)
+
+      - name: Run CTest test suite
+        run: |
+          ctest --test-dir build --output-on-failure
+
+      - name: Verify top-level build.sh script
+        run: |
+          if [ "${{ matrix.build_type }}" = "Release" ]; then
+            ./build.sh release
+          else
+            ./build.sh
+          fi

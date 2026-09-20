@@ -116,7 +116,7 @@ public:
 	{
 		m_map.clear();
 	}
-private:
+public:
 	force_inline bool open(const stringc & file, stringbuf & buff)
 	{
 	    const char * filename = (const char *)file.c_str();
@@ -234,6 +234,8 @@ private:
 
 		stringc key = line_value.subString(0, pos);
 		stringc value = line_value.subString(pos + 1);
+		key.trim();
+		value.trim();
 
 		if (!key.empty() && !value.empty())
 		{
